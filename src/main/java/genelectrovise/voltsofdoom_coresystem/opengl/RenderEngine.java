@@ -1,6 +1,6 @@
 package genelectrovise.voltsofdoom_coresystem.opengl;
 
-import static genelectrovise.voltsofdoom_coresystem.opengl.util.DemoUtils.createShader;
+import static genelectrovise.voltsofdoom_coresystem.opengl.util.GLUtils.createShader;
 import static genelectrovise.voltsofdoom_coresystem.opengl.util.IOUtil.ioResourceToByteBuffer;
 import static org.lwjgl.opengl.GL30C.*;
 import static org.lwjgl.stb.STBImage.*;
@@ -12,8 +12,21 @@ import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 
+import genelectrovise.voltsofdoom_coresystem.opengl.render.LevelRenderer;
+
+/**
+ * This is a big one. Handles and delegate the drawing of the game screen.
+ * 
+ * @author adam_
+ *
+ */
 public class RenderEngine {
 	public static RenderEngine instance = new RenderEngine();
+
+	/**
+	 * The {@link LevelRenderer} to take objects from to draw.
+	 */
+	private LevelRenderer currentLevelRenderer;
 
 	int quadProgram_inputPosition;
 	int quadProgram_inputTextureCoords;
@@ -22,18 +35,34 @@ public class RenderEngine {
 		return instance;
 	}
 
-	public RenderableObj createTexturedQuad(String resource, float[] pos, float[] tex) throws IOException {
-		int texture = createTexture(resource);
+	/**
+	 * Creates a {@link RenderableObj} for a quad, including a texture
+	 * 
+	 * @param textureLocation Link to the location of the texture.
+	 * @param pos             A float[] of positions for the vertices of this quad.
+	 * @param tex             A float[] for the coords of the vertices of this
+	 *                        quad's texture
+	 * @return A {@link RenderableObj} filled with these parameters.
+	 * @throws IOException If the texture can't be found.
+	 */
+	public RenderableObj createTexturedQuad(String textureLocation, float[] pos, float[] tex) throws IOException {
+		int texture = createTexture(textureLocation);
 		int program = createQuadProgram();
 		int vao = createFullScreenQuad(pos, tex);
 		return new RenderableObj(vao, program, texture, pos, tex);
 	}
 
-	int createTexture(String resource) throws IOException {
+	/**
+	 * @param textureLocation The location of the texture to load.
+	 * @return An int ID for OpenGL to find the texture by.
+	 * @throws IOException If the texture cannot be found.
+	 */
+	private int createTexture(String textureLocation) throws IOException {
 		IntBuffer width = BufferUtils.createIntBuffer(1);
 		IntBuffer height = BufferUtils.createIntBuffer(1);
 		IntBuffer components = BufferUtils.createIntBuffer(1);
-		ByteBuffer data = stbi_load_from_memory(ioResourceToByteBuffer(resource, 1024), width, height, components, 4);
+		ByteBuffer data = stbi_load_from_memory(ioResourceToByteBuffer(textureLocation, 1024), width, height,
+				components, 4);
 		int id = glGenTextures();
 		glBindTexture(GL_TEXTURE_2D, id);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
@@ -47,12 +76,16 @@ public class RenderEngine {
 		return id;
 	}
 
-	int createQuadProgram() throws IOException {
+	/**
+	 * Creates a new shader program for a quad.
+	 * 
+	 * @return An int ID for OpenGL to find the generated shader program by.
+	 * @throws IOException If the shader files cannot be found.
+	 */
+	private int createQuadProgram() throws IOException {
 		int program = glCreateProgram();
-		int vshader = createShader("src/main/resources/opengl/shader/vertex/texturedQuad.vs",
-				GL_VERTEX_SHADER);
-		int fshader = createShader("src/main/resources/opengl/shader/fragment/texturedQuad.fs",
-				GL_FRAGMENT_SHADER);
+		int vshader = createShader("src/main/resources/opengl/shader/vertex/texturedQuad.vs", GL_VERTEX_SHADER);
+		int fshader = createShader("src/main/resources/opengl/shader/fragment/texturedQuad.fs", GL_FRAGMENT_SHADER);
 		glAttachShader(program, vshader);
 		glAttachShader(program, fshader);
 		glLinkProgram(program);
@@ -71,7 +104,14 @@ public class RenderEngine {
 		return program;
 	}
 
-	int createFullScreenQuad(float[] pos, float[] tex) {
+	/**
+	 * Creates a quad using the provides coords
+	 * 
+	 * @param pos The coords of the vertices for this quad.
+	 * @param tex The coords of the vertices of the texture of this quad.
+	 * @return The ID of this quad's VAO
+	 */
+	private int createFullScreenQuad(float[] pos, float[] tex) {
 		int vao = glGenVertexArrays();
 		glBindVertexArray(vao);
 		int positionVbo = glGenBuffers();
@@ -98,14 +138,22 @@ public class RenderEngine {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
 
+		glDeleteBuffers(positionVbo);
+		glDeleteBuffers(texCoordsVbo);
+
 		return vao;
 	}
 
-	void render() {
+	/**
+	 * A very important method. Renders everything in the current
+	 * {@link LevelRenderer}'s {@link RenderablesContainer} using their shader
+	 * program and textures.
+	 */
+	protected void render() {
 		glClear(GL_COLOR_BUFFER_BIT);
-		updateRenderables();
 
-		for (RenderableObj obj : RenderablesContainer.instance.renderObjs.values()) {
+		// for (RenderableObj obj : RenderablesContainer.instance.renderObjs.values()) {
+		for (RenderableObj obj : currentLevelRenderer.getRenderablesContainer().renderObjs.values()) {
 			glBindTexture(GL_TEXTURE_2D, obj.texture);
 			glUseProgram(obj.program);
 			glBindVertexArray(obj.vao);
@@ -116,7 +164,17 @@ public class RenderEngine {
 		glUseProgram(0);
 	}
 
-	private void updateRenderables() {
+	/**
+	 * @param renderer The new current {@link LevelRenderer}
+	 */
+	public void setCurrentLevelRenderer(LevelRenderer renderer) {
+		currentLevelRenderer = renderer;
+	}
 
+	/**
+	 * @return The current {@link LevelRenderer}
+	 */
+	public LevelRenderer getCurrentLevelRenderer() {
+		return currentLevelRenderer;
 	}
 }

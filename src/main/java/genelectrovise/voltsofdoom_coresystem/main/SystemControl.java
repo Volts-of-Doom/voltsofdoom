@@ -1,17 +1,22 @@
 package genelectrovise.voltsofdoom_coresystem.main;
 
+import java.io.IOException;
+
 import genelectrovise.voltsofdoom_coresystem.adventure.AdventureLoader;
 import genelectrovise.voltsofdoom_coresystem.loader.JarFinder;
 import genelectrovise.voltsofdoom_coresystem.loader.JarScanner;
 import genelectrovise.voltsofdoom_coresystem.loader.LoaderMissionControl;
 import genelectrovise.voltsofdoom_coresystem.loader.LoaderReference;
+import genelectrovise.voltsofdoom_coresystem.opengl.RenderEngine;
+import genelectrovise.voltsofdoom_coresystem.opengl.WindowHolder;
+import genelectrovise.voltsofdoom_coresystem.opengl.render.LoadingScreenRenderer;
 import genelectrovise.voltsofdoom_coresystem.registry.RegistryLoaderMissionControl;
 
 public class SystemControl {
 	SystemControl SYSTEM_CONTROL = this;
 
 	// PreInit
-//	private WindowManager windowmanager = new WindowManager();
+	private WindowHolder windowholder = new WindowHolder();
 
 	// Stage 1 (Load jars)
 	private LoaderMissionControl loaderMissionControl;
@@ -23,7 +28,7 @@ public class SystemControl {
 	private RegistryLoaderMissionControl registryMissionControl = new RegistryLoaderMissionControl();
 	private AdventureLoader adventureloader = new AdventureLoader();
 
-	public SystemControl() {
+	public SystemControl() throws IOException {
 		jarFinder = new JarFinder();
 		jarScanner = new JarScanner();
 		loaderMissionControl = new LoaderMissionControl(jarFinder, jarScanner);
@@ -32,14 +37,18 @@ public class SystemControl {
 		initStage1();
 		initStage2();
 	}
-	
-	public void preInit() {
-	//	windowmanager.getGamewindow().title("Loading");
+
+	/**
+	 * Prepares the game window, among other things
+	 * @throws IOException 
+	 */
+	public void preInit() throws IOException {
+		windowholder.start();
 	}
 
 	/**
-	 * Initialises the game. Calls init() methods on IMissionControl classes in
-	 * order to load the game.
+	 * Initialises the game. Calls init() methods on MissionControl classes in order
+	 * to load the game.
 	 */
 	public void initStage1() {
 		loaderMissionControl.init();
@@ -57,11 +66,11 @@ public class SystemControl {
 	public SystemControl getSYSTEM_CONTROL() {
 		return SYSTEM_CONTROL;
 	}
-	
+
 	public AdventureLoader getAdventureloader() {
 		return adventureloader;
 	}
-	
+
 	public RegistryLoaderMissionControl getRegistryMissionControl() {
 		return registryMissionControl;
 	}

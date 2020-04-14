@@ -1,7 +1,3 @@
-/*
- * Copyright LWJGL. All rights reserved.
- * License terms: https://www.lwjgl.org/license
- */
 package genelectrovise.voltsofdoom_coresystem.opengl.util;
 
 import org.joml.Vector3f;
@@ -17,12 +13,7 @@ import static genelectrovise.voltsofdoom_coresystem.opengl.util.IOUtil.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-/**
- * Utility methods for most of the ray tracing demos.
- * 
- * @author Kai Burjack
- */
-public class DemoUtils {
+public class GLUtils {
 
 	private static final Vector3f VECTOR_MINUS_ONE = new Vector3f(-1.0f, -1.0f, -1.0f);
 	private static final Vector3f VECTOR_PLUS_ONE = new Vector3f(1.0f, 1.0f, 1.0f);

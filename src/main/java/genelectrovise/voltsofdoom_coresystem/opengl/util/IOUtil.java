@@ -1,4 +1,3 @@
-
 package genelectrovise.voltsofdoom_coresystem.opengl.util;
 
 import org.lwjgl.*;
@@ -34,8 +33,6 @@ public final class IOUtil {
 	 */
 	public static ByteBuffer ioResourceToByteBuffer(String resource, int bufferSize) throws IOException {
 		ByteBuffer buffer;
-		
-		System.out.println(resource);
 
 		Path path = Paths.get(resource);
 		if (Files.isReadable(path)) {

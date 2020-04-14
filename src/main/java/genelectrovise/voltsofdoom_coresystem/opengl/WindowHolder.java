@@ -1,7 +1,3 @@
-/*
- * Copyright LWJGL. All rights reserved.
- * License terms: https://www.lwjgl.org/license
- */
 package genelectrovise.voltsofdoom_coresystem.opengl;
 
 import org.lwjgl.glfw.*;
@@ -9,7 +5,10 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GLCapabilities;
 import org.lwjgl.opengl.GLUtil;
 import org.lwjgl.system.*;
-import java.io.IOException;
+
+import genelectrovise.voltsofdoom_coresystem.log.VODLog4J;
+import genelectrovise.voltsofdoom_coresystem.opengl.render.LoadingScreenRenderer;
+
 import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -17,18 +16,13 @@ import static org.lwjgl.opengl.GL30C.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Renders a simple textured quad using OpenGL 3.0.
- * 
- * @author Kai Burjack
+ * Holds the game window, meaning that it is the manager and delegator for the rendering/game loop.
+ * @author adam_
+ *
  */
-public class WindowHolder {
+public class WindowHolder extends Thread {
 
-	private static final float[] TEX_BG = new float[] { 0f, 1f, 1f, 1f, 1f, 0f, 1f, 0f, 0f, 0f, 0f, 1f };
-	private static final float[] POS_BG = new float[] { -1f, -1f, 1f, -1f, 1f, 1f, 1f, 1f, -1f, 1f, -1f, -1f };
-
-	private static final float[] TEX_BLOB = new float[] { 0f, 1f, 1f, 1f, 1f, 0f, 1f, 0f, 0f, 0f, 0f, 1f };
-	private static final float[] POS_BLOB = new float[] { -0.25f, -0.25f, 0.25f, -0.25f, 0.25f, 0.25f, 0.25f, 0.25f,
-			-0.25f, 0.25f, -0.25f, -0.25f };
+	public static final boolean SHOULD_DO_OPENGL_DEBUG = false;
 
 	long window;
 	int width = 1200;
@@ -38,18 +32,22 @@ public class WindowHolder {
 	GLFWKeyCallback keyCallback;
 	Callback debugProc;
 
-	void init() throws IOException {
+	/**
+	 * Handles initialisation of the game window using GLFW.
+	 */
+	private void init() {
 		glfwInit();
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-		window = glfwCreateWindow(width, height, "Window 11 (BG w Green Blob)", NULL, NULL);
+		window = glfwCreateWindow(width, height, "Volts of Doom", NULL, NULL);
+
 		glfwSetKeyCallback(window, keyCallback = new GLFWKeyCallback() {
 			public void invoke(long window, int key, int scancode, int action, int mods) {
-				if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
-					glfwSetWindowShouldClose(window, true);
+				KeyHandler.instance.handle(window, key, scancode, action, mods);
 			}
 		});
+
 		glfwMakeContextCurrent(window);
 		glfwShowWindow(window);
 		try (MemoryStack frame = MemoryStack.stackPush()) {
@@ -59,15 +57,22 @@ public class WindowHolder {
 			height = framebufferSize.get(1);
 		}
 		caps = GL.createCapabilities();
-		debugProc = GLUtil.setupDebugMessageCallback();
 
-		RenderablesContainer.instance.addRenderObj("background", RenderEngine.instance
-				.createTexturedQuad("src/main/resources/image/environment/stitchedlevel/cobbleandwoodlog_stitchedLevel.png", POS_BG, TEX_BG));
-		RenderablesContainer.instance.addRenderObj("greenblob",
-				RenderEngine.instance.createTexturedQuad("src/main/resources/image/entity/greenblob.png", POS_BLOB, TEX_BLOB));
+		if (SHOULD_DO_OPENGL_DEBUG) {
+			debugProc = GLUtil.setupDebugMessageCallback();
+			VODLog4J.LOGGER.warn("OpenGL debugging is enabled! This may cause some flooding....");
+		} else {
+			VODLog4J.LOGGER
+					.warn("OpenGL debugging is disabled! This may hide the creation of excessive quantities of data!");
+		}
+
 	}
 
-	void loop() {
+	/**
+	 * The main game loop. Handles events in the window and delegates them to their
+	 * handlers/engines.
+	 */
+	private void loop() {
 		while (!glfwWindowShouldClose(window)) {
 			glfwPollEvents();
 			glViewport(0, 0, width, height);
@@ -78,17 +83,25 @@ public class WindowHolder {
 		}
 	}
 
-	void run() throws IOException {
-		init();
-		loop();
-		if (debugProc != null)
-			debugProc.free();
-		keyCallback.free();
-		glfwDestroyWindow(window);
-		glfwTerminate();
-	}
+	/**
+	 * Begins initialising the game window. Called when the render thread is
+	 * started.
+	 */
+	public void run() {
 
-	public static void main(String[] args) throws IOException {
-		new WindowHolder().run();
+		try {
+			init();
+
+			RenderEngine.instance.setCurrentLevelRenderer(new LoadingScreenRenderer());
+
+			loop();
+			if (debugProc != null)
+				debugProc.free();
+			keyCallback.free();
+			glfwDestroyWindow(window);
+			glfwTerminate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
