@@ -1,0 +1,5 @@
+voltsofdoom root: %AppData%/Roaming/voltsofdoom/resources
+resources: root/resources
+mods: root/mods
+adventures: resources/adventure/MODID/xxx.json
+level maps: resources/levelmap/MODID/ADVENTURE_NAME/xxx.json
