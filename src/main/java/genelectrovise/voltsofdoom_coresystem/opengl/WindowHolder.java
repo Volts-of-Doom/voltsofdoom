@@ -25,8 +25,8 @@ public class WindowHolder extends Thread {
 	public static final boolean SHOULD_DO_OPENGL_DEBUG = false;
 
 	long window;
-	int width = 1200;
-	int height = 720;
+	public int width = 1200;
+	public int height = 720;
 
 	GLCapabilities caps;
 	GLFWKeyCallback keyCallback;

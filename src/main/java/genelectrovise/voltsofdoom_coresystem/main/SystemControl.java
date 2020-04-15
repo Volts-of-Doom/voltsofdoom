@@ -1,5 +1,6 @@
 package genelectrovise.voltsofdoom_coresystem.main;
 
+import java.awt.Component;
 import java.io.IOException;
 
 import genelectrovise.voltsofdoom_coresystem.adventure.AdventureLoader;
@@ -93,6 +94,10 @@ public class SystemControl {
 
 	public LoaderReference getLref() {
 		return lref;
+	}
+
+	public WindowHolder getWindowHolder() {
+		return windowholder;
 	}
 
 }
