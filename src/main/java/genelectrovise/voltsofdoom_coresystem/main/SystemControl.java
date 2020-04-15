@@ -1,6 +1,5 @@
 package genelectrovise.voltsofdoom_coresystem.main;
 
-import java.awt.Component;
 import java.io.IOException;
 
 import genelectrovise.voltsofdoom_coresystem.adventure.AdventureLoader;
@@ -8,9 +7,7 @@ import genelectrovise.voltsofdoom_coresystem.loader.JarFinder;
 import genelectrovise.voltsofdoom_coresystem.loader.JarScanner;
 import genelectrovise.voltsofdoom_coresystem.loader.LoaderMissionControl;
 import genelectrovise.voltsofdoom_coresystem.loader.LoaderReference;
-import genelectrovise.voltsofdoom_coresystem.opengl.RenderEngine;
 import genelectrovise.voltsofdoom_coresystem.opengl.WindowHolder;
-import genelectrovise.voltsofdoom_coresystem.opengl.render.LoadingScreenRenderer;
 import genelectrovise.voltsofdoom_coresystem.registry.RegistryLoaderMissionControl;
 
 public class SystemControl {

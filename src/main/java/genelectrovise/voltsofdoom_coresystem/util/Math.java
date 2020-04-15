@@ -21,8 +21,11 @@ import genelectrovise.voltsofdoom_coresystem.util.Math.Dimensions.EnumAxis;
 public class Math {
 
 	public static void main(String[] args) {
-		VODLog4J.LOGGER.debug("Float out : " + Dimensions.intPixelPosToFloatCenteredOnOrigin(EnumAxis.HOROZONTAL, 900));
-		VODLog4J.LOGGER.debug("Float out : " + Dimensions.intPixelPosToFloatCenteredOnOrigin(EnumAxis.VERTICAL, 540));
+		// VODLog4J.LOGGER.debug("Float out : " +
+		// Dimensions.pixelPosToFloatCenteredOnOrigin(EnumAxis.HOROZONTAL, 900));
+		// VODLog4J.LOGGER.debug("Float out : " +
+		// Dimensions.pixelPosToFloatCenteredOnOrigin(EnumAxis.VERTICAL, 540));
+		VODLog4J.LOGGER.debug("Float out : " + Dimensions.findSameDistanceOnOpposingAxis(EnumAxis.VERTICAL, 1));
 	}
 
 	/**
@@ -54,7 +57,8 @@ public class Math {
 		 *             occurs.<br>
 		 *             2 = As 1, but defaults to a preset if an Exception occurs. <br>
 		 *             3 = As 2, but does not print a stacktrace. <br>
-		 * @return Dependent on mode, a variation on the screen's width, as in {@link WindowHolder}
+		 * @return Dependent on mode, a variation on the screen's width, as in
+		 *         {@link WindowHolder}
 		 */
 		@SuppressWarnings("null")
 		public static int getScreenWidth(int mode) {
@@ -101,7 +105,8 @@ public class Math {
 		 *             occurs.<br>
 		 *             2 = As 1, but defaults to a preset if an Exception occurs. <br>
 		 *             3 = As 2, but does not print a stacktrace. <br>
-		 * @return Dependent on mode, a variation on the screen's width, as in {@link WindowHolder}
+		 * @return Dependent on mode, a variation on the screen's width, as in
+		 *         {@link WindowHolder}
 		 */
 		@SuppressWarnings("null")
 		public static int getScreenHeight(int mode) {
@@ -124,14 +129,14 @@ public class Math {
 					screenHeight = VODCoreSystemStart.getSYSTEM_CONTROL().getWindowHolder().height;
 				} catch (NullPointerException n) {
 					n.printStackTrace();
-					screenHeight = 1200;
+					screenHeight = 720;
 				}
 				break;
 			case 3:
 				try {
 					screenHeight = VODCoreSystemStart.getSYSTEM_CONTROL().getWindowHolder().height;
 				} catch (NullPointerException n) {
-					screenHeight = 1200;
+					screenHeight = 720;
 				}
 				break;
 			}
@@ -141,11 +146,12 @@ public class Math {
 
 		/**
 		 * Converts a Screen Pixel Coordinate to an OpenGL Float position.
-		 * @param axis The axis you are converting on.
+		 * 
+		 * @param axis  The axis you are converting on.
 		 * @param pixel The value of the pixel you are converting.
 		 * @return A float representation of the pixel input.
 		 */
-		public static float intPixelPosToFloatCenteredOnOrigin(EnumAxis axis, int pixel) {
+		public static float pixelPosToFloatCenteredOnOrigin(EnumAxis axis, float pixel) {
 			float screenAxisly;
 
 			switch (axis) {
@@ -157,7 +163,7 @@ public class Math {
 				break;
 			default:
 				throw new IllegalArgumentException(
-						"If you're seeing this, someone should give you a medal. I don't know how you did it, but you have failed to set the axis, even though it is a required parameter for this method.");
+						"If you're seeing this, someone should give you a medal. I don't know how you did it, but you have failed to set the axis, even though it is a required parameter for this method and should throw a compiler error.");
 			}
 
 			float halfScreenAxisly = screenAxisly / 2;
@@ -177,6 +183,41 @@ public class Math {
 				return pixelDividedByHalfScreenWidth - 1;
 			else
 				return pixelDividedByHalfScreenWidth - 1;
+		}
+
+		/**
+		 * Finds the float multiplier you must multiply a float by on one axis to find an equivalent distance on the opposing axis (toAxis). Not very useful alone, but enables you to draw squares in OpenGL.
+		 * @param toAxis The axis to find the multiplier for.
+		 * @return toAxis' multiplier
+		 */
+		public static float getAxisMultiplier(EnumAxis toAxis) {
+			float screenHeight = getScreenHeight(3);
+			float screenWidth = getScreenWidth(3);
+
+			switch (toAxis) {
+			case HOROZONTAL:
+				return screenWidth / screenHeight;
+			case VERTICAL:
+				return screenHeight / screenWidth;
+			default:
+				return screenWidth / screenHeight;
+			}
+		}
+
+		/**
+		 * @param axisToFindOn The axis to find the equivalent distance on.
+		 * @param fl           Distance to find the equivalent of.
+		 * @return The equivalent distance.
+		 */
+		public static float findSameDistanceOnOpposingAxis(EnumAxis axisToFindOn, float fl) {
+			switch (axisToFindOn) {
+			case HOROZONTAL:
+				return fl * getAxisMultiplier(EnumAxis.HOROZONTAL);
+			case VERTICAL:
+				return fl * getAxisMultiplier(EnumAxis.VERTICAL);
+			default:
+				return fl * getAxisMultiplier(axisToFindOn);
+			}
 		}
 	}
 }
