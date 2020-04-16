@@ -30,6 +30,7 @@ public class WindowHolder extends Thread {
 
 	GLCapabilities caps;
 	GLFWKeyCallback keyCallback;
+ GLFWWindowSizeCallback wsCallback;
 	Callback debugProc;
 
 	/**
@@ -45,6 +46,15 @@ public class WindowHolder extends Thread {
 		glfwSetKeyCallback(window, keyCallback = new GLFWKeyCallback() {
 			public void invoke(long window, int key, int scancode, int action, int mods) {
 				KeyHandler.instance.handle(window, key, scancode, action, mods);
+			}
+		});
+		glfwSetWindowSizeCallback(window, wsCallback = new GLFWWindowSizeCallback() {
+			@Override
+			public void invoke(long window, int w, int h) {
+				if (w > 0 && h > 0) {
+					width = w;
+					height = h;
+				}
 			}
 		});
 
@@ -76,9 +86,8 @@ public class WindowHolder extends Thread {
 		while (!glfwWindowShouldClose(window)) {
 			glfwPollEvents();
 			glViewport(0, 0, width, height);
-			RenderEngine.instance.render();
-			KeyHandler.setWindow(window);
 			KeyHandler.instance.handle();
+			RenderEngine.instance.render();
 			glfwSwapBuffers(window);
 		}
 	}
@@ -93,11 +102,15 @@ public class WindowHolder extends Thread {
 			init();
 
 			RenderEngine.instance.setCurrentLevelRenderer(new LoadingScreenRenderer());
+			
+			KeyHandler.instance.setWindow(window);
+			KeyHandler.instance.setCurrentKeyDictionary(new LoadingScreenKeyDictionary(window));
 
 			loop();
 			if (debugProc != null)
 				debugProc.free();
 			keyCallback.free();
+			wsCallback.free();
 			glfwDestroyWindow(window);
 			glfwTerminate();
 		} catch (Exception e) {

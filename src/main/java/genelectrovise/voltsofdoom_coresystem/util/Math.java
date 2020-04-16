@@ -1,6 +1,5 @@
 package genelectrovise.voltsofdoom_coresystem.util;
 
-import genelectrovise.voltsofdoom_coresystem.log.VODLog4J;
 import genelectrovise.voltsofdoom_coresystem.main.VODCoreSystemStart;
 import genelectrovise.voltsofdoom_coresystem.opengl.WindowHolder;
 import genelectrovise.voltsofdoom_coresystem.util.Math.Dimensions.EnumAxis;
@@ -21,11 +20,54 @@ import genelectrovise.voltsofdoom_coresystem.util.Math.Dimensions.EnumAxis;
 public class Math {
 
 	public static void main(String[] args) {
-		// VODLog4J.LOGGER.debug("Float out : " +
-		// Dimensions.pixelPosToFloatCenteredOnOrigin(EnumAxis.HOROZONTAL, 900));
-		// VODLog4J.LOGGER.debug("Float out : " +
-		// Dimensions.pixelPosToFloatCenteredOnOrigin(EnumAxis.VERTICAL, 540));
-		VODLog4J.LOGGER.debug("Float out : " + Dimensions.findSameDistanceOnOpposingAxis(EnumAxis.VERTICAL, 1));
+		System.out.println(Math.Dimensions.pixelPosToFloatCenteredOnOrigin(EnumAxis.VERTICAL, 64));
+		// System.out.println(Dimensions.findSameDistanceOnOpposingAxis(EnumAxis.VERTICAL,
+		// Dimensions.pixelPosToFloatCenteredOnOrigin(EnumAxis.HORIZONTAL, 64)));
+	}
+
+	/**
+	 * Handles Geometry related operations, such as translating shapes.
+	 * 
+	 * @author adam_
+	 *
+	 */
+	public static class Geometry {
+
+		/**
+		 * Creates a new array of vertices for a quad, making it seem to glide in a
+		 * direction. Moves Horizontally.
+		 * 
+		 * @param pos The current array of vertices
+		 * @param i   The amount to increment the quad's position.
+		 * @return A new float[] of positions for a quad.
+		 */
+		public static float[] incrBasicQuadX(float[] pos, float i) {
+			pos[0] = pos[0] + i;
+			pos[2] = pos[2] + i;
+			pos[4] = pos[4] + i;
+			pos[6] = pos[6] + i;
+			pos[8] = pos[8] + i;
+			pos[10] = pos[10] + i;
+			return pos;
+		}
+
+		/**
+		 * Creates a new array of vertices for a quad, making it seem to glide in a
+		 * direction. Moves vertically.
+		 * 
+		 * @param pos The current array of vertices
+		 * @param i   The amount to increment the quad's position.
+		 * @return A new float[] of positions for a quad.
+		 */
+		public static float[] incrBasicQuadY(float[] pos, float i) {
+			pos[1] = pos[1] + i;
+			pos[3] = pos[3] + i;
+			pos[5] = pos[5] + i;
+			pos[7] = pos[7] + i;
+			pos[9] = pos[9] + i;
+			pos[11] = pos[11] + i;
+			return pos;
+		}
 	}
 
 	/**
@@ -45,12 +87,12 @@ public class Math {
 		 *
 		 */
 		public static enum EnumAxis {
-			VERTICAL, HOROZONTAL;
+			VERTICAL, HORIZONTAL;
 		}
 
 		/**
 		 * 
-		 * @param mode If none specified, returns 0 <br>
+		 * @param mode If none specified or is not one of the following, returns 0 <br>
 		 *             0 = Get the screen width with no fallback and no extra data. <br>
 		 *             1 = Get the screen width, catching NullPointerExceptions and
 		 *             printing a stacktrace. Will return null if an Exception
@@ -152,21 +194,31 @@ public class Math {
 		 * @return A float representation of the pixel input.
 		 */
 		public static float pixelPosToFloatCenteredOnOrigin(EnumAxis axis, float pixel) {
-			float screenAxisly;
+
+			float screenDimensionAxisly;
 
 			switch (axis) {
-			case HOROZONTAL:
-				screenAxisly = getScreenWidth(3);
+			case HORIZONTAL:
+				screenDimensionAxisly = getScreenWidth(3);
 				break;
 			case VERTICAL:
-				screenAxisly = getScreenHeight(3);
+				screenDimensionAxisly = getScreenHeight(3);
 				break;
 			default:
 				throw new IllegalArgumentException(
 						"If you're seeing this, someone should give you a medal. I don't know how you did it, but you have failed to set the axis, even though it is a required parameter for this method and should throw a compiler error.");
 			}
 
-			float halfScreenAxisly = screenAxisly / 2;
+			if (pixel == screenDimensionAxisly) {
+				return 1f;
+			}
+
+			if (pixel == 0) {
+				return -1f;
+			}
+
+			float halfScreenAxisly = screenDimensionAxisly / 2;
+			@SuppressWarnings("unused")
 			boolean floatWillBePositive;
 
 			if (pixel > halfScreenAxisly) {
@@ -177,16 +229,20 @@ public class Math {
 				return 0;
 			}
 
-			float pixelDividedByHalfScreenWidth = pixel / halfScreenAxisly;
+			float pixelDividedByHalfScreenAxisly = pixel / halfScreenAxisly;
 
 			if (floatWillBePositive)
-				return pixelDividedByHalfScreenWidth - 1;
+				return pixelDividedByHalfScreenAxisly;
 			else
-				return pixelDividedByHalfScreenWidth - 1;
+				return pixelDividedByHalfScreenAxisly - 1;
+
 		}
 
 		/**
-		 * Finds the float multiplier you must multiply a float by on one axis to find an equivalent distance on the opposing axis (toAxis). Not very useful alone, but enables you to draw squares in OpenGL.
+		 * Finds the float multiplier you must multiply a float by on one axis to find
+		 * an equivalent distance on the opposing axis (toAxis). Not very useful alone,
+		 * but enables you to draw squares in OpenGL.
+		 * 
 		 * @param toAxis The axis to find the multiplier for.
 		 * @return toAxis' multiplier
 		 */
@@ -195,7 +251,7 @@ public class Math {
 			float screenWidth = getScreenWidth(3);
 
 			switch (toAxis) {
-			case HOROZONTAL:
+			case HORIZONTAL:
 				return screenWidth / screenHeight;
 			case VERTICAL:
 				return screenHeight / screenWidth;
@@ -211,8 +267,8 @@ public class Math {
 		 */
 		public static float findSameDistanceOnOpposingAxis(EnumAxis axisToFindOn, float fl) {
 			switch (axisToFindOn) {
-			case HOROZONTAL:
-				return fl * getAxisMultiplier(EnumAxis.HOROZONTAL);
+			case HORIZONTAL:
+				return fl * getAxisMultiplier(EnumAxis.HORIZONTAL);
 			case VERTICAL:
 				return fl * getAxisMultiplier(EnumAxis.VERTICAL);
 			default:
