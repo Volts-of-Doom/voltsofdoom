@@ -6,13 +6,19 @@ import static org.lwjgl.opengl.GL30C.*;
 import static org.lwjgl.stb.STBImage.*;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 
 import org.lwjgl.BufferUtils;
 
+import genelectrovise.voltsofdoom_coresystem.main.SystemControl;
+import genelectrovise.voltsofdoom_coresystem.main.VODCoreSystemStart;
 import genelectrovise.voltsofdoom_coresystem.opengl.render.LevelRenderer;
+import genelectrovise.voltsofdoom_coresystem.opengl.render.LoadingScreenRenderer;
+import genelectrovise.voltsofdoom_coresystem.opengl.render.TestLevelRenderer;
 
 /**
  * This is a big one. Handles and delegate the drawing of the game screen.
@@ -22,6 +28,7 @@ import genelectrovise.voltsofdoom_coresystem.opengl.render.LevelRenderer;
  */
 public class RenderEngine {
 	public static RenderEngine instance = new RenderEngine();
+	private boolean isSystemControlLoaded = false;
 
 	/**
 	 * The {@link LevelRenderer} to take objects from to draw.
@@ -30,8 +37,9 @@ public class RenderEngine {
 
 	int quadProgram_inputPosition;
 	int quadProgram_inputTextureCoords;
+	private SystemControl systemcontrol;
 
-	public static RenderEngine getInstance() {
+	public RenderEngine getInstance() {
 		return instance;
 	}
 
@@ -151,6 +159,7 @@ public class RenderEngine {
 	 */
 	protected void render() {
 		glClear(GL_COLOR_BUFFER_BIT);
+		testIsSystemControlLoaded();
 
 		// for (RenderableObj obj : RenderablesContainer.instance.renderObjs.values()) {
 		for (RenderableObj obj : currentLevelRenderer.getRenderablesContainer().renderObjs.values()) {
@@ -162,6 +171,19 @@ public class RenderEngine {
 
 		glBindVertexArray(0);
 		glUseProgram(0);
+	}
+
+	private void testIsSystemControlLoaded() {
+		try {
+			if (!isSystemControlLoaded) {
+				isSystemControlLoaded = systemcontrol.loadingComplete;
+			} else if (isSystemControlLoaded) {
+				setCurrentLevelRenderer(new TestLevelRenderer());
+				KeyHandler.instance.setCurrentKeyDictionary(new TestLevelKeyDictionary(systemcontrol.getWindowHolder().window));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -176,5 +198,14 @@ public class RenderEngine {
 	 */
 	public LevelRenderer getCurrentLevelRenderer() {
 		return currentLevelRenderer;
+	}
+
+	public void queueNewLevelRenderer(LevelRenderer renderer) {
+		currentLevelRenderer = renderer;
+	}
+
+	public RenderEngine setSystemControl(SystemControl systemcontrol) {
+		this.systemcontrol = systemcontrol;
+		return this;
 	}
 }

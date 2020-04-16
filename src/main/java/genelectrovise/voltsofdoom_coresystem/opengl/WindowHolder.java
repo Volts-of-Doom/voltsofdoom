@@ -7,7 +7,9 @@ import org.lwjgl.opengl.GLUtil;
 import org.lwjgl.system.*;
 
 import genelectrovise.voltsofdoom_coresystem.log.VODLog4J;
+import genelectrovise.voltsofdoom_coresystem.main.SystemControl;
 import genelectrovise.voltsofdoom_coresystem.opengl.render.LoadingScreenRenderer;
+import genelectrovise.voltsofdoom_coresystem.opengl.render.TestLevelRenderer;
 
 import java.nio.IntBuffer;
 
@@ -16,7 +18,9 @@ import static org.lwjgl.opengl.GL30C.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Holds the game window, meaning that it is the manager and delegator for the rendering/game loop.
+ * Holds the game window, meaning that it is the manager and delegator for the
+ * rendering/game loop.
+ * 
  * @author adam_
  *
  */
@@ -24,14 +28,27 @@ public class WindowHolder extends Thread {
 
 	public static final boolean SHOULD_DO_OPENGL_DEBUG = false;
 
+	private SystemControl systemcontrol;
+
 	long window;
 	public int width = 1200;
 	public int height = 720;
+	
+	public RenderEngine renderengine;
 
 	GLCapabilities caps;
 	GLFWKeyCallback keyCallback;
- GLFWWindowSizeCallback wsCallback;
+	GLFWWindowSizeCallback wsCallback;
 	Callback debugProc;
+
+	public WindowHolder(SystemControl systemControl) {
+		this.systemcontrol = systemControl;
+		renderengine = RenderEngine.instance.setSystemControl(systemControl);
+	}
+	
+	public long getWindow() {
+		return window;
+	}
 
 	/**
 	 * Handles initialisation of the game window using GLFW.
@@ -101,10 +118,11 @@ public class WindowHolder extends Thread {
 		try {
 			init();
 
+			// RenderEngine.instance.setCurrentLevelRenderer(new TestLevelRenderer());
 			RenderEngine.instance.setCurrentLevelRenderer(new LoadingScreenRenderer());
-			
+
 			KeyHandler.instance.setWindow(window);
-			KeyHandler.instance.setCurrentKeyDictionary(new LoadingScreenKeyDictionary(window));
+			KeyHandler.instance.setCurrentKeyDictionary(new LoadingScreenKeyDictionary(systemcontrol.getWindowHolder().window));
 
 			loop();
 			if (debugProc != null)

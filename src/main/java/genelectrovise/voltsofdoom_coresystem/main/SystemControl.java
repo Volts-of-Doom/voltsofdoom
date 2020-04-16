@@ -7,14 +7,16 @@ import genelectrovise.voltsofdoom_coresystem.loader.JarFinder;
 import genelectrovise.voltsofdoom_coresystem.loader.JarScanner;
 import genelectrovise.voltsofdoom_coresystem.loader.LoaderMissionControl;
 import genelectrovise.voltsofdoom_coresystem.loader.LoaderReference;
+import genelectrovise.voltsofdoom_coresystem.opengl.RenderEngine;
 import genelectrovise.voltsofdoom_coresystem.opengl.WindowHolder;
+import genelectrovise.voltsofdoom_coresystem.opengl.render.TestLevelRenderer;
 import genelectrovise.voltsofdoom_coresystem.registry.RegistryLoaderMissionControl;
 
 public class SystemControl {
-	SystemControl SYSTEM_CONTROL = this;
+	SystemControl System_Control = this;
 
 	// PreInit
-	private WindowHolder windowholder = new WindowHolder();
+	private WindowHolder windowholder = new WindowHolder(this);
 
 	// Stage 1 (Load jars)
 	private LoaderMissionControl loaderMissionControl;
@@ -26,6 +28,8 @@ public class SystemControl {
 	private RegistryLoaderMissionControl registryMissionControl = new RegistryLoaderMissionControl();
 	private AdventureLoader adventureloader = new AdventureLoader();
 
+	public boolean loadingComplete = false;
+
 	public SystemControl() throws IOException {
 		jarFinder = new JarFinder();
 		jarScanner = new JarScanner();
@@ -34,6 +38,7 @@ public class SystemControl {
 		preInit();
 		initStage1();
 		initStage2();
+		postInit();
 	}
 
 	/**
@@ -58,11 +63,19 @@ public class SystemControl {
 	public void initStage2() {
 		adventureloader.init();
 	}
+	
+	/**
+	 * Final stage of initialisation.
+	 * @throws IOException 
+	 */
+	public void postInit() throws IOException {
+		loadingComplete = true;
+	}
 
 	// GETTERS ==================
 
-	public SystemControl getSYSTEM_CONTROL() {
-		return SYSTEM_CONTROL;
+	public SystemControl getSystem_Control() {
+		return System_Control;
 	}
 
 	public AdventureLoader getAdventureloader() {

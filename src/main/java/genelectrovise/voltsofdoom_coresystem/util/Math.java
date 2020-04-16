@@ -108,11 +108,11 @@ public class Math {
 
 			switch (mode) {
 			case 0:
-				screenWidth = VODCoreSystemStart.getSYSTEM_CONTROL().getWindowHolder().width;
+				screenWidth = VODCoreSystemStart.getSystemControl().getWindowHolder().width;
 				break;
 			case 1:
 				try {
-					screenWidth = VODCoreSystemStart.getSYSTEM_CONTROL().getWindowHolder().width;
+					screenWidth = VODCoreSystemStart.getSystemControl().getWindowHolder().width;
 				} catch (NullPointerException n) {
 					n.printStackTrace();
 					screenWidth = (Integer) null;
@@ -120,7 +120,7 @@ public class Math {
 				break;
 			case 2:
 				try {
-					screenWidth = VODCoreSystemStart.getSYSTEM_CONTROL().getWindowHolder().width;
+					screenWidth = VODCoreSystemStart.getSystemControl().getWindowHolder().width;
 				} catch (NullPointerException n) {
 					n.printStackTrace();
 					screenWidth = 1200;
@@ -128,7 +128,7 @@ public class Math {
 				break;
 			case 3:
 				try {
-					screenWidth = VODCoreSystemStart.getSYSTEM_CONTROL().getWindowHolder().width;
+					screenWidth = VODCoreSystemStart.getSystemControl().getWindowHolder().width;
 				} catch (NullPointerException n) {
 					screenWidth = 1200;
 				}
@@ -156,11 +156,11 @@ public class Math {
 
 			switch (mode) {
 			case 0:
-				screenHeight = VODCoreSystemStart.getSYSTEM_CONTROL().getWindowHolder().height;
+				screenHeight = VODCoreSystemStart.getSystemControl().getWindowHolder().height;
 				break;
 			case 1:
 				try {
-					screenHeight = VODCoreSystemStart.getSYSTEM_CONTROL().getWindowHolder().height;
+					screenHeight = VODCoreSystemStart.getSystemControl().getWindowHolder().height;
 				} catch (NullPointerException n) {
 					n.printStackTrace();
 					screenHeight = (Integer) null;
@@ -168,7 +168,7 @@ public class Math {
 				break;
 			case 2:
 				try {
-					screenHeight = VODCoreSystemStart.getSYSTEM_CONTROL().getWindowHolder().height;
+					screenHeight = VODCoreSystemStart.getSystemControl().getWindowHolder().height;
 				} catch (NullPointerException n) {
 					n.printStackTrace();
 					screenHeight = 720;
@@ -176,7 +176,7 @@ public class Math {
 				break;
 			case 3:
 				try {
-					screenHeight = VODCoreSystemStart.getSYSTEM_CONTROL().getWindowHolder().height;
+					screenHeight = VODCoreSystemStart.getSystemControl().getWindowHolder().height;
 				} catch (NullPointerException n) {
 					screenHeight = 720;
 				}
