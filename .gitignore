@@ -1,6 +1,6 @@
 .classpath
 .project
 src/main/lib/
-log/*.log
+*.log
 !src/main/
 .settings/
