@@ -14,8 +14,11 @@ import java.util.ArrayList;
 
 import org.lwjgl.BufferUtils;
 
+import genelectrovise.voltsofdoom_coresystem.key.KeyHandler;
+import genelectrovise.voltsofdoom_coresystem.key.TestLevelKeyDictionary;
 import genelectrovise.voltsofdoom_coresystem.main.SystemControl;
 import genelectrovise.voltsofdoom_coresystem.main.VODCoreSystemStart;
+import genelectrovise.voltsofdoom_coresystem.opengl.render.AdventureSelectionRenderer;
 import genelectrovise.voltsofdoom_coresystem.opengl.render.LevelRenderer;
 import genelectrovise.voltsofdoom_coresystem.opengl.render.LoadingScreenRenderer;
 import genelectrovise.voltsofdoom_coresystem.opengl.render.TestLevelRenderer;
@@ -29,6 +32,9 @@ import genelectrovise.voltsofdoom_coresystem.opengl.render.TestLevelRenderer;
 public class RenderEngine {
 	public static RenderEngine instance = new RenderEngine();
 	private boolean isSystemControlLoaded = false;
+
+	public static final float[] TEX_COORDS_FULL_SCREEN = new float[] { 0f, 1f, 1f, 1f, 1f, 0f, 1f, 0f, 0f, 0f, 0f, 1f };
+	public static final float[] POS_COORDS_FULL_SCREEN = new float[] { -1f, -1f, 1f, -1f, 1f, 1f, 1f, 1f, -1f, 1f, -1f, -1f };
 
 	/**
 	 * The {@link LevelRenderer} to take objects from to draw.
@@ -161,16 +167,25 @@ public class RenderEngine {
 		glClear(GL_COLOR_BUFFER_BIT);
 		testIsSystemControlLoaded();
 
-		// for (RenderableObj obj : RenderablesContainer.instance.renderObjs.values()) {
-		for (RenderableObj obj : currentLevelRenderer.getRenderablesContainer().renderObjs.values()) {
-			glBindTexture(GL_TEXTURE_2D, obj.texture);
-			glUseProgram(obj.program);
-			glBindVertexArray(obj.vao);
-			glDrawArrays(GL_TRIANGLES, 0, 6);
-		}
+		try {
+			
+			if(currentLevelRenderer instanceof AdventureSelectionRenderer) {
+				System.out.println("RenderEngine.render()");
+			}
+			
+			// for (RenderableObj obj : RenderablesContainer.instance.renderObjs.values()) {
+			for (RenderableObj obj : currentLevelRenderer.getRenderablesContainer().renderObjs.values()) {
+				glBindTexture(GL_TEXTURE_2D, obj.texture);
+				glUseProgram(obj.program);
+				glBindVertexArray(obj.vao);
+				glDrawArrays(GL_TRIANGLES, 0, 6);
+			}
 
-		glBindVertexArray(0);
-		glUseProgram(0);
+			glBindVertexArray(0);
+			glUseProgram(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void testIsSystemControlLoaded() {
@@ -178,8 +193,15 @@ public class RenderEngine {
 			if (!isSystemControlLoaded) {
 				isSystemControlLoaded = systemcontrol.loadingComplete;
 			} else if (isSystemControlLoaded) {
-				setCurrentLevelRenderer(new TestLevelRenderer());
-				KeyHandler.instance.setCurrentKeyDictionary(new TestLevelKeyDictionary(systemcontrol.getWindowHolder().window));
+				//setCurrentLevelRenderer(new TestLevelRenderer());
+				//KeyHandler.instance
+				//		.setCurrentKeyDictionary(new TestLevelKeyDictionary(systemcontrol.getWindowHolder().window));
+
+				if(!(currentLevelRenderer instanceof AdventureSelectionRenderer)) {
+					setCurrentLevelRenderer(new AdventureSelectionRenderer());
+				}
+				
+				KeyHandler.instance.setCurrentKeyDictionary(KeyHandler.NO_HANDLER);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -31,6 +31,7 @@ public class SystemControl {
 	public boolean loadingComplete = false;
 
 	public SystemControl() throws IOException {
+		
 		jarFinder = new JarFinder();
 		jarScanner = new JarScanner();
 		loaderMissionControl = new LoaderMissionControl(jarFinder, jarScanner);

@@ -1,8 +1,7 @@
 package genelectrovise.voltsofdoom_coresystem.main;
 
-public class VODCoreSystemStart {
-
-	private static SystemControl System_Control;
+public class VODCoreSystemStart extends Thread {
+	private static GameController gamecontroller = new GameController();
 
 	public static void main(String[] args) {
 		initialiseGame();
@@ -10,13 +9,9 @@ public class VODCoreSystemStart {
 
 	private static void initialiseGame() {
 		try {
-			System_Control = new SystemControl();
+			gamecontroller.initialiseAll();
 		} catch (Exception e) {
 
 		}
-	}
-
-	public static SystemControl getSystemControl() {
-		return System_Control;
 	}
 }

@@ -8,15 +8,15 @@ package genelectrovise.voltsofdoom_coresystem.opengl;
  */
 public class RenderableObj {
 	/** @see RenderableObj */
-	int vao;
+	public int vao;
 	/** @see RenderableObj */
-	int program;
+	public int program;
 	/** @see RenderableObj */
-	int texture;
+	public int texture;
 	/** @see RenderableObj */
-	float[] pos;
+	public float[] pos;
 	/** @see RenderableObj */
-	float[] tex;
+	public float[] tex;
 
 	/**
 	 * @param vao     The ID of the OpenGL VAO to use.
@@ -49,5 +49,20 @@ public class RenderableObj {
 		this.tex = obj.tex;
 
 		return this;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("RenderableObj {");
+
+		builder.append("vao{" + vao + "}").append(" ");
+		builder.append("program{" + program + "}").append(" ");
+		builder.append("texture{" + texture + "}").append(" ");
+		builder.append("pos{float[] length " + pos.length + "}").append(" ");
+		builder.append("tex{float[] length " + tex.length + "}");
+
+		builder.append("}");
+		return builder.toString();
 	}
 }

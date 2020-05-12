@@ -6,10 +6,12 @@ import org.lwjgl.opengl.GLCapabilities;
 import org.lwjgl.opengl.GLUtil;
 import org.lwjgl.system.*;
 
+import genelectrovise.voltsofdoom_coresystem.key.KeyHandler;
+import genelectrovise.voltsofdoom_coresystem.key.LoadingScreenKeyDictionary;
 import genelectrovise.voltsofdoom_coresystem.log.VODLog4J;
 import genelectrovise.voltsofdoom_coresystem.main.SystemControl;
+import genelectrovise.voltsofdoom_coresystem.opengl.render.AdventureSelectionRenderer;
 import genelectrovise.voltsofdoom_coresystem.opengl.render.LoadingScreenRenderer;
-import genelectrovise.voltsofdoom_coresystem.opengl.render.TestLevelRenderer;
 
 import java.nio.IntBuffer;
 
@@ -42,6 +44,7 @@ public class WindowHolder extends Thread {
 	Callback debugProc;
 
 	public WindowHolder(SystemControl systemControl) {
+		setName("render");
 		this.systemcontrol = systemControl;
 		renderengine = RenderEngine.instance.setSystemControl(systemControl);
 	}
@@ -119,10 +122,10 @@ public class WindowHolder extends Thread {
 			init();
 
 			// RenderEngine.instance.setCurrentLevelRenderer(new TestLevelRenderer());
-			RenderEngine.instance.setCurrentLevelRenderer(new LoadingScreenRenderer());
-
+			 RenderEngine.instance.setCurrentLevelRenderer(new LoadingScreenRenderer());
+			 
 			KeyHandler.instance.setWindow(window);
-			KeyHandler.instance.setCurrentKeyDictionary(new LoadingScreenKeyDictionary(systemcontrol.getWindowHolder().window));
+			KeyHandler.instance.setCurrentKeyDictionary(KeyHandler.NO_HANDLER);
 
 			loop();
 			if (debugProc != null)
