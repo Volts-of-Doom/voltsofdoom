@@ -1,23 +1,20 @@
 package genelectrovise.voltsofdoom_coresystem.opengl.render;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+import genelectrovise.voltsofdoom_coresystem.adventure.Adventure;
+import genelectrovise.voltsofdoom_coresystem.main.GameController;
+import genelectrovise.voltsofdoom_coresystem.opengl.RenderEngine;
+import genelectrovise.voltsofdoom_coresystem.opengl.RenderablesContainer;
+import genelectrovise.voltsofdoom_coresystem.util.Reference;
+import org.lwjgl.BufferUtils;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.imageio.ImageIO;
-
-import org.lwjgl.BufferUtils;
-
-import genelectrovise.voltsofdoom_coresystem.adventure.Adventure;
-import genelectrovise.voltsofdoom_coresystem.main.VODCoreSystemStart;
-import genelectrovise.voltsofdoom_coresystem.opengl.RenderEngine;
-import genelectrovise.voltsofdoom_coresystem.opengl.RenderablesContainer;
-import genelectrovise.voltsofdoom_coresystem.util.Reference;
 
 public final class AdventureSelectionRenderer extends LevelRenderer {
 	private static final float[] TEX = new float[] { 0f, 1f, 1f, 1f, 1f, 0f, 1f, 0f, 0f, 0f, 0f, 1f };
@@ -29,7 +26,7 @@ public final class AdventureSelectionRenderer extends LevelRenderer {
 	RenderablesContainer container = new RenderablesContainer();
 
 	public AdventureSelectionRenderer() throws IOException {
-		adventures = VODCoreSystemStart.getSystemControl().getAdventureloader().getAdventures();
+		adventures = GameController.getSystemControl().getAdventureloader().getAdventures();
 		textureLocations = buildTexturesForStrings(adventures);
 
 		generateRenderables();

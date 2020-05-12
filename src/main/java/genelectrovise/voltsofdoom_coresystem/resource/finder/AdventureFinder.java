@@ -1,10 +1,10 @@
 package genelectrovise.voltsofdoom_coresystem.resource.finder;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import genelectrovise.voltsofdoom_coresystem.log.VODLog4J;
 import genelectrovise.voltsofdoom_coresystem.util.Reference;
+
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Searches for JSON files in the /adventures resources folder.
@@ -16,7 +16,17 @@ public class AdventureFinder {
 	private ArrayList<File> adventures = new ArrayList<File>();
 
 	public AdventureFinder() {
-		adventures = findAdventures(new File(Reference.ROAMING + "\\resources\\adventure"));
+		File gameRoot = new File(Reference.ROAMING);
+		boolean found;
+		if (!gameRoot.exists()) {
+			found = gameRoot.mkdir();
+		}
+		File adventureRoot = new File(Reference.ROAMING + "\\resources\\adventure");
+		if (!adventureRoot.exists()) {
+			found = adventureRoot.mkdir();
+		}
+
+		adventures = findAdventures(adventureRoot);
 		VODLog4J.LOGGER.debug(adventures.toString());
 	}
 

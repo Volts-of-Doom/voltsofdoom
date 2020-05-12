@@ -11,7 +11,7 @@ public class VODCoreSystemStart extends Thread {
 		try {
 			gamecontroller.initialiseAll();
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 }
