@@ -4,3 +4,4 @@ src/main/lib/
 *.log
 !src/main/
 .settings/
+target/
