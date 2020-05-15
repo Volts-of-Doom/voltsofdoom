@@ -17,13 +17,13 @@ public class AdventureFinder {
 
 	public AdventureFinder() {
 		File gameRoot = new File(Reference.ROAMING);
-		boolean found;
 		if (!gameRoot.exists()) {
-			found = gameRoot.mkdir();
+			VODLog4J.LOGGER.error("ERROR! Could not find game root directory");
 		}
-		File adventureRoot = new File(Reference.ROAMING + "\\resources\\adventure");
+
+		File adventureRoot = new File(Reference.ADVENTURE);
 		if (!adventureRoot.exists()) {
-			found = adventureRoot.mkdir();
+			VODLog4J.LOGGER.error("ERROR! Could not find adventure directory");
 		}
 
 		adventures = findAdventures(adventureRoot);

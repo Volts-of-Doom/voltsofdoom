@@ -1,11 +1,11 @@
 package genelectrovise.voltsofdoom_coresystem.resource.finder;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import genelectrovise.voltsofdoom_coresystem.adventure.Adventure;
 import genelectrovise.voltsofdoom_coresystem.log.VODLog4J;
 import genelectrovise.voltsofdoom_coresystem.util.Reference;
+
+import java.io.File;
+import java.util.ArrayList;
 
 public class LevelMapFinder {
 	private Adventure adventure;
@@ -14,8 +14,8 @@ public class LevelMapFinder {
 
 	public LevelMapFinder(Adventure adventure) {
 		this.adventure = adventure;
-		nameBuilder = new StringBuilder().append(Reference.ROAMING).append("\\resources\\levelmap\\")
-				.append(adventure.getModid()).append("\\" + this.adventure.getRegistryname() + "\\");
+		nameBuilder = new StringBuilder().append(Reference.ROAMING).append(File.separator + "resources" + File.separator + "levelmap" + File.separator)
+				.append(adventure.getModid()).append(File.separator + this.adventure.getRegistryname() + File.separator);
 
 		levels = findLevelFiles(new File(nameBuilder.toString()));
 		VODLog4J.LOGGER.debug("Found levels : " + levels.toString());
