@@ -1,0 +1,66 @@
+{
+	"name": "coa_lobby",
+	"tilekey": [
+		{
+			"id": 1,
+			"modid": "voltsofdoom_coregame",
+			"registryname": "tilecobble"
+		},
+		{
+			"id": 2,
+			"modid": "voltsofdoom_coregame",
+			"registryname": "tilewoodlog"
+		},
+		{
+			"id": 3,
+			"modid": "voltsofdoom_coregame",
+			"registryname": "door",
+			"isDoor": true,
+			"exitlevel": "coa_level_one"
+		}
+	],
+	"entitykey": [
+		{
+			"id": 1,
+			"modid": "voltsofdoom_coregame",
+			"registryname": "entityblob"
+		}
+	],
+	"gridwidth": 10,
+	"gridheight": 2,
+	"tiles": [
+		[
+			2,
+			1,
+			2,
+			1,
+			2,
+			1,
+			2,
+			1,
+			2,
+			1
+		],
+		[
+			1,
+			2,
+			1,
+			2,
+			1,
+			2,
+			1,
+			2,
+			1,
+			2
+		]
+	],
+	"entities": [
+		{
+			"type": 1,
+			"x": 6,
+			"y": 1
+		}
+	],
+	"entrypointx": 1,
+	"entrypointy": 1
+}
