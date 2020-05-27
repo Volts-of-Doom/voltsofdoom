@@ -17,7 +17,7 @@ import org.lwjgl.BufferUtils;
 import genelectrovise.voltsofdoom_coresystem.play.key.KeyHandler;
 import genelectrovise.voltsofdoom_coresystem.play.key.TestLevelKeyDictionary;
 import genelectrovise.voltsofdoom_coresystem.universal.main.SystemControl;
-import genelectrovise.voltsofdoom_coresystem.universal.main.VODCoreSystemStart;
+import genelectrovise.voltsofdoom_coresystem.universal.main.VoltsOfDoomCoreSystem;
 import genelectrovise.voltsofdoom_coresystem.universal.opengl.render.AdventureSelectionRenderer;
 import genelectrovise.voltsofdoom_coresystem.universal.opengl.render.LevelRenderer;
 import genelectrovise.voltsofdoom_coresystem.universal.opengl.render.LoadingScreenRenderer;

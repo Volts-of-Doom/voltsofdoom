@@ -4,13 +4,12 @@ import java.io.IOException;
 
 import genelectrovise.voltsofdoom_coresystem.loading.LoaderMissionControl;
 import genelectrovise.voltsofdoom_coresystem.loading.LoaderReference;
+import genelectrovise.voltsofdoom_coresystem.loading.registry.Registry;
 import genelectrovise.voltsofdoom_coresystem.loading.registry.RegistryLoaderMissionControl;
 import genelectrovise.voltsofdoom_coresystem.loading.resource.search.JarFinder;
 import genelectrovise.voltsofdoom_coresystem.loading.resource.search.JarScanner;
 import genelectrovise.voltsofdoom_coresystem.play.adventure.AdventureLoader;
-import genelectrovise.voltsofdoom_coresystem.universal.opengl.RenderEngine;
 import genelectrovise.voltsofdoom_coresystem.universal.opengl.WindowHolder;
-import genelectrovise.voltsofdoom_coresystem.universal.opengl.render.TestLevelRenderer;
 
 public class SystemControl {
 	SystemControl System_Control = this;
@@ -31,23 +30,19 @@ public class SystemControl {
 	public boolean loadingComplete = false;
 
 	public SystemControl() throws IOException {
-		
 		jarFinder = new JarFinder();
 		jarScanner = new JarScanner();
 		loaderMissionControl = new LoaderMissionControl(jarFinder, jarScanner);
-
-		preInit();
-		initStage1();
-		initStage2();
-		postInit();
 	}
 
-	/**
-	 * Prepares the game window, among other things
-	 * @throws IOException 
-	 */
-	public void preInit() throws IOException {
-		windowholder.start();
+	public void begin() throws IOException {
+		postInit();
+	}
+	
+	public Registry createRegistry() {
+		initStage1();
+		initStage2();
+		return Registry.getInstance();
 	}
 
 	/**
@@ -64,13 +59,15 @@ public class SystemControl {
 	public void initStage2() {
 		adventureloader.init();
 	}
-	
+
 	/**
-	 * Final stage of initialisation.
-	 * @throws IOException 
+	 * Final stage of initialisation. Opens the game window.
+	 * 
+	 * @throws IOException
 	 */
 	public void postInit() throws IOException {
 		loadingComplete = true;
+		windowholder.start();
 	}
 
 	// GETTERS ==================

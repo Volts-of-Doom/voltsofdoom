@@ -2,7 +2,6 @@ package genelectrovise.voltsofdoom_coresystem.loading.registry;
 
 import java.util.HashMap;
 
-
 /**
  * Contains a HashMap of RegistryObjects serving as the registry for a @Mod
  * 
@@ -34,4 +33,14 @@ public class ModRegistry {
 		return (RegistryObject<T>) getREGISTRY().put(registryName, obj);
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ModRegistry{");
+
+		builder.append(REGISTRY.toString());
+
+		builder.append("}");
+		return builder.toString();
+	}
 }

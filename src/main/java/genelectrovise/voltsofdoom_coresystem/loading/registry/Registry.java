@@ -36,4 +36,15 @@ public class Registry {
 
 		return null;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Registry{");
+		
+		builder.append(VOLTS_OF_DOOM_GAME_REGISTRY.toString());
+		
+		builder.append("}");
+		return builder.toString();
+	}
 }

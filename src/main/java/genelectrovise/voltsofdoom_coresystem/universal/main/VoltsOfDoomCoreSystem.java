@@ -1,6 +1,6 @@
 package genelectrovise.voltsofdoom_coresystem.universal.main;
 
-public class VODCoreSystemStart extends Thread {
+public class VoltsOfDoomCoreSystem {
 	private static GameController gamecontroller = new GameController();
 
 	public static void main(String[] args) {
