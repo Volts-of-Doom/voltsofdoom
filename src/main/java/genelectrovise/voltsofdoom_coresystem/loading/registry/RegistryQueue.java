@@ -44,7 +44,7 @@ public class RegistryQueue {
 
 	private void addQueueToGameRegistry() {
 		for (GenericRegistry<?> reg : queue) {
-			ModRegistry mr = Registry.getInstance().getREGISTRY().get(reg.getModid());
+			ModRegistry mr = Registry.getInstance().retrieve().get(reg.getModid());
 
 			for (String key : reg.getMap().keySet()) {
 				mr.add(key, reg.getMap().get(key));
@@ -81,7 +81,7 @@ public class RegistryQueue {
 		VODLog4J.LOGGER.debug("While '" + list.toString() + "' is populated, will register contents in right order!");
 		while (list.size() > 0) {
 			VODLog4J.LOGGER.debug("List size greater than 0!");
-			
+
 			for (GenericRegistry<?> reg : list) {
 				VODLog4J.LOGGER.debug("Testing types against type of " + reg.toString());
 				testTypesAndAddIfShould(reg);

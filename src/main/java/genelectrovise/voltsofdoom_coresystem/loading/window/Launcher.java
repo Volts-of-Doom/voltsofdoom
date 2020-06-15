@@ -13,27 +13,34 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
 
-public class LoadingWindow extends JFrame {
+import genelectrovise.voltsofdoom_coresystem.universal.main.VoltsOfDoomCoreSystem;
+
+public class Launcher extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private boolean launched = false;
 
-	JPanel foregroundPanel = new JPanel();
-	JLabel lblVoltsOfDoom = new JLabel("Volts of Doom");
-	JButton btnLaunch = new JButton("Launch");
-	JButton btnCancel = new JButton("Cancel");
+	private static Launcher window;
+	private JPanel foregroundPanel = new JPanel();
+	private JLabel lblVoltsOfDoom = new JLabel("Volts of Doom");
+	private JLabel lblInfoMsg = new JLabel("Launcher info will appear here!");
+	private JButton btnLaunch = new JButton("Launch");
+	private JButton btnCancel = new JButton("Cancel");
 
-	public LoadingWindow() {
+	public Launcher() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		updateContents();
 	}
+	
+	public static void main(String[] args) {
+		Thread.currentThread().setName("launcher");
+		run();
+	}
 
-	public void run() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				LoadingWindow w = new LoadingWindow();
-				w.updateContents();
-				w.setVisible(true);
-			}
+	private static void run() {
+		EventQueue.invokeLater(() -> {
+			window = new Launcher();
+			window.updateContents();
+			window.setVisible(true);
 		});
 	}
 
@@ -54,9 +61,13 @@ public class LoadingWindow extends JFrame {
 		foregroundPanel.setBounds(10, 11, 424, 249);
 		foregroundPanel.setLayout(null);
 
-		// Label
+		// Name Label
 		lblVoltsOfDoom.setFont(new Font("Yu Gothic UI Light", Font.BOLD | Font.ITALIC, 15));
 		lblVoltsOfDoom.setBounds(10, 11, 111, 21);
+
+		// Msg label
+		lblInfoMsg.setFont(new Font("Yu Gothic UI Light", Font.BOLD | Font.ITALIC, 11));
+		lblInfoMsg.setBounds(30, 31, 111, 21);
 
 		// Launch button
 		btnLaunch.setBounds(325, 181, 89, 23);
@@ -66,7 +77,7 @@ public class LoadingWindow extends JFrame {
 				if (!launched) {
 					launched = true;
 					btnLaunch.setEnabled(false);
-					LoadingWindowLogicController.launch();
+					new VoltsOfDoomCoreSystem().start();
 				}
 			}
 		};
@@ -87,5 +98,6 @@ public class LoadingWindow extends JFrame {
 		foregroundPanel.add(lblVoltsOfDoom);
 		foregroundPanel.add(btnLaunch);
 		foregroundPanel.add(btnCancel);
+		foregroundPanel.add(lblInfoMsg);
 	}
 }

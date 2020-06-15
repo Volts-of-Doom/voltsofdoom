@@ -19,7 +19,7 @@ import genelectrovise.voltsofdoom_coresystem.universal.util.Reference;
  * <br>
  * You could then append <code>.toString</code> to the end if you so wished.
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class VODJsonReader {

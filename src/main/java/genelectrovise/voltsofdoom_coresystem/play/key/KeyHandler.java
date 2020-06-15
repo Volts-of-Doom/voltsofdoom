@@ -3,13 +3,12 @@ package genelectrovise.voltsofdoom_coresystem.play.key;
 import static org.lwjgl.glfw.GLFW.*;
 
 import genelectrovise.voltsofdoom_coresystem.play.adventure.levelcontainer.KeyDictionary;
-import genelectrovise.voltsofdoom_coresystem.universal.log.VODLog4J;
 import genelectrovise.voltsofdoom_coresystem.universal.opengl.WindowHolder;
 
 /**
  * A handy class for handling keystrokes!
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class KeyHandler {

@@ -13,14 +13,17 @@ public class AdventureLoader {
 
 	private ArrayList<Adventure> adventures = new ArrayList<Adventure>();
 
-	public void init() {
+	public AdventureLoader init() {
 		adventures = constructAdventures(finder.getAdventures());
+
 		for (Adventure adv : adventures) {
 			for (LevelContainer cont : adv.getLevels()) {
 				VODLog4J.LOGGER.debug(cont.getMeta().toString());
 				VODLog4J.LOGGER.debug(cont.getMap().toString());
 			}
 		}
+
+		return this;
 	}
 
 	/**

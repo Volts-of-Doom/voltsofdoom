@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 /**
  * Contains a load of {@link RenderableObj}s
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class RenderablesContainer {

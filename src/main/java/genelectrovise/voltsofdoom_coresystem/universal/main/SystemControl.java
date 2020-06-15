@@ -2,9 +2,8 @@ package genelectrovise.voltsofdoom_coresystem.universal.main;
 
 import java.io.IOException;
 
-import genelectrovise.voltsofdoom_coresystem.loading.LoaderMissionControl;
+import genelectrovise.voltsofdoom_coresystem.loading.JarLoadingManager;
 import genelectrovise.voltsofdoom_coresystem.loading.LoaderReference;
-import genelectrovise.voltsofdoom_coresystem.loading.registry.Registry;
 import genelectrovise.voltsofdoom_coresystem.loading.registry.RegistryLoaderMissionControl;
 import genelectrovise.voltsofdoom_coresystem.loading.resource.search.JarFinder;
 import genelectrovise.voltsofdoom_coresystem.loading.resource.search.JarScanner;
@@ -18,45 +17,28 @@ public class SystemControl {
 	private WindowHolder windowholder = new WindowHolder(this);
 
 	// Stage 1 (Load jars)
-	private LoaderMissionControl loaderMissionControl;
-	private JarFinder jarFinder;
+	public JarLoadingManager loaderMissionControl;
+	public JarFinder jarFinder;
 	private JarScanner jarScanner;
-	private LoaderReference lref;
+	public LoaderReference lref;
 
 	// Stage 2(Load registries)
-	private RegistryLoaderMissionControl registryMissionControl = new RegistryLoaderMissionControl();
-	private AdventureLoader adventureloader = new AdventureLoader();
+	public RegistryLoaderMissionControl registryMissionControl = new RegistryLoaderMissionControl();
+	public AdventureLoader adventureloader = new AdventureLoader();
 
 	public boolean loadingComplete = false;
 
 	public SystemControl() throws IOException {
 		jarFinder = new JarFinder();
 		jarScanner = new JarScanner();
-		loaderMissionControl = new LoaderMissionControl(jarFinder, jarScanner);
+		loaderMissionControl = new JarLoadingManager(jarFinder, jarScanner);
 	}
 
 	public void begin() throws IOException {
 		postInit();
 	}
-	
-	public Registry createRegistry() {
-		initStage1();
-		initStage2();
-		return Registry.getInstance();
-	}
 
-	/**
-	 * Initialises the game. Calls init() methods on MissionControl classes in order
-	 * to load the game.
-	 */
-	public void initStage1() {
-		loaderMissionControl.init();
-		lref = loaderMissionControl.getLref();
-
-		registryMissionControl.init(lref);
-	}
-
-	public void initStage2() {
+	public void initAdventures() {
 		adventureloader.init();
 	}
 
@@ -84,7 +66,7 @@ public class SystemControl {
 		return registryMissionControl;
 	}
 
-	public LoaderMissionControl getLoaderMissionControl() {
+	public JarLoadingManager getLoaderMissionControl() {
 		return loaderMissionControl;
 	}
 

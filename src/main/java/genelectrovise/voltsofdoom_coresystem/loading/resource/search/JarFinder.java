@@ -11,7 +11,7 @@ import genelectrovise.voltsofdoom_coresystem.universal.util.Reference;
 /**
  * Loads the <b>.JAR</b> files in the <b>Reference.MODS_DIRECTORY</b>
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class JarFinder {

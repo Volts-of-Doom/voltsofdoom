@@ -5,7 +5,7 @@ import static org.lwjgl.glfw.GLFW.glfwGetKey;
 
 /**
  * Extend this class to create custom keybinds for a level.
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public abstract class KeyDictionary {

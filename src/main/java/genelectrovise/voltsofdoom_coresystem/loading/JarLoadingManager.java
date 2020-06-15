@@ -4,55 +4,43 @@ import genelectrovise.voltsofdoom_coresystem.loading.resource.search.JarFinder;
 import genelectrovise.voltsofdoom_coresystem.loading.resource.search.JarScanner;
 import genelectrovise.voltsofdoom_coresystem.universal.log.VODLog4J;
 
-public class LoaderMissionControl {
+public class JarLoadingManager {
 	private JarFinder finder;
 	private JarScanner scanner;
 	private VODClassLoader loader;
 	private LoaderReference lref = new LoaderReference();
 
 	/**
-	 * <code>public static void main(String[] args) {
-		LoaderMissionControl control = new LoaderMissionControl(new JarFinder(), new JarScanner());
-		control.init();
-	}</code>
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		LoaderMissionControl control = new LoaderMissionControl(new JarFinder(), new JarScanner());
-		control.init();
-	}
-
-	/**
-	 * What is says on the tin -- controls the jar loading process. Please give new instances of the three required
-	 * classes.
+	 * What is says on the tin -- controls the jar loading process. Please give new
+	 * instances of the three required classes.
 	 * 
 	 * @param finder
 	 * @param scanner
 	 * @param loader
 	 */
-	public LoaderMissionControl(JarFinder finder, JarScanner scanner) {
+	public JarLoadingManager(JarFinder finder, JarScanner scanner) {
 		this.finder = finder;
 		this.scanner = scanner;
 	}
 
 	// Methods
-	public LoaderMissionControl init() {
+	public JarLoadingManager init() {
 		// Gets a list of the jars / javas in the mods directory
-		lref.setJarsInDir(finder.getListOfJarsInDirectory());
+		LoaderReference.Jars.setJarsInDir(finder.getListOfJarsInDirectory());
 
 		// Creates a URLClassLoader for those URLs
-		loader = new VODClassLoader(finder.fileArrToUrls(lref.getJarsInDir()));
-		lref.setModsClassLoader(loader);
+		loader = new VODClassLoader(finder.fileArrToUrls(LoaderReference.Jars.getJarsInDir()));
+		LoaderReference.Reflections.setModsClassLoader(loader);
 
 		// Finds @Mod Annotations in those loaded jars' classes
-		lref.setMods(scanner.findModAnnotations(loader, lref));
+		LoaderReference.Mods.setMods(scanner.findModAnnotations(loader, lref));
 
 		return this;
 	}
-	
+
 	/**
-	 * The plan of action! The master plan! This sysout has it all (for the mod loading) !
+	 * The plan of action! The master plan! This sysout has it all (for the mod
+	 * loading) !
 	 */
 	public static void planOfAction() {
 		VODLog4J.LOGGER.info(
@@ -89,6 +77,5 @@ public class LoaderMissionControl {
 	public LoaderReference getLref() {
 		return lref;
 	}
-	
-	
+
 }

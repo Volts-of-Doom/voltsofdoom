@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 /**
  * Denotes a class which serves as the main class for a Mod. Class should also implement IModMainClass.
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public @interface Mod {

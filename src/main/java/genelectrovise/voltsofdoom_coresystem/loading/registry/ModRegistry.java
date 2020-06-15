@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * Contains a HashMap of RegistryObjects serving as the registry for a @Mod
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class ModRegistry {

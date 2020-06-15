@@ -2,31 +2,70 @@ package genelectrovise.voltsofdoom_coresystem.universal.opengl;
 
 import static genelectrovise.voltsofdoom_coresystem.universal.util.GLUtils.createShader;
 import static genelectrovise.voltsofdoom_coresystem.universal.util.IOUtil.ioResourceToByteBuffer;
-import static org.lwjgl.opengl.GL30C.*;
-import static org.lwjgl.stb.STBImage.*;
+import static org.lwjgl.opengl.GL11C.GL_BLEND;
+import static org.lwjgl.opengl.GL11C.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11C.GL_FLOAT;
+import static org.lwjgl.opengl.GL11C.GL_NEAREST;
+import static org.lwjgl.opengl.GL11C.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11C.GL_REPEAT;
+import static org.lwjgl.opengl.GL11C.GL_RGBA;
+import static org.lwjgl.opengl.GL11C.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11C.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11C.GL_TEXTURE_MAG_FILTER;
+import static org.lwjgl.opengl.GL11C.GL_TEXTURE_MIN_FILTER;
+import static org.lwjgl.opengl.GL11C.GL_TEXTURE_WRAP_S;
+import static org.lwjgl.opengl.GL11C.GL_TEXTURE_WRAP_T;
+import static org.lwjgl.opengl.GL11C.GL_TRIANGLES;
+import static org.lwjgl.opengl.GL11C.GL_UNSIGNED_BYTE;
+import static org.lwjgl.opengl.GL11C.glBindTexture;
+import static org.lwjgl.opengl.GL11C.glBlendFunc;
+import static org.lwjgl.opengl.GL11C.glClear;
+import static org.lwjgl.opengl.GL11C.glDrawArrays;
+import static org.lwjgl.opengl.GL11C.glEnable;
+import static org.lwjgl.opengl.GL11C.glGenTextures;
+import static org.lwjgl.opengl.GL11C.glTexImage2D;
+import static org.lwjgl.opengl.GL11C.glTexParameteri;
+import static org.lwjgl.opengl.GL15C.GL_ARRAY_BUFFER;
+import static org.lwjgl.opengl.GL15C.GL_STATIC_DRAW;
+import static org.lwjgl.opengl.GL15C.glBindBuffer;
+import static org.lwjgl.opengl.GL15C.glBufferData;
+import static org.lwjgl.opengl.GL15C.glDeleteBuffers;
+import static org.lwjgl.opengl.GL15C.glGenBuffers;
+import static org.lwjgl.opengl.GL20C.GL_FRAGMENT_SHADER;
+import static org.lwjgl.opengl.GL20C.GL_LINK_STATUS;
+import static org.lwjgl.opengl.GL20C.GL_VERTEX_SHADER;
+import static org.lwjgl.opengl.GL20C.glAttachShader;
+import static org.lwjgl.opengl.GL20C.glCreateProgram;
+import static org.lwjgl.opengl.GL20C.glEnableVertexAttribArray;
+import static org.lwjgl.opengl.GL20C.glGetAttribLocation;
+import static org.lwjgl.opengl.GL20C.glGetProgramInfoLog;
+import static org.lwjgl.opengl.GL20C.glGetProgrami;
+import static org.lwjgl.opengl.GL20C.glGetUniformLocation;
+import static org.lwjgl.opengl.GL20C.glLinkProgram;
+import static org.lwjgl.opengl.GL20C.glUniform1i;
+import static org.lwjgl.opengl.GL20C.glUseProgram;
+import static org.lwjgl.opengl.GL20C.glVertexAttribPointer;
+import static org.lwjgl.opengl.GL30C.glBindVertexArray;
+import static org.lwjgl.opengl.GL30C.glGenVertexArrays;
+import static org.lwjgl.stb.STBImage.stbi_image_free;
+import static org.lwjgl.stb.STBImage.stbi_load_from_memory;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import java.util.ArrayList;
 
 import org.lwjgl.BufferUtils;
 
 import genelectrovise.voltsofdoom_coresystem.play.key.KeyHandler;
-import genelectrovise.voltsofdoom_coresystem.play.key.TestLevelKeyDictionary;
 import genelectrovise.voltsofdoom_coresystem.universal.main.SystemControl;
-import genelectrovise.voltsofdoom_coresystem.universal.main.VoltsOfDoomCoreSystem;
 import genelectrovise.voltsofdoom_coresystem.universal.opengl.render.AdventureSelectionRenderer;
 import genelectrovise.voltsofdoom_coresystem.universal.opengl.render.LevelRenderer;
-import genelectrovise.voltsofdoom_coresystem.universal.opengl.render.LoadingScreenRenderer;
-import genelectrovise.voltsofdoom_coresystem.universal.opengl.render.TestLevelRenderer;
 
 /**
  * This is a big one. Handles and delegate the drawing of the game screen.
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class RenderEngine {

@@ -2,11 +2,6 @@ package genelectrovise.voltsofdoom_coresystem.universal.log;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.appender.FileAppender;
-import org.apache.logging.log4j.core.config.builder.api.AppenderComponentBuilder;
-import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
-import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilderFactory;
-import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
 
 public class VODLog4J {
 	public static final VODLog4J LOGGER = new VODLog4J();
@@ -31,10 +26,6 @@ public class VODLog4J {
 		 * 
 		 * configBuilder.add(appenderBuilder);
 		 */
-	}
-	
-	private String generateFileName() {
-		return "loggingfile_ln30_vodlog4j.log";
 	}
 
 	public void info(String msg) {

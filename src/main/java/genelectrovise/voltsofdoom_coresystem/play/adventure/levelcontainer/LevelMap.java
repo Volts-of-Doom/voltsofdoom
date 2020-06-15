@@ -16,7 +16,7 @@ import genelectrovise.voltsofdoom_coresystem.universal.log.VODLog4J;
 /**
  * A map of a level. Held in a LevelContainer.
  * 
- * @author adam_
+ * @author GenElectrovise
  * 
  * @see LevelContainer
  *

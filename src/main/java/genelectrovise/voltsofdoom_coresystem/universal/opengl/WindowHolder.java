@@ -1,36 +1,51 @@
 package genelectrovise.voltsofdoom_coresystem.universal.opengl;
 
-import org.lwjgl.glfw.*;
-import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GLCapabilities;
-import org.lwjgl.opengl.GLUtil;
-import org.lwjgl.system.*;
-
-import genelectrovise.voltsofdoom_coresystem.play.key.KeyHandler;
-import genelectrovise.voltsofdoom_coresystem.play.key.LoadingScreenKeyDictionary;
-import genelectrovise.voltsofdoom_coresystem.universal.log.VODLog4J;
-import genelectrovise.voltsofdoom_coresystem.universal.main.SystemControl;
-import genelectrovise.voltsofdoom_coresystem.universal.opengl.render.AdventureSelectionRenderer;
-import genelectrovise.voltsofdoom_coresystem.universal.opengl.render.LoadingScreenRenderer;
+import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MAJOR;
+import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MINOR;
+import static org.lwjgl.glfw.GLFW.GLFW_FALSE;
+import static org.lwjgl.glfw.GLFW.GLFW_VISIBLE;
+import static org.lwjgl.glfw.GLFW.glfwCreateWindow;
+import static org.lwjgl.glfw.GLFW.glfwDestroyWindow;
+import static org.lwjgl.glfw.GLFW.glfwInit;
+import static org.lwjgl.glfw.GLFW.glfwMakeContextCurrent;
+import static org.lwjgl.glfw.GLFW.glfwPollEvents;
+import static org.lwjgl.glfw.GLFW.glfwSetKeyCallback;
+import static org.lwjgl.glfw.GLFW.glfwSetWindowSizeCallback;
+import static org.lwjgl.glfw.GLFW.glfwShowWindow;
+import static org.lwjgl.glfw.GLFW.glfwSwapBuffers;
+import static org.lwjgl.glfw.GLFW.glfwTerminate;
+import static org.lwjgl.glfw.GLFW.glfwWindowHint;
+import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
+import static org.lwjgl.glfw.GLFW.nglfwGetFramebufferSize;
+import static org.lwjgl.opengl.GL11C.glViewport;
+import static org.lwjgl.system.MemoryUtil.NULL;
+import static org.lwjgl.system.MemoryUtil.memAddress;
 
 import java.nio.IntBuffer;
 
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL30C.*;
-import static org.lwjgl.system.MemoryUtil.*;
+import org.lwjgl.glfw.GLFWKeyCallback;
+import org.lwjgl.glfw.GLFWWindowSizeCallback;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GLCapabilities;
+import org.lwjgl.opengl.GLUtil;
+import org.lwjgl.system.Callback;
+import org.lwjgl.system.MemoryStack;
+
+import genelectrovise.voltsofdoom_coresystem.play.key.KeyHandler;
+import genelectrovise.voltsofdoom_coresystem.universal.log.VODLog4J;
+import genelectrovise.voltsofdoom_coresystem.universal.main.SystemControl;
+import genelectrovise.voltsofdoom_coresystem.universal.opengl.render.LoadingScreenRenderer;
 
 /**
  * Holds the game window, meaning that it is the manager and delegator for the
  * rendering/game loop.
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class WindowHolder extends Thread {
 
 	public static final boolean SHOULD_DO_OPENGL_DEBUG = false;
-
-	private SystemControl systemcontrol;
 
 	long window;
 	public int width = 1200;
@@ -45,7 +60,6 @@ public class WindowHolder extends Thread {
 
 	public WindowHolder(SystemControl systemControl) {
 		setName("render");
-		this.systemcontrol = systemControl;
 		renderengine = RenderEngine.instance.setSystemControl(systemControl);
 	}
 	

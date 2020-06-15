@@ -11,7 +11,7 @@ import genelectrovise.voltsofdoom_coresystem.play.adventure.levelcontainer.Level
  * Contains all of the LevelContainers for a new Adventure! Contains a lot of
  * metadata!
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class Adventure {

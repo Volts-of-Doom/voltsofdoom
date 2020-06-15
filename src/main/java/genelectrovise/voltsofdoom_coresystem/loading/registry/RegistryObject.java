@@ -22,7 +22,7 @@ public class RegistryObject<T> {
 		StringBuilder builder = new StringBuilder();
 		builder.append("RegistryObject{");
 
-		builder.append("Type=" + t.toString() + " Class=" + child.toString());
+		builder.append("Type=" + t + " Class=" + child);
 
 		builder.append("}");
 		return builder.toString();

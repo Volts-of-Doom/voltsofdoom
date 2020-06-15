@@ -10,7 +10,7 @@ import genelectrovise.voltsofdoom_coresystem.universal.util.Math.Dimensions.Enum
 /**
  * The {@link LevelRenderer} for the loading screen.
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class TestLevelRenderer extends LevelRenderer {

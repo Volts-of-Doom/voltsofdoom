@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Searches for JSON files in the /adventures resources folder.
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class AdventureFinder {

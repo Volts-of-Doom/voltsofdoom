@@ -1,15 +1,19 @@
 package genelectrovise.voltsofdoom_coresystem.universal.main;
 
-public class VoltsOfDoomCoreSystem {
-	private static GameController gamecontroller = new GameController();
+public class VoltsOfDoomCoreSystem extends Thread {
+	public static final GameController GAME_CONTROLLER = new GameController();
 
 	public static void main(String[] args) {
+		new VoltsOfDoomCoreSystem().start();
+	}
+	
+	public void start() {
 		initialiseGame();
 	}
 
-	private static void initialiseGame() {
+	private void initialiseGame() {
 		try {
-			gamecontroller.initialiseAll();
+			GAME_CONTROLLER.initialiseAll();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

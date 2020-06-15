@@ -6,7 +6,7 @@ import genelectrovise.voltsofdoom_coresystem.loading.resource.image.VODImage;
 /**
  * A very important thing.
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class Tile {
@@ -63,7 +63,7 @@ public class Tile {
 	/**
 	 * Defines the properties of a Tile using chainable methods.
 	 * 
-	 * @author adam_
+	 * @author GenElectrovise
 	 *
 	 */
 	public static class Properties {
@@ -103,7 +103,7 @@ public class Tile {
 	 * Defines an archetypal Tile -- All of the default properties a Tile of a given
 	 * type should have.
 	 * 
-	 * @author adam_
+	 * @author GenElectrovise
 	 *
 	 */
 	public static enum Archetype {

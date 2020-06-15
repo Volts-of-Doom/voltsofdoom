@@ -8,7 +8,7 @@ import genelectrovise.voltsofdoom_coresystem.play.tile.Tile;
 /**
  * A thing in a level which isn't a Tile is probably an Entity.
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  * @see Tile
  */
@@ -59,7 +59,7 @@ public class Entity {
 	/**
 	 * Defines the properties of a Tile using chainable methods.
 	 * 
-	 * @author adam_
+	 * @author GenElectrovise
 	 *
 	 */
 	public static class Properties {
@@ -99,7 +99,7 @@ public class Entity {
 	 * Defines an archetypal Tile -- All of the default properties a Tile of a given
 	 * type should have.
 	 * 
-	 * @author adam_
+	 * @author GenElectrovise
 	 *
 	 */
 	public static enum Archetype {

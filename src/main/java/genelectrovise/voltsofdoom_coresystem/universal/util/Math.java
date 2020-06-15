@@ -14,7 +14,7 @@ import genelectrovise.voltsofdoom_coresystem.universal.util.Math.Dimensions.Enum
  * "Maths" (which is obviously superior :-) ... just kidding), as it is more
  * natural for me to type "Math" when coding in Java.</i>
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class Math {
@@ -28,7 +28,7 @@ public class Math {
 	/**
 	 * Handles Geometry related operations, such as translating shapes.
 	 * 
-	 * @author adam_
+	 * @author GenElectrovise
 	 *
 	 */
 	public static class Geometry {
@@ -75,7 +75,7 @@ public class Math {
 	 * for example converting <b>Integer Game Coordinates</b> to <b>Integer Screen
 	 * Coordinates</b> to <b>OpenGL's Float Coordinate System</b>, and so on.
 	 * 
-	 * @author adam_
+	 * @author GenElectrovise
 	 *
 	 */
 	public static class Dimensions {
@@ -83,7 +83,7 @@ public class Math {
 		/**
 		 * A nice little Enum for the two values: <b>HOROZONTAL</b> and <b>VERTICAL</b>
 		 * 
-		 * @author adam_
+		 * @author GenElectrovise
 		 *
 		 */
 		public static enum EnumAxis {

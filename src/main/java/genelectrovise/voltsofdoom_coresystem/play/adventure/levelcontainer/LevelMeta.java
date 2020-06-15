@@ -5,7 +5,7 @@ import genelectrovise.voltsofdoom_coresystem.loading.resource.json.VODJsonReader
 /**
  * A convenience class containing all of the metadata for a levelcontainer.
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class LevelMeta {

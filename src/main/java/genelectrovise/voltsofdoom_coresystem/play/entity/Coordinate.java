@@ -3,7 +3,7 @@ package genelectrovise.voltsofdoom_coresystem.play.entity;
 /**
  * A coordinate on a grid.
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class Coordinate {

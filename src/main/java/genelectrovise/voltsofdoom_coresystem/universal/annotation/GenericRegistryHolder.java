@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 * Denotes a class which serves as the Registry for a Mod. The class should
 * contain all of the GenericRegistry objects for a Mod.
 * 
-* @author adam_
+* @author GenElectrovise
 *
 */
 public @interface GenericRegistryHolder {

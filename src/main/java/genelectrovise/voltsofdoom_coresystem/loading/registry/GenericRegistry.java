@@ -7,7 +7,7 @@ import genelectrovise.voltsofdoom_coresystem.universal.annotation.Mod;
 /**
  * A system inspired by the Minecraft Forge Deferred Registry.
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  * @param <T> The class of the registered type.
  */

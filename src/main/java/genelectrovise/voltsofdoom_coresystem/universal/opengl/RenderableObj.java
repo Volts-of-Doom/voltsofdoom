@@ -3,7 +3,7 @@ package genelectrovise.voltsofdoom_coresystem.universal.opengl;
 /**
  * Lemme guess.... an object which you can render.s
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class RenderableObj {

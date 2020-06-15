@@ -1,10 +1,8 @@
 package genelectrovise.voltsofdoom_coresystem.universal.main;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 import genelectrovise.voltsofdoom_coresystem.loading.registry.Registry;
-import genelectrovise.voltsofdoom_coresystem.loading.window.LoadingWindow;
 
 public class GameController {
 	private static SystemControl systemControl;
@@ -15,19 +13,14 @@ public class GameController {
 			// New instance of SystemControl
 			systemControl = new SystemControl();
 
-			// Run the launcher. Create the Registry when prompted by user.
-			runLauncher();
+			setRegistry(Registry.createInThreadedFashion());
 
 			// Begin the rest of the game
-			// systemControl.begin();
+			GameController.getSystemControl().begin();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	private void runLauncher() throws InterruptedException, ExecutionException {
-		new LoadingWindow().run();
 	}
 
 	// Get and set

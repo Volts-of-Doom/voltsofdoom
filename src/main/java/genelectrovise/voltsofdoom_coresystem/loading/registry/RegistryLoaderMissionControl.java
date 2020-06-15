@@ -9,23 +9,19 @@ import genelectrovise.voltsofdoom_coresystem.universal.log.VODLog4J;
 /**
  * Stage 2 of the game loading process. Loads all registries.
  * 
- * @author adam_
+ * @author GenElectrovise
  *
  */
 public class RegistryLoaderMissionControl {
-	private final Registry registry = Registry.getInstance();
 	private ArrayList<ModRegistry> listOfPreLoadingModRegistries;
 	private final RegistryQueue registryQueue = new RegistryQueue();
-	private LoaderReference lref;
 
-	public RegistryLoaderMissionControl init(LoaderReference lref) {
-		this.lref = lref;
-
+	public RegistryLoaderMissionControl init() {
 		// Populates the ArrayList of modInstances
-		lref.setModInstances(generateModInstances(lref));
+		LoaderReference.Mods.setModInstances(generateModInstances());
 
 		// Collects the registry classes from the modInstances
-		listOfPreLoadingModRegistries = collectModRegistries(lref);
+		listOfPreLoadingModRegistries = collectModRegistries();
 
 		// Adds everything in the listOfPreLoadingModRegistries to the GameRegistry
 		addModRegistriesToGameRegistry();
@@ -38,7 +34,7 @@ public class RegistryLoaderMissionControl {
 
 	private void addModRegistriesToGameRegistry() {
 		for (ModRegistry mr : listOfPreLoadingModRegistries) {
-			Registry.getInstance().getREGISTRY().put(mr.getModid(), mr);
+			Registry.getInstance().retrieve().put(mr.getModid(), mr);
 		}
 	}
 
@@ -53,13 +49,13 @@ public class RegistryLoaderMissionControl {
 	 * @param lref The LoaderMissionControl instance of LoaderReference.
 	 * @return An ArrayList of instances of mods.
 	 */
-	public ArrayList<Object> generateModInstances(LoaderReference lref) {
+	public ArrayList<Object> generateModInstances() {
 		VODLog4J.LOGGER
 				.status("Generating mod instances! If y'all have any GenericRegistries to submit, this is the time!");
 		try {
 			ArrayList<Object> instances = new ArrayList<Object>();
 
-			for (Class<?> clazz : lref.getMods()) {
+			for (Class<?> clazz : LoaderReference.Mods.getMods()) {
 				instances.add(clazz.newInstance());
 			}
 
@@ -78,11 +74,11 @@ public class RegistryLoaderMissionControl {
 	 * @param lref The LoaderMissionControl instance of LoaderReference.
 	 * @return An ArrayList of ModRegistries.
 	 */
-	public ArrayList<ModRegistry> collectModRegistries(LoaderReference lref) {
+	public ArrayList<ModRegistry> collectModRegistries() {
 
 		ArrayList<ModRegistry> mr = new ArrayList<ModRegistry>();
 
-		for (String modid : getAllModids(lref)) {
+		for (String modid : getAllModids()) {
 			mr.add(new ModRegistry(modid));
 		}
 
@@ -95,9 +91,9 @@ public class RegistryLoaderMissionControl {
 	 * @param lref The LoaderMissionControl instance of LoaderReference.
 	 * @return An ArrayList of Strings for all of the modids.
 	 */
-	private ArrayList<String> getAllModids(LoaderReference lref) {
+	private ArrayList<String> getAllModids() {
 		ArrayList<String> modids = new ArrayList<String>();
-		for (Class<?> clazz : lref.getMods()) {
+		for (Class<?> clazz : LoaderReference.Mods.getMods()) {
 			modids.add(clazz.getAnnotation(Mod.class).modid());
 		}
 
@@ -106,19 +102,11 @@ public class RegistryLoaderMissionControl {
 
 	// GETTERS AND SETTERS
 
-	public Registry getGameRegistry() {
-		return registry;
-	}
-
 	public ArrayList<ModRegistry> getListOfPreLoadingModRegistries() {
 		return listOfPreLoadingModRegistries;
 	}
 
 	public RegistryQueue getRegistryQueue() {
 		return registryQueue;
-	}
-
-	public LoaderReference getLref() {
-		return lref;
 	}
 }
