@@ -3,6 +3,7 @@ package genelectrovise.voltsofdoom_coresystem.loading.registry;
 import java.util.ArrayList;
 
 import genelectrovise.voltsofdoom_coresystem.loading.LoaderReference;
+import genelectrovise.voltsofdoom_coresystem.loading.registry.generic.ModRegistry;
 import genelectrovise.voltsofdoom_coresystem.universal.annotation.Mod;
 import genelectrovise.voltsofdoom_coresystem.universal.log.VODLog4J;
 

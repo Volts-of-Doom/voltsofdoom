@@ -1,6 +1,8 @@
 package genelectrovise.voltsofdoom_coresystem.play.tile;
 
-import genelectrovise.voltsofdoom_coresystem.loading.registry.RegistryObject;
+import genelectrovise.voltsofdoom_coresystem.loading.registry.generic.IRegistryEntry;
+import genelectrovise.voltsofdoom_coresystem.loading.registry.generic.RegistryObjectRetriever;
+import genelectrovise.voltsofdoom_coresystem.loading.resource.ResourceLocation;
 import genelectrovise.voltsofdoom_coresystem.loading.resource.image.VODImage;
 
 /**
@@ -9,14 +11,14 @@ import genelectrovise.voltsofdoom_coresystem.loading.resource.image.VODImage;
  * @author GenElectrovise
  *
  */
-public class Tile {
+public class Tile implements IRegistryEntry<Tile> {
 	private Tile.Properties properties;
 
 	public Tile(String modid, String registryName) {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Tile(RegistryObject<Tile> objFromModRegistry) {
+	public Tile(RegistryObjectRetriever<Tile> objFromModRegistry) {
 		// TODO Should take RegistryObject and turn self into duplicate
 	}
 
@@ -141,6 +143,18 @@ public class Tile {
 			return this.properties;
 		}
 
+	}
+
+	@Override
+	public ResourceLocation getIdentifier() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResourceLocation setIdentifier(ResourceLocation identifier) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

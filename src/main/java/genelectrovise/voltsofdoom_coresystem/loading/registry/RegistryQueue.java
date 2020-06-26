@@ -2,6 +2,8 @@ package genelectrovise.voltsofdoom_coresystem.loading.registry;
 
 import java.util.ArrayList;
 
+import genelectrovise.voltsofdoom_coresystem.loading.registry.generic.FinalisedTypeRegistry;
+import genelectrovise.voltsofdoom_coresystem.loading.registry.generic.ModRegistry;
 import genelectrovise.voltsofdoom_coresystem.play.entity.Entity;
 import genelectrovise.voltsofdoom_coresystem.play.tile.Tile;
 import genelectrovise.voltsofdoom_coresystem.universal.annotation.Mod;
@@ -10,17 +12,17 @@ import genelectrovise.voltsofdoom_coresystem.universal.main.ModItemTest;
 
 public class RegistryQueue {
 	private static final RegistryQueue instance = new RegistryQueue();
-	private ArrayList<GenericRegistry<?>> queuedRegistries = new ArrayList<GenericRegistry<?>>();
-	private ArrayList<GenericRegistry<?>> nativeRegistries = new ArrayList<GenericRegistry<?>>();
+	private ArrayList<FinalisedTypeRegistry<?>> queuedRegistries = new ArrayList<FinalisedTypeRegistry<?>>();
+	private ArrayList<FinalisedTypeRegistry<?>> nativeRegistries = new ArrayList<FinalisedTypeRegistry<?>>();
 	static ArrayList<Class<?>> types = new ArrayList<Class<?>>();
-	private ArrayList<GenericRegistry<?>> toAddThenDelete = new ArrayList<GenericRegistry<?>>();
+	private ArrayList<FinalisedTypeRegistry<?>> toAddThenDelete = new ArrayList<FinalisedTypeRegistry<?>>();
 
 	/**
 	 * The queue for registering stuff.
 	 */
-	private ArrayList<GenericRegistry<?>> queue = new ArrayList<GenericRegistry<?>>();
+	private ArrayList<FinalisedTypeRegistry<?>> queue = new ArrayList<FinalisedTypeRegistry<?>>();
 
-	public ArrayList<GenericRegistry<?>> getQueuedRegistries() {
+	public ArrayList<FinalisedTypeRegistry<?>> getQueuedRegistries() {
 		return queuedRegistries;
 	}
 
@@ -28,7 +30,7 @@ public class RegistryQueue {
 		return instance;
 	}
 
-	public void add(GenericRegistry<?> genericRegistry, Mod mod) {
+	public void add(FinalisedTypeRegistry<?> genericRegistry) {
 		queuedRegistries.add(genericRegistry);
 	}
 
@@ -43,11 +45,11 @@ public class RegistryQueue {
 	}
 
 	private void addQueueToGameRegistry() {
-		for (GenericRegistry<?> reg : queue) {
-			ModRegistry mr = Registry.getInstance().retrieve().get(reg.getModid());
+		for (FinalisedTypeRegistry<?> reg : queue) {
+			ModRegistry mr = Registry.getInstance().retrieve().retrieveSupplier(reg.getModid());
 
 			for (String key : reg.getMap().keySet()) {
-				mr.add(key, reg.getMap().get(key));
+				mr.add(key, reg.getMap().retrieveSupplier(key));
 				VODLog4J.LOGGER.debug("Adding item with registryName : " + key);
 			}
 		}
@@ -60,7 +62,7 @@ public class RegistryQueue {
 	private void seperateNativeRegistries() {
 		VODLog4J.LOGGER.debug("Seperating native registries!");
 
-		for (GenericRegistry<?> reg : queuedRegistries) {
+		for (FinalisedTypeRegistry<?> reg : queuedRegistries) {
 			if (reg.isNative) {
 				VODLog4J.LOGGER.debug(reg.toString() + " was native!");
 				nativeRegistries.add(reg);
@@ -77,12 +79,12 @@ public class RegistryQueue {
 	 * 
 	 * @param list A list to iterate through
 	 */
-	private void whileListPopulatedIterate(ArrayList<GenericRegistry<?>> list) {
+	private void whileListPopulatedIterate(ArrayList<FinalisedTypeRegistry<?>> list) {
 		VODLog4J.LOGGER.debug("While '" + list.toString() + "' is populated, will register contents in right order!");
 		while (list.size() > 0) {
 			VODLog4J.LOGGER.debug("List size greater than 0!");
 
-			for (GenericRegistry<?> reg : list) {
+			for (FinalisedTypeRegistry<?> reg : list) {
 				VODLog4J.LOGGER.debug("Testing types against type of " + reg.toString());
 				testTypesAndAddIfShould(reg);
 			}
@@ -97,7 +99,7 @@ public class RegistryQueue {
 	 * 
 	 * @param reg
 	 */
-	private void testTypesAndAddIfShould(GenericRegistry<?> reg) {
+	private void testTypesAndAddIfShould(FinalisedTypeRegistry<?> reg) {
 		for (Class<?> type : types) {
 			if (reg.getType() == type) {
 				VODLog4J.LOGGER.debug(reg.toString() + " was a type " + type.getName());
@@ -111,7 +113,7 @@ public class RegistryQueue {
 	private void cleanToAddAndDelete() {
 		VODLog4J.LOGGER.debug("Cleaning toAddAndDelete list");
 
-		for (GenericRegistry<?> reg : toAddThenDelete) {
+		for (FinalisedTypeRegistry<?> reg : toAddThenDelete) {
 			queue.add(reg);
 			queuedRegistries.remove(reg);
 		}

@@ -2,7 +2,9 @@ package genelectrovise.voltsofdoom_coresystem.play.entity;
 
 import javax.swing.ImageIcon;
 
-import genelectrovise.voltsofdoom_coresystem.loading.registry.RegistryObject;
+import genelectrovise.voltsofdoom_coresystem.loading.registry.generic.IRegistryEntry;
+import genelectrovise.voltsofdoom_coresystem.loading.registry.generic.RegistryObjectRetriever;
+import genelectrovise.voltsofdoom_coresystem.loading.resource.ResourceLocation;
 import genelectrovise.voltsofdoom_coresystem.play.tile.Tile;
 
 /**
@@ -12,10 +14,10 @@ import genelectrovise.voltsofdoom_coresystem.play.tile.Tile;
  *
  * @see Tile
  */
-public class Entity {
+public class Entity implements IRegistryEntry<Entity> {
 	private Entity.Properties properties;
 
-	public Entity(RegistryObject<Entity> objFromModRegistry) {
+	public Entity(RegistryObjectRetriever<Entity> objFromModRegistry) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -33,7 +35,7 @@ public class Entity {
 	public Entity(Entity.Archetype archetype) {
 		this.properties = archetype.toProperties();
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -135,5 +137,17 @@ public class Entity {
 			return this.properties;
 		}
 
+	}
+
+	@Override
+	public ResourceLocation getIdentifier() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResourceLocation setIdentifier(ResourceLocation identifier) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
