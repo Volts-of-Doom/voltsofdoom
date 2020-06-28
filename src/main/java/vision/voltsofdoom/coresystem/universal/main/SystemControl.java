@@ -2,11 +2,6 @@ package vision.voltsofdoom.coresystem.universal.main;
 
 import java.io.IOException;
 
-import vision.voltsofdoom.coresystem.loading.JarLoadingManager;
-import vision.voltsofdoom.coresystem.loading.LoaderReference;
-import vision.voltsofdoom.coresystem.loading.registry.RegistryLoaderMissionControl;
-import vision.voltsofdoom.coresystem.loading.resource.search.JarFinder;
-import vision.voltsofdoom.coresystem.loading.resource.search.JarScanner;
 import vision.voltsofdoom.coresystem.play.adventure.AdventureLoader;
 import vision.voltsofdoom.coresystem.universal.opengl.WindowHolder;
 
@@ -16,23 +11,10 @@ public class SystemControl {
 	// PreInit
 	private WindowHolder windowholder = new WindowHolder(this);
 
-	// Stage 1 (Load jars)
-	public JarLoadingManager loaderMissionControl;
-	public JarFinder jarFinder;
-	private JarScanner jarScanner;
-	public LoaderReference lref;
-
 	// Stage 2(Load registries)
-	public RegistryLoaderMissionControl registryMissionControl = new RegistryLoaderMissionControl();
 	public AdventureLoader adventureloader = new AdventureLoader();
 
 	public boolean loadingComplete = false;
-
-	public SystemControl() throws IOException {
-		jarFinder = new JarFinder();
-		jarScanner = new JarScanner();
-		loaderMissionControl = new JarLoadingManager(jarFinder, jarScanner);
-	}
 
 	public void begin() throws IOException {
 		postInit();
@@ -60,30 +42,6 @@ public class SystemControl {
 
 	public AdventureLoader getAdventureloader() {
 		return adventureloader;
-	}
-
-	public RegistryLoaderMissionControl getRegistryMissionControl() {
-		return registryMissionControl;
-	}
-
-	public JarLoadingManager getLoaderMissionControl() {
-		return loaderMissionControl;
-	}
-
-	public JarFinder getJarFinder() {
-		return jarFinder;
-	}
-
-	public JarScanner getJarScanner() {
-		return jarScanner;
-	}
-
-	public RegistryLoaderMissionControl getRegistryLoader() {
-		return registryMissionControl;
-	}
-
-	public LoaderReference getLref() {
-		return lref;
 	}
 
 	public WindowHolder getWindowHolder() {

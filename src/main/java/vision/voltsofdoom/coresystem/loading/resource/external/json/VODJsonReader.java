@@ -1,4 +1,4 @@
-package vision.voltsofdoom.coresystem.loading.resource.json;
+package vision.voltsofdoom.coresystem.loading.resource.external.json;
 
 import java.io.BufferedReader;
 import java.io.File;

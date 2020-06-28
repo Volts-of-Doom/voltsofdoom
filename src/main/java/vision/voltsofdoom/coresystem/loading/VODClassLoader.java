@@ -3,25 +3,22 @@ package vision.voltsofdoom.coresystem.loading;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-public class VODClassLoader {
-	private URLClassLoader loader;
+/**
+ * A storage and utility class for the game's mod ClassLoader to load mod jar
+ * files.
+ */
+public class VODClassLoader extends URLClassLoader {
 	private URL[] urls;
 
 	/**
-	 * A storage and utility class for the game's mod ClassLoader to load mod jar files.
-	 * 
-	 * @param loader A new instance of a URLClassLoader
+	 * @param urls An array of {@link URL}s which point to jar files to load.
 	 */
 	public VODClassLoader(URL[] urls) {
-		this.loader = new URLClassLoader(urls);
+		super(urls);
 		this.urls = urls;
 	}
-	
-	// Get and set
 
-	public URLClassLoader getLoader() {
-		return loader;
-	}
+	// Get and set
 
 	public URL[] getUrls() {
 		return urls;

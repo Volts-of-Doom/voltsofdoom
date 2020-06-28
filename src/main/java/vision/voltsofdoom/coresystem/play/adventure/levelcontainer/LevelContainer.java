@@ -1,7 +1,7 @@
 package vision.voltsofdoom.coresystem.play.adventure.levelcontainer;
 
+import vision.voltsofdoom.coresystem.loading.resource.external.json.VODJsonReader;
 import vision.voltsofdoom.coresystem.loading.resource.image.LevelTextureStitcher;
-import vision.voltsofdoom.coresystem.loading.resource.json.VODJsonReader;
 
 public class LevelContainer {
 	private LevelMeta meta;

@@ -3,8 +3,8 @@ package vision.voltsofdoom.coresystem.play.adventure;
 import java.io.File;
 import java.util.ArrayList;
 
-import vision.voltsofdoom.coresystem.loading.resource.json.VODJsonReader;
-import vision.voltsofdoom.coresystem.loading.resource.search.LevelMapFinder;
+import vision.voltsofdoom.coresystem.loading.resource.external.LevelMapFinder;
+import vision.voltsofdoom.coresystem.loading.resource.external.json.VODJsonReader;
 import vision.voltsofdoom.coresystem.play.adventure.levelcontainer.LevelContainer;
 
 /**
