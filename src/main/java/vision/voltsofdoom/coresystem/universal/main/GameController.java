@@ -2,6 +2,7 @@ package vision.voltsofdoom.coresystem.universal.main;
 
 import java.io.IOException;
 
+import vision.voltsofdoom.coresystem.loading.LoadingManager;
 import vision.voltsofdoom.coresystem.loading.registry.Registry;
 
 public class GameController {
@@ -10,8 +11,8 @@ public class GameController {
 
 	public void initialiseAll() throws IOException {
 		try {
-			// New instance of SystemControl
-			systemControl = new SystemControl();
+			
+			LoadingManager.load();
 
 			setRegistry(Registry.createInThreadedFashion());
 
