@@ -1,6 +1,6 @@
 package vision.voltsofdoom.coresystem.play.adventure.levelcontainer;
 
-import vision.voltsofdoom.coresystem.loading.resource.external.json.VODJsonReader;
+import vision.voltsofdoom.coresystem.loading.resource.VODJsonReader;
 
 /**
  * A convenience class containing all of the metadata for a levelcontainer.

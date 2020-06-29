@@ -5,10 +5,13 @@ import java.net.URL;
 import java.util.LinkedHashMap;
 
 import org.reflections.scanners.MethodAnnotationsScanner;
+import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
 
 import vision.voltsofdoom.coresystem.loading.VODClassLoader;
 import vision.voltsofdoom.coresystem.loading.resource.jar.JarMapper;
+import vision.voltsofdoom.coresystem.universal.annotation.Mod;
+import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
 
 public class Reflectories {
 
@@ -29,11 +32,16 @@ public class Reflectories {
 			try {
 
 				Reflectory.Builder builder = new Reflectory.Builder();
-				builder.withClassLoader(new VODClassLoader(new URL[] { file.toURI().toURL() }));
+				URL[] urls = new URL[] { file.toURI().toURL() };
+				builder.withClassLoader(new VODClassLoader(urls));
 				builder.withScanner(new TypeAnnotationsScanner());
 				builder.withScanner(new MethodAnnotationsScanner());
+				builder.withScanner(new SubTypesScanner(false));
 				Reflectory reflectory = builder.build();
 				reflectories.putIfAbsent(file.getName(), reflectory);
+				
+				reflectory.getReflections().getTypesAnnotatedWith(Mod.class);
+				reflectory.getReflections().getMethodsAnnotatedWith(Stowaway.class);
 
 			} catch (Exception e) {
 				e.printStackTrace();

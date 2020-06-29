@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
-import vision.voltsofdoom.coresystem.loading.resource.external.AdventureFinder;
+import vision.voltsofdoom.coresystem.loading.resource.AdventureFinder;
 import vision.voltsofdoom.coresystem.play.adventure.levelcontainer.LevelContainer;
 import vision.voltsofdoom.coresystem.play.adventure.levelcontainer.LevelMeta;
 

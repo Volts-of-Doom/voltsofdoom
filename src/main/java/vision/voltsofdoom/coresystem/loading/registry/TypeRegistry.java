@@ -1,4 +1,4 @@
-package vision.voltsofdoom.coresystem.loading.registry.type;
+package vision.voltsofdoom.coresystem.loading.registry;
 
 import java.util.LinkedHashMap;
 import java.util.Objects;

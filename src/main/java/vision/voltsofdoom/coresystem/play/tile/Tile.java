@@ -1,7 +1,7 @@
 package vision.voltsofdoom.coresystem.play.tile;
 
-import vision.voltsofdoom.coresystem.loading.registry.type.IRegistryEntry;
-import vision.voltsofdoom.coresystem.loading.registry.type.RegistryObjectRetriever;
+import vision.voltsofdoom.coresystem.loading.registry.IRegistryEntry;
+import vision.voltsofdoom.coresystem.loading.registry.RegistryObjectRetriever;
 import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 import vision.voltsofdoom.coresystem.loading.resource.image.VODImage;
 

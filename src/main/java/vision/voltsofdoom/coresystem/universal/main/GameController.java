@@ -11,13 +11,14 @@ public class GameController {
 
 	public void initialiseAll() throws IOException {
 		try {
-			
+
 			LoadingManager.load();
 
-			setRegistry(Registry.createInThreadedFashion());
-
-			// Begin the rest of the game
-			GameController.getSystemControl().begin();
+			/*
+			 * setRegistry(Registry.createInThreadedFashion());
+			 * 
+			 * GameController.getSystemControl().begin();
+			 */
 
 		} catch (Exception e) {
 			e.printStackTrace();

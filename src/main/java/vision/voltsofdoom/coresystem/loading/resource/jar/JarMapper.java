@@ -16,7 +16,7 @@ public class JarMapper {
 	public static ArrayList<File> find() {
 		ArrayList<File> out = new ArrayList<File>();
 
-		File modsDir = new File(Reference.ROAMING);
+		File modsDir = new File(Reference.MODS_DIRECTORY);
 		for (File file : modsDir.listFiles()) {
 			if (file.getName().endsWith(".jar")) {
 				out.add(file);

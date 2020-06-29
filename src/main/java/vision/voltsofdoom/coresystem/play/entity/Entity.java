@@ -3,8 +3,8 @@ package vision.voltsofdoom.coresystem.play.entity;
 import javax.swing.ImageIcon;
 
 import vision.voltsofdoom.coresystem.play.tile.Tile;
-import vision.voltsofdoom.coresystem.loading.registry.type.IRegistryEntry;
-import vision.voltsofdoom.coresystem.loading.registry.type.RegistryObjectRetriever;
+import vision.voltsofdoom.coresystem.loading.registry.IRegistryEntry;
+import vision.voltsofdoom.coresystem.loading.registry.RegistryObjectRetriever;
 import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 
 /**

@@ -1,4 +1,4 @@
-package vision.voltsofdoom.coresystem.loading.resource.external;
+package vision.voltsofdoom.coresystem.loading.resource;
 
 import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
 import vision.voltsofdoom.coresystem.universal.util.Reference;

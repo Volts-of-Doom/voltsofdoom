@@ -7,7 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import vision.voltsofdoom.coresystem.loading.resource.external.json.VODJsonReader;
+import vision.voltsofdoom.coresystem.loading.resource.VODJsonReader;
 import vision.voltsofdoom.coresystem.play.entity.Coordinate;
 import vision.voltsofdoom.coresystem.play.entity.Entity;
 import vision.voltsofdoom.coresystem.play.tile.Tile;

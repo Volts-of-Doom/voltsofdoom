@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanner;
+import org.reflections.util.ClasspathHelper;
+import org.reflections.util.ConfigurationBuilder;
 
 import vision.voltsofdoom.coresystem.loading.VODClassLoader;
 
@@ -34,7 +36,12 @@ public class Reflectory {
 	 * @return this {@link Reflectory}
 	 */
 	public Reflectory index() {
-		reflections = new Reflections(classLoader, scanners);
+		ConfigurationBuilder configBuilder = new ConfigurationBuilder();
+		configBuilder.setUrls(ClasspathHelper.forClassLoader(classLoader));
+		configBuilder.addClassLoader(classLoader);
+		configBuilder.addScanners(scanners);
+
+		reflections = new Reflections(configBuilder);
 		return this;
 	}
 
@@ -45,7 +52,7 @@ public class Reflectory {
 	public Scanner[] getScanners() {
 		return scanners;
 	}
-	
+
 	public Reflections getReflections() {
 		return reflections;
 	}

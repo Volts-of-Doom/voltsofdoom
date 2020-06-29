@@ -1,9 +1,8 @@
-package vision.voltsofdoom.coresystem.loading.registry.type;
+package vision.voltsofdoom.coresystem.loading.registry;
 
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import vision.voltsofdoom.coresystem.loading.registry.Registry;
 import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 
 /**

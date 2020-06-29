@@ -78,6 +78,7 @@ public class Launcher extends JFrame {
 					launched = true;
 					btnLaunch.setEnabled(false);
 					new VoltsOfDoomCoreSystem().start();
+					window.dispose();
 				}
 			}
 		};

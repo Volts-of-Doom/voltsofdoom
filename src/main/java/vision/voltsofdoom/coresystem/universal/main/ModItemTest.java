@@ -1,6 +1,6 @@
 package vision.voltsofdoom.coresystem.universal.main;
 
-import vision.voltsofdoom.coresystem.loading.registry.type.IRegistryEntry;
+import vision.voltsofdoom.coresystem.loading.registry.IRegistryEntry;
 import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 
 public class ModItemTest implements IRegistryEntry<ModItemTest> {
