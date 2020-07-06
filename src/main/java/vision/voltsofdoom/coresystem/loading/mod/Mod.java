@@ -1,4 +1,4 @@
-package vision.voltsofdoom.coresystem.universal.annotation;
+package vision.voltsofdoom.coresystem.loading.mod;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

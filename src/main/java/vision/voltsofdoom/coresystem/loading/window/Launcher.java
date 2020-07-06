@@ -13,7 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
 
+import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
+import vision.voltsofdoom.coresystem.universal.util.StringUtils;
 
 public class Launcher extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -22,7 +24,6 @@ public class Launcher extends JFrame {
 	private static Launcher window;
 	private JPanel foregroundPanel = new JPanel();
 	private JLabel lblVoltsOfDoom = new JLabel("Volts of Doom");
-	private JLabel lblInfoMsg = new JLabel("Launcher info will appear here!");
 	private JButton btnLaunch = new JButton("Launch");
 	private JButton btnCancel = new JButton("Cancel");
 
@@ -30,7 +31,7 @@ public class Launcher extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		updateContents();
 	}
-	
+
 	public static void main(String[] args) {
 		Thread.currentThread().setName("launcher");
 		run();
@@ -65,10 +66,6 @@ public class Launcher extends JFrame {
 		lblVoltsOfDoom.setFont(new Font("Yu Gothic UI Light", Font.BOLD | Font.ITALIC, 15));
 		lblVoltsOfDoom.setBounds(10, 11, 111, 21);
 
-		// Msg label
-		lblInfoMsg.setFont(new Font("Yu Gothic UI Light", Font.BOLD | Font.ITALIC, 11));
-		lblInfoMsg.setBounds(30, 31, 111, 21);
-
 		// Launch button
 		btnLaunch.setBounds(325, 181, 89, 23);
 		ActionListener launchBtnListener = new ActionListener() {
@@ -77,7 +74,13 @@ public class Launcher extends JFrame {
 				if (!launched) {
 					launched = true;
 					btnLaunch.setEnabled(false);
-					new VoltsOfDoomCoreSystem().start();
+
+					String[] arguments = VoltsOfDoomCoreSystem.getVMArgs();
+					VODLog4J.LOGGER.info("Running Java Vitual Machine (JVM) with arguments: "
+							+ StringUtils.arrayToString(arguments));
+
+					VoltsOfDoomCoreSystem.main(arguments);
+
 					window.dispose();
 				}
 			}
@@ -99,6 +102,5 @@ public class Launcher extends JFrame {
 		foregroundPanel.add(lblVoltsOfDoom);
 		foregroundPanel.add(btnLaunch);
 		foregroundPanel.add(btnCancel);
-		foregroundPanel.add(lblInfoMsg);
 	}
 }

@@ -2,16 +2,18 @@ package vision.voltsofdoom.coresystem.loading.reflectory;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.Set;
 
 import org.reflections.scanners.MethodAnnotationsScanner;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
 
 import vision.voltsofdoom.coresystem.loading.VODClassLoader;
+import vision.voltsofdoom.coresystem.loading.reflectory.Reflectory.Builder;
 import vision.voltsofdoom.coresystem.loading.resource.jar.JarMapper;
-import vision.voltsofdoom.coresystem.universal.annotation.Mod;
-import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
+import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 
 public class Reflectories {
 
@@ -31,23 +33,34 @@ public class Reflectories {
 
 			try {
 
-				Reflectory.Builder builder = new Reflectory.Builder();
+				Reflectory.Builder builder = defaultBuilder();
 				URL[] urls = new URL[] { file.toURI().toURL() };
 				builder.withClassLoader(new VODClassLoader(urls));
-				builder.withScanner(new TypeAnnotationsScanner());
-				builder.withScanner(new MethodAnnotationsScanner());
-				builder.withScanner(new SubTypesScanner(false));
 				Reflectory reflectory = builder.build();
 				reflectories.putIfAbsent(file.getName(), reflectory);
-				
-				reflectory.getReflections().getTypesAnnotatedWith(Mod.class);
-				reflectory.getReflections().getMethodsAnnotatedWith(Stowaway.class);
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 		}
+
+		Reflectory vodRefl = defaultBuilder().withClassLoader(VoltsOfDoomCoreSystem.class.getClassLoader()).build();
+		reflectories.putIfAbsent("volts_of_doom_core_system", vodRefl);
+	}
+
+	/**
+	 * A {@link Builder} with default properties. Does not contain a
+	 * {@link ClassLoader}.
+	 * 
+	 * @return The builder.
+	 */
+	public static Reflectory.Builder defaultBuilder() {
+		Reflectory.Builder builder = new Reflectory.Builder();
+		builder.withScanner(new TypeAnnotationsScanner());
+		builder.withScanner(new MethodAnnotationsScanner());
+		builder.withScanner(new SubTypesScanner(false));
+		return builder;
 	}
 
 	/**
@@ -59,5 +72,13 @@ public class Reflectories {
 	 */
 	public static Reflectory get(String key) {
 		return reflectories.get(key);
+	}
+
+	public static Set<String> keyset() {
+		return reflectories.keySet();
+	}
+
+	public static Collection<Reflectory> values() {
+		return reflectories.values();
 	}
 }

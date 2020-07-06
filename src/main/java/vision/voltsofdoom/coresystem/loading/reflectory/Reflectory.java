@@ -7,8 +7,6 @@ import org.reflections.scanners.Scanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
-import vision.voltsofdoom.coresystem.loading.VODClassLoader;
-
 /**
  * A place for the Volts of Doom monks to search through jar files in peace.
  * 
@@ -80,7 +78,7 @@ public class Reflectory {
 		 * @param classLoader
 		 * @return This {@link Builder}
 		 */
-		public Builder withClassLoader(VODClassLoader classLoader) {
+		public Builder withClassLoader(ClassLoader classLoader) {
 			reflectory.classLoader = classLoader;
 			return this;
 		}

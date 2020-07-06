@@ -1,7 +1,15 @@
 package vision.voltsofdoom.coresystem.universal.band_wagon;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.function.Consumer;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import vision.voltsofdoom.coresystem.loading.reflectory.Reflectory;
+import vision.voltsofdoom.coresystem.universal.event.LoadingEvent;
+import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
 
 /**
  * Sick of hearing about event buses? Well Volts of Doom has a
@@ -13,16 +21,107 @@ import java.util.function.Consumer;
 public class BandWagon {
 
 	/** The methods found to be annotated with {@link Stowaway} */
-	public static ArrayList<Consumer<Event>> stowawayEventConsumerMethods = new ArrayList<Consumer<Event>>();
+	public static ArrayList<Method> stowawayMethods = new ArrayList<Method>();
 
-	public static void stowawayMethod(Consumer<Event> eventConsumer) {
-		stowawayEventConsumerMethods.add(eventConsumer);
+	public static void stowawayMethod(Method method) {
+		stowawayMethods.add(method);
 	}
 
+	/**
+	 * Play the given {@link Event} for all listeners of the {@link Event}'s type...
+	 * Like a song! <i>a - 1...! a - 2...! a - 1! 2! 3! 4!</i>
+	 * 
+	 * @param event
+	 */
 	public static void playEvent(Event event) {
-		stowawayEventConsumerMethods.forEach((eventConsumer) -> {
-			eventConsumer.accept(event);
+		stowawayMethods.forEach((method) -> {
+			try {
+				Class<?> eventClass = event.getClass();
+				Class<?> parameterType = method.getParameters()[0].getType();
+				if (eventClass.isInstance(parameterType)) {
+					method.invoke(method, event);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		});
+	}
+
+	public static void collectSubscribers(Collection<Reflectory> reflectories) {
+
+		/** All of the potential subscribed methods */
+		HashSet<Method> allMethods = new HashSet<Method>();
+
+		// Collect all available methods
+		for (Reflectory reflectory : reflectories) {
+
+			// Add stowaway methods
+			Set<Method> annotatedMethods = reflectory.getReflections().getMethodsAnnotatedWith(Stowaway.class);
+
+			for (Method method : annotatedMethods) {
+				allMethods.add(method);
+			}
+
+			// Add all methods in stowaway classes
+			Set<Class<?>> types = reflectory.getReflections().getTypesAnnotatedWith(Stowaway.class);
+
+			for (Class<?> type : types) {
+				Method[] declaredTypeMethods = type.getDeclaredMethods();
+
+				for (int i = 0; i < declaredTypeMethods.length; i++) {
+					allMethods.add(declaredTypeMethods[i]);
+				}
+			}
+		}
+
+		// Validate methods and add to the stowaway list
+		for (Method method : allMethods) {
+			if (validateMethod(method)) {
+				stowawayMethod(method);
+			}
+		}
+	}
+
+	/**
+	 * 
+	 * @param method The {@link Method} to test
+	 * @return Whether that {@link Method} can be subscribed to the
+	 *         {@link BandWagon}
+	 */
+	private static boolean validateMethod(Method method) {
+
+		// If is not static
+		if (!Modifier.isStatic(method.getModifiers())) {
+			VODLog4J.LOGGER
+					.debug("Could not validate Method : " + method + " : to the BandWagon because it is not static.");
+			return false;
+		}
+
+		// If has not-one parameter
+		if (!(method.getParameterCount() == 1)) {
+			VODLog4J.LOGGER.debug("Could not validate Method : " + method
+					+ " : to the BandWagon because it does not have only 1 parameter");
+			return false;
+		}
+
+		// If the superclass is not Event
+		Class<?> paraType = method.getParameters()[0].getType();
+		Class<?> eventClass = Event.class;
+		Class<?> superClass = paraType.getSuperclass();
+		if (!(superClass.equals(eventClass) || paraType.equals(eventClass))) {
+			VODLog4J.LOGGER.debug("Could not validate Method : " + method
+					+ " : to the BandWagon because it does not extend the Volts of Doom Event directly.");
+			return false;
+		}
+
+		VODLog4J.LOGGER.debug("Validated Method : " + method
+				+ " : for subscription to the BandWagon, as it meets all required criteria. ");
+		return true;
+	}
+
+	@Stowaway
+	private static void createBandWagonEventListener(LoadingEvent.BandWagonCreation event) {
+		VODLog4J.LOGGER.info("Creating BandWagon: Playing creation event.");
 	}
 
 }
