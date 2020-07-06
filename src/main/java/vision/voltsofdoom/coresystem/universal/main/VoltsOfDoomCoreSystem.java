@@ -84,14 +84,14 @@ public class VoltsOfDoomCoreSystem extends Thread {
 	 */
 	public static String[] getVMArgs() {
 
-		File configFile = new File(Reference.ROAMING + "config.json");
+		File configFile = new File(Reference.CONFIG + "vmconfig.json");
 
 		if (!configFile.exists()) {
 			VODLog4J.LOGGER.info("Configuration file does not exist at: " + configFile);
 			try {
 				VODLog4J.LOGGER.info("Trying to write a new configuration file...");
 				BufferedWriter writer = new BufferedWriter(new FileWriter(configFile));
-				writer.write("{\"vmargs\":[]}");
+				writer.write("{\"vmargs\":[\"argument\"]}");
 				writer.close();
 				VODLog4J.LOGGER.info("Written!");
 			} catch (Exception e) {
