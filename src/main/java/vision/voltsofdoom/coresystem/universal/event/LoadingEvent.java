@@ -10,6 +10,10 @@ import vision.voltsofdoom.coresystem.universal.band_wagon.Event;
  *
  */
 public class LoadingEvent {
+	
+	public static class TestEvent extends Event {
+		
+	}
 
 	/**
 	 * Called when the {@link BandWagon} is being created.

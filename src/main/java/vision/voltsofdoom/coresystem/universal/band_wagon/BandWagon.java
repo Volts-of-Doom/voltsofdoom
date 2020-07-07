@@ -31,14 +31,18 @@ public class BandWagon {
 	 * Play the given {@link Event} for all listeners of the {@link Event}'s type...
 	 * Like a song! <i>a - 1...! a - 2...! a - 1! 2! 3! 4!</i>
 	 * 
+	 * <br>
+	 * <br>
+	 * <a href=
+	 * "https://stackoverflow.com/questions/4584541/check-if-a-class-object-is-subclass-of-another-class-object-in-java">Getting subclasses (for my own sanity)</a>
+	 * 
 	 * @param event
 	 */
 	public static void playEvent(Event event) {
 		stowawayMethods.forEach((method) -> {
 			try {
-				Class<?> eventClass = event.getClass();
 				Class<?> parameterType = method.getParameters()[0].getType();
-				if (eventClass.isInstance(parameterType)) {
+				if (event.getClass().isAssignableFrom(parameterType)) {
 					method.invoke(method, event);
 				}
 			} catch (Exception e) {
@@ -105,10 +109,8 @@ public class BandWagon {
 		}
 
 		// If the superclass is not Event
-		Class<?> paraType = method.getParameters()[0].getType();
-		Class<?> eventClass = Event.class;
-		Class<?> superClass = paraType.getSuperclass();
-		if (!(superClass.equals(eventClass) || paraType.equals(eventClass))) {
+		Class<?> parameterType = method.getParameters()[0].getType();
+		if (!Event.class.isAssignableFrom(parameterType)) {
 			VODLog4J.LOGGER.debug("Could not validate Method : " + method
 					+ " : to the BandWagon because it does not extend the Volts of Doom Event directly.");
 			return false;

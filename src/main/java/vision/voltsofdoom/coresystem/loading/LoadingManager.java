@@ -39,6 +39,7 @@ public class LoadingManager {
 			// b. scan @Stowaway types for valid methods
 			// c. subscribe found valid methods
 			setStatus(LoadingWindowStatus.CREATING_BAND_WAGON);
+			BandWagon.playEvent(new LoadingEvent.TestEvent());
 			BandWagon.playEvent(new LoadingEvent.BandWagonCreation());
 
 			// 6) Begin Registry creation by firing registry events
