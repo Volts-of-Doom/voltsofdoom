@@ -23,6 +23,8 @@ import vision.voltsofdoom.coresystem.universal.util.StringUtils;
  */
 public class VoltsOfDoomCoreSystem extends Thread {
 	public static final GameController GAME_CONTROLLER = new GameController();
+	
+	public static final String ID = "coresystem";
 
 	public static volatile boolean launched = false;
 

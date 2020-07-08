@@ -8,7 +8,7 @@ import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
  * @author GenElectrovise
  *
  */
-public class RegistryType {
+public class RegistryType<T extends IRegistryEntry<T>> {
 
 	private final ResourceLocation identifier;
 	private final Class<? extends IRegistryEntry<?>> clazzType;
@@ -26,21 +26,28 @@ public class RegistryType {
 		return clazzType;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean equals(Object obj) {
 
 		if (!(obj instanceof RegistryType)) {
 			return false;
 		}
-
-		if (!identifier.equals(((RegistryType) obj).getIdentifier())) {
+		
+		if(!((RegistryType<?>) obj).clazzType.equals(getClazzType())) {
 			return false;
 		}
 
-		if (!clazzType.equals(((RegistryType) obj).getClazzType())) {
+		if (!identifier.equals(((RegistryType<T>) obj).getIdentifier())) {
+			return false;
+		}
+
+		if (!clazzType.equals(((RegistryType<T>) obj).getClazzType())) {
 			return false;
 		}
 
 		return true;
 	}
+	
+	
 }

@@ -5,7 +5,10 @@ import vision.voltsofdoom.coresystem.loading.reflectory.Reflectories;
 import vision.voltsofdoom.coresystem.loading.window.LoadingWindow;
 import vision.voltsofdoom.coresystem.loading.window.LoadingWindowStatus;
 import vision.voltsofdoom.coresystem.universal.band_wagon.BandWagon;
+import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
 import vision.voltsofdoom.coresystem.universal.event.LoadingEvent;
+import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
+import vision.voltsofdoom.coresystem.universal.event.RegistryEvent.PollRegistryTypeEventsEvent;
 
 public class LoadingManager {
 
@@ -44,6 +47,10 @@ public class LoadingManager {
 
 			// 6) Begin Registry creation by firing registry events
 			setStatus(LoadingWindowStatus.CREATING_REGISTRY);
+			BandWagon.playEvent(new RegistryEvent.CreateRegistryTypesEvent());
+			BandWagon.playEvent(new RegistryEvent.CreateAndSubmitTypeRegistriesEvent());
+			BandWagon.playEvent(new RegistryEvent.PopulateTypeRegistriesEvent());
+			BandWagon.playEvent(new RegistryEvent.PollRegistryTypeEventsEvent());
 
 			// Finally terminate the loading window
 			setStatus(LoadingWindowStatus.DONE);
@@ -56,6 +63,18 @@ public class LoadingManager {
 
 	private static void setStatus(LoadingWindowStatus status) {
 		loadingWindow.setStatus(status);
+	}
+
+	@Stowaway
+	private void pollRegistryTypeEvents(PollRegistryTypeEventsEvent event) {
+		try {
+
+			throw new IllegalStateException("RegisterTypeEvent polling does not exist yet!");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

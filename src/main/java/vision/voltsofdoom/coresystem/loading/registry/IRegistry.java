@@ -19,14 +19,6 @@ public interface IRegistry<T extends IRegistryEntry<T>> {
 	public ResourceLocation getRegistryIdentifier();
 
 	/**
-	 * Registers the {@link Supplier} to this {@link IRegistry}, binding it to the
-	 * given {@link ResourceLocation}
-	 * 
-	 * @return
-	 */
-	public RegistryObjectRetriever<T> register(ResourceLocation identifier, Supplier<T> item);
-
-	/**
 	 * @return The {@link RegistryType} of this {@link IRegistry}
 	 */
 	public RegistryType getType();
@@ -48,4 +40,12 @@ public interface IRegistry<T extends IRegistryEntry<T>> {
 	 * @param state
 	 */
 	public void setState(IRegistryState state);
+
+	/**
+	 * Registers the {@link Supplier} to this {@link IRegistry}, binding it to the
+	 * given {@link ResourceLocation}
+	 * 
+	 * @return
+	 */
+	public RegistryObjectRetriever<T> register(ResourceLocation identifier, Supplier<T> item);
 }

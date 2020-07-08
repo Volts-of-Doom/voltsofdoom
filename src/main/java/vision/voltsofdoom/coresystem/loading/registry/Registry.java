@@ -19,7 +19,7 @@ import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
  * <li>New {@link RegistryTypes} are created with the
  * {@link RegistryEvent.CreateRegistryTypesEvent}
  * <li>{@link TypeRegistry}s are collected with the
- * {@link RegistryEvent.CollectTypeRegistriesEvent}. These should be created in
+ * {@link RegistryEvent.CreateAndSubmitTypeRegistriesEvent}. These should be created in
  * the course of this {@link Event}.
  * <li>{@link TypeRegistry}s are populated during the
  * {@link RegistryEvent.PopulateTypeRegistriesEvent}. They are not
@@ -29,7 +29,7 @@ import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
  * {@link TypeRegistry}s should be populated during this {@link Event}.
  * <li>Every unique type of {@link TypeRegistry} registered is collected into a
  * {@link Set} of unique {@link IRegistryEntry}s.
- * <li>A {@link RegistryEvent.RegisterType} event is called for each collected
+ * <li>A {@link RegistryEvent.RegisterTypeEvent} event is called for each collected
  * type. A {@link FinalisedTypeRegistry} is created for the {@link Event}'s
  * type, and every {@link TypeRegistry} of that type registers/adds its contents
  * to that {@link FinalisedTypeRegistry}. This results in there being one
@@ -47,7 +47,7 @@ public class Registry {
 	public static final LinkedHashMap<ResourceLocation, IFinalisedRegistry<? extends IRegistryEntry<?>>> registry = new LinkedHashMap<ResourceLocation, IFinalisedRegistry<? extends IRegistryEntry<?>>>();
 
 	@SuppressWarnings("unchecked")
-	public static <T extends IRegistryEntry<T>> IRegistry<T> getTyped(RegistryType registryType) {
+	public static <T extends IRegistryEntry<T>> IRegistry<T> getTyped(RegistryType<T> registryType) {
 		IRegistry<T> out = null;
 
 		try {

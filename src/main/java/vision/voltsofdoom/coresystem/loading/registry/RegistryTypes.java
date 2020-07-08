@@ -18,10 +18,12 @@ import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
  *
  */
 public class RegistryTypes {
-	private static LinkedHashMap<ResourceLocation, RegistryType> types = new LinkedHashMap<ResourceLocation, RegistryType>();
+	private static volatile LinkedHashMap<ResourceLocation, RegistryType<?>> types = new LinkedHashMap<ResourceLocation, RegistryType<?>>();
 
-	public static final RegistryType TILES = create(new ResourceLocation("coresystem", "tiles"), Tile.class);
-	public static final RegistryType ENTITIES = create(new ResourceLocation("coresystem", "tiles"), Entity.class);
+	public static final RegistryType<Tile> TILES = create(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"),
+			Tile.class);
+	public static final RegistryType<Entity> ENTITIES = create(
+			new ResourceLocation(VoltsOfDoomCoreSystem.ID, "entities"), Entity.class);
 
 	/**
 	 * Creates and registers a new {@link RegistryType}, which is necessary for
@@ -34,13 +36,14 @@ public class RegistryTypes {
 	 *                   {@link IRegistry}s of the created {@link RegistryType}.
 	 * @return The completed {@link RegistryType}
 	 */
-	public static RegistryType create(ResourceLocation identifier, Class<? extends IRegistryEntry<?>> clazzType) {
+	public static synchronized <T extends IRegistryEntry<T>> RegistryType<T> create(ResourceLocation identifier,
+			Class<T> clazzType) {
 
 		Objects.requireNonNull(identifier, () -> "Cannot create a RegistryType with a null identifier.");
 		Objects.requireNonNull(clazzType,
 				() -> "Cannot create a RegistryType to register objects of type null. Class type cannot be null.");
 
-		RegistryType registryType = new RegistryType(identifier, clazzType);
+		RegistryType<T> registryType = new RegistryType<T>(identifier, clazzType);
 		types.put(identifier, registryType);
 		return registryType;
 	}
@@ -49,8 +52,9 @@ public class RegistryTypes {
 	 * @param identifier
 	 * @return A {@link RegistryType} by its identifier, if it exists.
 	 */
-	public static RegistryType get(ResourceLocation identifier) {
+	public static RegistryType<?> get(ResourceLocation identifier) {
 		Objects.requireNonNull(identifier, () -> "Cannot get a RegistryType from a null identifier.");
+
 		return types.get(identifier);
 	}
 
@@ -60,7 +64,7 @@ public class RegistryTypes {
 	 * @return The {@link ResourceLocation} of the given {@link RegistryType}, if it
 	 *         exists.
 	 */
-	public static ResourceLocation getInverted(RegistryType type) {
+	public static ResourceLocation getInverted(RegistryType<?> type) {
 
 		Objects.requireNonNull(type, () -> "Cannot get an identifier from a null RegistryType.");
 
