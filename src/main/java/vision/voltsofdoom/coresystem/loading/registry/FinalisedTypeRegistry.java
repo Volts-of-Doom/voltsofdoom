@@ -7,45 +7,37 @@ import java.util.function.Supplier;
 import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 
 /**
- * Handles the registration of {@link IRegistryEntry}s of type T.
- * 
- * @author GenElectrovise
- *
- * @param <T> The type of {@link IRegistryEntry} that this {@link TypeRegistry}
- *        holds.
+ * The finalised and immutable version of a {@link TypeRegistry} which will be
+ * added to the {@link Registry}. Still contains an {@link IRegistryState},
+ * which is {@value IRegistryState#ACTIVE} whilst being created, but is changed
+ * to {@value IRegistryState#FROZEN} once creation has finished.
  */
-public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
+public class FinalisedTypeRegistry<T extends IRegistryEntry<T>> implements IFinalisedRegistry<T> {
 
 	private final ResourceLocation identifier;
 	private final RegistryType type;
-	private final LinkedHashMap<ResourceLocation, Supplier<T>> entries = new LinkedHashMap<ResourceLocation, Supplier<T>>();
 	private IRegistryState state;
+	private boolean finalised;
 
-	public TypeRegistry(ResourceLocation identifier, RegistryType type) {
+	private final LinkedHashMap<ResourceLocation, Supplier<T>> entries;
+
+	private FinalisedTypeRegistry(RegistryType type, ResourceLocation identifier,
+			LinkedHashMap<ResourceLocation, Supplier<T>> entries) {
+		this.state = IRegistryState.ACTIVE;
+		this.finalised = false;
 		this.identifier = identifier;
 		this.type = type;
-		this.state = IRegistryState.ACTIVE;
+		this.entries = entries;
 	}
 
 	@Override
 	public ResourceLocation getRegistryIdentifier() {
-		return this.identifier;
+		return identifier;
 	}
 
 	@Override
 	public RegistryType getType() {
 		return type;
-	}
-
-	@Override
-	public RegistryObjectRetriever<T> register(ResourceLocation identifier, Supplier<T> instanceSupplier) {
-
-		if (!this.state.isMutable()) {
-			throw new IllegalStateException("Registry is not mutable at the moment!");
-		}
-
-		entries.put(identifier, instanceSupplier);
-		return new RegistryObjectRetriever<T>(identifier, instanceSupplier, this);
 	}
 
 	@Override
@@ -65,4 +57,13 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
 		return state;
 	}
 
+	@Override
+	public void makeFinal() {
+		this.finalised = true;
+		this.state = IRegistryState.FROZEN;
+	}
+
+	public boolean isFinalised() {
+		return finalised;
+	}
 }

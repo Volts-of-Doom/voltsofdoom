@@ -5,26 +5,19 @@ import java.util.function.Supplier;
 import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 
 /**
- * A mutable (non finalised) registry.
+ * An {@link IRegistry} which is immutable. This is a required implemented
+ * interface for items in the {@link Registry}.
  * 
  * @author GenElectrovise
  *
  * @param <T> The type of {@link IRegistryEntry} being registered.
  */
-public interface IRegistry<T extends IRegistryEntry<T>> {
+public interface IFinalisedRegistry<T extends IRegistryEntry<T>> {
 
 	/**
 	 * @return The {@link ResourceLocation} identifier of this {@link IRegistry}.
 	 */
 	public ResourceLocation getRegistryIdentifier();
-
-	/**
-	 * Registers the {@link Supplier} to this {@link IRegistry}, binding it to the
-	 * given {@link ResourceLocation}
-	 * 
-	 * @return
-	 */
-	public RegistryObjectRetriever<T> register(ResourceLocation identifier, Supplier<T> item);
 
 	/**
 	 * @return The {@link RegistryType} of this {@link IRegistry}
@@ -48,4 +41,12 @@ public interface IRegistry<T extends IRegistryEntry<T>> {
 	 * @param state
 	 */
 	public void setState(IRegistryState state);
+
+	/**
+	 * Is called by the {@link Registry} to close off this
+	 * {@link IFinalisedRegistry}. This should ensure that no edits can be made to
+	 * the contents of this {@link IFinalisedRegistry} after this method has been
+	 * called.
+	 */
+	public void makeFinal();
 }

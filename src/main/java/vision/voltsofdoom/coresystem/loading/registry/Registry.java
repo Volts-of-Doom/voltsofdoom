@@ -44,14 +44,14 @@ public class Registry {
 
 	// Management
 
-	public static final LinkedHashMap<ResourceLocation, IRegistry<? extends IRegistryEntry<?>>> registry = new LinkedHashMap<ResourceLocation, IRegistry<? extends IRegistryEntry<?>>>();
+	public static final LinkedHashMap<ResourceLocation, IFinalisedRegistry<? extends IRegistryEntry<?>>> registry = new LinkedHashMap<ResourceLocation, IFinalisedRegistry<? extends IRegistryEntry<?>>>();
 
 	@SuppressWarnings("unchecked")
 	public static <T extends IRegistryEntry<T>> IRegistry<T> getTyped(RegistryType registryType) {
 		IRegistry<T> out = null;
 
 		try {
-			for (IRegistry<?> registry : registry.values()) {
+			for (IFinalisedRegistry<?> registry : registry.values()) {
 				if (registry.getType() == registryType) {
 
 					// Unchecked cast
