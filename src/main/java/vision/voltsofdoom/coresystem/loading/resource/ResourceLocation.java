@@ -28,4 +28,9 @@ public class ResourceLocation {
 			}
 		});
 	}
+
+	@Override
+	public String toString() {
+		return modid + ":" + entry;
+	}
 }

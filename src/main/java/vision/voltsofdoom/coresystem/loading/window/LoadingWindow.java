@@ -11,13 +11,17 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
 
-public class LoadingWindow extends JFrame {
+public class LoadingWindow extends JFrame implements Runnable {
 	private static final long serialVersionUID = 1L;
+
+	private volatile ILoadingWindowStatus status = ILoadingWindowStatus.OPENING_WINDOW;
+	private volatile ILoadingWindowDetailedStatus detailedStatus = ILoadingWindowDetailedStatus.NO_ADDITIONAL_INFO;
 
 	private JPanel foregroundPanel = new JPanel();
 	private JLabel lblVoltsOfDoom = new JLabel("Volts of Doom");
-	
-	private volatile LoadingWindowStatus status = LoadingWindowStatus.OPENING_WINDOW;
+	private JLabel lblStatus = new JLabel("Status: " + status.getMessage());
+	JLabel lblDetailedStatus = new JLabel("Info: ");
+	private JLabel lblLoadingPleaseWait = new JLabel("Loading... Please wait...");
 
 	public LoadingWindow() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,6 +33,7 @@ public class LoadingWindow extends JFrame {
 		new LoadingWindow().run();
 	}
 
+	@Override
 	public void run() {
 		EventQueue.invokeLater(() -> {
 			updateContents();
@@ -45,12 +50,12 @@ public class LoadingWindow extends JFrame {
 		getContentPane().setBackground(UIManager.getColor("Button.background"));
 		getContentPane().setForeground(Color.LIGHT_GRAY);
 		getContentPane().setLayout(null);
-		setBounds(10, 11, 300, 150);
+		setBounds(10, 11, 300, 207);
 
 		// Foreground JPanel
 		foregroundPanel.setBackground(UIManager.getColor("Button.light"));
 		foregroundPanel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		foregroundPanel.setBounds(10, 11, 274, 99);
+		foregroundPanel.setBounds(10, 11, 274, 156);
 		foregroundPanel.setLayout(null);
 		lblVoltsOfDoom.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -62,19 +67,29 @@ public class LoadingWindow extends JFrame {
 		getContentPane().add(foregroundPanel);
 		foregroundPanel.add(lblVoltsOfDoom);
 
-		JLabel lblLoadingPleaseWait = new JLabel("Loading... Please wait...");
 		lblLoadingPleaseWait.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLoadingPleaseWait.setBounds(10, 46, 254, 14);
 		foregroundPanel.add(lblLoadingPleaseWait);
-		
-		JLabel lblStatus = new JLabel("Status: " + status.getMsg());
+
+		lblStatus.setText("Status: " + status.getMessage());
 		lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStatus.setBounds(10, 74, 254, 14);
 		foregroundPanel.add(lblStatus);
+
+		lblDetailedStatus.setText("Info: " + detailedStatus.getDetailedMessage());
+		lblDetailedStatus.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDetailedStatus.setBounds(20, 99, 244, 46);
+		foregroundPanel.add(lblDetailedStatus);
+	}
+
+	public synchronized void setStatus(ILoadingWindowStatus status) {
+		this.status = status;
+		updateContents();
 	}
 	
-	public synchronized void setStatus(LoadingWindowStatus status) {
-		this.status = status;
+	public synchronized void setDetailedStatus(ILoadingWindowDetailedStatus detailedStatus) {
+		this.detailedStatus = detailedStatus;
+		updateContents();
 	}
 
 	public void disableAndDispose() {

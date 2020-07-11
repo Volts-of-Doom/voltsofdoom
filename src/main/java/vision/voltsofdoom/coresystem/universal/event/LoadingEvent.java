@@ -1,5 +1,6 @@
 package vision.voltsofdoom.coresystem.universal.event;
 
+import vision.voltsofdoom.coresystem.loading.window.ILoadingWindowDetailedStatus;
 import vision.voltsofdoom.coresystem.universal.band_wagon.BandWagon;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Event;
 
@@ -10,9 +11,17 @@ import vision.voltsofdoom.coresystem.universal.band_wagon.Event;
  *
  */
 public class LoadingEvent {
-	
+
 	public static class TestEvent extends Event {
-		
+
+		public static final ILoadingWindowDetailedStatus DETAILED_STATUS = new ILoadingWindowDetailedStatus() {
+
+			@Override
+			public String getDetailedMessage() {
+				return "Testing BandWagon Event playing...";
+			}
+		};
+
 	}
 
 	/**
@@ -22,6 +31,14 @@ public class LoadingEvent {
 	 *
 	 */
 	public static class BandWagonCreation extends Event {
+
+		public static final ILoadingWindowDetailedStatus DETAILED_STATUS = new ILoadingWindowDetailedStatus() {
+
+			@Override
+			public String getDetailedMessage() {
+				return "BandWagon has been created...";
+			}
+		};
 
 	}
 }

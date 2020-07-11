@@ -5,6 +5,9 @@ import java.util.Objects;
 
 import vision.voltsofdoom.coresystem.play.entity.Entity;
 import vision.voltsofdoom.coresystem.play.tile.Tile;
+import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
+import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
+import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 
@@ -20,10 +23,15 @@ import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 public class RegistryTypes {
 	private static volatile LinkedHashMap<ResourceLocation, RegistryType<?>> types = new LinkedHashMap<ResourceLocation, RegistryType<?>>();
 
-	public static final RegistryType<Tile> TILES = create(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"),
-			Tile.class);
-	public static final RegistryType<Entity> ENTITIES = create(
-			new ResourceLocation(VoltsOfDoomCoreSystem.ID, "entities"), Entity.class);
+	public static RegistryType<Tile> TILES;
+	public static RegistryType<Entity> ENTITIES;
+
+	@Stowaway
+	public static void listenAndCreate(RegistryEvent.CreateRegistryTypesEvent event) {
+		VODLog4J.LOGGER.info("RegistryTypes#listenAndCreate : Creating RegistryTypes");
+		TILES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"), Tile.class);
+		ENTITIES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "entities"), Entity.class);
+	}
 
 	/**
 	 * Creates and registers a new {@link RegistryType}, which is necessary for

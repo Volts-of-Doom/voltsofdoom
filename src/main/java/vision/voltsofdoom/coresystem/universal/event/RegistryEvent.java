@@ -7,8 +7,10 @@ import vision.voltsofdoom.coresystem.loading.registry.IRegistryEntry;
 import vision.voltsofdoom.coresystem.loading.registry.Registry;
 import vision.voltsofdoom.coresystem.loading.registry.RegistryType;
 import vision.voltsofdoom.coresystem.loading.registry.RegistryTypes;
+import vision.voltsofdoom.coresystem.loading.registry.TypeRegistries;
 import vision.voltsofdoom.coresystem.loading.registry.TypeRegistry;
 import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
+import vision.voltsofdoom.coresystem.loading.window.ILoadingWindowDetailedStatus;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Event;
 
 /**
@@ -32,6 +34,14 @@ public class RegistryEvent {
 	 *
 	 */
 	public static class CreateRegistryTypesEvent extends Event {
+
+		public static final ILoadingWindowDetailedStatus DETAILED_STATUS = new ILoadingWindowDetailedStatus() {
+			@Override
+			public String getDetailedMessage() {
+				return "Creating RegistryTypes...";
+			}
+		};
+
 		public <T extends IRegistryEntry<T>> RegistryType<T> createRegistryType(ResourceLocation identifier,
 				Class<T> clazzType) {
 			return RegistryTypes.create(identifier, clazzType);
@@ -47,7 +57,20 @@ public class RegistryEvent {
 	 *
 	 */
 	public static class CreateAndSubmitTypeRegistriesEvent extends Event {
+		public static final ILoadingWindowDetailedStatus DETAILED_STATUS = new ILoadingWindowDetailedStatus() {
+			@Override
+			public String getDetailedMessage() {
+				return "Creating and submitting TypeRegistries...";
+			}
+		};
 
+		public <T extends IRegistryEntry<T>> TypeRegistry<T> create(ResourceLocation identifier, RegistryType<T> type) {
+			return new TypeRegistry<T>(identifier, type);
+		}
+
+		public void submit(TypeRegistry<?> typeRegistry) {
+			TypeRegistries.submit(typeRegistry);
+		}
 	}
 
 	/**
@@ -58,7 +81,12 @@ public class RegistryEvent {
 	 *
 	 */
 	public static class PopulateTypeRegistriesEvent extends Event {
-
+		public static final ILoadingWindowDetailedStatus DETAILED_STATUS = new ILoadingWindowDetailedStatus() {
+			@Override
+			public String getDetailedMessage() {
+				return "Populating TypeRegistries...";
+			}
+		};
 	}
 
 	/**
@@ -69,7 +97,12 @@ public class RegistryEvent {
 	 *
 	 */
 	public static class PollRegistryTypeEventsEvent extends Event {
-
+		public static final ILoadingWindowDetailedStatus DETAILED_STATUS = new ILoadingWindowDetailedStatus() {
+			@Override
+			public String getDetailedMessage() {
+				return "Polling RegistryTypeEvents...";
+			}
+		};
 	}
 
 	/**
@@ -83,6 +116,12 @@ public class RegistryEvent {
 	 */
 	public static class RegisterTypeEvent<T extends IRegistryEntry<T>> extends Event {
 
+		public static final ILoadingWindowDetailedStatus DETAILED_STATUS = new ILoadingWindowDetailedStatus() {
+			@Override
+			public String getDetailedMessage() {
+				return "Registering registries of type: " + "TODO NO TYPE SELECTION";
+			}// TODO Read the message
+		};
 	}
 
 }

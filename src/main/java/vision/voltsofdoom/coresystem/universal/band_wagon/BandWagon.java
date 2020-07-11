@@ -39,6 +39,9 @@ public class BandWagon {
 	 * @param event
 	 */
 	public static void playEvent(Event event) {
+		
+		VODLog4J.LOGGER.info("Playing Event: " + event);
+		
 		stowawayMethods.forEach((method) -> {
 			try {
 				Class<?> parameterType = method.getParameters()[0].getType();

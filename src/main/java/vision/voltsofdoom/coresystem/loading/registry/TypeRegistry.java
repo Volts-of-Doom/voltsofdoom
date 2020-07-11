@@ -17,14 +17,15 @@ import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
 
 	private final ResourceLocation identifier;
-	private final RegistryType type;
+	private final RegistryType<T> type;
 	private final LinkedHashMap<ResourceLocation, Supplier<T>> entries = new LinkedHashMap<ResourceLocation, Supplier<T>>();
 	private IRegistryState state;
 
-	public TypeRegistry(ResourceLocation identifier, RegistryType type) {
+	public TypeRegistry(ResourceLocation identifier, RegistryType<T> type) {
 		this.identifier = identifier;
 		this.type = type;
 		this.state = IRegistryState.ACTIVE;
+		TypeRegistries.submit(this);
 	}
 
 	@Override
@@ -33,7 +34,7 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
 	}
 
 	@Override
-	public RegistryType getType() {
+	public RegistryType<T> getType() {
 		return type;
 	}
 
