@@ -23,6 +23,7 @@ public class RenderTest {
 		int width = 1024;
 		int height = 480;
 
+		// Try initialising GLFW window
 		if (!glfwInit()) {
 			throw new RuntimeException("Error initializing GLFW");
 		}
@@ -33,28 +34,43 @@ public class RenderTest {
 			glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
 		}
 
+		// Create window. If NULL, throw error.
 		long window = glfwCreateWindow(width, height, "25-C99", 0, 0);
 		if (window == NULL) {
 			throw new RuntimeException("Error creating GLFW window");
 		}
 
+		// Set key callback
 		glfwSetKeyCallback(window, (windowHnd, key, scancode, action, mods) -> {
+
+			// If releasing, return
 			if (action != GLFW_RELEASE) {
 				return;
 			}
 
+			// Else, switch the pressed key
 			switch (key) {
+
+			// ESC tells window to close
 			case GLFW_KEY_ESCAPE:
 				glfwSetWindowShouldClose(windowHnd, true);
 				break;
 			}
 		});
 
+		// Refresh the memory stack
 		try (MemoryStack stack = stackPush()) {
+
+			// Create an Init obj from the stack
 			BGFXInit init = BGFXInit.mallocStack(stack);
+
+			// Updates the specified initialization parameters with default values.
 			bgfx_init_ctor(init);
+
+			// Sets the screen resolution
 			init.resolution(it -> it.width(width).height(height).reset(BGFX_RESET_VSYNC));
 
+			// Get the platform, and set the BGFX platform data.
 			switch (Platform.get()) {
 			case LINUX:
 				init.platformData().ndt(GLFWNativeX11.glfwGetX11Display()).nwh(GLFWNativeX11.glfwGetX11Window(window));
@@ -67,6 +83,7 @@ public class RenderTest {
 				break;
 			}
 
+			// If fails to initialise BGFX, throw runtime exception
 			if (!bgfx_init(init)) {
 				throw new RuntimeException("Error initializing bgfx renderer");
 			}
@@ -77,10 +94,13 @@ public class RenderTest {
 		// Enable debug text.
 		bgfx_set_debug(BGFX_DEBUG_TEXT);
 
+		// Sets "view clear" flags. I assume this is the default background?
 		bgfx_set_view_clear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x303030ff, 1.0f, 0);
 
+		// Load the image.
 		ByteBuffer logo = Logo.createLogo();
 
+		// Run render loop
 		while (!glfwWindowShouldClose(window)) {
 			glfwPollEvents();
 
@@ -92,8 +112,12 @@ public class RenderTest {
 			bgfx_touch(0);
 
 			// Use debug font to print information about this example.
+
+			// Clear internal text buffer
 			bgfx_dbg_text_clear(0, false);
+			// Draw image to internal text buffer from a byte buffer
 			bgfx_dbg_text_image(Math.max(width / 2 / 8, 20) - 20, Math.max(height / 2 / 16, 6) - 6, 40, 12, logo, 160);
+			// Prints to internal text-character buffer
 			bgfx_dbg_text_printf(0, 1, 0x1f, "bgfx/examples/25-c99");
 			bgfx_dbg_text_printf(0, 2, 0x3f, "Description: Initialization and debug text with C99 API.");
 
