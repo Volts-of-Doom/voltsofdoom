@@ -1,10 +1,15 @@
 package vision.voltsofdoom.coresystem.universal.bgfx;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.bgfx.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.system.*;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.nio.*;
+
+import javax.imageio.ImageIO;
 
 import static org.lwjgl.bgfx.BGFX.*;
 import static org.lwjgl.glfw.GLFW.*;
@@ -100,6 +105,29 @@ public class RenderTest {
 		// Load the image.
 		ByteBuffer logo = Logo.createLogo();
 
+		int[] ints = new int[] {};
+
+		try {
+
+			File imageFile = new File("C:\\Users\\adam_\\OneDrive\\Desktop\\Pictures\\color_testing.png");
+
+			BufferedImage img = ImageIO.read(imageFile);
+
+			ints = new int[img.getWidth() * img.getHeight()];
+			ints = ImageIO.read(imageFile).getData().getPixels(0, 0, img.getWidth(), img.getHeight(), (int[]) null);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		ByteBuffer intBuffer = BufferUtils.createByteBuffer(ints.length);
+
+		for (int i : ints) {
+			intBuffer.put((byte) i);
+		}
+
+		intBuffer.flip();
+
 		// Run render loop
 		while (!glfwWindowShouldClose(window)) {
 			glfwPollEvents();
@@ -117,6 +145,8 @@ public class RenderTest {
 			bgfx_dbg_text_clear(0, false);
 			// Draw image to internal text buffer from a byte buffer
 			bgfx_dbg_text_image(Math.max(width / 2 / 8, 20) - 20, Math.max(height / 2 / 16, 6) - 6, 40, 12, logo, 160);
+			bgfx_dbg_text_image(Math.max(width / 2 / 8, 20) - 20, Math.max(height / 2 / 16, 6) - 6, 40, 12, intBuffer,
+					160);
 			// Prints to internal text-character buffer
 			bgfx_dbg_text_printf(0, 1, 0x1f, "bgfx/examples/25-c99");
 			bgfx_dbg_text_printf(0, 2, 0x3f, "Description: Initialization and debug text with C99 API.");

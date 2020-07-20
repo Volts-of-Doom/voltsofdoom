@@ -1,5 +1,6 @@
 package vision.voltsofdoom.coresystem.loading.registry;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
@@ -24,6 +25,10 @@ public class TypeRegistries {
 
 	public static TypeRegistry<?> get(ResourceLocation identifier) {
 		return typeRegistries.get(identifier);
+	}
+	
+	public static Iterator<TypeRegistry<?>> getIterator(){
+		return typeRegistries.values().iterator();
 	}
 
 }

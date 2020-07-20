@@ -33,4 +33,8 @@ public class ResourceLocation {
 	public String toString() {
 		return modid + ":" + entry;
 	}
+
+	public String absolute() {
+		return null;
+	}
 }

@@ -66,4 +66,9 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
 		return state;
 	}
 
+	public boolean isFinal() {
+		System.out.println("TODO isFinal TypeRegistry");
+		return false;
+	}
+
 }

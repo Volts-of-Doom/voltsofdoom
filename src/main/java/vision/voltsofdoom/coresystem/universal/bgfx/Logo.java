@@ -2,6 +2,8 @@ package vision.voltsofdoom.coresystem.universal.bgfx;
 
 import org.lwjgl.*;
 
+import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
+
 import java.nio.*;
 
 /**
@@ -12,7 +14,11 @@ import java.nio.*;
  * "https://github.com/bkaradzic/bgfx/blob/master/examples/00-helloworld/logo.h">https://github.com/bkaradzic/bgfx/blob/master/examples/00-helloworld/logo.h</a>.
  * </p>
  */
-final class Logo {
+final class Logo extends BGXFImage {
+
+	public Logo(ResourceLocation location) {
+		super(location);
+	}
 
 	/**
 	 * The raw data, in bytes for the BGFX logo. This could be retrieved from an
@@ -514,12 +520,6 @@ final class Logo {
 			0x20, 0x0f, 0x20, 0x0f, 0x20, 0x0f, 0x20, 0x0f, 0x20, 0x0f, 0x20, 0x0f, 0x20, 0x0f, 0x20, 0x0f, // . . . . .
 																											// . . .
 	};
-
-	/**
-	 * Disables no-arg constructor
-	 */
-	private Logo() {
-	}
 
 	/**
 	 * Creates a {@link ByteBuffer} from the {@link #RAW_DATA}. <br>

@@ -1,7 +1,12 @@
 package vision.voltsofdoom.coresystem.loading;
 
+import java.util.Iterator;
+
 import vision.voltsofdoom.coresystem.loading.mod.Mods;
 import vision.voltsofdoom.coresystem.loading.reflectory.Reflectories;
+import vision.voltsofdoom.coresystem.loading.registry.RegistryTypes;
+import vision.voltsofdoom.coresystem.loading.registry.TypeRegistries;
+import vision.voltsofdoom.coresystem.loading.registry.TypeRegistry;
 import vision.voltsofdoom.coresystem.loading.window.ILoadingWindowDetailedStatus;
 import vision.voltsofdoom.coresystem.loading.window.ILoadingWindowStatus;
 import vision.voltsofdoom.coresystem.loading.window.LoadingWindow;
@@ -51,13 +56,13 @@ public class LoadingManager {
 			// 6) Begin Registry creation by firing registry events
 			setStatus(ILoadingWindowStatus.CREATING_REGISTRY);
 			setDetailedStatus(RegistryEvent.CreateRegistryTypesEvent.DETAILED_STATUS);
-			BandWagon.playEvent(new RegistryEvent.CreateRegistryTypesEvent());
+			BandWagon.playEvent(new RegistryEvent.CreateRegistryTypesEvent()); // Done
 			setDetailedStatus(RegistryEvent.CreateAndSubmitTypeRegistriesEvent.DETAILED_STATUS);
-			BandWagon.playEvent(new RegistryEvent.CreateAndSubmitTypeRegistriesEvent());
+			BandWagon.playEvent(new RegistryEvent.CreateAndSubmitTypeRegistriesEvent()); // Done
 			setDetailedStatus(RegistryEvent.PopulateTypeRegistriesEvent.DETAILED_STATUS);
-			BandWagon.playEvent(new RegistryEvent.PopulateTypeRegistriesEvent());
+			BandWagon.playEvent(new RegistryEvent.PopulateTypeRegistriesEvent()); // Done
 			setDetailedStatus(RegistryEvent.PollRegistryTypeEventsEvent.DETAILED_STATUS);
-			BandWagon.playEvent(new RegistryEvent.PollRegistryTypeEventsEvent());
+			BandWagon.playEvent(new RegistryEvent.PollRegistryTypeEventsEvent()); // See below!
 
 			// Finally terminate the loading window
 			setStatus(ILoadingWindowStatus.DONE);
@@ -80,7 +85,29 @@ public class LoadingManager {
 	private void pollRegistryTypeEvents(PollRegistryTypeEventsEvent event) {
 		try {
 
-			throw new IllegalStateException("RegisterTypeEvent polling does not exist yet!");
+			// Prioritised types first
+			for (int i = 0; i < RegistryTypes.prioritisedTypes.length; i++) {
+				Iterator<TypeRegistry<?>> registryI = TypeRegistries.getIterator();
+				while (registryI.hasNext()) {
+					TypeRegistry<?> registry = registryI.next();
+
+					if (!registry.isFinal() && registry.getType().equals(RegistryTypes.prioritisedTypes[i])) {
+						System.out.println("TODO FINALISE 95 LoadingManager");
+					}
+				}
+			}
+
+			// Then do all of the others
+			Iterator<TypeRegistry<?>> registryI = TypeRegistries.getIterator();
+			while (registryI.hasNext()) {
+				TypeRegistry<?> registry = registryI.next();
+
+				if (!registry.isFinal()) {
+					System.out.println("TODO FINALISE 106 LoadingManager");
+				}
+			}
+
+			throw new IllegalStateException("RegisterTypeEvent polling experimental!");
 
 		} catch (Exception e) {
 			e.printStackTrace();

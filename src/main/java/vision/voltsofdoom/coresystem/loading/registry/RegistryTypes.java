@@ -1,5 +1,6 @@
 package vision.voltsofdoom.coresystem.loading.registry;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
@@ -26,11 +27,17 @@ public class RegistryTypes {
 	public static RegistryType<Tile> TILES;
 	public static RegistryType<Entity> ENTITIES;
 
+	public static volatile RegistryType<?>[] prioritisedTypes = new RegistryType<?>[] {TILES, ENTITIES};
+
 	@Stowaway
 	public static void listenAndCreate(RegistryEvent.CreateRegistryTypesEvent event) {
 		VODLog4J.LOGGER.info("RegistryTypes#listenAndCreate : Creating RegistryTypes");
 		TILES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"), Tile.class);
 		ENTITIES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "entities"), Entity.class);
+	}
+
+	public static Iterator<RegistryType<?>> getIterator() {
+		return types.values().iterator();
 	}
 
 	/**
