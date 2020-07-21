@@ -5,8 +5,12 @@ import java.util.Iterator;
 import vision.voltsofdoom.coresystem.loading.mod.Mods;
 import vision.voltsofdoom.coresystem.loading.reflectory.Reflectories;
 import vision.voltsofdoom.coresystem.loading.registry.RegistryTypes;
-import vision.voltsofdoom.coresystem.loading.registry.TypeRegistries;
-import vision.voltsofdoom.coresystem.loading.registry.TypeRegistry;
+import vision.voltsofdoom.coresystem.loading.registry.CollectedRegistries;
+import vision.voltsofdoom.coresystem.loading.registry.IFinalisedRegistry;
+import vision.voltsofdoom.coresystem.loading.registry.IRegistry;
+import vision.voltsofdoom.coresystem.loading.registry.IRegistryEntry;
+import vision.voltsofdoom.coresystem.loading.registry.Registry;
+import vision.voltsofdoom.coresystem.loading.registry.RegistryType;
 import vision.voltsofdoom.coresystem.loading.window.ILoadingWindowDetailedStatus;
 import vision.voltsofdoom.coresystem.loading.window.ILoadingWindowStatus;
 import vision.voltsofdoom.coresystem.loading.window.LoadingWindow;
@@ -57,8 +61,8 @@ public class LoadingManager {
 			setStatus(ILoadingWindowStatus.CREATING_REGISTRY);
 			setDetailedStatus(RegistryEvent.CreateRegistryTypesEvent.DETAILED_STATUS);
 			BandWagon.playEvent(new RegistryEvent.CreateRegistryTypesEvent()); // Done
-			setDetailedStatus(RegistryEvent.CreateAndSubmitTypeRegistriesEvent.DETAILED_STATUS);
-			BandWagon.playEvent(new RegistryEvent.CreateAndSubmitTypeRegistriesEvent()); // Done
+			setDetailedStatus(RegistryEvent.CreateAndSubmitRegistriesEvent.DETAILED_STATUS);
+			BandWagon.playEvent(new RegistryEvent.CreateAndSubmitRegistriesEvent()); // Done
 			setDetailedStatus(RegistryEvent.PopulateTypeRegistriesEvent.DETAILED_STATUS);
 			BandWagon.playEvent(new RegistryEvent.PopulateTypeRegistriesEvent()); // Done
 			setDetailedStatus(RegistryEvent.PollRegistryTypeEventsEvent.DETAILED_STATUS);
@@ -82,29 +86,33 @@ public class LoadingManager {
 	}
 
 	@Stowaway
-	private void pollRegistryTypeEvents(PollRegistryTypeEventsEvent event) {
+	private static void pollRegistryTypeEvents(PollRegistryTypeEventsEvent event) {
 		try {
 
 			// Prioritised types first
-			for (int i = 0; i < RegistryTypes.prioritisedTypes.length; i++) {
-				Iterator<TypeRegistry<?>> registryI = TypeRegistries.getIterator();
+			for (int i = 0; i < RegistryTypes.prioritisedTypes.size(); i++) {
+				Iterator<IRegistry<? extends IRegistryEntry<?>>> registryI = CollectedRegistries.getIterator();
 				while (registryI.hasNext()) {
-					TypeRegistry<?> registry = registryI.next();
+					IRegistry<? extends IRegistryEntry<?>> registry = registryI.next();
 
-					if (!registry.isFinal() && registry.getType().equals(RegistryTypes.prioritisedTypes[i])) {
+					RegistryType<?> type = registry.getType();
+					RegistryType<?> comparedType = RegistryTypes.prioritisedTypes.get(i);
+					
+					if (type.equals(comparedType)) {
 						System.out.println("TODO FINALISE 95 LoadingManager");
+
+						IFinalisedRegistry<? extends IRegistryEntry<?>> finalisedRegistry = registry.genFinalised();
+						Registry.register(registry.getRegistryIdentifier(), finalisedRegistry);
 					}
 				}
 			}
 
 			// Then do all of the others
-			Iterator<TypeRegistry<?>> registryI = TypeRegistries.getIterator();
+			Iterator<IRegistry<? extends IRegistryEntry<?>>> registryI = CollectedRegistries.getIterator();
 			while (registryI.hasNext()) {
-				TypeRegistry<?> registry = registryI.next();
-
-				if (!registry.isFinal()) {
-					System.out.println("TODO FINALISE 106 LoadingManager");
-				}
+				IRegistry<?> registry = registryI.next();
+				IFinalisedRegistry<? extends IRegistryEntry<?>> finalisedRegistry = registry.genFinalised();
+				Registry.register(registry.getRegistryIdentifier(), finalisedRegistry);
 			}
 
 			throw new IllegalStateException("RegisterTypeEvent polling experimental!");
@@ -113,6 +121,9 @@ public class LoadingManager {
 			e.printStackTrace();
 		}
 
+		Registry.iceAge();
+
+		Registry.dump(System.out);
 	}
 
 }

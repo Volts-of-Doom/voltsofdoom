@@ -1,6 +1,7 @@
 package vision.voltsofdoom.coresystem.loading.registry;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -15,13 +16,13 @@ import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 public class FinalisedTypeRegistry<T extends IRegistryEntry<T>> implements IFinalisedRegistry<T> {
 
 	private final ResourceLocation identifier;
-	private final RegistryType type;
+	private final RegistryType<?> type;
 	private IRegistryState state;
 	private boolean finalised;
 
 	private final LinkedHashMap<ResourceLocation, Supplier<T>> entries;
 
-	private FinalisedTypeRegistry(RegistryType type, ResourceLocation identifier,
+	public FinalisedTypeRegistry(RegistryType<?> type, ResourceLocation identifier,
 			LinkedHashMap<ResourceLocation, Supplier<T>> entries) {
 		this.state = IRegistryState.ACTIVE;
 		this.finalised = false;
@@ -36,7 +37,7 @@ public class FinalisedTypeRegistry<T extends IRegistryEntry<T>> implements IFina
 	}
 
 	@Override
-	public RegistryType getType() {
+	public RegistryType<?> getType() {
 		return type;
 	}
 
@@ -58,12 +59,36 @@ public class FinalisedTypeRegistry<T extends IRegistryEntry<T>> implements IFina
 	}
 
 	@Override
-	public void makeFinal() {
+	public void lock() {
 		this.finalised = true;
 		this.state = IRegistryState.FROZEN;
 	}
 
 	public boolean isFinalised() {
 		return finalised;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void inject(IFinalisedRegistry<?> finalisedRegistry) {
+		for (ResourceLocation location : finalisedRegistry.getEntries().keySet()) {
+			this.entries.put(location, (Supplier<T>) finalisedRegistry.getEntries().get(location));
+		}
+	}
+
+	@Override
+	public Map<ResourceLocation, Supplier<T>> getEntries() {
+		return entries;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("{");
+
+		builder.append(entries.toString());
+
+		builder.append("}");
+		return builder.toString();
 	}
 }

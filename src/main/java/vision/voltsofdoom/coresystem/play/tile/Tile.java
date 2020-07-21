@@ -63,7 +63,7 @@ public class Tile implements IRegistryEntry<Tile> {
 	// =================================================================================
 
 	/**
-	 * Defines the properties of a Tile using chainable methods.
+	 * Defines the properties of a Tile using chained methods.
 	 * 
 	 * @author GenElectrovise
 	 *

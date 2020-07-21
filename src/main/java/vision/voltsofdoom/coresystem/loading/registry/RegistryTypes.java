@@ -4,13 +4,15 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
+import com.google.common.collect.ImmutableList;
+
+import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 import vision.voltsofdoom.coresystem.play.entity.Entity;
 import vision.voltsofdoom.coresystem.play.tile.Tile;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
 import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
-import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 
 /**
  * Holds the default {@link RegistryType}s for the
@@ -27,13 +29,21 @@ public class RegistryTypes {
 	public static RegistryType<Tile> TILES;
 	public static RegistryType<Entity> ENTITIES;
 
-	public static volatile RegistryType<?>[] prioritisedTypes = new RegistryType<?>[] {TILES, ENTITIES};
+	public static volatile ImmutableList<RegistryType<? extends IRegistryEntry<?>>> prioritisedTypes;
 
 	@Stowaway
 	public static void listenAndCreate(RegistryEvent.CreateRegistryTypesEvent event) {
 		VODLog4J.LOGGER.info("RegistryTypes#listenAndCreate : Creating RegistryTypes");
 		TILES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"), Tile.class);
 		ENTITIES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "entities"), Entity.class);
+	}
+
+	@Stowaway
+	private static void generateTypes(RegistryEvent.CreateRegistryTypesEvent event) {
+		TILES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"), Tile.class);
+		ENTITIES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "entities"), Entity.class);
+
+		prioritisedTypes = ImmutableList.of(TILES, ENTITIES);
 	}
 
 	public static Iterator<RegistryType<?>> getIterator() {

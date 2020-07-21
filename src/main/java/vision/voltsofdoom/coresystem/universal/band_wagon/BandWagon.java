@@ -46,6 +46,7 @@ public class BandWagon {
 			try {
 				Class<?> parameterType = method.getParameters()[0].getType();
 				if (event.getClass().isAssignableFrom(parameterType)) {
+					method.setAccessible(true);
 					method.invoke(method, event);
 				}
 			} catch (Exception e) {

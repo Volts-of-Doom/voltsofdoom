@@ -1,6 +1,7 @@
 package vision.voltsofdoom.coresystem.loading.registry;
 
 import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
@@ -25,7 +26,7 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
 		this.identifier = identifier;
 		this.type = type;
 		this.state = IRegistryState.ACTIVE;
-		TypeRegistries.submit(this);
+		CollectedRegistries.submit(this);
 	}
 
 	@Override
@@ -66,9 +67,14 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
 		return state;
 	}
 
-	public boolean isFinal() {
-		System.out.println("TODO isFinal TypeRegistry");
-		return false;
+	@Override
+	public IFinalisedRegistry<T> genFinalised() {
+		return new FinalisedTypeRegistry<T>(type, identifier, entries);
+	}
+
+	@Override
+	public Map<ResourceLocation, Supplier<T>> getEntries() {
+		return entries;
 	}
 
 }

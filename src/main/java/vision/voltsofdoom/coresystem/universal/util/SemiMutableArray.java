@@ -2,6 +2,7 @@ package vision.voltsofdoom.coresystem.universal.util;
 
 import java.util.Iterator;
 
+import vision.voltsofdoom.coresystem.loading.registry.FinalisedTypeRegistry;
 import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
 
 /**
@@ -13,8 +14,9 @@ import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
  */
 public class SemiMutableArray<T> implements Iterable<T> {
 	private T[] contents;
-
+	
 	public static void main(String[] args) {
+		
 		VODLog4J.LOGGER.info("Starting");
 
 		SemiMutableArray<String> smarr = new SemiMutableArray<String>();

@@ -1,5 +1,6 @@
 package vision.voltsofdoom.coresystem.loading.registry;
 
+import java.util.Map;
 import java.util.function.Supplier;
 
 import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
@@ -14,6 +15,11 @@ import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 public interface IRegistry<T extends IRegistryEntry<T>> {
 
 	/**
+	 * @return The contents of this {@link IFinalisedRegistry}.
+	 */
+	public Map<ResourceLocation, Supplier<T>> getEntries();
+
+	/**
 	 * @return The {@link ResourceLocation} identifier of this {@link IRegistry}.
 	 */
 	public ResourceLocation getRegistryIdentifier();
@@ -21,7 +27,7 @@ public interface IRegistry<T extends IRegistryEntry<T>> {
 	/**
 	 * @return The {@link RegistryType} of this {@link IRegistry}
 	 */
-	public RegistryType getType();
+	public RegistryType<?> getType();
 
 	/**
 	 * @return the supplier of the {@link IRegistryEntry} identified by the given
@@ -48,4 +54,10 @@ public interface IRegistry<T extends IRegistryEntry<T>> {
 	 * @return
 	 */
 	public RegistryObjectRetriever<T> register(ResourceLocation identifier, Supplier<T> item);
+
+	/**
+	 * 
+	 * @return A finalised version of this registry.
+	 */
+	public IFinalisedRegistry<T> genFinalised();
 }

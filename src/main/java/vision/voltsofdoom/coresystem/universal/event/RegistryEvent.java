@@ -7,7 +7,7 @@ import vision.voltsofdoom.coresystem.loading.registry.IRegistryEntry;
 import vision.voltsofdoom.coresystem.loading.registry.Registry;
 import vision.voltsofdoom.coresystem.loading.registry.RegistryType;
 import vision.voltsofdoom.coresystem.loading.registry.RegistryTypes;
-import vision.voltsofdoom.coresystem.loading.registry.TypeRegistries;
+import vision.voltsofdoom.coresystem.loading.registry.CollectedRegistries;
 import vision.voltsofdoom.coresystem.loading.registry.TypeRegistry;
 import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 import vision.voltsofdoom.coresystem.loading.window.ILoadingWindowDetailedStatus;
@@ -56,7 +56,7 @@ public class RegistryEvent {
 	 * @author GenElectrovise
 	 *
 	 */
-	public static class CreateAndSubmitTypeRegistriesEvent extends Event {
+	public static class CreateAndSubmitRegistriesEvent extends Event {
 		public static final ILoadingWindowDetailedStatus DETAILED_STATUS = new ILoadingWindowDetailedStatus() {
 			@Override
 			public String getDetailedMessage() {
@@ -69,7 +69,7 @@ public class RegistryEvent {
 		}
 
 		public void submit(TypeRegistry<?> typeRegistry) {
-			TypeRegistries.submit(typeRegistry);
+			CollectedRegistries.submit(typeRegistry);
 		}
 	}
 
