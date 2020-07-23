@@ -115,8 +115,6 @@ public class LoadingManager {
 				Registry.register(registry.getRegistryIdentifier(), finalisedRegistry);
 			}
 
-			throw new IllegalStateException("RegisterTypeEvent polling experimental!");
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

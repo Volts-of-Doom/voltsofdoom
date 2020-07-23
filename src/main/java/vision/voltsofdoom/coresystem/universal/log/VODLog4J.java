@@ -9,23 +9,10 @@ public class VODLog4J {
 
 	public VODLog4J() {
 		log = LogManager.getLogger(VODLog4J.class.getSimpleName());
-		configure();
 	}
-
-	private void configure() {
-		/*
-		 * ConfigurationBuilder<BuiltConfiguration> configBuilder =
-		 * ConfigurationBuilderFactory.newConfigurationBuilder();
-		 * AppenderComponentBuilder appenderBuilder = FileAppender.newBuilder(appender);
-		 * 
-		 * //https://logging.apache.org/log4j/2.x/manual/appenders.html#FileAppender
-		 * FileAppender appender = FileAppender.createAppender(generateFileName(), true,
-		 * false, "vod_fileappender", true, false, true, 8192,
-		 * "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n", filter,
-		 * advertise, advertiseUri, config);
-		 * 
-		 * configBuilder.add(appenderBuilder);
-		 */
+	
+	public Logger getLog() {
+		return log;
 	}
 
 	public void info(String msg) {

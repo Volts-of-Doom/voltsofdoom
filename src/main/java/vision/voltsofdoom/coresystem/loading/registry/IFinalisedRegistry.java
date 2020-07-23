@@ -55,6 +55,9 @@ public interface IFinalisedRegistry<T extends IRegistryEntry<T>> {
 	 * @param finalisedRegistry
 	 */
 	void inject(IFinalisedRegistry<?> finalisedRegistry);
+	
+	@Override
+	String toString();
 
 	/**
 	 * Is called by the {@link Registry} to close off this

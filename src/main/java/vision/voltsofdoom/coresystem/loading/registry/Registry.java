@@ -132,6 +132,7 @@ public class Registry {
 	 */
 	public static void iceAge() {
 		setState(IRegistryState.FROZEN);
+		finallyFrozen = true;
 	}
 
 	public static boolean isFinallyFrozen() {
@@ -142,7 +143,19 @@ public class Registry {
 		Registry.finallyFrozen = finallyFrozen;
 	}
 
+	public static String asStaticStringRepresentation() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("\nBEGINING REGISTRY DUMP!\n");
+
+		registry.forEach((id, fReg) -> {
+			builder.append(fReg.toString() + "\n");
+		});
+
+		builder.append("END REGISTRY DUMP!\n");
+		return builder.toString();
+	}
+
 	public static void dump(PrintStream out) {
-		out.println("\nBEING REGISTRY DUMP!\n" + registry + "\nEND REGISTRY DUMP!\n");
+		out.println(asStaticStringRepresentation());
 	}
 }

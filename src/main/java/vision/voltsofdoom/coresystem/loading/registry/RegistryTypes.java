@@ -11,7 +11,6 @@ import vision.voltsofdoom.coresystem.play.entity.Entity;
 import vision.voltsofdoom.coresystem.play.tile.Tile;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
-import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 
 /**
@@ -30,13 +29,6 @@ public class RegistryTypes {
 	public static RegistryType<Entity> ENTITIES;
 
 	public static volatile ImmutableList<RegistryType<? extends IRegistryEntry<?>>> prioritisedTypes;
-
-	@Stowaway
-	public static void listenAndCreate(RegistryEvent.CreateRegistryTypesEvent event) {
-		VODLog4J.LOGGER.info("RegistryTypes#listenAndCreate : Creating RegistryTypes");
-		TILES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"), Tile.class);
-		ENTITIES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "entities"), Entity.class);
-	}
 
 	@Stowaway
 	private static void generateTypes(RegistryEvent.CreateRegistryTypesEvent event) {

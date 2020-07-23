@@ -84,11 +84,13 @@ public class FinalisedTypeRegistry<T extends IRegistryEntry<T>> implements IFina
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("{");
+		builder.append("FinalisedTypeRegistry: " + identifier);
 
-		builder.append(entries.toString());
+		entries.forEach((id, sup) -> {
+			builder.append("\n" + id + " = " + sup.get().toString());
+		});
 
-		builder.append("}");
+		builder.append("\n");
 		return builder.toString();
 	}
 }

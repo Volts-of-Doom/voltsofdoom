@@ -105,23 +105,4 @@ public class RegistryEvent {
 		};
 	}
 
-	/**
-	 * Calls for all {@link TypeRegistry}s of type T to submit their contents for
-	 * addition to a {@link FinalisedTypeRegistry} or other
-	 * {@link IFinalisedRegistry} so they can be added to the {@link Registry}.
-	 * 
-	 * @author GenElectrovise
-	 *
-	 * @param <T>
-	 */
-	public static class RegisterTypeEvent<T extends IRegistryEntry<T>> extends Event {
-
-		public static final ILoadingWindowDetailedStatus DETAILED_STATUS = new ILoadingWindowDetailedStatus() {
-			@Override
-			public String getDetailedMessage() {
-				return "Registering registries of type: " + "TODO NO TYPE SELECTION";
-			}// TODO Read the message
-		};
-	}
-
 }
