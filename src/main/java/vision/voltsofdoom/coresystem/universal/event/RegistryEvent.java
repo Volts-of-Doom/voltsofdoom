@@ -1,13 +1,10 @@
 package vision.voltsofdoom.coresystem.universal.event;
 
 import vision.voltsofdoom.coresystem.loading.LoadingManager;
-import vision.voltsofdoom.coresystem.loading.registry.FinalisedTypeRegistry;
-import vision.voltsofdoom.coresystem.loading.registry.IFinalisedRegistry;
+import vision.voltsofdoom.coresystem.loading.registry.CollectedRegistries;
 import vision.voltsofdoom.coresystem.loading.registry.IRegistryEntry;
-import vision.voltsofdoom.coresystem.loading.registry.Registry;
 import vision.voltsofdoom.coresystem.loading.registry.RegistryType;
 import vision.voltsofdoom.coresystem.loading.registry.RegistryTypes;
-import vision.voltsofdoom.coresystem.loading.registry.CollectedRegistries;
 import vision.voltsofdoom.coresystem.loading.registry.TypeRegistry;
 import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 import vision.voltsofdoom.coresystem.loading.window.ILoadingWindowDetailedStatus;

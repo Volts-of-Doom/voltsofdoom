@@ -6,7 +6,6 @@ import vision.voltsofdoom.coresystem.loading.LoadingManager;
 import vision.voltsofdoom.coresystem.loading.registry.Registry;
 
 public class GameController {
-	private static SystemControl systemControl;
 	private static Registry registry;
 
 	public void initialiseAll() throws IOException {
@@ -26,14 +25,6 @@ public class GameController {
 	}
 
 	// Get and set
-
-	public static SystemControl getSystemControl() {
-		return systemControl;
-	}
-
-	public static void setSystemControl(SystemControl systemControl) {
-		GameController.systemControl = systemControl;
-	}
 
 	public static Registry getRegistry() {
 		return registry;

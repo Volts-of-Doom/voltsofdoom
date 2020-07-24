@@ -1,8 +1,5 @@
 package vision.voltsofdoom.coresystem.universal.util;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-
 public class ImageUtil {
 
 	public static class Tailor {
@@ -15,19 +12,15 @@ public class ImageUtil {
 		 * @param one  The first BufferedImage to be the base
 		 * @param two  The second BufferedImage to be stitched to one
 		 * @return The combined BufferedImage
-		 */
-		public static BufferedImage stitchSquares(Math.Dimensions.EnumAxis axis, BufferedImage one, BufferedImage two) {
-			Graphics2D g = one.createGraphics();
-
-			switch (axis) {
-			case HORIZONTAL:
-				g.drawImage(two.getScaledInstance(one.getWidth(), one.getHeight(), 8), one.getWidth(), 0, null);
-				break;
-			case VERTICAL:
-				g.drawImage(two.getScaledInstance(one.getWidth(), one.getHeight(), 8), 0, one.getHeight(), null);
-				break;
-			}
-			return one;
-		}
+		 *//*
+			 * public static BufferedImage stitchSquares(Math.Dimensions.EnumAxis axis,
+			 * BufferedImage one, BufferedImage two) { Graphics2D g = one.createGraphics();
+			 * 
+			 * switch (axis) { case HORIZONTAL:
+			 * g.drawImage(two.getScaledInstance(one.getWidth(), one.getHeight(), 8),
+			 * one.getWidth(), 0, null); break; case VERTICAL:
+			 * g.drawImage(two.getScaledInstance(one.getWidth(), one.getHeight(), 8), 0,
+			 * one.getHeight(), null); break; } return one; }
+			 */
 	}
 }

@@ -2,7 +2,6 @@ package vision.voltsofdoom.coresystem.universal.util;
 
 import java.util.Iterator;
 
-import vision.voltsofdoom.coresystem.loading.registry.FinalisedTypeRegistry;
 import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
 
 /**
