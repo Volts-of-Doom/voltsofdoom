@@ -59,14 +59,21 @@ public class LoadingManager {
 
 			// 6) Begin Registry creation by firing registry events
 			setStatus(ILoadingWindowStatus.CREATING_REGISTRY);
+			// CreateRegistryTypesEvent
 			setDetailedStatus(RegistryEvent.CreateRegistryTypesEvent.DETAILED_STATUS);
-			BandWagon.playEvent(new RegistryEvent.CreateRegistryTypesEvent()); // Done
+			BandWagon.playEvent(new RegistryEvent.CreateRegistryTypesEvent());
+			// CreateAndSubmitRegistriesEvent
 			setDetailedStatus(RegistryEvent.CreateAndSubmitRegistriesEvent.DETAILED_STATUS);
-			BandWagon.playEvent(new RegistryEvent.CreateAndSubmitRegistriesEvent()); // Done
+			BandWagon.playEvent(new RegistryEvent.CreateAndSubmitRegistriesEvent());
+			// PopulateTypeRegistriesEvent
 			setDetailedStatus(RegistryEvent.PopulateTypeRegistriesEvent.DETAILED_STATUS);
-			BandWagon.playEvent(new RegistryEvent.PopulateTypeRegistriesEvent()); // Done
+			BandWagon.playEvent(new RegistryEvent.PopulateTypeRegistriesEvent());
+			// GenerateAdventuresEvent
+			setDetailedStatus(RegistryEvent.GenerateAdventuresEvent.DETAILED_STATUS);
+			BandWagon.playEvent(new RegistryEvent.GenerateAdventuresEvent());
+			// PollRegistryTypeEventsEvent
 			setDetailedStatus(RegistryEvent.PollRegistryTypeEventsEvent.DETAILED_STATUS);
-			BandWagon.playEvent(new RegistryEvent.PollRegistryTypeEventsEvent()); // See below!
+			BandWagon.playEvent(new RegistryEvent.PollRegistryTypeEventsEvent());
 
 			// Finally terminate the loading window
 			setStatus(ILoadingWindowStatus.DONE);
@@ -98,7 +105,7 @@ public class LoadingManager {
 
 					RegistryType<?> type = registry.getType();
 					RegistryType<?> comparedType = RegistryTypes.prioritisedTypes.get(i);
-					
+
 					if (type.equals(comparedType)) {
 						System.out.println("TODO FINALISE 95 LoadingManager");
 

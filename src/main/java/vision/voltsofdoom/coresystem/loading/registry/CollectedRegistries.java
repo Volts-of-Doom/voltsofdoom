@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
-import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
+import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 
 /**
  * Holds the {@link IRegistry}s submitted during

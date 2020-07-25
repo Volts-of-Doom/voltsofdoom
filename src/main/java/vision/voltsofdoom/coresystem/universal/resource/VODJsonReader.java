@@ -1,4 +1,4 @@
-package vision.voltsofdoom.coresystem.loading.resource;
+package vision.voltsofdoom.coresystem.universal.resource;
 
 import java.io.BufferedReader;
 import java.io.File;

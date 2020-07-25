@@ -7,11 +7,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import vision.voltsofdoom.coresystem.loading.resource.VODJsonReader;
 import vision.voltsofdoom.coresystem.play.entity.Coordinate;
 import vision.voltsofdoom.coresystem.play.entity.Entity;
 import vision.voltsofdoom.coresystem.play.tile.Tile;
 import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
+import vision.voltsofdoom.coresystem.universal.resource.VODJsonReader;
 
 /**
  * A map of a level. Held in a LevelContainer.

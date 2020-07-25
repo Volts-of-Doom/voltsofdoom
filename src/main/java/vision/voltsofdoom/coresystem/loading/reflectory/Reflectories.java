@@ -12,8 +12,8 @@ import org.reflections.scanners.TypeAnnotationsScanner;
 
 import vision.voltsofdoom.coresystem.loading.VODClassLoader;
 import vision.voltsofdoom.coresystem.loading.reflectory.Reflectory.Builder;
-import vision.voltsofdoom.coresystem.loading.resource.jar.JarMapper;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
+import vision.voltsofdoom.coresystem.universal.resource.jar.JarMapper;
 
 public class Reflectories {
 

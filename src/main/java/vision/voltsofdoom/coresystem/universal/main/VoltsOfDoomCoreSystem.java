@@ -6,8 +6,8 @@ import java.io.FileWriter;
 
 import com.google.gson.JsonArray;
 
-import vision.voltsofdoom.coresystem.loading.resource.VODJsonReader;
 import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
+import vision.voltsofdoom.coresystem.universal.resource.VODJsonReader;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 import vision.voltsofdoom.coresystem.universal.util.StringUtils;
 

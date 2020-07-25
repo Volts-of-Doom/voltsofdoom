@@ -3,7 +3,7 @@ package vision.voltsofdoom.coresystem.loading.registry;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
+import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 
 /**
  * A mutable (non finalised) registry.

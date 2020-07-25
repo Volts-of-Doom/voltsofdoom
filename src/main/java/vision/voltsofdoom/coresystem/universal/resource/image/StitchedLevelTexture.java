@@ -1,4 +1,4 @@
-package vision.voltsofdoom.coresystem.loading.resource.image;
+package vision.voltsofdoom.coresystem.universal.resource.image;
 
 import java.awt.image.BufferedImage;
 

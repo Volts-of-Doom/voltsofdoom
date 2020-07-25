@@ -3,9 +3,9 @@ package vision.voltsofdoom.coresystem.play.entity;
 import javax.swing.ImageIcon;
 
 import vision.voltsofdoom.coresystem.play.tile.Tile;
+import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 import vision.voltsofdoom.coresystem.loading.registry.IRegistryEntry;
 import vision.voltsofdoom.coresystem.loading.registry.RegistryMessenger;
-import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 
 /**
  * A thing in a level which isn't a Tile is probably an Entity.

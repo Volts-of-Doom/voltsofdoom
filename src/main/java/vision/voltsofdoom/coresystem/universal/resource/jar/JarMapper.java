@@ -1,4 +1,4 @@
-package vision.voltsofdoom.coresystem.loading.resource.jar;
+package vision.voltsofdoom.coresystem.universal.resource.jar;
 
 import java.io.File;
 import java.util.ArrayList;

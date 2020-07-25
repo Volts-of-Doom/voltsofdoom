@@ -3,9 +3,8 @@ package vision.voltsofdoom.coresystem.play.adventure;
 import java.io.File;
 import java.util.ArrayList;
 
-import vision.voltsofdoom.coresystem.loading.resource.LevelMapFinder;
-import vision.voltsofdoom.coresystem.loading.resource.VODJsonReader;
 import vision.voltsofdoom.coresystem.play.adventure.levelcontainer.LevelContainer;
+import vision.voltsofdoom.coresystem.universal.resource.VODJsonReader;
 
 /**
  * Contains all of the LevelContainers for a new Adventure! Contains a lot of
@@ -21,7 +20,6 @@ public class Adventure {
 	private String description;
 	private String modid;
 	private String lobbyname;
-	private LevelMapFinder levelfinder;
 	private ArrayList<LevelContainer> levels = new ArrayList<LevelContainer>();
 	private VODJsonReader reader;
 
@@ -42,16 +40,6 @@ public class Adventure {
 		this.description = reader.getObj().get("description").getAsString();
 		this.modid = reader.getObj().get("modid").getAsString();
 		this.lobbyname = reader.getObj().get("lobby").getAsString();
-		this.levelfinder = new LevelMapFinder(this);
-		this.levels = getLevelContainers();
-	}
-
-	private ArrayList<LevelContainer> getLevelContainers() {
-		for (File json : levelfinder.getLevels()) {
-			levels.add(new LevelContainer(new VODJsonReader(json)));
-		}
-
-		return levels;
 	}
 
 	public File getJson() {
@@ -76,10 +64,6 @@ public class Adventure {
 
 	public String getLobbyname() {
 		return lobbyname;
-	}
-
-	public LevelMapFinder getLevelfinder() {
-		return levelfinder;
 	}
 
 	public ArrayList<LevelContainer> getLevels() {

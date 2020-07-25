@@ -1,6 +1,6 @@
 package vision.voltsofdoom.coresystem.loading.registry;
 
-import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
+import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 
 /**
  * Denotes a type of registry for identifying {@link TypeRegistry}s.
