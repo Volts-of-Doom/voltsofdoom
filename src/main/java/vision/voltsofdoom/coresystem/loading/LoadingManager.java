@@ -70,6 +70,7 @@ public class LoadingManager {
 
 			// Finally terminate the loading window
 			setStatus(ILoadingWindowStatus.DONE);
+			BandWagon.playEvent(new RegistryEvent.LoadingDoneEvent());
 			loadingWindow.disableAndDispose();
 		} catch (Exception e) {
 			e.printStackTrace();

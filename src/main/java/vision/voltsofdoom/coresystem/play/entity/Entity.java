@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 
 import vision.voltsofdoom.coresystem.play.tile.Tile;
 import vision.voltsofdoom.coresystem.loading.registry.IRegistryEntry;
-import vision.voltsofdoom.coresystem.loading.registry.RegistryObjectRetriever;
+import vision.voltsofdoom.coresystem.loading.registry.RegistryMessenger;
 import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 
 /**
@@ -17,7 +17,7 @@ import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 public class Entity implements IRegistryEntry<Entity> {
 	private Entity.Properties properties;
 
-	public Entity(RegistryObjectRetriever<Entity> objFromModRegistry) {
+	public Entity(RegistryMessenger<Entity> objFromModRegistry) {
 		// TODO Auto-generated constructor stub
 	}
 

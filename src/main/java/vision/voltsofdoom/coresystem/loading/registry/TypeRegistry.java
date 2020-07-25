@@ -40,14 +40,14 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
 	}
 
 	@Override
-	public RegistryObjectRetriever<T> register(ResourceLocation identifier, Supplier<T> instanceSupplier) {
+	public RegistryMessenger<T> register(ResourceLocation identifier, Supplier<T> instanceSupplier) {
 
 		if (!this.state.isMutable()) {
 			throw new IllegalStateException("Registry is not mutable at the moment!");
 		}
 
 		entries.put(identifier, instanceSupplier);
-		return new RegistryObjectRetriever<T>(identifier, instanceSupplier, this);
+		return new RegistryMessenger<T>(identifier, instanceSupplier, this);
 	}
 
 	@Override

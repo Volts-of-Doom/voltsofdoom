@@ -101,5 +101,9 @@ public class RegistryEvent {
 			}
 		};
 	}
+	
+	public static class LoadingDoneEvent extends Event {
+		
+	}
 
 }

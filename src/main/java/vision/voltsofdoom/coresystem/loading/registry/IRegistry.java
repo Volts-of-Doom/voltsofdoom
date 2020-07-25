@@ -53,7 +53,7 @@ public interface IRegistry<T extends IRegistryEntry<T>> {
 	 * 
 	 * @return
 	 */
-	public RegistryObjectRetriever<T> register(ResourceLocation identifier, Supplier<T> item);
+	public RegistryMessenger<T> register(ResourceLocation identifier, Supplier<T> item);
 
 	/**
 	 * 

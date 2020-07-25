@@ -12,18 +12,17 @@ import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
  * 
  * @author GenElectrovise
  *
- * @param <T> The type of the {@link IRegistryEntry} of this object, i.e. the type
- *        of object that the {@link RegistryObjectRetriever#get()} method will
+ * @param <T> The type of the {@link IRegistryEntry} of this object, i.e. the
+ *        type of object that the {@link RegistryMessenger#get()} method will
  *        return.
  */
-public class RegistryObjectRetriever<T extends IRegistryEntry<T>> implements Supplier<T> {
+public class RegistryMessenger<T extends IRegistryEntry<T>> implements Supplier<T> {
 
 	private final ResourceLocation identifier;
-	private final Supplier<T> instanceSupplier;
+	private Supplier<T> instanceSupplier;
 	private final IRegistry<T> parentRegistry;
 
-	public RegistryObjectRetriever(ResourceLocation identifier, Supplier<T> instanceSupplier,
-			IRegistry<T> parentRegistry) {
+	public RegistryMessenger(ResourceLocation identifier, Supplier<T> instanceSupplier, IRegistry<T> parentRegistry) {
 		Objects.requireNonNull(identifier, () -> "Identifier cannot be null!");
 		Objects.requireNonNull(instanceSupplier, () -> "Supplier cannot be null!");
 		Objects.requireNonNull(parentRegistry, () -> "Parent IRegistry cannot be null!");
@@ -41,8 +40,10 @@ public class RegistryObjectRetriever<T extends IRegistryEntry<T>> implements Sup
 		return instanceSupplier;
 	}
 
+	@SuppressWarnings("unchecked")
 	private void updateReference() {
-		Registry.getTyped(parentRegistry.getType()).retrieveSupplier(identifier);
+		IFinalisedRegistry<?> fReg = Registry.getTyped(parentRegistry.getType());
+		instanceSupplier = (Supplier<T>) fReg.retrieveSupplier(identifier);
 	}
 
 	@Override

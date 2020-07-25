@@ -1,7 +1,7 @@
 package vision.voltsofdoom.coresystem.play.tile;
 
 import vision.voltsofdoom.coresystem.loading.registry.IRegistryEntry;
-import vision.voltsofdoom.coresystem.loading.registry.RegistryObjectRetriever;
+import vision.voltsofdoom.coresystem.loading.registry.RegistryMessenger;
 import vision.voltsofdoom.coresystem.loading.resource.ResourceLocation;
 import vision.voltsofdoom.coresystem.loading.resource.image.VODImage;
 
@@ -18,7 +18,7 @@ public class Tile implements IRegistryEntry<Tile> {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Tile(RegistryObjectRetriever<Tile> objFromModRegistry) {
+	public Tile(RegistryMessenger<Tile> objFromModRegistry) {
 		// TODO Should take RegistryObject and turn self into duplicate
 	}
 
