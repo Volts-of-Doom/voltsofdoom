@@ -77,6 +77,7 @@
 			<artifactId>lwjgl-jawt</artifactId>
 		</dependency>
 
+
 		<dependency>
 			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl-openal</artifactId>
@@ -96,6 +97,7 @@
 			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl-shaderc</artifactId>
 		</dependency>
+
 
 		<dependency>
 			<groupId>org.lwjgl</groupId>
