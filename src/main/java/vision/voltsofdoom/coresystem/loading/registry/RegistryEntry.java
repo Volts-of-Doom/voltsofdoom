@@ -3,6 +3,16 @@ package vision.voltsofdoom.coresystem.loading.registry;
 import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
 import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 
+/**
+ * An abstract {@link RegistryEntry}. Contains concrete implementations of the
+ * methods in {@link IRegistryEntry}. Unless you think that my methods are
+ * deeply flawed in some way, best practise is to extend this class if you want
+ * to create a new registerable type.
+ * 
+ * @author GenElectrovise
+ *
+ * @param <T>
+ */
 public abstract class RegistryEntry<T extends IRegistryEntry<T>> implements IRegistryEntry<T> {
 
 	public ResourceLocation identifier;

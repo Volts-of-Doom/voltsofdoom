@@ -9,6 +9,13 @@ import javax.imageio.ImageIO;
 
 import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
 
+/**
+ * Holds an image for the game, in an expected format, with additional utility
+ * methods thrown in for good measure.
+ * 
+ * @author GenElectrovise
+ *
+ */
 public class VODImage {
 	private URL url;
 	private BufferedImage image;

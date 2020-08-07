@@ -1,5 +1,11 @@
 package vision.voltsofdoom.coresystem.universal.util;
 
+/**
+ * Utility methods relating to handling images.
+ * 
+ * @author GenElectrovise
+ *
+ */
 public class ImageUtil {
 
 	public static class Tailor {

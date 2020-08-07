@@ -2,6 +2,13 @@ package vision.voltsofdoom.coresystem.universal.util;
 
 import java.io.File;
 
+/**
+ * Holds static final variables which must be visible to the rest of the game.
+ * This primarily includes directory paths.
+ * 
+ * @author GenElectrovise
+ *
+ */
 public class Reference {
 	public static final String EXECUTION_DIRECTORY = System.getProperty("user.dir");
 	public static final String SEP = File.separator;

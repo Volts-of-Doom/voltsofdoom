@@ -3,6 +3,12 @@ package vision.voltsofdoom.coresystem.universal.log;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * A bad implementation of Log4j, needs updating. The game's central logger.
+ * 
+ * @author GenElectrovise
+ *
+ */
 public class VODLog4J {
 	public static final VODLog4J LOGGER = new VODLog4J();
 	private Logger log;
@@ -10,7 +16,7 @@ public class VODLog4J {
 	public VODLog4J() {
 		log = LogManager.getLogger(VODLog4J.class.getSimpleName());
 	}
-	
+
 	public Logger getLog() {
 		return log;
 	}

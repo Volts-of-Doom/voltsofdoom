@@ -5,6 +5,14 @@ import java.io.IOException;
 import vision.voltsofdoom.coresystem.loading.LoadingManager;
 import vision.voltsofdoom.coresystem.loading.registry.Registry;
 
+/**
+ * Is the first object to be created when the game starts. Manages loading via
+ * the {@link LoadingManager#load()} method, and provides the game's central
+ * "catch" block.
+ * 
+ * @author GenElectrovise
+ *
+ */
 public class GameController {
 	private static Registry registry;
 
@@ -12,12 +20,6 @@ public class GameController {
 		try {
 
 			LoadingManager.load();
-
-			/*
-			 * setRegistry(Registry.createInThreadedFashion());
-			 * 
-			 * GameController.getSystemControl().begin();
-			 */
 
 		} catch (Exception e) {
 			e.printStackTrace();

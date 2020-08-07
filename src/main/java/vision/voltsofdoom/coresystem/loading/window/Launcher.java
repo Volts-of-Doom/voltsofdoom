@@ -17,6 +17,21 @@ import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.coresystem.universal.util.StringUtils;
 
+/**
+ * The launcher for the game. Likely will contain various helping tools at a
+ * later date? Runs {@link VoltsOfDoomCoreSystem#main(String[])} on launching.
+ * This class can be bypassed by calling that method directly -- it has the same
+ * effect. <br>
+ * <br>
+ * Bear in mind that this class, when running the game, passes arguments found
+ * in the vmargs.json file in the roaming/config directory. If running
+ * {@link VoltsOfDoomCoreSystem#main(String[])} directly, you must manually pass
+ * in these arguments in your run configuration (in an IDE) or using '-'s (when
+ * using the command prompt).
+ * 
+ * @author GenElectrovise
+ *
+ */
 public class Launcher extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private boolean launched = false;

@@ -11,6 +11,13 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
 
+/**
+ * A simple {@link JFrame} to show the status of pre-silverspark-initialised
+ * loading. 
+ * 
+ * @author GenElectrovise
+ *
+ */
 public class LoadingWindow extends JFrame implements Runnable {
 	private static final long serialVersionUID = 1L;
 
@@ -86,7 +93,7 @@ public class LoadingWindow extends JFrame implements Runnable {
 		this.status = status;
 		updateContents();
 	}
-	
+
 	public synchronized void setDetailedStatus(ILoadingWindowDetailedStatus detailedStatus) {
 		this.detailedStatus = detailedStatus;
 		updateContents();

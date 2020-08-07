@@ -15,16 +15,31 @@ import vision.voltsofdoom.coresystem.loading.window.ILoadingWindowDetailedStatus
 import vision.voltsofdoom.coresystem.loading.window.ILoadingWindowStatus;
 import vision.voltsofdoom.coresystem.loading.window.LoadingWindow;
 import vision.voltsofdoom.coresystem.universal.band_wagon.BandWagon;
+import vision.voltsofdoom.coresystem.universal.band_wagon.Event;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
 import vision.voltsofdoom.coresystem.universal.event.LoadingEvent;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent.PollRegistryTypeEventsEvent;
+import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
+import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 
+/**
+ * Manages the loading of the game by firing nested {@link Event} classes of
+ * {@link LoadingEvent}. Also manages the {@link LoadingWindow}.
+ * 
+ * @author GenElectrovise
+ *
+ */
 public class LoadingManager {
 
 	private static LoadingWindow loadingWindow;
 
 	public static void load() {
+
+		ResourceLocation id = new ResourceLocation(VoltsOfDoomCoreSystem.ID, "loading_manager_identifier");
+		System.out.println("Loading Manager Identifier:");
+		System.out.println("URL: " + id.url());
+		System.out.println("Path: " + id.url().getPath());
 
 		try {
 
@@ -58,6 +73,7 @@ public class LoadingManager {
 			setDetailedStatus(LoadingEvent.BandWagonCreation.DETAILED_STATUS);
 
 			// 6) Begin Registry creation by firing registry events
+			BandWagon.playEvent(new UpdateStatusEvent(ILoadingWindowStatus.CREATING_REGISTRY));
 			setStatus(ILoadingWindowStatus.CREATING_REGISTRY);
 			// CreateRegistryTypesEvent
 			setDetailedStatus(RegistryEvent.CreateRegistryTypesEvent.DETAILED_STATUS);
@@ -91,6 +107,16 @@ public class LoadingManager {
 
 	private static void setDetailedStatus(ILoadingWindowDetailedStatus detailedStatus) {
 		loadingWindow.setDetailedStatus(detailedStatus);
+	}
+
+	@Stowaway
+	private static void listenForStatusUpdates(UpdateStatusEvent event) {
+		setStatus(event.getStatus());
+	}
+
+	@Stowaway
+	private static void listenForDetailedStatusUpdates(UpdateDetailedStatusEvent event) {
+		setDetailedStatus(event.getDetailedStatus());
 	}
 
 	@Stowaway
@@ -130,6 +156,42 @@ public class LoadingManager {
 		Registry.iceAge();
 
 		Registry.dump(System.out);
+	}
+
+	/**
+	 * Updates the status of the window.
+	 * 
+	 * @author GenElectrovise
+	 *
+	 */
+	public static class UpdateStatusEvent extends Event {
+		private ILoadingWindowStatus status;
+
+		public UpdateStatusEvent(ILoadingWindowStatus status) {
+			this.status = status;
+		}
+
+		public ILoadingWindowStatus getStatus() {
+			return status;
+		}
+	}
+
+	/**
+	 * Updates the detailed status of the window.
+	 * 
+	 * @author GenElectrovise
+	 *
+	 */
+	public static class UpdateDetailedStatusEvent extends Event {
+		private ILoadingWindowDetailedStatus detatiledStatus;
+
+		public UpdateDetailedStatusEvent(ILoadingWindowDetailedStatus status) {
+			this.detatiledStatus = status;
+		}
+
+		public ILoadingWindowDetailedStatus getDetailedStatus() {
+			return detatiledStatus;
+		}
 	}
 
 }
