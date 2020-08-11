@@ -1,15 +1,12 @@
 package vision.voltsofdoom.coresystem.universal.resource;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.function.IntPredicate;
-import java.util.stream.Stream;
-
-import com.google.common.io.Files;
 
 import vision.voltsofdoom.coresystem.loading.reflectory.Reflectories;
 import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
+import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 
 /**
@@ -21,8 +18,8 @@ import vision.voltsofdoom.coresystem.universal.util.Reference;
  */
 public class ResourceLocation {
 
-	private String modid;
-	private String entry;
+	private String domain;
+	private String path;
 	private final EnumResourceType type;
 
 	public ResourceLocation(String modid, String entry) {
@@ -30,17 +27,17 @@ public class ResourceLocation {
 	}
 
 	public ResourceLocation(String modid, String entry, EnumResourceType type) {
-		this.modid = modid;
-		this.entry = entry;
+		this.domain = modid;
+		this.path = entry;
 		this.type = type;
 	}
 
-	public String getEntry() {
-		return entry;
+	public String getPath() {
+		return path;
 	}
 
-	public String getModid() {
-		return modid;
+	public String getDomain() {
+		return domain;
 	}
 
 	public EnumResourceType getType() {
@@ -48,11 +45,11 @@ public class ResourceLocation {
 	}
 
 	public ResourceLocation castType(EnumResourceType toType) {
-		return new ResourceLocation(modid, entry, toType);
+		return new ResourceLocation(domain, path, toType);
 	}
 
 	public String stringify() {
-		return modid + ":" + entry;
+		return domain + ":" + path;
 	}
 
 	@Override
@@ -60,30 +57,40 @@ public class ResourceLocation {
 		return "ResourceLocation{" + "}";
 	}
 
+	/**
+	 * Should I even use this?? Resources will need to be accessed in different
+	 * ways!
+	 * 
+	 * @return
+	 */
 	public InputStream asStream() {
 		InputStream stream = null;
 
 		try {
 			switch (type) {
 			case INTERNAL:
-				System.err.println("INTERNAL getAsStream");
+				VODLog4J.LOGGER.debug("INTERNAL getAsStream - Path >> " + getDomain() + getPath());
 				return this.getClass().getResourceAsStream("");
 			case JAR:
-				System.err.println("JAR getAsStream");
-				return Reflectories.get(modid).getClassLoader().getResourceAsStream("");
+				VODLog4J.LOGGER.debug("JAR getAsStream - ClassLoader >> " + Reflectories.get(domain).getClassLoader()
+						+ " : With path >>" + getDomain() + getPath());
+				return Reflectories.get(domain).getClassLoader().getResourceAsStream(getDomain() + getPath());
 			case OBJECT:
 				VODLog4J.LOGGER.warn("Oops! Cannot retrieve a resource of " + EnumResourceType.OBJECT
 						+ " type as an InputStream! See the documentation of " + EnumResourceType.class.getSimpleName()
 						+ " for details!");
 				return null;
 			case SYSTEM:
-				System.err.println("SYSTEM getAsStream");
-				File file = new File("");
-				return file.AS_A_STREAM;
+				String path = Reference.ROAMING_RESOURCES + "mod" + getDomain() + Reference.SEP + getPath();
+				System.err.println("SYSTEM getAsStream >> " + path);
+				File file = new File(path);
+				return new FileInputStream(file);
 			}
 		} catch (Exception e) {
 			throw new NullPointerException("Could not find resource! >> " + toString());
 		}
+		VODLog4J.LOGGER.error("Failed to retrieve stream for ResourceLocation " + toString());
+		return stream;
 	}
 
 	@Override
@@ -93,14 +100,19 @@ public class ResourceLocation {
 			return false;
 		}
 
-		if (!((ResourceLocation) obj).getModid().equals(modid)) {
+		if (!((ResourceLocation) obj).getDomain().equals(domain)) {
 			return false;
 		}
 
-		if (!((ResourceLocation) obj).getEntry().equals(entry)) {
+		if (!((ResourceLocation) obj).getPath().equals(path)) {
 			return false;
 		}
 
 		return true;
+	}
+
+	public static void main(String[] args) {
+		ResourceLocation l = new ResourceLocation(VoltsOfDoomCoreSystem.ID, "path", EnumResourceType.SYSTEM);
+		l.asStream();
 	}
 }

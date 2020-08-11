@@ -20,8 +20,6 @@ import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
 import vision.voltsofdoom.coresystem.universal.event.LoadingEvent;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent.PollRegistryTypeEventsEvent;
-import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
-import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 
 /**
  * Manages the loading of the game by firing nested {@link Event} classes of
@@ -35,11 +33,6 @@ public class LoadingManager {
 	private static LoadingWindow loadingWindow;
 
 	public static void load() {
-
-		ResourceLocation id = new ResourceLocation(VoltsOfDoomCoreSystem.ID, "loading_manager_identifier");
-		System.out.println("Loading Manager Identifier:");
-		System.out.println("URL: " + id.url());
-		System.out.println("Path: " + id.url().getPath());
 
 		try {
 

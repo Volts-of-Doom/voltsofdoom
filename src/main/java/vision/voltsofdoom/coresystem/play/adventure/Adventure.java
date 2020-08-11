@@ -39,7 +39,7 @@ public class Adventure extends RegistryEntry<Adventure> {
 
 		for (String name : configuration.getLevelNames()) {
 			out.add(new Level(new LevelConfiguration()
-					.withIdentifier(new ResourceLocation(configuration.getIdentifier().getEntry(), name))));
+					.withIdentifier(new ResourceLocation(configuration.getIdentifier().getPath(), name))));
 		}
 
 		return out;

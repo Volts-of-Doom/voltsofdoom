@@ -8,7 +8,7 @@ package vision.voltsofdoom.coresystem.universal.resource;
  */
 public enum EnumResourceType {
 	/**
-	 * Inside the resources of the volts of doom application.
+	 * Inside the resources of the Volts of Doom application.
 	 */
 	INTERNAL,
 	/**
@@ -16,7 +16,7 @@ public enum EnumResourceType {
 	 */
 	JAR,
 	/**
-	 * A resource in the volts of doom roaming directory (save directory)
+	 * A resource in the Volts of Doom roaming directory (save directory)
 	 */
 	SYSTEM,
 	/**

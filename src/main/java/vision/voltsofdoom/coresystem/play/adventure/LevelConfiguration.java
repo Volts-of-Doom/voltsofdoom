@@ -15,4 +15,12 @@ public class LevelConfiguration {
 	public ResourceLocation getIdentifier() {
 		return identifier;
 	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public String getDisplayName() {
+		return displayName;
+	}
 }
