@@ -61,5 +61,9 @@
 </li>
 </ul>
 <h2 id="list-of-adventures">List of Adventures</h2>
-<p>Each Adventure should be in the form of a <code>.zip</code> file, with the file structure detailed above enclosed. The <code>data.json</code> file should be in the top level of the <code>.zip</code> file</p>
+<p>Each Adventure should be in the form of a <code>.zip</code> file, with the file structure detailed above enclosed. The <code>data.json</code> file should be in the top level of the <code>.zip</code> file.</p>
+<h2 id="data.json">data.json</h2>
+<p>The <code>data.json</code> file contains basic, core data about the Adventure – i.e. metadata.</p>
+<h4 id="registryname">registryName</h4>
+<p>The</p>
 
