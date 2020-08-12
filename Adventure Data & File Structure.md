@@ -77,11 +77,11 @@
 <p>A Sheet lays down a template which can be repeatedly used throughout an Adventure. This means that, if you wanted to modify every creature of a given type in each Level of an Adventure in the same way, instead of copying and pasting the same data tag into every Level’s <code>entities.json</code>, which can be error-prone, you can create a Sheet for that type of creature, and specify to use the sheet’s data in the Entity’s key.</p>
 <p>Use of Sheets is not limited to Entities. Check the relevant section of this documentation to see when a Sheet can be used.</p>
 <h4 id="domain">domain</h4>
-<p>(See <code>entities.json#domain</code>)</p>
+<p><em>Short String</em> The first half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies which mod or Adventure the <strong>identifier</strong> is from.</p>
 <h4 id="identifier">identifier</h4>
-<p>(See <code>entities.json#identifier</code>)</p>
+<p><em>Short String</em> The second half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies the name of am Object from within the given <strong>domain</strong> which the <strong>key</strong> string should be bound to. The location of where to access this item from is inferred from where this Sheet is called from, i.e. if this Sheet is called from the <code>map.json</code> file, it is safe to assume that the <strong>identifier</strong> should reference a Tile.</p>
 <h4 id="data">data</h4>
-<p>(See <code>entities.json#data</code>)</p>
+<p><em>JSON Object</em> Varies. Configures the Object that the <strong>identifier</strong> references.</p>
 <h1 id="the-structure-of-a-level">The Structure of a Level</h1>
 <h2 id="level.json">level.json</h2>
 <p>Provides basic information for the Level, much like <code>data.json</code> does for an Adventure.</p>
@@ -92,6 +92,12 @@
 <h2 id="map.json">map.json</h2>
 <p>Provides a map of the Tiles in a Level.</p>
 <h4 id="key">key</h4>
-<p><em><strong>Array of JSON Objects</strong></em></p>
-<h5 id="key-1">key</h5>
+<p><em><strong>Array of JSON Objects, each of which contains the following values</strong></em><br>
+A Sheet can replace the <em>domain</em>, <em>identifier</em>, and <em>data</em> tags.</p>
+<ul>
+<li><strong>key</strong>: <em>Short String</em> An identifier unique within this array, used to specify where to place a Tile of this type in the <strong>map</strong> array.</li>
+<li><strong>domain</strong>: <em>Short String</em> The first half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies which mod or Adventure the <strong>identifier</strong> is from.</li>
+<li><strong>identifier</strong>: <em>Short String</em> The second half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies the name of a Tile from within the given <strong>domain</strong> which the <strong>key</strong> string should be bound to.</li>
+<li><strong>(Optional) data</strong>: <em>JSON Object</em> The contents of this JSON Object vary from Tile to Tile. These values are used to customise the properties of the Tile specified by the <strong>domain</strong> and <strong>identifier</strong>.</li>
+</ul>
 
