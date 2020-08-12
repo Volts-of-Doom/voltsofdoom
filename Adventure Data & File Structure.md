@@ -75,6 +75,7 @@
 <p><em><strong>Array of Short Strings</strong></em> The <em>registryName</em>s of the Levels to be added to the Adventure. This is used to locate the correct folder for each Level. See the naming conventions of Levels.</p>
 <h2 id="sheets">Sheets</h2>
 <p>A Sheet lays down a template which can be repeatedly used throughout an Adventure. This means that, if you wanted to modify every creature of a given type in each Level of an Adventure in the same way, instead of copying and pasting the same data tag into every Level’s <code>entities.json</code>, which can be error-prone, you can create a Sheet for that type of creature, and specify to use the sheet’s data in the Entity’s key.</p>
+<p>Use of Sheets is not limited to Entities. Check the relevant section of this documentation to see when a Sheet can be used.</p>
 <h4 id="domain">domain</h4>
 <p>(See <code>entities.json#domain</code>)</p>
 <h4 id="identifier">identifier</h4>
@@ -82,4 +83,15 @@
 <h4 id="data">data</h4>
 <p>(See <code>entities.json#data</code>)</p>
 <h1 id="the-structure-of-a-level">The Structure of a Level</h1>
+<h2 id="level.json">level.json</h2>
+<p>Provides basic information for the Level, much like <code>data.json</code> does for an Adventure.</p>
+<h4 id="registryname-1">registryName</h4>
+<p><em><strong>Short String</strong></em> The internal name for the Level. This should match the name of the root folder of the Level, i.e this string should match the name of this Level’s folder in the <strong>List of Levels</strong>. If it doesn’t, problems will arise.</p>
+<h4 id="displayname-1">displayName</h4>
+<p><em><strong>Short String</strong></em> The name of the Level to be displayed to the player.</p>
+<h2 id="map.json">map.json</h2>
+<p>Provides a map of the Tiles in a Level.</p>
+<h4 id="key">key</h4>
+<p><em><strong>Array of JSON Objects</strong></em></p>
+<h5 id="key-1">key</h5>
 
