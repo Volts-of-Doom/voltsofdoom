@@ -101,4 +101,6 @@ A Sheet can replace the <em>domain</em>, <em>identifier</em>, and <em>data</em> 
 <li><strong>identifier</strong>: <em>Short String</em> The second half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies the name of a Tile from within the given <strong>domain</strong> which the <strong>key</strong> string should be bound to.</li>
 <li><strong>(Optional) data</strong>: <em>JSON Object</em> The contents of this JSON Object vary from Tile to Tile. These values are used to customise the properties of the Tile specified by the <strong>domain</strong> and <strong>identifier</strong>.</li>
 </ul>
+<h4 id="map">map</h4>
+<p><em>Array of Nested-Arrays of Strings</em> The actual layout of the Level. Each nested-array signifies another Layer in the Level, with the Tiles being added from the <em>top-left</em> of the screen (first array, first item), to the <em>bottom-right</em> (last array, last item). Each item in each array should be a string equal to a key found in the <strong>key</strong> section of this file.</p>
 
