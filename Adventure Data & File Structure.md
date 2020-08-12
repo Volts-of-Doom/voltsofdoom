@@ -103,4 +103,23 @@ A Sheet can replace the <em>domain</em>, <em>identifier</em>, and <em>data</em> 
 </ul>
 <h4 id="map">map</h4>
 <p><em>Array of Nested-Arrays of Strings</em> The actual layout of the Level. Each nested-array signifies another Layer in the Level, with the Tiles being added from the <em>top-left</em> of the screen (first array, first item), to the <em>bottom-right</em> (last array, last item). Each item in each array should be a string equal to a key found in the <strong>key</strong> section of this file.</p>
+<h2 id="entities.json">entities.json</h2>
+<p>Provides the locations of every Entity in the Level.</p>
+<h4 id="key-1">key</h4>
+<p>See <code>map.json#key</code></p>
+<h4 id="map-1">map</h4>
+<p><em><strong>Array of JSON Objects, each of which contains the following values</strong></em><br>
+A Sheet can replace the <em>domain</em>, <em>identifier</em>, and <em>data</em> tags.</p>
+<ul>
+<li><strong>key</strong>: <em>Short String</em> An identifier unique within this array, used to specify which Entity from the <strong>key</strong> is being referenced.</li>
+<li><strong>x</strong>: <em>Integer</em> The X coordinate that the entity should be placed at. Counted from the left, to the right.</li>
+<li><strong>y</strong>: <em>Integer</em> The Y coordinate that the entity should be placed at. Counted from the bottom, up.</li>
+<li><strong>(Optional) data</strong>: <em>JSON Object</em> The contents of this JSON Object vary from Entity to Entity . These values are used to customise the properties of the Entity specified by the <strong>domain</strong> and <strong>identifier</strong> in the <strong>key</strong>. <em><strong>This data tag will override both the data set in the key, AND any Sheet applied!</strong></em></li>
+</ul>
+<h2 id="puzzles">Puzzles</h2>
+<p>The <code>/puzzles</code> folder contains the puzzles which can be found in the Level.</p>
+<h3 id="tbc">TBC</h3>
+<h2 id="behaviours">Behaviours</h2>
+<p>The <code>/behaviors</code> folder contains additional behaviours which will be applied to a Level. This might include extra challenges, such as an entire Level flooding over time.</p>
+<h3 id="tbc-1">TBC</h3>
 
