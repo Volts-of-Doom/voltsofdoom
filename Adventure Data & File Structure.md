@@ -72,7 +72,7 @@
 <h4 id="description">description</h4>
 <p><em><strong>Long String</strong></em> A basic description of the Adventure.</p>
 <h4 id="levels">levels</h4>
-<p><em><strong>Array of Short Strings</strong></em> The <em>registryName</em>s of the Levels to be added to the Adventure. This is used to locate the correct folder for each Level. See the naming conventions of Levels.</p>
+<p><em><strong>Array of Short Strings</strong></em> The <em>registryName</em>s of the Levels to be added to the Adventure. This is used to locate the correct folder for each Level. See the <a href="https://github.com/Volts-of-Doom/voltsofdoom-coresystem/blob/feature-stackedit/Adventure%20Data%20&amp;%20File%20Structure.md#registryname-1">naming conventions of Levels</a>.</p>
 <h2 id="sheets">Sheets</h2>
 <p>A Sheet lays down a template which can be repeatedly used throughout an Adventure. This means that, if you wanted to modify every creature of a given type in each Level of an Adventure in the same way, instead of copying and pasting the same data tag into every Level’s <code>entities.json</code>, which can be error-prone, you can create a Sheet for that type of creature, and specify to use the sheet’s data in the Entity’s key.</p>
 <p>If a Sheet tag is specified, it will override any other tags.</p>
@@ -85,7 +85,7 @@
 <p><em>JSON Object</em> Varies. Configures the Object that the <strong>identifier</strong> references.</p>
 <h1 id="the-structure-of-a-level">The Structure of a Level</h1>
 <h2 id="level.json">level.json</h2>
-<p>Provides basic information for the Level, much like <code>data.json</code> does for an Adventure.</p>
+<p>Provides basic information for the Level, much like <a href="https://github.com/Volts-of-Doom/voltsofdoom-coresystem/blob/feature-stackedit/Adventure%20Data%20&amp;%20File%20Structure.md#the-structure-of-an-adventure"><code>data.json</code></a> does for an Adventure.</p>
 <h4 id="registryname-1">registryName</h4>
 <p><em><strong>Short String</strong></em> The internal name for the Level. This should match the name of the root folder of the Level, i.e this string should match the name of this Level’s folder in the <strong>List of Levels</strong>. If it doesn’t, problems will arise.</p>
 <h4 id="displayname-1">displayName</h4>
@@ -106,7 +106,7 @@ A Sheet can replace the <em>domain</em>, <em>identifier</em>, and <em>data</em> 
 <h2 id="entities.json">entities.json</h2>
 <p>Provides the locations of every Entity in the Level.</p>
 <h4 id="key-1">key</h4>
-<p>See <code>map.json#key</code></p>
+<p>See <a href="https://github.com/Volts-of-Doom/voltsofdoom-coresystem/blob/feature-stackedit/Adventure%20Data%20&amp;%20File%20Structure.md#key"><code>map.json#key</code></a></p>
 <h4 id="map-1">map</h4>
 <p><em><strong>Array of JSON Objects, each of which contains the following values</strong></em><br>
 A Sheet can replace the <em>domain</em>, <em>identifier</em>, and <em>data</em> tags.</p>
