@@ -118,8 +118,8 @@ A Sheet can replace the <em>domain</em>, <em>identifier</em>, and <em>data</em> 
 </ul>
 <h2 id="puzzles">Puzzles</h2>
 <p>The <code>/puzzles</code> folder contains the puzzles which can be found in the Level.</p>
-<h3 id="tbc">TBC</h3>
+<h3 id="t.b.c.">T.B.C.</h3>
 <h2 id="behaviours">Behaviours</h2>
 <p>The <code>/behaviors</code> folder contains additional behaviours which will be applied to a Level. This might include extra challenges, such as an entire Level flooding over time.</p>
-<h3 id="tbc-1">TBC</h3>
+<h3 id="t.b.c.-1">T.B.C.</h3>
 
