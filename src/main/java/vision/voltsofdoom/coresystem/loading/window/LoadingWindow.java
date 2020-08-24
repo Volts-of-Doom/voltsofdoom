@@ -43,7 +43,7 @@ public class LoadingWindow extends JFrame implements Runnable {
 	private void updateContents() {
 		// JFrame
 		setResizable(false);
-		setBackground(UIManager.getColor("CheckBox.focus"));
+		//setBackground(UIManager.getColor("CheckBox.focus"));
 		setForeground(UIManager.getColor("Button.focus"));
 		setTitle("Volts of Doom - Loading");
 		getContentPane().setBackground(UIManager.getColor("Button.background"));

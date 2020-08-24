@@ -236,7 +236,7 @@ public abstract class Game {
      */
     public static boolean isDefaultContext() {
         boolean isDefault = GL.getCapabilities().OpenGL32;
-        Logger.getLogger(Game.class.getName()).log(Level.INFO, "Is default context? " + isDefault);
+        //Logger.getLogger(Game.class.getName()).log(Level.INFO, "Is default context? " + isDefault);
         return isDefault;
     }
 
