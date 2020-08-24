@@ -1,9 +1,11 @@
 package vision.voltsofdoom.coresystem.universal.main;
 
-import java.io.IOException;
-
+import vision.voltsofdoom.silverspark.core.Game;
+import vision.voltsofdoom.silverspark.core.VariableTimestepGame;
 import vision.voltsofdoom.coresystem.loading.LoadingManager;
 import vision.voltsofdoom.coresystem.loading.registry.Registry;
+
+import java.io.IOException;
 
 public class GameController {
 	private static Registry registry;
@@ -18,6 +20,9 @@ public class GameController {
 			 * 
 			 * GameController.getSystemControl().begin();
 			 */
+
+			Game game = new VariableTimestepGame();
+			game.start();
 
 		} catch (Exception e) {
 			e.printStackTrace();

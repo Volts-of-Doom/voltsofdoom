@@ -1,15 +1,14 @@
 package vision.voltsofdoom.coresystem.loading.window;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.Font;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
 
 public class LoadingWindow extends JFrame implements Runnable {
 	private static final long serialVersionUID = 1L;
@@ -93,9 +92,9 @@ public class LoadingWindow extends JFrame implements Runnable {
 	}
 
 	public void disableAndDispose() {
-		EventQueue.invokeLater(() -> {
+		//EventQueue.invokeLater(() -> {
 			setEnabled(false);
 			dispose();
-		});
+		//});
 	}
 }
