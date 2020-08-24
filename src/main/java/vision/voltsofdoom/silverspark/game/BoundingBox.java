@@ -31,11 +31,11 @@ import vision.voltsofdoom.silverspark.math.Vector2f;
  *
  * @author Heiko Brumme
  */
-public class AABB {
+public class BoundingBox {
 
     public Vector2f min, max;
 
-    public AABB(Entity entity) {
+    public BoundingBox(Entity entity) {
         min = new Vector2f(entity.getX(), entity.getY());
         max = new Vector2f(
                 entity.getX() + entity.getWidth(),
@@ -50,7 +50,7 @@ public class AABB {
      *
      * @return true if a collision was detected.
      */
-    public boolean intersects(AABB other) {
+    public boolean intersects(BoundingBox other) {
         if (this.max.x < other.min.x) {
             return false;
         }

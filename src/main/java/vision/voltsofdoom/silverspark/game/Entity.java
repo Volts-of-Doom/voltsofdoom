@@ -38,7 +38,7 @@ public abstract class Entity {
     protected Vector2f previousPosition;
     protected Vector2f position;
 
-    protected final AABB aabb;
+    protected final BoundingBox boundingBox;
 
     protected final float speed;
     protected Vector2f direction;
@@ -57,7 +57,7 @@ public abstract class Entity {
         previousPosition = new Vector2f(x, y);
         position = new Vector2f(x, y);
 
-        aabb = new AABB(this);
+        boundingBox = new BoundingBox(this);
 
         this.speed = speed;
         direction = new Vector2f();
@@ -99,10 +99,10 @@ public abstract class Entity {
         Vector2f velocity = direction.scale(speed);
         position = position.add(velocity.scale(delta));
 
-        aabb.min.x = position.x;
-        aabb.min.y = position.y;
-        aabb.max.x = position.x + width;
-        aabb.max.y = position.y + height;
+        boundingBox.min.x = position.x;
+        boundingBox.min.y = position.y;
+        boundingBox.max.x = position.x + width;
+        boundingBox.max.y = position.y + height;
     }
 
 
@@ -134,8 +134,8 @@ public abstract class Entity {
         return textureY;
     }
 
-    public AABB getAABB() {
-        return aabb;
+    public BoundingBox getBoundingBox() {
+        return boundingBox;
     }
 
 }
