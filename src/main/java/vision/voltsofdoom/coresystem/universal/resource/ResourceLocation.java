@@ -21,48 +21,14 @@ public class ResourceLocation {
 		this.path = entry;
 	}
 
-	/**
-	 * A component {@link String} in a {@link ResourceLocation} is considered valid
-	 * if it contains only letters, and is between 4 and 32 characters incl.
-	 * 
-	 * @param string
-	 * @return
-	 */
-	public boolean validateString(String string) {
+	public static boolean validate(String string) {
 
-		if (string.length() > 32 || string.length() < 4) {
-			return false;
-		}
-
-		// For each letter
-		OfInt it = string.chars().iterator();
-		while (it.hasNext()) {
-			Integer i = (Integer) it.next();
-			Character c = new Character((char) i.intValue());
-
-			if (!Character.isLetter(c)) {
-				return false;
-			}
-
-			/*
-			 * // If not letter if (!Character.isLetter(c)) { // If is colon if
-			 * (!c.equals(new String(":").charAt(0))) { System.out.println("Colon : " + new
-			 * String(":").charAt(0));
-			 * 
-			 * // If too many colons (only one allowed) if (colonCount++ > 1) { return
-			 * false; }
-			 * 
-			 * } else Not letter is illegal { return false; } }
-			 */
-		}
-
-		return true;
-	}
-
-	public boolean validate() {
-
+		// Get colon count
 		int colonCount = 0;
-		OfInt iterator = stringify().chars().iterator();
+		int index = 0;
+		int colonIndex = 0;
+
+		OfInt iterator = string.chars().iterator();
 		while (iterator.hasNext()) {
 			Integer integer = (Integer) iterator.next();
 			char c = (char) integer.intValue();
@@ -71,44 +37,35 @@ public class ResourceLocation {
 				if (new Character(c).equals(new Character(new String(":").charAt(0)))) {
 					if (colonCount++ > 1) {
 						return false;
+					} else {
+						colonIndex = index;
 					}
 				} else {
 					return false;
 				}
 			}
+
+			index++;
 		}
 
-		if (colonCount < 1) {
+		// If doesn't contain exactly one colon
+		if (colonCount < 1 || colonCount > 1) {
 			return false;
 		}
 
-		return validateString(getDomain()) && validateString(getPath());
+		// If colon does not obstruct lengths
+		if (colonIndex < 4 || colonIndex > string.length() - 5) {
+			return false;
+		}
+
+		return true;
 	}
 
 	public static ResourceLocation fromString(String str) {
 		Objects.requireNonNull(str, () -> "Constructing ResourceLocation fromString() >> Input string cannot be null!");
 
-		int colonCount = 0;
-		OfInt iteratorOne = str.chars().iterator();
-		while (iteratorOne.hasNext()) {
-			Integer integer = (Integer) iteratorOne.next();
-			Character character = new Character((char) integer.intValue());
-
-			if (!Character.isLetter(character.charValue())) {
-				if (character.equals(new Character(new String(":").charAt(0)))) {
-					if (colonCount++ > 1) {
-						throw new IllegalStateException(
-								"Invalid ResourceLocation string input >> Contains more than one colon!");
-					}
-				} else {
-					throw new IllegalStateException(
-							"Invalid ResourceLocation string input >> Can only contain alphabetic letters, and 1 colon");
-				}
-			}
-		}
-
-		if (colonCount < 1) {
-			throw new IllegalStateException("Invalid ResourceLocation string input >> Contains fewer than one colon!");
+		if (!validate(str)) {
+			throw new IllegalStateException("Invalid string given to construct a ResourceLocation!");
 		}
 
 		// Validated!
@@ -184,10 +141,7 @@ public class ResourceLocation {
 	}
 
 	public static void main(String[] args) {
-		ResourceLocation r = new ResourceLocation("modid", "path");
-		System.out.println(r.validate());
-
-		ResourceLocation r2 = ResourceLocation.fromString("domain::entry");
-		System.out.println(r2.validate());
+		ResourceLocation r2 = ResourceLocation.fromString("domain:entry");
+		System.out.println(validate("domain:entry_"));
 	}
 }
