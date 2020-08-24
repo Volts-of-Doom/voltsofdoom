@@ -40,7 +40,22 @@ public class AdventureLoader {
 	 * Constructs the Adventure objects for a list of JSON files during the
 	 * {@link RegistryEvent.GenerateAdventuresEvent}. Actually delegates all of the
 	 * hard work to the Adventure class, which further delegates the work to its
-	 * contained classes (eg {@link LevelMeta}, {@link Level} and {@link LevelMap})
+	 * contained classes (eg {@link LevelMeta}, {@link Level} and
+	 * {@link LevelMap})<br>
+	 * <br>
+	 * <b>Notes on ZIP files:</b><br>
+	 * <ul>
+	 * <li>Zip files treat all of their contents ({@link ZipEntry}s) as if they were
+	 * in the same folder, just with different names.
+	 * <li>i.e. A ZIP containing a file called "file.json", and a folder called
+	 * "folder_1", containing a file called "data.txt", would have two entries:
+	 * "file.json", and "folder_1/data.txt".
+	 * <li>This differs from the typical {@link File} in that it works on a baser
+	 * layer, and means that, to check the locations of files, you have to use
+	 * something along the lines of {@link String#startsWith(String)}.
+	 * </ul>
+	 * 
+	 * @param zip
 	 * 
 	 * @param adventureFiles The list of JSON files.
 	 * @return An ArrayList of Adventures.
@@ -55,8 +70,9 @@ public class AdventureLoader {
 		List<ZipFile> adventureZips = new ArrayList<ZipFile>();
 		File adventureFolder = new File(Reference.ADVENTURE);
 		if (!adventureFolder.exists() || !adventureFolder.isDirectory()) {
-			throw new FileNotFoundException("Adventure file cannot be located at " + Reference.ADVENTURE
-					+ "! This is an error! Program will terminate.");
+			throw new FileNotFoundException("Adventure folder in the located Volts of Doom directory"
+					+ Reference.ROAMING + " cannot be located (" + Reference.ADVENTURE
+					+ ")! This is an error! Program will terminate.");
 		}
 
 		// Add ZipFiles to the list of ZipFiles.
@@ -76,57 +92,9 @@ public class AdventureLoader {
 			}
 		}
 
+		// For each of the ZIPs found
 		adventureZips.forEach((zip) -> {
-			enumerateZipEntries(zip);
+			
 		});
-	}
-
-	/**
-	 * Zip files treat all of their contents ({@link ZipEntry}s) as if they were in
-	 * the same folder, just with different names.<br>
-	 * <br>
-	 * i.e. A ZIP containing a file called "file.json", and a folder called
-	 * "folder_1", containing a file called "data.txt", would have two entries:
-	 * "file.json", and "folder_1/data.txt". <br>
-	 * <br>
-	 * This differs from the typical {@link File} in that it works on a baser layer,
-	 * and means that, to check the locations of files, you have to use something
-	 * along the lines of {@link String#startsWith(String)}.
-	 * 
-	 * @param zip
-	 */
-	private static void enumerateZipEntries(ZipFile zip) {
-		Enumeration<? extends ZipEntry> entries = zip.entries();
-
-		// For each ZipEntry in a file.
-		while (entries.hasMoreElements()) {
-			ZipEntry zipEntry = (ZipEntry) entries.nextElement();
-
-			if (zipEntry.isDirectory()) {
-				continue;
-			} else {
-
-			}
-		}
-	}
-
-	public static void getEntriesWithinFolder(ZipFile zip, String path) {
-		getEntriesWithinFolder(zip, path, false);
-	}
-
-	public static Set<ZipEntry> getEntriesWithinFolder(ZipFile zip, String path, boolean excludeDirectories) {
-		Enumeration<? extends ZipEntry> entries = zip.entries();
-		Set<ZipEntry> zipEntries = new HashSet<ZipEntry>();
-		while (entries.hasMoreElements()) {
-			ZipEntry zipEntry = (ZipEntry) entries.nextElement();
-
-			if (zipEntry.isDirectory() && excludeDirectories) {
-				continue;
-			} else if (zip.getName().startsWith(path)) {
-				zipEntries.add(zipEntry);
-			}
-		}
-		
-		return zipEntries;
 	}
 }
