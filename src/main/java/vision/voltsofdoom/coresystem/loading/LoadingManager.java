@@ -26,7 +26,6 @@ import vision.voltsofdoom.coresystem.universal.event.RegistryEvent.PollRegistryT
  * @author GenElectrovise
  *
  */
-=======
 import java.util.Iterator;
 
 public class LoadingManager {
