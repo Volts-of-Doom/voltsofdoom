@@ -1,16 +1,14 @@
 package vision.voltsofdoom.coresystem.loading;
 
-import java.util.Iterator;
-
 import vision.voltsofdoom.coresystem.loading.mod.Mods;
 import vision.voltsofdoom.coresystem.loading.reflectory.Reflectories;
-import vision.voltsofdoom.coresystem.loading.registry.RegistryTypes;
 import vision.voltsofdoom.coresystem.loading.registry.CollectedRegistries;
 import vision.voltsofdoom.coresystem.loading.registry.IFinalisedRegistry;
 import vision.voltsofdoom.coresystem.loading.registry.IRegistry;
 import vision.voltsofdoom.coresystem.loading.registry.IRegistryEntry;
 import vision.voltsofdoom.coresystem.loading.registry.Registry;
 import vision.voltsofdoom.coresystem.loading.registry.RegistryType;
+import vision.voltsofdoom.coresystem.loading.registry.RegistryTypes;
 import vision.voltsofdoom.coresystem.loading.window.ILoadingWindowDetailedStatus;
 import vision.voltsofdoom.coresystem.loading.window.ILoadingWindowStatus;
 import vision.voltsofdoom.coresystem.loading.window.LoadingWindow;
@@ -19,6 +17,8 @@ import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
 import vision.voltsofdoom.coresystem.universal.event.LoadingEvent;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent.PollRegistryTypeEventsEvent;
+
+import java.util.Iterator;
 
 public class LoadingManager {
 
@@ -78,7 +78,7 @@ public class LoadingManager {
 			// Finally terminate the loading window
 			setStatus(ILoadingWindowStatus.DONE);
 			BandWagon.playEvent(new RegistryEvent.LoadingDoneEvent());
-			loadingWindow.disableAndDispose();
+			loadingWindow.setEnabled(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
