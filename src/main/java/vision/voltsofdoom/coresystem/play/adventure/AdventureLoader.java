@@ -53,8 +53,8 @@ public class AdventureLoader {
 	 * @param zip
 	 * 
 	 * @param adventureFiles The list of JSON files.
-	 * @return An ArrayList of Adventures.
-	 * @throws FileNotFoundException
+	 * @throws FileNotFoundException If an error occurs finding a listed
+	 *                               {@link Adventure} file.
 	 * @see Adventure
 	 * @see Level
 	 * @see LevelMeta
@@ -89,7 +89,17 @@ public class AdventureLoader {
 
 		// For each of the ZIPs found
 		adventureZips.forEach((zip) -> {
-			
+			try {
+				fromZip(zip);
+			} catch (IOException e) {
+				Throwable t = new Throwable("Error reading ZIP file " + zip.getName() + " >> " + e.getMessage(),
+						e.getCause());
+				t.printStackTrace();
+			}
 		});
+	}
+
+	private static void fromZip(ZipFile zip) throws IOException {
+		
 	}
 }

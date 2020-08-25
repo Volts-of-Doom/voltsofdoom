@@ -104,7 +104,7 @@ public class VoltsOfDoomCoreSystem extends Thread {
 		VODLog4J.LOGGER.info("Reading configuration file: " + configFile);
 
 		VODJsonReader reader = new VODJsonReader(configFile);
-		JsonArray array = reader.elementFromKey("vmargs").getAsJsonArray();
+		JsonArray array = reader.fromKey("vmargs").getAsJsonArray();
 		String[] args = new String[array.size()];
 
 		for (int i = 0; i < array.size(); i++) {
