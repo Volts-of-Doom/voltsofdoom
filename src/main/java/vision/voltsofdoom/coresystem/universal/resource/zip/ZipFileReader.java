@@ -18,7 +18,6 @@ import com.google.gson.stream.JsonReader;
 public class ZipFileReader {
 
 	private ZipFile zipFile;
-	private JsonObject jsonObject;
 
 	public ZipFileReader(ZipFile zipFile) {
 		this.zipFile = zipFile;
@@ -26,10 +25,6 @@ public class ZipFileReader {
 
 	public ZipFile getZipFile() {
 		return zipFile;
-	}
-
-	public JsonObject getJsonObject() {
-		return jsonObject;
 	}
 
 	public InputStream getStream(String pathToEntry) throws IOException {

@@ -13,6 +13,7 @@ import java.util.zip.ZipFile;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent.GenerateAdventuresEvent;
+import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 
 /**
@@ -100,6 +101,23 @@ public class AdventureLoader {
 	}
 
 	private static void fromZip(ZipFile zip) throws IOException {
-		
+		ZipFileReader reader = new ZipFileReader(zip);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
