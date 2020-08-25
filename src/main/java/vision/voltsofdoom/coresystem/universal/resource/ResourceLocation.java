@@ -21,12 +21,16 @@ public class ResourceLocation {
 		this.path = entry;
 	}
 
-	public static boolean validate(String string) {
+	public static ResourceLocationValidityState validate(String string) {
 
 		// Get colon count
 		int colonCount = 0;
 		int index = 0;
 		int colonIndex = 0;
+
+		int preColonLetterCount = 0;
+		int postColonLetterCount = 0;
+		boolean foundColon = false;
 
 		OfInt iterator = string.chars().iterator();
 		while (iterator.hasNext()) {
@@ -34,15 +38,25 @@ public class ResourceLocation {
 			char c = (char) integer.intValue();
 
 			if (!Character.isLetter(c)) {
-				if (new Character(c).equals(new Character(new String(":").charAt(0)))) {
+				if (isColon(c)) {
 					if (colonCount++ > 1) {
-						return false;
+						return ResourceLocationValidityState.INVALID_COLON_COUNT;
 					} else {
 						colonIndex = index;
 					}
+
+					foundColon = true;
 				} else {
-					return false;
+					return ResourceLocationValidityState.ILLEGAL_CHARACTER;
 				}
+			}
+
+			if (isColon(c)) {
+				;
+			} else if (!foundColon) {
+				preColonLetterCount++;
+			} else {
+				postColonLetterCount++;
 			}
 
 			index++;
@@ -50,22 +64,29 @@ public class ResourceLocation {
 
 		// If doesn't contain exactly one colon
 		if (colonCount < 1 || colonCount > 1) {
-			return false;
+			return ResourceLocationValidityState.INVALID_COLON_COUNT;
 		}
 
-		// If colon does not obstruct lengths
+		// If colon does not obstruct lengths, i.e. is too short
 		if (colonIndex < 4 || colonIndex > string.length() - 5) {
-			return false;
+			return ResourceLocationValidityState.TOO_SHORT;
 		}
 
-		return true;
+		// If either side is too long
+		if (preColonLetterCount > 32 || postColonLetterCount > 32) {
+			return ResourceLocationValidityState.TOO_LONG;
+		}
+
+		return ResourceLocationValidityState.VALID;
 	}
 
 	public static ResourceLocation fromString(String str) {
 		Objects.requireNonNull(str, () -> "Constructing ResourceLocation fromString() >> Input string cannot be null!");
 
-		if (!validate(str)) {
-			throw new IllegalStateException("Invalid string given to construct a ResourceLocation!");
+		ResourceLocationValidityState validityState = validate(str);
+		if (!validityState.isValid()) {
+			throw new IllegalStateException("Invalid string '" + str + "' given to construct a ResourceLocation! >> "
+					+ validityState.getMessage());
 		}
 
 		// Validated!
@@ -78,7 +99,7 @@ public class ResourceLocation {
 			Integer integer = (Integer) iteratorTwo.next();
 			Character character = new Character((char) integer.intValue());
 
-			if (character.equals(new Character(new String(":").charAt(0)))) {
+			if (isColon(character)) {
 				foundColon = true;
 				continue;
 			}
@@ -140,8 +161,53 @@ public class ResourceLocation {
 		return true;
 	}
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		ResourceLocation r2 = ResourceLocation.fromString("domain:entry");
-		System.out.println(validate("domain:entry_"));
+		System.out.println(validate("domain::entry"));
+	}
+
+	public static boolean isColon(Character c) {
+		return c.equals(new Character(new String(":").charAt(0)));
+	}
+
+	public static boolean isColon(char c) {
+		return isColon(new Character(c));
+	}
+
+	/**
+	 * Various reasons why a ResourceLocation might, or might not be valid. Useful
+	 * for error messages!
+	 * 
+	 * @author GenElectrovise
+	 *
+	 */
+	public static enum ResourceLocationValidityState {
+		VALID(true, "ResourceLocation valid!"),
+		TOO_LONG(false, "ResourceLocation spec is too long! (One half of the given spec exceeds 32 characters)"),
+		TOO_SHORT(false, "ResourceLocation spec is too short! (One half of the given spec is less than 4 characters)"),
+		INVALID_COLON_COUNT(false, "ResourceLocation does not contain 1 colon!"), ILLEGAL_CHARACTER(false,
+				"ResourceLocation contains an illegal character! Only alphabetic characters, and colons are allowed!");
+
+		private boolean valid;
+		private String message;
+
+		private ResourceLocationValidityState(boolean valid, String message) {
+			this.valid = valid;
+			this.message = message;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+
+		public boolean isValid() {
+			return valid;
+		}
+
+		@Override
+		public String toString() {
+			return "ResourceLocationValidityState{isValid=" + isValid() + ", message='" + getMessage() + "'}";
+		}
 	}
 }
