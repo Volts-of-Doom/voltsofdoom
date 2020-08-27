@@ -24,6 +24,8 @@
 package vision.voltsofdoom.silverspark.game;
 
 
+import vision.voltsofdoom.silverspark.display.ICollidable;
+import vision.voltsofdoom.silverspark.display.BoundingBox;
 import vision.voltsofdoom.silverspark.graphic.Texture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.math.Vector2f;
@@ -33,7 +35,7 @@ import vision.voltsofdoom.silverspark.math.Vector2f;
  *
  * @author Heiko Brumme
  */
-public abstract class Entity {
+public abstract class Entity implements ICollidable {
 
     protected Vector2f previousPosition;
     protected Vector2f position;
@@ -53,7 +55,10 @@ public abstract class Entity {
     protected final int textureX; // X and Y co-ordinates of entity image on texture
     protected final int textureY;
 
-    public Entity(VODColor color, Texture texture, float x, float y, float speed, int width, int height, int textureX, int textureY) {
+    public Entity (VODColor color, Texture texture, float x, float y, float speed, int width, int height, int textureX, int textureY)
+
+    {
+
         previousPosition = new Vector2f(x, y);
         position = new Vector2f(x, y);
 
@@ -103,6 +108,11 @@ public abstract class Entity {
         boundingBox.min.y = position.y;
         boundingBox.max.x = position.x + width;
         boundingBox.max.y = position.y + height;
+    }
+
+    public boolean isInBounds(double x, double y) {
+        System.out.println("Bounds: x " + boundingBox.min.x + ", to " + boundingBox.max.x + ", y " + boundingBox.min.y + ", to " + boundingBox.max.y);
+        return ((x >= boundingBox.min.x && x <= boundingBox.max.x) && (y >= boundingBox.min.y && y <= boundingBox.max.y));
     }
 
 

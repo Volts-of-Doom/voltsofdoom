@@ -23,13 +23,13 @@
  */
 package vision.voltsofdoom.silverspark.core;
 
-import vision.voltsofdoom.silverspark.graphic.EntityRenderer;
-import vision.voltsofdoom.silverspark.graphic.TextRenderer;
-import vision.voltsofdoom.silverspark.graphic.Window;
-import vision.voltsofdoom.silverspark.state.LevelState;
-import vision.voltsofdoom.silverspark.state.StateMachine;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
+import vision.voltsofdoom.silverspark.render.ListRenderer;
+import vision.voltsofdoom.silverspark.render.TextRenderer;
+import vision.voltsofdoom.silverspark.graphic.Window;
+import vision.voltsofdoom.silverspark.state.MenuState;
+import vision.voltsofdoom.silverspark.state.StateMachine;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,7 +68,7 @@ public abstract class Game {
     /**
      * Used for rendering.
      */
-    protected EntityRenderer entityRenderer;
+    protected ListRenderer entityRenderer;
     /**
      * Used for rendering text.
      */
@@ -83,7 +83,7 @@ public abstract class Game {
      */
     public Game() {
         timer = new Timer();
-        entityRenderer = new EntityRenderer();
+        entityRenderer = new ListRenderer();
         textRenderer = new TextRenderer();
         state = new StateMachine();
     }
@@ -153,7 +153,7 @@ public abstract class Game {
      * Initializes the states.
      */
     public void initStates() {
-        state.add("game", new LevelState(entityRenderer, textRenderer));
+        state.add("game", new MenuState(window.getId(), entityRenderer, textRenderer));
         state.change("game");
     }
 

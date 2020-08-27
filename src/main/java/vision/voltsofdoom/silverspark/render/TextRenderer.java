@@ -1,8 +1,10 @@
-package vision.voltsofdoom.silverspark.graphic;
+package vision.voltsofdoom.silverspark.render;
 
+import vision.voltsofdoom.silverspark.graphic.VODColor;
+import vision.voltsofdoom.silverspark.render.Renderer;
 import vision.voltsofdoom.silverspark.text.FontState;
 
-public class TextRenderer extends Renderer{
+public class TextRenderer extends Renderer {
 
 
     /** Initializes the renderer. */

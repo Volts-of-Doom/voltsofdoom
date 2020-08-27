@@ -1,39 +1,18 @@
-/*
- * The MIT License (MIT)
- *
- * Copyright © 2015-2016, Heiko Brumme
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package vision.voltsofdoom.silverspark.state;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryStack;
+import vision.voltsofdoom.silverspark.controls.MenuButton;
 import vision.voltsofdoom.silverspark.core.Game;
-import vision.voltsofdoom.silverspark.game.GreenBlob;
 import vision.voltsofdoom.silverspark.display.IRenderable;
-import vision.voltsofdoom.silverspark.render.ListRenderer;
+import vision.voltsofdoom.silverspark.display.Label;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
-import vision.voltsofdoom.silverspark.render.Renderer;
-import vision.voltsofdoom.silverspark.render.TextRenderer;
 import vision.voltsofdoom.silverspark.graphic.Texture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
+import vision.voltsofdoom.silverspark.math.Vector2f;
+import vision.voltsofdoom.silverspark.render.ListRenderer;
+import vision.voltsofdoom.silverspark.render.Renderer;
+import vision.voltsofdoom.silverspark.render.TextRenderer;
 import vision.voltsofdoom.silverspark.text.FontState;
 
 import java.awt.FontFormatException;
@@ -47,37 +26,30 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * This class contains a simple game.
- *
- * @author Heiko Brumme
- */
-public class LevelState implements State {
+public class MenuState implements State {
 
     private MouseEventMenuHandler mouseEventHandler;
 
     private Texture backgroundTexture;
-    private Texture entitiesTexture;
+    private Texture contentsTexture;
     private final ListRenderer listRenderer;
     private final TextRenderer textRenderer;
 
-    private GreenBlob greenBlob1;
-    private GreenBlob greenBlob2;
-    private List<IRenderable> entitiesList = new ArrayList<>();
+    private MenuButton button1;
+    private MenuButton button2;
+    private List<IRenderable> controlList = new ArrayList<>();
     private Map<String, FontState> availableFonts;
 
     private String[] permittedFonts = {"Inconsolata:16:WHITE", "Inconsolata:20:WHITE", "Inconsolata:50:WHITE"};
 
-    private int playerScore;
-    private int opponentScore;
     private int gameWidth;
     private int gameHeight;
     private long windowId;
 
-    public LevelState(long windowId, ListRenderer entityRenderer, TextRenderer textRenderer) {
+    public MenuState(long windowId, ListRenderer listRenderer, TextRenderer textRenderer) {
         this.windowId = windowId;
         this.mouseEventHandler = new MouseEventMenuHandler(windowId);
-        this.listRenderer = entityRenderer;
+        this.listRenderer = listRenderer;
         this.textRenderer = textRenderer;
         availableFonts = loadFonts();
     }
@@ -108,6 +80,9 @@ public class LevelState implements State {
 
     @Override
     public void input() {
+        for (IRenderable control : controlList) {
+            ((MenuButton)control).input();
+        }
 
     }
 
@@ -123,7 +98,7 @@ public class LevelState implements State {
 
         drawBackground();
 
-        listRenderer.drawContents(entitiesList, entitiesTexture);
+        listRenderer.drawContents(controlList, contentsTexture);
 
         drawText();
 
@@ -137,26 +112,13 @@ public class LevelState implements State {
 
     private void drawText() {
         /* Draw score */
-        String scoreText = "Score";
+        String scoreText = "Adventure Menu";
         int scoreTextWidth = textRenderer.getTextWidth(availableFonts.get("Inconsolata:50:WHITE"), scoreText);
         int scoreTextHeight = textRenderer.getTextHeight(availableFonts.get("Inconsolata:50:WHITE"),scoreText);
         float scoreTextX = (gameWidth - scoreTextWidth) / 2f;
         float scoreTextY = gameHeight - scoreTextHeight - 5;
         textRenderer.drawText(availableFonts.get("Inconsolata:50:WHITE"), scoreText, scoreTextX, scoreTextY, VODColor.WHITE);
 
-        String playerText = "Player | " + playerScore;
-        int playerTextWidth = textRenderer.getTextWidth(availableFonts.get("Default"), playerText);
-        int playerTextHeight = textRenderer.getTextHeight(availableFonts.get("Default"),playerText);
-        float playerTextX = gameWidth / 2f - playerTextWidth - 50;
-        float playerTextY = scoreTextY - playerTextHeight;
-        textRenderer.drawText(availableFonts.get("Default"), playerText, playerTextX, playerTextY, VODColor.WHITE);
-
-        String opponentText = opponentScore + " | Opponent";
-        int opponentTextWidth = textRenderer.getDebugTextWidth(availableFonts.get("Default"),playerText);
-        int opponentTextHeight = textRenderer.getTextHeight(availableFonts.get("Default"), playerText);
-        float opponentTextX = gameWidth / 2f + 50;
-        float opponentTextY = scoreTextY - opponentTextHeight;
-        textRenderer.drawText(availableFonts.get("Default"), opponentText, opponentTextX, opponentTextY, VODColor.WHITE);
     }
 
 
@@ -185,19 +147,21 @@ public class LevelState implements State {
 
         /* Load backgroundTexture */
         backgroundTexture = Texture.loadTexture("src/test/resources/cobbleandwoodlog_stitchedLevel.png");
-        entitiesTexture = Texture.loadTexture("src/test/resources/greenblob.png");
+        contentsTexture = Texture.loadTexture("src/test/resources/greenblob.png");
 
         /* Initialize game objects */
-        float speed = 250f;
-        greenBlob1 = new GreenBlob(null, entitiesTexture, 100, 100, 0, 50, 50, 0, 00);
-        greenBlob2 = new GreenBlob(null, entitiesTexture, 200, 200, 0, 50, 50, 0, 00);
-        entitiesList.add(greenBlob1);
-        entitiesList.add(greenBlob2);
+        Label label1 = new Label("Btn1", availableFonts.get(permittedFonts[1]), "Adventure No. 1");
+        button1 = new MenuButton(label1, contentsTexture, 100, 200, 0, 50, 50, 0, 00, mouseEventHandler);
+        Label label2 = new Label("Btn2", availableFonts.get(permittedFonts[1]), "Adventure No. 2");
+        button2 = new MenuButton(label2, contentsTexture, 100, 100, 0, 50, 50, 0, 00, mouseEventHandler);
+
+        controlList.add(button1);
+        controlList.add(button2);
         /* Initialize variables */
-        playerScore = 0;
-        opponentScore = 0;
         gameWidth = width;
         gameHeight = height;
+        Vector2f windowSize = new Vector2f(width, height);
+        mouseEventHandler.setWindowSize(windowSize);
 
     }
 
@@ -205,8 +169,9 @@ public class LevelState implements State {
     public void exit() {
 
         backgroundTexture.delete();
-        entitiesTexture.delete();
+        contentsTexture.delete();
         availableFonts = null;
     }
 
 }
+

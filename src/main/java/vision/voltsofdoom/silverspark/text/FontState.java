@@ -23,7 +23,7 @@
  */
 package vision.voltsofdoom.silverspark.text;
 
-import vision.voltsofdoom.silverspark.graphic.Renderer;
+import vision.voltsofdoom.silverspark.render.Renderer;
 import vision.voltsofdoom.silverspark.graphic.Texture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import org.lwjgl.system.MemoryUtil;
