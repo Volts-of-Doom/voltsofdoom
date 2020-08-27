@@ -1,0 +1,27 @@
+{
+	"key": [
+		{
+			"key": "e",
+			"domain": "coresystem",
+			"identifier": "example_entity",
+			"data": {}
+		},
+		{
+			"key": "s",
+			"sheet": "slime"
+		}
+	],
+	"map": [
+		{
+			"key": "e",
+			"x": 2,
+			"y": 3,
+			"data": {}
+		},
+		{
+			"key": "s",
+			"x": 2,
+			"y": 3
+		}
+	]
+}

@@ -1,76 +1,47 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
-import java.io.File;
 import java.util.ArrayList;
 
-import vision.voltsofdoom.coresystem.play.adventure.levelcontainer.LevelContainer;
-import vision.voltsofdoom.coresystem.universal.resource.VODJsonReader;
+import vision.voltsofdoom.coresystem.loading.registry.RegistryEntry;
+import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 
 /**
- * Contains all of the LevelContainers for a new Adventure! Contains a lot of
- * metadata!
+ * Contains all of the data for an Adventure!
  * 
  * @author GenElectrovise
  *
  */
-public class Adventure {
-	private File json;
-	private String registryname;
-	private String displayname;
-	private String description;
-	private String modid;
-	private String lobbyname;
-	private ArrayList<LevelContainer> levels = new ArrayList<LevelContainer>();
-	private VODJsonReader reader;
+public class Adventure extends RegistryEntry<Adventure> {
+	private ArrayList<Level> levels = new ArrayList<Level>();
+	private AdventureConfiguration configuration;
 
-	public static void main(String[] args) {
-		@SuppressWarnings("unused")
-		Adventure adventure = new Adventure(new File(
-				"C:\\Users\\adam_\\AppData\\Roaming\\voltsofdoom\\resources\\adventure\\voltsofdoom-coregame\\casketofazamgarath.json"));
+	public Adventure(AdventureConfiguration configuration) {
+		this.configuration = configuration;
+		levels = levelNamesToContainers();
 	}
 
-	/**
-	 * @param json The JSON file to read this Adventure object from.
-	 */
-	public Adventure(File json) {
-		this.json = json;
-		this.reader = new VODJsonReader(json);
-		this.registryname = reader.getObj().get("registryname").getAsString();
-		this.displayname = reader.getObj().get("displayname").getAsString();
-		this.description = reader.getObj().get("description").getAsString();
-		this.modid = reader.getObj().get("modid").getAsString();
-		this.lobbyname = reader.getObj().get("lobby").getAsString();
-	}
-
-	public File getJson() {
-		return json;
-	}
-
-	public String getRegistryname() {
-		return registryname;
-	}
-
-	public String getDisplayname() {
-		return displayname;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public String getModid() {
-		return modid;
-	}
-
-	public String getLobbyname() {
-		return lobbyname;
-	}
-
-	public ArrayList<LevelContainer> getLevels() {
+	public ArrayList<Level> getLevels() {
 		return levels;
 	}
 
-	public VODJsonReader getReader() {
-		return reader;
+	public AdventureConfiguration getConfiguration() {
+		return configuration;
+	}
+
+	/**
+	 * Turns a list of the names of levels included in this {@link Adventure} into
+	 * an {@link ArrayList} of {@link Level}s.
+	 * 
+	 * @return An {@link ArrayList} of {@link Level}s in this {@link Adventure}.
+	 */
+	public ArrayList<Level> levelNamesToContainers() {
+		ArrayList<Level> out = new ArrayList<Level>();
+
+		for (String name : configuration.getLevelNames()) {
+			out.add(new Level(new LevelConfiguration()
+					.withIdentifier(new ResourceLocation(configuration.getIdentifier().getPath(), name))));
+		}
+
+		return out;
 	}
 }

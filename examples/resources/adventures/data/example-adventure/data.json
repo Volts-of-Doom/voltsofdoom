@@ -1,0 +1,9 @@
+{
+	"registryName": "example-adventure",
+	"displayName": "Example Adventure",
+	"description":"An example adventure",
+	"levels": [
+		"example_level_1",
+		"example_level_2"
+	]
+}

@@ -5,6 +5,14 @@ import vision.voltsofdoom.silverspark.core.VariableTimestepGame;
 import vision.voltsofdoom.coresystem.loading.LoadingManager;
 import vision.voltsofdoom.coresystem.loading.registry.Registry;
 
+/**
+ * Is the first object to be created when the game starts. Manages loading via
+ * the {@link LoadingManager#load()} method, and provides the game's central
+ * "catch" block.
+ * 
+ * @author GenElectrovise
+ *
+ */
 import java.io.IOException;
 
 public class GameController {
@@ -14,7 +22,7 @@ public class GameController {
 		try {
 
 			LoadingManager.load();
-
+			
 			/*
 			 * setRegistry(Registry.createInThreadedFashion());
 			 * 

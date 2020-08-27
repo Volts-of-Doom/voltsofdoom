@@ -3,10 +3,13 @@ package vision.voltsofdoom.coresystem.universal.main;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.InputStream;
+import java.util.Properties;
+import java.util.logging.LogManager;
 
 import com.google.gson.JsonArray;
 
-import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
+import vision.voltsofdoom.coresystem.universal.log.Loggers;
 import vision.voltsofdoom.coresystem.universal.resource.VODJsonReader;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 import vision.voltsofdoom.coresystem.universal.util.StringUtils;
@@ -38,11 +41,37 @@ public class VoltsOfDoomCoreSystem extends Thread {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new VoltsOfDoomCoreSystem().setArgs(args).start();
+		VoltsOfDoomCoreSystem vodcs = new VoltsOfDoomCoreSystem();
+		
+		vodcs.setArgs(args);
+		//vodcs.applyLoggerProperties();
+		
+		vodcs.start();
+	}
+
+	@SuppressWarnings("unused")
+	private VoltsOfDoomCoreSystem applyLoggerProperties() {
+
+		String configFileLocation = "config/logger/logging.properties";
+
+		Properties properties = new Properties();
+		try {
+			InputStream configFile = VoltsOfDoomCoreSystem.class.getClassLoader()
+					.getResourceAsStream(configFileLocation);
+			properties.load(configFile);
+			System.out.println("Internal logger properties file '" + configFileLocation + "' \n >> " + properties);
+			LogManager.getLogManager().readConfiguration(configFile);
+		} catch (Exception e) {
+			System.err.println("Warning! Logging failed to configure!");
+			e.printStackTrace();
+			throw new IllegalStateException("Logging failed to configure");
+		}
+
+		return this;
 	}
 
 	/**
-	 * Sets this objects arguments to the arguments given to the VM at launch so
+	 * Sets this object's arguments to the arguments given to the VM at launch so
 	 * they may be queried later.
 	 * 
 	 * @param args The {@link String}[] of arguments in.
@@ -89,29 +118,29 @@ public class VoltsOfDoomCoreSystem extends Thread {
 		File configFile = new File(Reference.CONFIG + "vmconfig.json");
 
 		if (!configFile.exists()) {
-			VODLog4J.LOGGER.info("Configuration file does not exist at: " + configFile);
+			Loggers.CORESYSTEM.info("Configuration file does not exist at: " + configFile);
 			try {
-				VODLog4J.LOGGER.info("Trying to write a new configuration file...");
+				Loggers.CORESYSTEM.info("Trying to write a new configuration file...");
 				BufferedWriter writer = new BufferedWriter(new FileWriter(configFile));
 				writer.write("{\"vmargs\":[\"argument\"]}");
 				writer.close();
-				VODLog4J.LOGGER.info("Written!");
+				Loggers.CORESYSTEM.info("Written!");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
-		VODLog4J.LOGGER.info("Reading configuration file: " + configFile);
+		Loggers.CORESYSTEM.info("Reading configuration file: " + configFile);
 
 		VODJsonReader reader = new VODJsonReader(configFile);
-		JsonArray array = reader.elementFromKey("vmargs").getAsJsonArray();
+		JsonArray array = reader.fromKey("vmargs").getAsJsonArray();
 		String[] args = new String[array.size()];
 
 		for (int i = 0; i < array.size(); i++) {
 			args[i] = array.get(i).getAsString();
 		}
 
-		VODLog4J.LOGGER.info("Read configuration: " + StringUtils.arrayToString(args));
+		Loggers.CORESYSTEM.info("Read configuration: " + StringUtils.arrayToString(args));
 
 		return args;
 	}
