@@ -7,7 +7,8 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import vision.voltsofdoom.coresystem.universal.log.VoltLog;
+import vision.voltsofdoom.coresystem.universal.log.Loggers;
+
 
 /**
  * Holds an image for the game, in an expected format, with additional utility
@@ -19,7 +20,6 @@ import vision.voltsofdoom.coresystem.universal.log.VoltLog;
 public class VODImage {
 	private URL url;
 	private BufferedImage image;
-	private static final VoltLog LOGGER = new VoltLog(VODImage.class);
 
 	public VODImage(String path) {
 		try {
@@ -27,7 +27,7 @@ public class VODImage {
 
 			URI formattedUri = new URI(f.getAbsolutePath().replace("\\", "/"));
 			url = new URL("file://" + formattedUri.getPath());
-			LOGGER.debug("URL : " + url.getPath());
+			Loggers.CORESYSTEM_LOADING_RESOURCE.finest("URL : " + url.getPath());
 
 			image = ImageIO.read(url);
 		} catch (Exception e) {

@@ -2,7 +2,6 @@ package vision.voltsofdoom.coresystem.universal.main;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.util.Properties;
@@ -10,7 +9,7 @@ import java.util.logging.LogManager;
 
 import com.google.gson.JsonArray;
 
-import vision.voltsofdoom.coresystem.universal.log.VoltLog;
+import vision.voltsofdoom.coresystem.universal.log.Loggers;
 import vision.voltsofdoom.coresystem.universal.resource.VODJsonReader;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 import vision.voltsofdoom.coresystem.universal.util.StringUtils;
@@ -27,7 +26,6 @@ import vision.voltsofdoom.coresystem.universal.util.StringUtils;
  */
 public class VoltsOfDoomCoreSystem extends Thread {
 	public static final GameController GAME_CONTROLLER = new GameController();
-	private static final VoltLog LOGGER = new VoltLog(VoltsOfDoomCoreSystem.class);
 
 	public static final String ID = "coresystem";
 
@@ -43,7 +41,12 @@ public class VoltsOfDoomCoreSystem extends Thread {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new VoltsOfDoomCoreSystem().setArgs(args).applyLoggerProperties().start();
+		VoltsOfDoomCoreSystem vodcs = new VoltsOfDoomCoreSystem();
+		
+		vodcs.setArgs(args);
+		//vodcs.applyLoggerProperties();
+		
+		vodcs.start();
 	}
 
 	private VoltsOfDoomCoreSystem applyLoggerProperties() {
@@ -114,19 +117,19 @@ public class VoltsOfDoomCoreSystem extends Thread {
 		File configFile = new File(Reference.CONFIG + "vmconfig.json");
 
 		if (!configFile.exists()) {
-			LOGGER.info("Configuration file does not exist at: " + configFile);
+			Loggers.CORESYSTEM.info("Configuration file does not exist at: " + configFile);
 			try {
-				LOGGER.info("Trying to write a new configuration file...");
+				Loggers.CORESYSTEM.info("Trying to write a new configuration file...");
 				BufferedWriter writer = new BufferedWriter(new FileWriter(configFile));
 				writer.write("{\"vmargs\":[\"argument\"]}");
 				writer.close();
-				LOGGER.info("Written!");
+				Loggers.CORESYSTEM.info("Written!");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
-		LOGGER.info("Reading configuration file: " + configFile);
+		Loggers.CORESYSTEM.info("Reading configuration file: " + configFile);
 
 		VODJsonReader reader = new VODJsonReader(configFile);
 		JsonArray array = reader.fromKey("vmargs").getAsJsonArray();
@@ -136,7 +139,7 @@ public class VoltsOfDoomCoreSystem extends Thread {
 			args[i] = array.get(i).getAsString();
 		}
 
-		LOGGER.info("Read configuration: " + StringUtils.arrayToString(args));
+		Loggers.CORESYSTEM.info("Read configuration: " + StringUtils.arrayToString(args));
 
 		return args;
 	}

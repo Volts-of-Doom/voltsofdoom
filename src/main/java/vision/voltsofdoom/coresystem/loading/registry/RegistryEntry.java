@@ -1,6 +1,6 @@
 package vision.voltsofdoom.coresystem.loading.registry;
 
-import vision.voltsofdoom.coresystem.universal.log.VoltLog;
+import vision.voltsofdoom.coresystem.universal.log.Loggers;
 import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 
 /**
@@ -14,7 +14,6 @@ import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
  * @param <T>
  */
 public abstract class RegistryEntry<T extends IRegistryEntry<T>> implements IRegistryEntry<T> {
-	private static final VoltLog LOGGER = new VoltLog(RegistryEntry.class);
 
 	public ResourceLocation identifier;
 
@@ -22,7 +21,7 @@ public abstract class RegistryEntry<T extends IRegistryEntry<T>> implements IReg
 	public ResourceLocation getIdentifier() {
 
 		if (identifier == null) {
-			LOGGER.warn(
+			Loggers.CORESYSTEM_LOADING_REGISTRY.warning(
 					"Registry entry returning a null identifier! Going on with it, but this may cause issues later!");
 		}
 
