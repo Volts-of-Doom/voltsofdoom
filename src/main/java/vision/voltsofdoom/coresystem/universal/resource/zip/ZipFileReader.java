@@ -38,6 +38,10 @@ public class ZipFileReader {
 	 * @return
 	 */
 	public static JsonObject asJson(InputStream stream) {
-		return new Gson().fromJson(new JsonReader(new InputStreamReader(stream)), JsonObject.class);
+		return new Gson().fromJson(asJson(stream), JsonObject.class);
+	}
+	
+	public static JsonReader asJsonReader(InputStream stream) {
+		return new JsonReader(new InputStreamReader(stream));
 	}
 }

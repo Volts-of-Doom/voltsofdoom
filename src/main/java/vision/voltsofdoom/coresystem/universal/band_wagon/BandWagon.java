@@ -9,7 +9,7 @@ import java.util.Set;
 
 import vision.voltsofdoom.coresystem.loading.reflectory.Reflectory;
 import vision.voltsofdoom.coresystem.universal.event.LoadingEvent;
-import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
+import vision.voltsofdoom.coresystem.universal.log.VoltLog;
 
 /**
  * Sick of hearing about event buses? Well Volts of Doom has a
@@ -19,6 +19,7 @@ import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
  *
  */
 public class BandWagon {
+	private static final VoltLog LOGGER = new VoltLog(BandWagon.class);
 
 	/** The methods found to be annotated with {@link Stowaway} */
 	public static ArrayList<Method> stowawayMethods = new ArrayList<Method>();
@@ -34,14 +35,15 @@ public class BandWagon {
 	 * <br>
 	 * <br>
 	 * <a href=
-	 * "https://stackoverflow.com/questions/4584541/check-if-a-class-object-is-subclass-of-another-class-object-in-java">Getting subclasses (for my own sanity)</a>
+	 * "https://stackoverflow.com/questions/4584541/check-if-a-class-object-is-subclass-of-another-class-object-in-java">Getting
+	 * subclasses (for my own sanity)</a>
 	 * 
 	 * @param event
 	 */
 	public static void playEvent(Event event) {
-		
-		VODLog4J.LOGGER.info("Playing Event: " + event);
-		
+
+		LOGGER.info("Playing Event: " + event);
+
 		stowawayMethods.forEach((method) -> {
 			try {
 				Class<?> parameterType = method.getParameters()[0].getType();
@@ -100,14 +102,13 @@ public class BandWagon {
 
 		// If is not static
 		if (!Modifier.isStatic(method.getModifiers())) {
-			VODLog4J.LOGGER
-					.debug("Could not validate Method : " + method + " : to the BandWagon because it is not static.");
+			LOGGER.debug("Could not validate Method : " + method + " : to the BandWagon because it is not static.");
 			return false;
 		}
 
 		// If has not-one parameter
 		if (!(method.getParameterCount() == 1)) {
-			VODLog4J.LOGGER.debug("Could not validate Method : " + method
+			LOGGER.debug("Could not validate Method : " + method
 					+ " : to the BandWagon because it does not have only 1 parameter");
 			return false;
 		}
@@ -115,19 +116,19 @@ public class BandWagon {
 		// If the superclass is not Event
 		Class<?> parameterType = method.getParameters()[0].getType();
 		if (!Event.class.isAssignableFrom(parameterType)) {
-			VODLog4J.LOGGER.debug("Could not validate Method : " + method
+			LOGGER.debug("Could not validate Method : " + method
 					+ " : to the BandWagon because it does not extend the Volts of Doom Event directly.");
 			return false;
 		}
 
-		VODLog4J.LOGGER.debug("Validated Method : " + method
+		LOGGER.debug("Validated Method : " + method
 				+ " : for subscription to the BandWagon, as it meets all required criteria. ");
 		return true;
 	}
 
 	@Stowaway
 	private static void createBandWagonEventListener(LoadingEvent.BandWagonCreation event) {
-		VODLog4J.LOGGER.info("Creating BandWagon: Playing creation event.");
+		LOGGER.info("Creating BandWagon: Playing creation event.");
 	}
 
 }

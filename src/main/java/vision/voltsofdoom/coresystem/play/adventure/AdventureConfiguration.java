@@ -20,6 +20,10 @@ public class AdventureConfiguration {
 	private String description;
 	private String lobbyname;
 	private List<String> levelNames;
+	
+	public AdventureConfiguration() {
+		this.levelNames = new ArrayList<String>();
+	}
 
 	public AdventureConfiguration fromJson(JsonObject json) {
 

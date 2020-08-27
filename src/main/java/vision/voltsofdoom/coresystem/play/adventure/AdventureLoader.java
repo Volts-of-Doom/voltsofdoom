@@ -10,9 +10,11 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
+import com.google.gson.Gson;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent.GenerateAdventuresEvent;
+import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 
@@ -66,6 +68,7 @@ public class AdventureLoader {
 		List<ZipFile> adventureZips = new ArrayList<ZipFile>();
 		File adventureFolder = new File(Reference.ADVENTURE);
 		if (!adventureFolder.exists() || !adventureFolder.isDirectory()) {
+			adventureFolder.mkdir();
 			throw new FileNotFoundException("Adventure folder in the located Volts of Doom directory"
 					+ Reference.ROAMING + " cannot be located (" + Reference.ADVENTURE
 					+ ")! This is an error! Program will terminate.");
@@ -102,22 +105,16 @@ public class AdventureLoader {
 
 	private static void fromZip(ZipFile zip) throws IOException {
 		ZipFileReader reader = new ZipFileReader(zip);
+		
+		AdventureConfiguration a = new Gson().fromJson(ZipFileReader.asJsonReader(reader.getStream("data.json")), AdventureConfiguration.class);
+		System.out.println(new Gson().toJson(new AdventureConfiguration().withDescription("desc.").withDisplayName("Displ.").withIdentifier(new ResourceLocation("modid", "entry")).withLevelNames("level_1", "level_2", "level_3").withLobbyName("lobby_name")));
+
+		AdventureConfiguration a2 = new Gson().fromJson("{'identifier':{'domain':'modid','path':'entry'},'displayName':'Displ.','description':'desc.','lobbyname':'lobby_name','levelNames':['level_1','level_2','level_3']}", AdventureConfiguration.class);
+		@SuppressWarnings("unused")
+		ResourceLocation rl = a2.getIdentifier();
+		System.out.println(a);
+		System.out.println(a2);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

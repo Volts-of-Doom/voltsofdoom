@@ -138,7 +138,7 @@ public class ResourceLocation {
 
 	@Override
 	public String toString() {
-		return "ResourceLocation{" + "}";
+		return "ResourceLocation{" + domain + ":" + path + "}";
 	}
 
 	@Override
