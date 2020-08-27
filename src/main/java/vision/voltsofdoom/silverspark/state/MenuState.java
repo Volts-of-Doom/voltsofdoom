@@ -46,9 +46,9 @@ public class MenuState implements State {
     private int gameHeight;
     private long windowId;
 
-    public MenuState(long windowId, ListRenderer listRenderer, TextRenderer textRenderer) {
+    public MenuState(long windowId, MouseEventMenuHandler mouseEventHandler, ListRenderer listRenderer, TextRenderer textRenderer) {
         this.windowId = windowId;
-        this.mouseEventHandler = new MouseEventMenuHandler(windowId);
+        this.mouseEventHandler = mouseEventHandler;
         this.listRenderer = listRenderer;
         this.textRenderer = textRenderer;
         availableFonts = loadFonts();
@@ -79,11 +79,16 @@ public class MenuState implements State {
 
 
     @Override
-    public void input() {
+    public String input() {
+        String stateChange = null;
         for (IRenderable control : controlList) {
-            ((MenuButton)control).input();
+            stateChange = ((MenuButton)control).input();
+            if (stateChange != null) {
+                break;
+            }
         }
-
+        //System.out.println("Returning new state: " + stateChange);
+        return stateChange;
     }
 
     @Override

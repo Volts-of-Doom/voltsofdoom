@@ -54,7 +54,7 @@ import java.util.logging.Logger;
  */
 public class LevelState implements State {
 
-    private MouseEventMenuHandler mouseEventHandler;
+    private final MouseEventMenuHandler mouseEventHandler;
 
     private Texture backgroundTexture;
     private Texture entitiesTexture;
@@ -74,9 +74,9 @@ public class LevelState implements State {
     private int gameHeight;
     private long windowId;
 
-    public LevelState(long windowId, ListRenderer entityRenderer, TextRenderer textRenderer) {
+    public LevelState(long windowId, MouseEventMenuHandler mouseHandler, ListRenderer entityRenderer, TextRenderer textRenderer) {
         this.windowId = windowId;
-        this.mouseEventHandler = new MouseEventMenuHandler(windowId);
+        this.mouseEventHandler = mouseHandler;
         this.listRenderer = entityRenderer;
         this.textRenderer = textRenderer;
         availableFonts = loadFonts();
@@ -107,8 +107,8 @@ public class LevelState implements State {
 
 
     @Override
-    public void input() {
-
+    public String input() {
+        return null;
     }
 
     @Override

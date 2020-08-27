@@ -25,9 +25,11 @@ package vision.voltsofdoom.silverspark.core;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
+import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
+import vision.voltsofdoom.silverspark.graphic.Window;
 import vision.voltsofdoom.silverspark.render.ListRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
-import vision.voltsofdoom.silverspark.graphic.Window;
+import vision.voltsofdoom.silverspark.state.LevelState;
 import vision.voltsofdoom.silverspark.state.MenuState;
 import vision.voltsofdoom.silverspark.state.StateMachine;
 
@@ -68,11 +70,13 @@ public abstract class Game {
     /**
      * Used for rendering.
      */
-    protected ListRenderer entityRenderer;
+    private ListRenderer entityRenderer;
     /**
      * Used for rendering text.
      */
-    protected TextRenderer textRenderer;
+    private TextRenderer textRenderer;
+
+    private MouseEventMenuHandler mouseHandler;
     /**
      * Stores the current state.
      */
@@ -86,6 +90,7 @@ public abstract class Game {
         entityRenderer = new ListRenderer();
         textRenderer = new TextRenderer();
         state = new StateMachine();
+
     }
 
     /**
@@ -134,6 +139,8 @@ public abstract class Game {
         /* Create GLFW window */
         window = new Window(640, 380, "Simple Game - Pong", true);
 
+        mouseHandler = new MouseEventMenuHandler(window.getId());
+
         /* Initialize timer */
         timer.init();
 
@@ -153,8 +160,10 @@ public abstract class Game {
      * Initializes the states.
      */
     public void initStates() {
-        state.add("game", new MenuState(window.getId(), entityRenderer, textRenderer));
-        state.change("game");
+        state.add("menu", new MenuState(window.getId(), mouseHandler, entityRenderer, textRenderer));
+        state.add("Btn1", new LevelState(window.getId(), mouseHandler, entityRenderer, textRenderer));
+        state.add("Btn2", new LevelState(window.getId(), mouseHandler, entityRenderer, textRenderer));
+        state.change("menu");
     }
 
     /**
@@ -167,8 +176,8 @@ public abstract class Game {
     /**
      * Handles input.
      */
-    public void input() {
-        state.input();
+    public String input() {
+        return state.input();
     }
 
     /**

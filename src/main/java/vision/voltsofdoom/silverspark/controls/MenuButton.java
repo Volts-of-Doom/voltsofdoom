@@ -54,16 +54,20 @@ public class MenuButton implements ICollidable, IRenderable {
     /**
      * Handles input of the entity.
      */
-    public void input() {
+    public String input() {
         long window = GLFW.glfwGetCurrentContext();
         int state = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
         if (state == GLFW_PRESS )
         {
-            double[] mousePosn = handler.getMousePositon();
+            Vector2f mousePosn = handler.getMousePositon();
             if (isContainsPoint(mousePosn)) {
                 System.out.println("Mouse click on menu button " + label.getKey());
+                System.out.println("... so returning: " + label.getKey());
+                return label.getKey();
             }
         }
+        //System.out.println("No input so returning null");
+        return null;
     }
 
     /**
@@ -79,9 +83,9 @@ public class MenuButton implements ICollidable, IRenderable {
         boundingBox.max.y = position.y + height;
     }
 
-    public boolean isContainsPoint(double[] posn) {// todo make posn a vector2f
+    public boolean isContainsPoint(Vector2f posn) {// todo make posn a vector2f
         System.out.println("Bounds: x " + boundingBox.min.x + ", to " + boundingBox.max.x + ", y " + boundingBox.min.y + ", to " + boundingBox.max.y);
-        return ((posn[0] >= boundingBox.min.x && posn[0] <= boundingBox.max.x) && (posn[1] >= boundingBox.min.y && posn[1] <= boundingBox.max.y));
+        return ((posn.x >= boundingBox.min.x && posn.x <= boundingBox.max.x) && (posn.y >= boundingBox.min.y && posn.y <= boundingBox.max.y));
     }
 
 

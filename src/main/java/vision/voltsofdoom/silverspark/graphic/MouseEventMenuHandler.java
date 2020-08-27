@@ -17,6 +17,9 @@ public class MouseEventMenuHandler {
 
 
     public MouseEventMenuHandler(long windowId) {
+
+        System.out.println("Constructing MoseHandler");
+
         glfwSetMouseButtonCallback(windowId, mouseCallback = new GLFWMouseButtonCallback() {
             @Override
             public void invoke(long window, int button, int action, int mods) {
@@ -35,10 +38,11 @@ public class MouseEventMenuHandler {
         glfwSetCursorPosCallback(windowId, posCallback = new GLFWCursorPosCallback() {
             @Override
             public void invoke(long window, double xpos, double ypos) {
-                System.out.println("Cursor X = " + xpos);
-                System.out.println("Cursor Y = " + ypos);
                 mouseXPos = xpos;
                 mouseYPos = ypos;
+                System.out.println("Cursor X = " + mouseXPos);
+                System.out.println("Cursor Y = " + mouseYPos);
+
             }
         });
 
@@ -52,15 +56,11 @@ public class MouseEventMenuHandler {
         return mouseYPos;
     }
 
-    public double[] getMousePositon() {
+    public Vector2f getMousePositon() {
         System.out.println("Getting position");
-        double[] posn = new double[2];
-        posn[0] = mouseXPos;
-        System.out.println("windowSize.y= " + windowSize.y);
     // todo - this is a horrible hack - rework if possible
-        posn[1] = windowSize.y - mouseYPos;
-        System.out.println("Mouse X =" + posn[0]);
-        System.out.println("Mouse Y =" + posn[1]);
+        Vector2f posn = new Vector2f(new Float(mouseXPos), new Float(windowSize.y - mouseYPos));
+        System.out.println ("X = " + posn.x + ", Y = " +posn.y);
         return posn;
     }
 
