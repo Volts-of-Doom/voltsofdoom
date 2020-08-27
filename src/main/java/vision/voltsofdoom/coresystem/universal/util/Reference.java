@@ -30,9 +30,11 @@ public class Reference {
 	public static final String MOD_RESOURCES = ROAMING + "resources" + SEP;
 	public static final String ADVENTURE = ROAMING_RESOURCES + SEP + "adventure" + SEP;
 	public static final String MODS_DIRECTORY = ROAMING + "mods" + SEP;
-	public static final String PROGRAM_FILES = "C:\\Program Files" + SEP + "voltsofdoom";
+	public static final String PROGRAM_FILES = "C:\\Program Files" + SEP + "voltsofdoom" + SEP;
 	public static final String CONFIG = ROAMING + SEP + "config" + SEP;
+	public static final String LOGS = ROAMING + SEP + "logs" + SEP;
 
 	// Internal
 	public static final String INTERNAL_RESOURCES = "src" + SEP + "main" + SEP + "resources" + SEP;
+	
 }

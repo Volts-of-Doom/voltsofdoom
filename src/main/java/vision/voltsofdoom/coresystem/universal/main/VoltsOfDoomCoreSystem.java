@@ -49,6 +49,7 @@ public class VoltsOfDoomCoreSystem extends Thread {
 		vodcs.start();
 	}
 
+	@SuppressWarnings("unused")
 	private VoltsOfDoomCoreSystem applyLoggerProperties() {
 
 		String configFileLocation = "config/logger/logging.properties";
@@ -70,7 +71,7 @@ public class VoltsOfDoomCoreSystem extends Thread {
 	}
 
 	/**
-	 * Sets this objects arguments to the arguments given to the VM at launch so
+	 * Sets this object's arguments to the arguments given to the VM at launch so
 	 * they may be queried later.
 	 * 
 	 * @param args The {@link String}[] of arguments in.
