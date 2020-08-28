@@ -1,5 +1,9 @@
 {
-	"domain": "coresystem",
-	"identifier": "slime",
-	"data": []
+	"identifier": {
+		"domain": "coresystem",
+		"path": "slime"
+	},
+	"data": {
+		"tags": []
+	}
 }

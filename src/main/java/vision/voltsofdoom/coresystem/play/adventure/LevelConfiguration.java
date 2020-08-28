@@ -6,6 +6,8 @@ public class LevelConfiguration {
 	private ResourceLocation identifier;
 	private String displayName;
 	private String description;
+	private EntityMap entityMap;
+	private TileMap tileMap;
 	
 	public LevelConfiguration withIdentifier(ResourceLocation identifier) {
 		this.identifier = identifier;
@@ -22,5 +24,13 @@ public class LevelConfiguration {
 	
 	public String getDisplayName() {
 		return displayName;
+	}
+	
+	public EntityMap getEntityMap() {
+		return entityMap;
+	}
+	
+	public TileMap getTileMap() {
+		return tileMap;
 	}
 }
