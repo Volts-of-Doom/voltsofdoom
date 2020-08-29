@@ -1,9 +1,18 @@
 {
 	"identifier": {
 		"domain": "coresystem",
-		"path": "cobble"
+		"entry": "cobble"
 	},
 	"data": {
-		"tags": []
+		"tags": [
+			{
+				"key": "key_1",
+				"value": "value_1"
+			},
+			{
+				"key": "key_2",
+				"value":"value_2"
+			}
+		]
 	}
 }

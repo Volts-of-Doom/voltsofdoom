@@ -1,8 +1,11 @@
 {
-	"registryName": "example-adventure",
+	"identifier": {
+		"domain": "coresystem",
+		"entry": "example_adventure_1"
+	},
 	"displayName": "Example Adventure",
-	"description":"An example adventure",
-	"levels": [
+	"description": "An example adventure",
+	"levelNames": [
 		"example_level_1",
 		"example_level_2"
 	]

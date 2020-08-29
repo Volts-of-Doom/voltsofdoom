@@ -9,13 +9,13 @@ import java.util.List;
  *
  */
 public class DataTagList {
-	private List<?> tags;
+	private List<DataTag> tags;
 
-	public DataTagList(List<?> tags) {
+	public DataTagList(List<DataTag> tags) {
 		this.tags = tags;
 	}
 
-	public List<?> getTags() {
+	public List<DataTag> getTags() {
 		return tags;
 	}
 }

@@ -14,11 +14,11 @@ import java.util.PrimitiveIterator.OfInt;
 public class ResourceLocation {
 
 	private String domain;
-	private String path;
+	private String entry;
 
 	public ResourceLocation(String modid, String entry) {
 		this.domain = modid;
-		this.path = entry;
+		this.entry = entry;
 	}
 
 	public static ResourceLocationValidityState validate(String string) {
@@ -124,8 +124,8 @@ public class ResourceLocation {
 		return new ResourceLocation(domainBuilder.toString(), pathBuilder.toString());
 	}
 
-	public String getPath() {
-		return path;
+	public String getEntry() {
+		return entry;
 	}
 
 	public String getDomain() {
@@ -133,12 +133,12 @@ public class ResourceLocation {
 	}
 
 	public String stringify() {
-		return domain + ":" + path;
+		return domain + ":" + entry;
 	}
 
 	@Override
 	public String toString() {
-		return "ResourceLocation{" + domain + ":" + path + "}";
+		return "ResourceLocation{" + domain + ":" + entry + "}";
 	}
 
 	@Override
@@ -154,7 +154,7 @@ public class ResourceLocation {
 			return false;
 		}
 
-		if (!((ResourceLocation) obj).getPath().equals(path)) {
+		if (!((ResourceLocation) obj).getEntry().equals(entry)) {
 			return false;
 		}
 

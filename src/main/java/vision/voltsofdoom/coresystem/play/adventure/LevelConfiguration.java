@@ -1,5 +1,8 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 
 public class LevelConfiguration {
@@ -32,5 +35,9 @@ public class LevelConfiguration {
 	
 	public TileMap getTileMap() {
 		return tileMap;
+	}
+
+	public static LevelConfiguration fromJson(JsonObject json) {
+		return new Gson().fromJson(json, LevelConfiguration.class);
 	}
 }
