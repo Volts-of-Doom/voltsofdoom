@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 
 /**
+ * 
+ * Don't use this for an actual implementation, as this is only for my own
+ * sanity in working {@link Guice} out.
  * <a href="https://www.baeldung.com/guice">Baeldung on Guice</a>
  * 
  * @author GenElectrovise
@@ -45,7 +49,7 @@ public class ExampleBasicModule extends AbstractModule {
 			// 4
 			// Inject the given instance.
 			bind(Object.class).toInstance(new Object());
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

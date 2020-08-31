@@ -41,7 +41,6 @@ public class VoltsOfDoomCoreSystem extends Thread {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		//Guicer guicer = Guicer.getInstance();
 		VoltsOfDoomCoreSystem vodcs = new VoltsOfDoomCoreSystem();
 		
 		vodcs.setArgs(args);
