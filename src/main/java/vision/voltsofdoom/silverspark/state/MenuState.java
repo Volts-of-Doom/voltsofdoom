@@ -6,6 +6,7 @@ import vision.voltsofdoom.silverspark.controls.MenuButton;
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.display.IRenderable;
 import vision.voltsofdoom.silverspark.display.Label;
+import vision.voltsofdoom.silverspark.display.MenuTemplate;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
 import vision.voltsofdoom.silverspark.graphic.Texture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
@@ -34,6 +35,7 @@ public class MenuState implements State {
     private Texture contentsTexture;
     private final ListRenderer listRenderer;
     private final TextRenderer textRenderer;
+    private final MenuTemplate menuTemplate;
 
     private MenuButton button1;
     private MenuButton button2;
@@ -46,35 +48,41 @@ public class MenuState implements State {
     private int gameHeight;
     private long windowId;
 
-    public MenuState(long windowId, MouseEventMenuHandler mouseEventHandler, ListRenderer listRenderer, TextRenderer textRenderer) {
+    public MenuState(long windowId, MouseEventMenuHandler mouseEventHandler, ListRenderer listRenderer, TextRenderer textRenderer, MenuTemplate menuTemplate) {
         this.windowId = windowId;
         this.mouseEventHandler = mouseEventHandler;
         this.listRenderer = listRenderer;
         this.textRenderer = textRenderer;
+        this.menuTemplate = menuTemplate;
         availableFonts = loadFonts();
     }
 
     private Map<String, FontState> loadFonts() {
 
-        availableFonts = new HashMap<>();
+        String key = null;
+        try {
+            availableFonts = new HashMap<>();
 
-        FontState defaultFont = new FontState();
-        availableFonts.put(defaultFont.getKey(), defaultFont);
+            FontState defaultFont = new FontState();
+            key = defaultFont.getKey();
+            availableFonts.put(defaultFont.getKey(), defaultFont);
+            key = menuTemplate.getFontKey();
+            loadFont(key);
 
-        for (String key: permittedFonts) {
-            try {
-                String[] bits = key.split(":");
-                FileInputStream fis = new FileInputStream("src/test/resources/" + bits[0] + ".ttf");
-                int size = Integer.parseInt(bits[1]);
-                // todo - should get the colour dynamically,from key
-                FontState thisFS = new FontState(key, fis, size, VODColor.WHITE, true);
-                availableFonts.put(key, thisFS);
-            } catch (IOException | FontFormatException e) {
+        } catch (IOException | FontFormatException e) {
                 Logger.getLogger(Renderer.class.getName()).log(Level.CONFIG, "Font " + key + " not created - will use default", e);
-            }
-        }
+         }
         return availableFonts;
 
+    }
+
+    private void loadFont(String key) throws FontFormatException, IOException {
+        String[] bits = key.split(":");
+        FileInputStream fis = new FileInputStream("src/test/resources/" + bits[0] + ".ttf");
+        int size = Integer.parseInt(bits[1]);
+        // todo - should get the colour dynamically,from key
+        FontState thisFS = new FontState(key, fis, size, VODColor.WHITE, true);
+        availableFonts.put(key, thisFS);
     }
 
 
@@ -156,12 +164,23 @@ public class MenuState implements State {
 
         /* Initialize game objects */
         Label label1 = new Label("Btn1", availableFonts.get(permittedFonts[1]), "Adventure No. 1");
-        button1 = new MenuButton(label1, contentsTexture, 100, 200, 0, 50, 50, 0, 00, mouseEventHandler);
+        button1 = new MenuButton(label1, contentsTexture,  50, 50, 0, 00, mouseEventHandler);
         Label label2 = new Label("Btn2", availableFonts.get(permittedFonts[1]), "Adventure No. 2");
-        button2 = new MenuButton(label2, contentsTexture, 100, 100, 0, 50, 50, 0, 00, mouseEventHandler);
+        button2 = new MenuButton(label2, contentsTexture,  50, 50, 0, 00, mouseEventHandler);
 
         controlList.add(button1);
         controlList.add(button2);
+
+        int i=0;
+        for (IRenderable btn : controlList) {
+            menuTemplate.filterButton(btn,i);
+            i++;
+        }
+        for (IRenderable btn : controlList) {
+            menuTemplate.filterText(btn,i);
+            i++;
+        }
+
         /* Initialize variables */
         gameWidth = width;
         gameHeight = height;

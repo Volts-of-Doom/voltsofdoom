@@ -12,9 +12,10 @@ import vision.voltsofdoom.silverspark.math.Vector2f;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class MenuButton implements ICollidable, IRenderable {
-    protected Vector2f position;
 
-    protected final BoundingBox boundingBox;
+    private Vector2f position;
+
+    private BoundingBox boundingBox;
 
     protected final Texture texture;
 
@@ -28,11 +29,10 @@ public class MenuButton implements ICollidable, IRenderable {
     private final Label label;
     private final MouseEventMenuHandler handler;
 
-    public MenuButton(Label label, Texture texture, float x, float y, float speed, int width, int height, int textureX, int textureY,
+    public MenuButton(Label label, Texture texture, int width, int height, int textureX, int textureY,
                       MouseEventMenuHandler handler) {
 
         this.label = label;
-        position = new Vector2f(x, y);
 
         this.texture = texture;
 
@@ -43,11 +43,11 @@ public class MenuButton implements ICollidable, IRenderable {
         this.textureY = textureY;
         this.handler = handler;
 
-        boundingBox = new BoundingBox(this);
-        System.out.println("Creating button:" + label.getKey());
-        System.out.println("Bounding box min.x=" + boundingBox.min.x + ", min.y = "  + boundingBox.min.y );
-        System.out.println("Bounding box max.x=" + boundingBox.max.x + ", max.y = "  + boundingBox.max.y );
-        System.out.println("Width in = " + width + ", height in = "  + height);
+
+        //System.out.println("Creating button:" + label.getKey());
+        //System.out.println("Bounding box min.x=" + boundingBox.min.x + ", min.y = "  + boundingBox.min.y );
+        //System.out.println("Bounding box max.x=" + boundingBox.max.x + ", max.y = "  + boundingBox.max.y );
+        //System.out.println("Width in = " + width + ", height in = "  + height);
 
     }
 
@@ -68,19 +68,6 @@ public class MenuButton implements ICollidable, IRenderable {
         }
         //System.out.println("No input so returning null");
         return null;
-    }
-
-    /**
-     * Updates the button.
-     *
-     * @param delta Time difference in seconds
-     */
-    public void update(float delta) {
-
-        boundingBox.min.x = position.x;
-        boundingBox.min.y = position.y;
-        boundingBox.max.x = position.x + width;
-        boundingBox.max.y = position.y + height;
     }
 
     public boolean isContainsPoint(Vector2f posn) {// todo make posn a vector2f
@@ -122,4 +109,13 @@ public class MenuButton implements ICollidable, IRenderable {
         return boundingBox;
     }
 
+    public Vector2f getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2f position) {
+
+        this.position = position;
+        this.boundingBox = new BoundingBox(this);
+    }
 }
