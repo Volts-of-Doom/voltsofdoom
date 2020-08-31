@@ -1,5 +1,18 @@
 {
-	"domain": "coresystem",
-	"identifier": "cobble_tile",
-	"data": []
+	"identifier": {
+		"domain": "coresystem",
+		"entry": "cobble"
+	},
+	"data": {
+		"tags": [
+			{
+				"key": "key_1",
+				"value": "value_1"
+			},
+			{
+				"key": "key_2",
+				"value":"value_2"
+			}
+		]
+	}
 }

@@ -7,19 +7,19 @@ package vision.voltsofdoom.coresystem.play.entity;
  *
  */
 public class Coordinate {
-	private int x;
-	private int y;
+	private double x;
+	private double y;
 
 	public Coordinate(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 

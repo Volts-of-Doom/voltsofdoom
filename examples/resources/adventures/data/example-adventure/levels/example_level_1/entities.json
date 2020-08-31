@@ -2,26 +2,39 @@
 	"key": [
 		{
 			"key": "e",
-			"domain": "coresystem",
-			"identifier": "example_entity",
-			"data": {}
+			"identifier": {
+				"domain": "coresystem",
+				"entry": "example_entity"
+			},
+			"data": {
+			}
 		},
 		{
 			"key": "s",
-			"sheet": "slime"
+			"sheet": {
+				"identifier": {
+					"domain": "coresystem",
+					"entry": "slime"
+				}
+			}
 		}
 	],
 	"map": [
 		{
 			"key": "e",
-			"x": 2,
-			"y": 3,
-			"data": {}
+			"coordinate": {
+				"x": 2,
+				"y": 3
+			},
+			"data": {
+			}
 		},
 		{
 			"key": "s",
-			"x": 2,
-			"y": 3
+			"coordinate": {
+				"x": 2,
+				"y": 3
+			}
 		}
 	]
 }

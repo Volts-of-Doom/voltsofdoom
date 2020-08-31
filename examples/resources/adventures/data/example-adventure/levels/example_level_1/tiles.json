@@ -2,13 +2,21 @@
 	"key": [
 		{
 			"key": "e",
-			"domain": "coresystem",
-			"identifier": "example_tile",
-			"data": {}
+			"identifier": {
+				"domain": "coresystem",
+				"entry": "example_tile"
+			},
+			"data": {
+			}
 		},
 		{
 			"key": "a",
-			"sheet": "cobble"
+			"sheet": {
+				"identifier": {
+					"domain": "coresystem",
+					"entry": "cobble"
+				}
+			}
 		}
 	],
 	"map": [

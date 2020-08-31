@@ -32,6 +32,8 @@
 
 	<dependencies>
 
+		<!-- JUnit -->
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -39,11 +41,15 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- GSON -->
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.3.1</version>
 		</dependency>
+
+		<!-- Reflections -->
 
 		<dependency>
 			<groupId>org.reflections</groupId>
@@ -51,10 +57,28 @@
 			<version>0.9.10</version>
 		</dependency>
 
+		<!-- Guice -->
+
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>4.2.3</version>
+		</dependency>
+
+		<!-- LWJGL -->
+
 		<dependency>
 			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl</artifactId>
+			<classifier>${lwjgl.natives}</classifier>
+		</dependency>
+
+		<!-- Assimp -->
 
 		<dependency>
 			<groupId>org.lwjgl</groupId>
@@ -63,19 +87,44 @@
 
 		<dependency>
 			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl-assimp</artifactId>
+			<classifier>${lwjgl.natives}</classifier>
+		</dependency>
+
+		<!-- GLFW -->
+
+		<dependency>
+			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl-glfw</artifactId>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl-glfw</artifactId>
+			<classifier>${lwjgl.natives}</classifier>
+		</dependency>
+
+		<!-- STB -->
+
 		<dependency>
 			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl-stb</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl-stb</artifactId>
+			<classifier>${lwjgl.natives}</classifier>
+		</dependency>
+
+		<!-- JAWT -->
 
 		<dependency>
 			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl-jawt</artifactId>
 		</dependency>
 
+		<!-- OpenAL -->
 
 		<dependency>
 			<groupId>org.lwjgl</groupId>
@@ -84,8 +133,24 @@
 
 		<dependency>
 			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl-openal</artifactId>
+			<classifier>${lwjgl.natives}</classifier>
+		</dependency>
+
+		<!-- OpenGL -->
+
+		<dependency>
+			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl-opengl</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl-opengl</artifactId>
+			<classifier>${lwjgl.natives}</classifier>
+		</dependency>
+
+		<!-- OpenGLES -->
 
 		<dependency>
 			<groupId>org.lwjgl</groupId>
@@ -94,62 +159,31 @@
 
 		<dependency>
 			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl-opengles</artifactId>
+			<classifier>${lwjgl.natives}</classifier>
+		</dependency>
+
+		<!-- ShaderC -->
+
+		<dependency>
+			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl-shaderc</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl-shaderc</artifactId>
+			<classifier>${lwjgl.natives}</classifier>
+		</dependency>
+
+		<!-- ZSTD -->
 
 		<dependency>
 			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl-zstd</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-assimp</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-glfw</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-stb</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-openal</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opengl</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opengles</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-shaderc</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
+		<!-- JOML -->
 
 		<dependency>
 			<groupId>org.joml</groupId>

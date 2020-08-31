@@ -1,8 +1,9 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
@@ -20,23 +21,16 @@ public class AdventureConfiguration {
 	private String description;
 	private String lobbyname;
 	private List<String> levelNames;
-	
-	public AdventureConfiguration() {
-		this.levelNames = new ArrayList<String>();
-	}
 
-	public AdventureConfiguration fromJson(JsonObject json) {
+	public static AdventureConfiguration fromJson(JsonObject json) {
 
-		withIdentifier(new ResourceLocation(json.get("registryname").getAsString(), json.get("modid").getAsString()));
-		withDisplayName(json.get("displayname").getAsString());
-		withDescription(json.get("description").getAsString());
-		withLobbyName(json.get("lobby").getAsString());
+		AdventureConfiguration config = new AdventureConfiguration();
+		Gson gson = new Gson();
+		
+		config = gson.fromJson(json, AdventureConfiguration.class);
+		config.levelNames = gson.fromJson(json.get("levelNames"), new TypeToken<List<String>>(){}.getType());
 
-		this.levelNames = new ArrayList<String>();
-		json.get("levels").getAsJsonArray().forEach((item) -> {
-			levelNames.add(item.getAsString());
-		});
-		return this;
+		return config;
 	}
 
 	// With

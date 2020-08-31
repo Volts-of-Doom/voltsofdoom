@@ -1,5 +1,18 @@
 {
-	"domain": "coresystem",
-	"identifier": "slime",
-	"data": []
+	"identifier": {
+		"domain": "coresystem",
+		"entry": "slime"
+	},
+	"data": {
+		"tags": [
+			{
+				"key": "key_1",
+				"value": "value_1"
+			},
+			{
+				"key": "key_2",
+				"value": "value_2"
+			}
+		]
+	}
 }

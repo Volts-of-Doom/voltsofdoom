@@ -1,10 +1,8 @@
 package vision.voltsofdoom.coresystem.loading.window;
 
-import vision.voltsofdoom.coresystem.loading.LoadingManager;
-import vision.voltsofdoom.coresystem.universal.band_wagon.BandWagon;
-
 /**
- * The detailed status to be shown on the {@link LoadingWindow} during startup. Updated using
+ * The detailed status to be shown on the {@link LoadingWindow} during startup.
+ * Updated using
  * {@link BandWagon#playEvent(vision.voltsofdoom.coresystem.universal.band_wagon.Event)},
  * playing a {@link LoadingManager.UpdateDetailedStatusEvent}.
  * 
