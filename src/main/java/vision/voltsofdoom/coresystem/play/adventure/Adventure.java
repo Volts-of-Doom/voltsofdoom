@@ -1,9 +1,11 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import vision.voltsofdoom.coresystem.loading.registry.RegistryEntry;
-import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
+import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
 
 /**
  * Contains all of the data for an Adventure!
@@ -13,11 +15,10 @@ import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
  */
 public class Adventure extends RegistryEntry<Adventure> {
 	private ArrayList<Level> levels = new ArrayList<Level>();
+	private Map<ISheetType, ArrayList<Sheet>> sheets = new HashMap<ISheetType, ArrayList<Sheet>>();
 	private AdventureConfiguration configuration;
 
-	public Adventure(AdventureConfiguration configuration) {
-		this.configuration = configuration;
-		levels = levelNamesToContainers();
+	private Adventure() {
 	}
 
 	public ArrayList<Level> getLevels() {
@@ -29,19 +30,32 @@ public class Adventure extends RegistryEntry<Adventure> {
 	}
 
 	/**
-	 * Turns a list of the names of levels included in this {@link Adventure} into
-	 * an {@link ArrayList} of {@link Level}s.
+	 * Builds an {@link Adventure} using chained methods. Call <code>build()</code>
+	 * to access the built {@link Adventure}.
 	 * 
-	 * @return An {@link ArrayList} of {@link Level}s in this {@link Adventure}.
+	 * @author GenElectrovise
+	 *
 	 */
-	public ArrayList<Level> levelNamesToContainers() {
-		ArrayList<Level> out = new ArrayList<Level>();
+	public static class Builder {
+		private Adventure adventure = new Adventure();
 
-		for (String name : configuration.getLevelNames()) {
-			out.add(new Level(new LevelConfiguration()
-					.withIdentifier(new ResourceLocation(configuration.getIdentifier().getEntry(), name))));
+		public Adventure.Builder withConfiguration(AdventureConfiguration config) {
+			adventure.configuration = config;
+			return this;
 		}
 
-		return out;
+		public Adventure build() {
+			return adventure;
+		}
+
+		public Adventure.Builder withSheet(Sheet sheet, ISheetType type) {
+			
+			if(!adventure.sheets.containsKey(type)) {
+				adventure.sheets.put(type, new ArrayList<Sheet>());
+			}
+			
+			adventure.sheets.get(type).add(sheet);
+			return this;
+		}
 	}
 }

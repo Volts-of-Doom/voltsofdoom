@@ -5,7 +5,10 @@ import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -13,9 +16,10 @@ import java.util.zip.ZipFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
-import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
+import vision.voltsofdoom.coresystem.universal.event.RegistryEvent.GenerateAdventuresEvent;
 import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 
@@ -29,9 +33,9 @@ public class AdventureLoader {
 
 	public static void main(String[] args) {
 		try {
-			// generateAdventures(new GenerateAdventuresEvent());
+			generateAdventures(new GenerateAdventuresEvent());
 
-			generatePreMadeObjects();
+			// generatePreMadeObjects();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -106,22 +110,62 @@ public class AdventureLoader {
 		});
 	}
 
+	/**
+	 * Uses variants on:<br>
+	 * <code>
+	 * ZipFileReader reader = new ZipFileReader(zip); <br>
+	 * Class.fromJson(new Gson().fromJson(ZipFileReader.asJsonReader(reader.getStream("path")), JsonObject.class))
+	 * </code> <br>
+	 * to load parts of {@link Adventure}s from ZIP files.
+	 * 
+	 * @param zip The ZIP file to load from.
+	 * @throws IOException
+	 */
 	private static void fromZip(ZipFile zip) throws IOException {
 		ZipFileReader reader = new ZipFileReader(zip);
+		Gson gson = new Gson();
 
-		AdventureConfiguration a = new Gson().fromJson(ZipFileReader.asJsonReader(reader.getStream("data.json")),
-				AdventureConfiguration.class);
-		System.out.println(new Gson().toJson(new AdventureConfiguration().withDescription("desc.")
-				.withDisplayName("Displ.").withIdentifier(new ResourceLocation("modid", "entry"))
-				.withLevelNames("level_1", "level_2", "level_3").withLobbyName("lobby_name")));
+		Adventure.Builder builder = new Adventure.Builder();
 
-		AdventureConfiguration a2 = new Gson().fromJson(
-				"{'identifier':{'domain':'modid','path':'entry'},'displayName':'Displ.','description':'desc.','lobbyname':'lobby_name','levelNames':['level_1','level_2','level_3']}",
-				AdventureConfiguration.class);
-		@SuppressWarnings("unused")
-		ResourceLocation rl = a2.getIdentifier();
-		System.out.println(a);
-		System.out.println(a2);
+		// AdventureConfiguration
+		AdventureConfiguration adventureConfiguration = AdventureConfiguration.fromJson(
+				gson.fromJson(ZipFileReader.asJsonReader(reader.getStream("adventure.json")), JsonObject.class));
+		builder.withConfiguration(adventureConfiguration);
+
+		// Sheets
+		Map<ZipEntry, ISheetType> entries = new HashMap<ZipEntry, ISheetType>();
+		Enumeration<? extends ZipEntry> e = zip.entries();
+		while (e.hasMoreElements()) {
+			ZipEntry zipEntry = (ZipEntry) e.nextElement();
+
+			// IF in "sheets" directory && IF in the 2nd directory down && IF file extension
+			// is ".json"
+			String name = zipEntry.getName();
+			if (name.startsWith("sheets/")) {
+				if (name.endsWith(".json")) {
+
+					ISheetType type = ISheetType.EMPTY;
+					for (ISheetType sheetType : Sheet.ISheetType.types) {
+						if (name.contains(sheetType.folderName())) {
+							type = sheetType;
+						}
+					}
+
+					entries.put(zipEntry, type);
+				}
+			}
+		}
+
+		for (ZipEntry zipEntry : entries.keySet()) {
+			Sheet sheet = Sheet.fromJson(
+					gson.fromJson(ZipFileReader.asJsonReader(reader.getStream(zipEntry.getName())), JsonObject.class));
+			builder.withSheet(sheet, entries.get(zipEntry));
+		}
+
+		System.out.println(builder.build());
+
+		// Levels
+
 	}
 
 	@SuppressWarnings("unused")
@@ -149,14 +193,14 @@ public class AdventureLoader {
 				JsonObject.class));
 
 		// Tile Sheet
-		Sheet ts = Sheet.fromJson(
-				gson.fromJson("{\"identifier\":{\"domain\":\"coresystem\",\"entry\":\"cobble\"},\"data\":{\"tags\":[{\"key\":\"key_1\",\"value\":\"value_1\"},{\"key\":\"key_2\",\"value\":\"value_2\"}]}}",
-						JsonObject.class));
+		Sheet ts = Sheet.fromJson(gson.fromJson(
+				"{\"identifier\":{\"domain\":\"coresystem\",\"entry\":\"cobble\"},\"data\":{\"tags\":[{\"key\":\"key_1\",\"value\":\"value_1\"},{\"key\":\"key_2\",\"value\":\"value_2\"}]}}",
+				JsonObject.class));
 
 		// Entity Sheet
-		Sheet es = Sheet.fromJson(
-				gson.fromJson("{\"identifier\":{\"domain\":\"coresystem\",\"entry\":\"slime\"},\"data\":{\"tags\":[{\"key\":\"key_1\",\"value\":\"value_1\"},{\"key\":\"key_2\",\"value\":\"value_2\"}]}}",
-						JsonObject.class));
+		Sheet es = Sheet.fromJson(gson.fromJson(
+				"{\"identifier\":{\"domain\":\"coresystem\",\"entry\":\"slime\"},\"data\":{\"tags\":[{\"key\":\"key_1\",\"value\":\"value_1\"},{\"key\":\"key_2\",\"value\":\"value_2\"}]}}",
+				JsonObject.class));
 
 		// Break line
 		System.out.println();
