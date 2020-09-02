@@ -124,19 +124,24 @@ public class AdventureLoader {
 	private static void fromZip(ZipFile zip) throws IOException {
 		ZipFileReader reader = new ZipFileReader(zip);
 		Gson gson = new Gson();
+		List<ZipEntry> entries = new ArrayList<ZipEntry>();
 
-		Adventure.Builder builder = new Adventure.Builder();
+		Enumeration<? extends ZipEntry> entriesS = zip.entries();
+		while (entriesS.hasMoreElements()) {
+			ZipEntry zipEntry = (ZipEntry) entriesS.nextElement();
+			entries.add(zipEntry);
+		}
+
+		Adventure.Builder adventureBuilder = new Adventure.Builder();
 
 		// AdventureConfiguration
 		AdventureConfiguration adventureConfiguration = AdventureConfiguration.fromJson(
 				gson.fromJson(ZipFileReader.asJsonReader(reader.getStream("adventure.json")), JsonObject.class));
-		builder.withConfiguration(adventureConfiguration);
+		adventureBuilder.withConfiguration(adventureConfiguration);
 
 		// Sheets
-		Map<ZipEntry, ISheetType> entries = new HashMap<ZipEntry, ISheetType>();
-		Enumeration<? extends ZipEntry> e = zip.entries();
-		while (e.hasMoreElements()) {
-			ZipEntry zipEntry = (ZipEntry) e.nextElement();
+		Map<ZipEntry, ISheetType> entryMap = new HashMap<ZipEntry, ISheetType>();
+		for (ZipEntry zipEntry : entries) {
 
 			// IF in "sheets" directory && IF in the 2nd directory down && IF file extension
 			// is ".json"
@@ -151,20 +156,54 @@ public class AdventureLoader {
 						}
 					}
 
-					entries.put(zipEntry, type);
+					entryMap.put(zipEntry, type);
 				}
 			}
 		}
 
-		for (ZipEntry zipEntry : entries.keySet()) {
+		for (ZipEntry zipEntry : entryMap.keySet()) {
 			Sheet sheet = Sheet.fromJson(
 					gson.fromJson(ZipFileReader.asJsonReader(reader.getStream(zipEntry.getName())), JsonObject.class));
-			builder.withSheet(sheet, entries.get(zipEntry));
+			adventureBuilder.withSheet(sheet, entryMap.get(zipEntry));
 		}
 
-		System.out.println(builder.build());
+		Adventure adventure = adventureBuilder.build();
 
 		// Levels
+
+		List<String> levelEntries = new ArrayList<String>();
+		for (ZipEntry zipEntry : entries) {
+
+			String name = zipEntry.getName();
+			String[] split = name.split("/");
+
+			if (split[0].contentEquals("levels")) {
+				levelEntries.add(name);
+			}
+		}
+
+		List<String> levelFolderNames = new ArrayList<String>();
+		for (String name : levelEntries) {
+			String[] split = name.split("/");
+
+			if (!levelFolderNames.contains(split[1])) {
+				levelFolderNames.add(split[1]);
+			}
+		}
+
+		for (String levelFolderName : levelFolderNames) {
+			String base = "levels/" + levelFolderName + "/";
+
+			Level.Builder levelBuilder = new Level.Builder();
+
+			// Adventure
+			// TODO How are sheets accessed by the level from the adventure?
+
+			// LevelConfiguration
+			LevelConfiguration levelConfiguration = LevelConfiguration.fromJson(
+					gson.fromJson(ZipFileReader.asJsonReader(reader.getStream(base + "level.json")), JsonObject.class));
+			levelBuilder.withConfiguration(levelConfiguration);
+		}
 
 	}
 
