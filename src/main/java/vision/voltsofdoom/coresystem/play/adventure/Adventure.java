@@ -25,14 +25,25 @@ public class Adventure extends RegistryEntry<Adventure> {
 	public ArrayList<LevelConfiguration> getLevelConfigurations() {
 		return levelConfigurations;
 	}
-	
+
 	@Override
-		public ResourceLocation getIdentifier() {
-			return configuration.getIdentifier();
-		}
+	public ResourceLocation getIdentifier() {
+		return configuration.getIdentifier();
+	}
 
 	public AdventureConfiguration getConfiguration() {
 		return configuration;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Adventure{");
+		
+		builder.append(configuration.toString());
+		
+		builder.append("}");
+		return builder.toString();
 	}
 
 	/**
@@ -47,6 +58,7 @@ public class Adventure extends RegistryEntry<Adventure> {
 
 		public Adventure.Builder withConfiguration(AdventureConfiguration config) {
 			adventure.configuration = config;
+			adventure.identifier = config.getIdentifier();
 			return this;
 		}
 
@@ -55,11 +67,11 @@ public class Adventure extends RegistryEntry<Adventure> {
 		}
 
 		public Adventure.Builder withSheet(Sheet sheet, ISheetType type) {
-			
-			if(!adventure.sheets.containsKey(type)) {
+
+			if (!adventure.sheets.containsKey(type)) {
 				adventure.sheets.put(type, new ArrayList<Sheet>());
 			}
-			
+
 			adventure.sheets.get(type).add(sheet);
 			return this;
 		}

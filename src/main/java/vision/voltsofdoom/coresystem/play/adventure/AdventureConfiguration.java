@@ -1,6 +1,7 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -19,16 +20,24 @@ public class AdventureConfiguration {
 	private ResourceLocation identifier;
 	private String displayName;
 	private String description;
-	private String lobbyname;
 	private List<String> levelNames;
 
 	public static AdventureConfiguration fromJson(JsonObject json) {
 
 		AdventureConfiguration config = new AdventureConfiguration();
 		Gson gson = new Gson();
-		
+
 		config = gson.fromJson(json, AdventureConfiguration.class);
-		config.levelNames = gson.fromJson(json.get("levelNames"), new TypeToken<List<String>>(){}.getType());
+		config.levelNames = gson.fromJson(json.get("levelNames"), new TypeToken<List<String>>() {
+			private static final long serialVersionUID = -1179905207477723840L;
+		}.getType());
+
+		Objects.requireNonNull(config.description,
+				() -> "AdventureConfiguration#fromJson found description to be null.");
+		Objects.requireNonNull(config.displayName,
+				() -> "AdventureConfiguration#fromJson found displayName to be null.");
+		Objects.requireNonNull(config.identifier, () -> "AdventureConfiguration#fromJson found identifier to be null.");
+		Objects.requireNonNull(config.levelNames, () -> "AdventureConfiguration#fromJson found levelNames to be null.");
 
 		return config;
 	}
@@ -46,11 +55,6 @@ public class AdventureConfiguration {
 
 	public AdventureConfiguration withDescription(String description) {
 		this.description = description;
-		return this;
-	}
-
-	public AdventureConfiguration withLobbyName(String lobbyName) {
-		this.lobbyname = lobbyName;
 		return this;
 	}
 
@@ -74,11 +78,21 @@ public class AdventureConfiguration {
 		return description;
 	}
 
-	public String getLobbyname() {
-		return lobbyname;
-	}
-
 	public List<String> getLevelNames() {
 		return levelNames;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("AdventureConfiguration{");
+
+		builder.append("identifier=" + identifier.stringify());
+		builder.append(", displayName='" + displayName + "'");
+		builder.append(", levelNames=" + levelNames);
+		builder.append(", description='" + description + "'");
+
+		builder.append("}");
+		return builder.toString();
 	}
 }

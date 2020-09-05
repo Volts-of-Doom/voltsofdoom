@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.PrimitiveIterator.OfInt;
 
+import com.google.common.collect.ImmutableList;
+
 /**
  * Identifies the location of *something*. This could be a resource or an object
  * in a registry, for example.
@@ -16,9 +18,43 @@ public class ResourceLocation {
 	private String domain;
 	private String entry;
 
-	public ResourceLocation(String modid, String entry) {
-		this.domain = modid;
+	public ResourceLocation(String domain, String entry) {
+		this.domain = domain;
 		this.entry = entry;
+
+		ImmutableList.of(domain, entry).forEach((str) -> {
+			try {
+
+				if (str.length() > 32) {
+					throw new ResourceLocationInvalidException(
+							"ResourceLocation section " + str + " too long: " + str.length());
+				}
+
+				if (str.length() < 4) {
+					throw new ResourceLocationInvalidException(
+							"ResourceLocation section " + str + " too short: " + str.length());
+				}
+
+				if (str.contains(":")) {
+					throw new ResourceLocationInvalidException(
+							"ResourceLocation section " + str + " contains an invalid colon!");
+				}
+
+			} catch (ResourceLocationInvalidException r) {
+				r.printStackTrace();
+			}
+		});
+	}
+
+	/**
+	 * The logic of this is that if the two aren't null they should be valid, as the
+	 * constructor (the only entry point) validates the incoming strings.
+	 * 
+	 * @return Whether this {@link ResourceLocation} is valid.
+	 */
+	public ResourceLocationValidityState validate() {
+		return (domain != null && entry != null) ? ResourceLocationValidityState.VALID
+				: ResourceLocationValidityState.GENERIC_INVALID;
 	}
 
 	public static ResourceLocationValidityState validate(String string) {
@@ -186,8 +222,10 @@ public class ResourceLocation {
 		VALID(true, "ResourceLocation valid!"),
 		TOO_LONG(false, "ResourceLocation spec is too long! (One half of the given spec exceeds 32 characters)"),
 		TOO_SHORT(false, "ResourceLocation spec is too short! (One half of the given spec is less than 4 characters)"),
-		INVALID_COLON_COUNT(false, "ResourceLocation does not contain 1 colon!"), ILLEGAL_CHARACTER(false,
-				"ResourceLocation contains an illegal character! Only alphabetic characters, and colons are allowed!");
+		INVALID_COLON_COUNT(false, "ResourceLocation does not contain 1 colon!"),
+		ILLEGAL_CHARACTER(false,
+				"ResourceLocation contains an illegal character! Only alphabetic characters, and colons are allowed!"),
+		GENERIC_INVALID(true, "ResourceLocation invalid in unspecified manner, though likely contains a null element!");
 
 		private boolean valid;
 		private String message;
@@ -209,5 +247,15 @@ public class ResourceLocation {
 		public String toString() {
 			return "ResourceLocationValidityState{isValid=" + isValid() + ", message='" + getMessage() + "'}";
 		}
+	}
+
+	public static class ResourceLocationInvalidException extends Exception {
+
+		public ResourceLocationInvalidException(String string) {
+			super(string);
+		}
+
+		private static final long serialVersionUID = 4488245000256283124L;
+
 	}
 }

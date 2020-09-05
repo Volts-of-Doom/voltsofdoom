@@ -1,6 +1,7 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -18,6 +19,18 @@ public class EntityMap {
 	}
 
 	public static EntityMap fromJson(JsonObject json) {
-		return new Gson().fromJson(json, EntityMap.class);
+		EntityMap entityMap = new Gson().fromJson(json, EntityMap.class);
+		Objects.requireNonNull(entityMap.key, () -> "EntityMap#fromJson found key to be null.");
+		Objects.requireNonNull(entityMap.map, () -> "EntityMap#fromJson found map to be null.");
+
+		entityMap.key.forEach((key) -> {
+			Objects.requireNonNull(key, () -> "EntityMap#fromJson found a KeyNode to be null.");
+		});
+
+		entityMap.map.forEach((map) -> {
+			Objects.requireNonNull(map, () -> "EntityMap#fromJson found an EntityKeyPlacementNode to be null.");
+		});
+
+		return entityMap;
 	}
 }
