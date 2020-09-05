@@ -6,6 +6,7 @@ import java.util.Map;
 
 import vision.voltsofdoom.coresystem.loading.registry.RegistryEntry;
 import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
+import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 
 /**
  * Contains all of the data for an Adventure!
@@ -14,16 +15,21 @@ import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
  *
  */
 public class Adventure extends RegistryEntry<Adventure> {
-	private ArrayList<Level> levels = new ArrayList<Level>();
+	private ArrayList<LevelConfiguration> levelConfigurations = new ArrayList<LevelConfiguration>();
 	private Map<ISheetType, ArrayList<Sheet>> sheets = new HashMap<ISheetType, ArrayList<Sheet>>();
 	private AdventureConfiguration configuration;
 
 	private Adventure() {
 	}
 
-	public ArrayList<Level> getLevels() {
-		return levels;
+	public ArrayList<LevelConfiguration> getLevelConfigurations() {
+		return levelConfigurations;
 	}
+	
+	@Override
+		public ResourceLocation getIdentifier() {
+			return configuration.getIdentifier();
+		}
 
 	public AdventureConfiguration getConfiguration() {
 		return configuration;
@@ -56,6 +62,10 @@ public class Adventure extends RegistryEntry<Adventure> {
 			
 			adventure.sheets.get(type).add(sheet);
 			return this;
+		}
+
+		public void withLevelConfiguration(LevelConfiguration config) {
+			adventure.levelConfigurations.add(config);
 		}
 	}
 }

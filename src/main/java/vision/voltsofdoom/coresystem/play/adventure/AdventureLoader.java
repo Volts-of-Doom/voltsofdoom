@@ -16,6 +16,7 @@ import java.util.zip.ZipFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import vision.voltsofdoom.coresystem.loading.registry.TypeRegistries;
 import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
@@ -167,8 +168,6 @@ public class AdventureLoader {
 			adventureBuilder.withSheet(sheet, entryMap.get(zipEntry));
 		}
 
-		Adventure adventure = adventureBuilder.build();
-
 		// Levels
 
 		List<String> levelEntries = new ArrayList<String>();
@@ -194,16 +193,16 @@ public class AdventureLoader {
 		for (String levelFolderName : levelFolderNames) {
 			String base = "levels/" + levelFolderName + "/";
 
-			Level.Builder levelBuilder = new Level.Builder();
-
-			// Adventure
-			// TODO How are sheets accessed by the level from the adventure?
-
 			// LevelConfiguration
 			LevelConfiguration levelConfiguration = LevelConfiguration.fromJson(
 					gson.fromJson(ZipFileReader.asJsonReader(reader.getStream(base + "level.json")), JsonObject.class));
-			levelBuilder.withConfiguration(levelConfiguration);
+			adventureBuilder.withLevelConfiguration(levelConfiguration);
 		}
+
+		// Register
+
+		Adventure adventure = adventureBuilder.build();
+		TypeRegistries.ADVENTURES.register(adventure.getIdentifier(), () -> adventure);
 
 	}
 

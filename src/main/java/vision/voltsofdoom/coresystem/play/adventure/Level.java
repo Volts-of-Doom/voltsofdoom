@@ -24,6 +24,10 @@ public class Level {
 		public void withConfiguration(LevelConfiguration levelConfiguration) {
 			level.levelConfiguration = levelConfiguration;
 		}
+
+		public Level build() {
+			return level;
+		}
 		
 	}
 }
