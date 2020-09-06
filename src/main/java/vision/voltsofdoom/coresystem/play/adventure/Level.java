@@ -1,5 +1,7 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
+import vision.voltsofdoom.coresystem.universal.log.Loggers;
+
 /**
  * A uhhhhh... {@link Level} in an {@link Adventure}...
  * 
@@ -7,25 +9,41 @@ package vision.voltsofdoom.coresystem.play.adventure;
  *
  */
 public class Level {
-	
-	private String registryName;
-	private String displayName;
 
-	/**
-	 * A container for a level. Contains all resources for a level.
-	 * 
-	 * @param configuration A VODJsonReader containing an instance of the file the
-	 *                      level should be constructed from.
-	 */
-	public Level(LevelConfiguration configuration) {
+	private LevelConfiguration levelConfiguration;
 
+	private Level() {
 	}
-	
-	public String getRegistryName() {
-		return registryName;
+
+	public LevelConfiguration getLevelConfiguration() {
+		return levelConfiguration;
 	}
-	
-	public String getDisplayName() {
-		return displayName;
+
+	@Override
+	public String toString() {
+
+		Loggers.CORESYSTEM_LOADING.severe("Levels not loaded yet, either at loading or runtime!");
+
+		StringBuilder builder = new StringBuilder();
+		builder.append("Level{");
+
+		builder.append(levelConfiguration.toString());
+
+		builder.append("}");
+		return builder.toString();
+	}
+
+	public static class Builder {
+
+		Level level = new Level();
+
+		public void withConfiguration(LevelConfiguration levelConfiguration) {
+			level.levelConfiguration = levelConfiguration;
+		}
+
+		public Level build() {
+			return level;
+		}
+
 	}
 }

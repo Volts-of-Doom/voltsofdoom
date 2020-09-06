@@ -4,7 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Loggers {
-
+	
 	// Logger tiers
 	// Main Systems
 	public static final Logger CORESYSTEM = Logger.getLogger("coresystem");

@@ -1,8 +1,11 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import vision.voltsofdoom.coresystem.loading.registry.RegistryEntry;
+import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
 import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 
 /**
@@ -12,36 +15,69 @@ import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
  *
  */
 public class Adventure extends RegistryEntry<Adventure> {
-	private ArrayList<Level> levels = new ArrayList<Level>();
+	private ArrayList<LevelConfiguration> levelConfigurations = new ArrayList<LevelConfiguration>();
+	private Map<ISheetType, ArrayList<Sheet>> sheets = new HashMap<ISheetType, ArrayList<Sheet>>();
 	private AdventureConfiguration configuration;
 
-	public Adventure(AdventureConfiguration configuration) {
-		this.configuration = configuration;
-		levels = levelNamesToContainers();
+	private Adventure() {
 	}
 
-	public ArrayList<Level> getLevels() {
-		return levels;
+	public ArrayList<LevelConfiguration> getLevelConfigurations() {
+		return levelConfigurations;
+	}
+
+	@Override
+	public ResourceLocation getIdentifier() {
+		return configuration.getIdentifier();
 	}
 
 	public AdventureConfiguration getConfiguration() {
 		return configuration;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Adventure{");
+		
+		builder.append(configuration.toString());
+		
+		builder.append("}");
+		return builder.toString();
+	}
 
 	/**
-	 * Turns a list of the names of levels included in this {@link Adventure} into
-	 * an {@link ArrayList} of {@link Level}s.
+	 * Builds an {@link Adventure} using chained methods. Call <code>build()</code>
+	 * to access the built {@link Adventure}.
 	 * 
-	 * @return An {@link ArrayList} of {@link Level}s in this {@link Adventure}.
+	 * @author GenElectrovise
+	 *
 	 */
-	public ArrayList<Level> levelNamesToContainers() {
-		ArrayList<Level> out = new ArrayList<Level>();
+	public static class Builder {
+		private Adventure adventure = new Adventure();
 
-		for (String name : configuration.getLevelNames()) {
-			out.add(new Level(new LevelConfiguration()
-					.withIdentifier(new ResourceLocation(configuration.getIdentifier().getEntry(), name))));
+		public Adventure.Builder withConfiguration(AdventureConfiguration config) {
+			adventure.configuration = config;
+			adventure.identifier = config.getIdentifier();
+			return this;
 		}
 
-		return out;
+		public Adventure build() {
+			return adventure;
+		}
+
+		public Adventure.Builder withSheet(Sheet sheet, ISheetType type) {
+
+			if (!adventure.sheets.containsKey(type)) {
+				adventure.sheets.put(type, new ArrayList<Sheet>());
+			}
+
+			adventure.sheets.get(type).add(sheet);
+			return this;
+		}
+
+		public void withLevelConfiguration(LevelConfiguration config) {
+			adventure.levelConfigurations.add(config);
+		}
 	}
 }

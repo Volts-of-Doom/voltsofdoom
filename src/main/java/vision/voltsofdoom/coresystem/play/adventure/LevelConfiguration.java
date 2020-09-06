@@ -1,43 +1,61 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
+import java.util.Objects;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
+import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation.ResourceLocationInvalidException;
+import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation.ResourceLocationValidityState;
 
 public class LevelConfiguration {
 	private ResourceLocation identifier;
 	private String displayName;
 	private String description;
-	private EntityMap entityMap;
-	private TileMap tileMap;
-	
+
 	public LevelConfiguration withIdentifier(ResourceLocation identifier) {
 		this.identifier = identifier;
 		return this;
 	}
-	
+
 	public ResourceLocation getIdentifier() {
 		return identifier;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public String getDisplayName() {
 		return displayName;
 	}
-	
-	public EntityMap getEntityMap() {
-		return entityMap;
-	}
-	
-	public TileMap getTileMap() {
-		return tileMap;
+
+	public static LevelConfiguration fromJson(JsonObject json) throws ResourceLocationInvalidException {
+		LevelConfiguration config = new Gson().fromJson(json, LevelConfiguration.class);
+
+		Objects.requireNonNull(config.description, () -> "LevelConfiguration#fromJson found description to be null.");
+		Objects.requireNonNull(config.displayName, () -> "LevelConfiguration#fromJson found displayName to be null.");
+		Objects.requireNonNull(config.identifier, () -> "LevelConfiguration#fromJson found identifier to be null.");
+
+		ResourceLocationValidityState state = config.identifier.validate();
+		if (!state.isValid())
+			throw new ResourceLocation.ResourceLocationInvalidException(
+					"ResourceLocation " + config.identifier.stringify() + " is invalid. >> " + state.getMessage());
+
+		return config;
 	}
 
-	public static LevelConfiguration fromJson(JsonObject json) {
-		return new Gson().fromJson(json, LevelConfiguration.class);
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("LevelConfiguration{");
+
+		builder.append("identifier=" + identifier.stringify());
+		builder.append(", displayName='" + displayName + "'");
+		builder.append(", description='" + description + "'");
+
+		builder.append("}");
+		return builder.toString();
 	}
 }
