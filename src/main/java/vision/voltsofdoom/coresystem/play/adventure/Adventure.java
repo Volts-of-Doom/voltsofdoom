@@ -1,12 +1,17 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.zip.ZipFile;
+
+import com.google.common.collect.ImmutableSet;
 
 import vision.voltsofdoom.coresystem.loading.registry.RegistryEntry;
 import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
 import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
+import vision.voltsofdoom.coresystem.universal.util.Reference;
 
 /**
  * Contains all of the data for an Adventure!
@@ -18,6 +23,7 @@ public class Adventure extends RegistryEntry<Adventure> {
 	private ArrayList<LevelConfiguration> levelConfigurations = new ArrayList<LevelConfiguration>();
 	private Map<ISheetType, ArrayList<Sheet>> sheets = new HashMap<ISheetType, ArrayList<Sheet>>();
 	private AdventureConfiguration configuration;
+	private ImmutableSet<Level> levels = ImmutableSet.of();
 
 	private Adventure() {
 	}
@@ -26,22 +32,47 @@ public class Adventure extends RegistryEntry<Adventure> {
 		return levelConfigurations;
 	}
 
-	@Override
-	public ResourceLocation getIdentifier() {
-		return configuration.getIdentifier();
+	public Map<ISheetType, ArrayList<Sheet>> getSheets() {
+		return sheets;
 	}
 
 	public AdventureConfiguration getConfiguration() {
 		return configuration;
 	}
-	
+
+	public ImmutableSet<Level> getLevels() {
+		return levels.isEmpty() ? generateLevels(levelConfigurations) : levels;
+	}
+
+	@Override
+	public ResourceLocation getIdentifier() {
+		return configuration.getIdentifier();
+	}
+
+	private ImmutableSet<Level> generateLevels(ArrayList<LevelConfiguration> configs) {
+		ArrayList<Level> levelArr = new ArrayList<Level>();
+		try {
+
+			for (LevelConfiguration config : configs) {
+
+				File file = new File(Reference.ADVENTURE + this.configuration.getIdentifier().getEntry() + "_"
+						+ this.configuration.getVersion() + ".zip");
+				levelArr.add(Level.fromZip(this, new ZipFile(file), config));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return ImmutableSet.copyOf(levelArr);
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Adventure{");
-		
+
 		builder.append(configuration.toString());
-		
+
 		builder.append("}");
 		return builder.toString();
 	}

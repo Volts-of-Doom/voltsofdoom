@@ -206,6 +206,7 @@ public class AdventureLoader {
 			// Register
 
 			Adventure adventure = adventureBuilder.build();
+			
 			TypeRegistries.ADVENTURES.register(adventure.getIdentifier(), () -> adventure);
 			
 		} catch (Exception e) {

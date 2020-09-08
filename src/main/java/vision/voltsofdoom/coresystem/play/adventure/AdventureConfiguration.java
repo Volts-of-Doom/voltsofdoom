@@ -21,6 +21,7 @@ public class AdventureConfiguration {
 	private String displayName;
 	private String description;
 	private List<String> levelNames;
+	private String version;
 
 	public static AdventureConfiguration fromJson(JsonObject json) {
 
@@ -38,6 +39,7 @@ public class AdventureConfiguration {
 				() -> "AdventureConfiguration#fromJson found displayName to be null.");
 		Objects.requireNonNull(config.identifier, () -> "AdventureConfiguration#fromJson found identifier to be null.");
 		Objects.requireNonNull(config.levelNames, () -> "AdventureConfiguration#fromJson found levelNames to be null.");
+		Objects.requireNonNull(config.version, () -> "AdventureConfiguration#fromJson found version to be null.");
 
 		return config;
 	}
@@ -65,6 +67,11 @@ public class AdventureConfiguration {
 		return this;
 	}
 
+	public AdventureConfiguration withVersion(String version) {
+		this.version = version;
+		return this;
+	}
+
 	// Get
 	public ResourceLocation getIdentifier() {
 		return identifier;
@@ -80,6 +87,10 @@ public class AdventureConfiguration {
 
 	public List<String> getLevelNames() {
 		return levelNames;
+	}
+
+	public String getVersion() {
+		return version;
 	}
 
 	@Override
