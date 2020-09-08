@@ -27,6 +27,7 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import vision.voltsofdoom.silverspark.display.MenuTemplate;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
+import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.graphic.Window;
 import vision.voltsofdoom.silverspark.math.Vector2f;
 import vision.voltsofdoom.silverspark.render.ListRenderer;
@@ -96,7 +97,7 @@ public abstract class Game {
         entityRenderer = new ListRenderer();
         textRenderer = new TextRenderer();
         state = new StateMachine();
-        template = new MenuTemplate(new Vector2f(50,100), new Vector2f(10,10), new Vector2f(60, 10), 60, "Inconsolata:50:WHITE");
+        template = new MenuTemplate(new Vector2f(50,100), new Vector2f(10,10), new Vector2f(60, 10), 60, "Inconsolata:50:WHITE", VODColor.WHITE);
     }
 
     /**

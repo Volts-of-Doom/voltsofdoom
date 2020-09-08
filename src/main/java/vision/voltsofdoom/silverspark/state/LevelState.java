@@ -26,14 +26,16 @@ package vision.voltsofdoom.silverspark.state;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryStack;
 import vision.voltsofdoom.silverspark.core.Game;
-import vision.voltsofdoom.silverspark.game.GreenBlob;
+import vision.voltsofdoom.silverspark.display.DisplayText;
 import vision.voltsofdoom.silverspark.display.IRenderable;
-import vision.voltsofdoom.silverspark.render.ListRenderer;
+import vision.voltsofdoom.silverspark.game.GreenBlob;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
-import vision.voltsofdoom.silverspark.render.Renderer;
-import vision.voltsofdoom.silverspark.render.TextRenderer;
 import vision.voltsofdoom.silverspark.graphic.Texture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
+import vision.voltsofdoom.silverspark.math.Vector2f;
+import vision.voltsofdoom.silverspark.render.ListRenderer;
+import vision.voltsofdoom.silverspark.render.Renderer;
+import vision.voltsofdoom.silverspark.render.TextRenderer;
 import vision.voltsofdoom.silverspark.text.FontState;
 
 import java.awt.FontFormatException;
@@ -142,21 +144,27 @@ public class LevelState implements State {
         int scoreTextHeight = textRenderer.getTextHeight(availableFonts.get("Inconsolata:50:WHITE"),scoreText);
         float scoreTextX = (gameWidth - scoreTextWidth) / 2f;
         float scoreTextY = gameHeight - scoreTextHeight - 5;
-        textRenderer.drawText(availableFonts.get("Inconsolata:50:WHITE"), scoreText, scoreTextX, scoreTextY, VODColor.WHITE);
+        DisplayText text = new DisplayText(availableFonts.get("Inconsolata:50:WHITE"), scoreText, new Vector2f(scoreTextX, scoreTextY), VODColor.WHITE);
+
+        textRenderer.drawText(text);
 
         String playerText = "Player | " + playerScore;
         int playerTextWidth = textRenderer.getTextWidth(availableFonts.get("Default"), playerText);
         int playerTextHeight = textRenderer.getTextHeight(availableFonts.get("Default"),playerText);
         float playerTextX = gameWidth / 2f - playerTextWidth - 50;
         float playerTextY = scoreTextY - playerTextHeight;
-        textRenderer.drawText(availableFonts.get("Default"), playerText, playerTextX, playerTextY, VODColor.WHITE);
+        text = new DisplayText(availableFonts.get("Default"), playerText, new Vector2f(playerTextX, playerTextY), VODColor.WHITE);
+
+        textRenderer.drawText(text);
 
         String opponentText = opponentScore + " | Opponent";
         int opponentTextWidth = textRenderer.getDebugTextWidth(availableFonts.get("Default"),playerText);
         int opponentTextHeight = textRenderer.getTextHeight(availableFonts.get("Default"), playerText);
         float opponentTextX = gameWidth / 2f + 50;
         float opponentTextY = scoreTextY - opponentTextHeight;
-        textRenderer.drawText(availableFonts.get("Default"), opponentText, opponentTextX, opponentTextY, VODColor.WHITE);
+        text = new DisplayText(availableFonts.get("Default"), opponentText, new Vector2f(opponentTextX, opponentTextY), VODColor.WHITE);
+
+        textRenderer.drawText(text);
     }
 
 

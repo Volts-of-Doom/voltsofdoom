@@ -3,8 +3,9 @@ package vision.voltsofdoom.silverspark.state;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryStack;
 import vision.voltsofdoom.silverspark.controls.MenuButton;
-import vision.voltsofdoom.silverspark.core.Game;
+import vision.voltsofdoom.silverspark.display.DisplayText;
 import vision.voltsofdoom.silverspark.display.IRenderable;
+import vision.voltsofdoom.silverspark.display.IRenderableText;
 import vision.voltsofdoom.silverspark.display.Label;
 import vision.voltsofdoom.silverspark.display.MenuTemplate;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
@@ -40,6 +41,7 @@ public class MenuState implements State {
     private MenuButton button1;
     private MenuButton button2;
     private List<IRenderable> controlList = new ArrayList<>();
+    private List<IRenderableText> textList = new ArrayList<>();
     private Map<String, FontState> availableFonts;
 
     private String[] permittedFonts = {"Inconsolata:16:WHITE", "Inconsolata:20:WHITE", "Inconsolata:50:WHITE"};
@@ -63,11 +65,13 @@ public class MenuState implements State {
         try {
             availableFonts = new HashMap<>();
 
-            FontState defaultFont = new FontState();
-            key = defaultFont.getKey();
-            availableFonts.put(defaultFont.getKey(), defaultFont);
-            key = menuTemplate.getFontKey();
-            loadFont(key);
+            //FontState defaultFont = new FontState();
+            //key = defaultFont.getKey();
+            //loadFont(key);
+            loadFont(menuTemplate.getFontKey());
+            for (String thisKey: permittedFonts) {
+                loadFont(thisKey);
+            }
 
         } catch (IOException | FontFormatException e) {
                 Logger.getLogger(Renderer.class.getName()).log(Level.CONFIG, "Font " + key + " not created - will use default", e);
@@ -113,24 +117,27 @@ public class MenuState implements State {
 
         listRenderer.drawContents(controlList, contentsTexture);
 
-        drawText();
+        drawHeaderText();
 
-        /* Draw FPS, UPS and Context version */
-        int height = textRenderer.getDebugTextHeight(availableFonts.get("Default"),"Context");
-        textRenderer.drawDebugText(availableFonts.get("Default"), "FPS: XXX" + " | UPS: XXX", 5, 5 + height);
-        textRenderer.drawDebugText(availableFonts.get("Default"), "Context: " + (Game.isDefaultContext() ? "3.2 core" : "2.1"), 5, 5);
-
+        drawMenuText(textList);
 
     }
 
-    private void drawText() {
+    private void drawMenuText(List<IRenderableText> textList) {
+        for (IRenderableText text : textList) {
+            textRenderer.drawText((DisplayText)text);
+        }
+    }
+
+    private void drawHeaderText() {
         /* Draw score */
         String scoreText = "Adventure Menu";
         int scoreTextWidth = textRenderer.getTextWidth(availableFonts.get("Inconsolata:50:WHITE"), scoreText);
         int scoreTextHeight = textRenderer.getTextHeight(availableFonts.get("Inconsolata:50:WHITE"),scoreText);
         float scoreTextX = (gameWidth - scoreTextWidth) / 2f;
         float scoreTextY = gameHeight - scoreTextHeight - 5;
-        textRenderer.drawText(availableFonts.get("Inconsolata:50:WHITE"), scoreText, scoreTextX, scoreTextY, VODColor.WHITE);
+        DisplayText text = new DisplayText(availableFonts.get("Inconsolata:50:WHITE"), scoreText, new Vector2f(scoreTextX, scoreTextY), VODColor.WHITE);
+        textRenderer.drawText(text);
 
     }
 
@@ -147,6 +154,8 @@ public class MenuState implements State {
 
     @Override
     public void enter() {
+
+
         /* Get width and height of framebuffer */
         int width, height;
         try (MemoryStack stack = MemoryStack.stackPush()) {
@@ -157,6 +166,13 @@ public class MenuState implements State {
             width = widthBuffer.get();
             height = heightBuffer.get();
         }
+
+        /* Initialize variables */
+        gameWidth = width;
+        gameHeight = height;
+        Vector2f windowSize = new Vector2f(width, height);
+        mouseEventHandler.setWindowSize(windowSize);
+
 
         /* Load backgroundTexture */
         backgroundTexture = Texture.loadTexture("src/test/resources/cobbleandwoodlog_stitchedLevel.png");
@@ -176,16 +192,12 @@ public class MenuState implements State {
             menuTemplate.filterButton(btn,i);
             i++;
         }
+        i=0;
         for (IRenderable btn : controlList) {
-            menuTemplate.filterText(btn,i);
+            textList = menuTemplate.filterText(btn,i, textList);
             i++;
         }
 
-        /* Initialize variables */
-        gameWidth = width;
-        gameHeight = height;
-        Vector2f windowSize = new Vector2f(width, height);
-        mouseEventHandler.setWindowSize(windowSize);
 
     }
 

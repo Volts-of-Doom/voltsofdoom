@@ -26,6 +26,10 @@ public class MenuButton implements ICollidable, IRenderable {
     protected final int textureX; // X and Y co-ordinates of entity image on texture
     protected final int textureY;
 
+    public Label getLabel() {
+        return label;
+    }
+
     private final Label label;
     private final MouseEventMenuHandler handler;
 
