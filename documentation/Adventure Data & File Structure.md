@@ -15,7 +15,7 @@
 <ul>
 <li><strong>List of Adventures</strong>
 <ul>
-<li><code>data.json</code></li>
+<li><code>adventure.json</code></li>
 <li><strong>/levels</strong>
 <ul>
 <li><strong>List of Levels</strong>
@@ -61,10 +61,13 @@
 </li>
 </ul>
 <h2 id="list-of-adventures">List of Adventures</h2>
-<p>Each Adventure should be in the form of a <code>.zip</code> file, with the file structure (below “<strong>List of Adventures</strong>”) detailed above enclosed. The <code>data.json</code> file should be in the top level of the <code>.zip</code> file.</p>
+<p>Each Adventure should be in the form of a <code>.zip</code> file, with the file structure (below “<strong>List of Adventures</strong>”) detailed above enclosed. The <code>adventure.json</code> file should be in the top level of the <code>.zip</code> file. The name of the <code>zip</code> file (disregarding file extension), should be: <code>&lt;registryName&gt;_&lt;version&gt;</code>, replacing the variable names with the values defined for them in the <code>adventure.json</code> file.</p>
 <h1 id="the-structure-of-an-adventure">The Structure of an Adventure</h1>
-<h2 id="data.json">data.json</h2>
-<p>The <code>data.json</code> file contains basic, core data about the Adventure – i.e. metadata.</p>
+<h3 id="note-on-identifiers">Note on Identifiers:</h3>
+<p>In every case where an <code>identifier</code> object is needed, it should be in the following format:<br>
+<code>identifier: {domain: &lt;domainName&gt;, entry: &lt;entry&gt;}</code>, where <code>domainName</code> and <code>entryName</code> are both <em><strong>Short Strings</strong></em></p>
+<h2 id="adventure.json">adventure.json</h2>
+<p>The <code>adventure.json</code> file contains basic, core data about the Adventure – i.e. metadata.</p>
 <h4 id="registryname">registryName</h4>
 <p><em><strong>Short String</strong></em> The internal name to be given to the Adventure. This will be used to store and access data for the Adventure within the <em>Volts of Doom</em> code.</p>
 <h4 id="displayname">displayName</h4>
@@ -85,7 +88,7 @@
 <p><em>JSON Object</em> Varies. Configures the Object that the <strong>identifier</strong> references.</p>
 <h1 id="the-structure-of-a-level">The Structure of a Level</h1>
 <h2 id="level.json">level.json</h2>
-<p>Provides basic information for the Level, much like <a href="https://github.com/Volts-of-Doom/voltsofdoom-coresystem/blob/feature-stackedit/Adventure%20Data%20&amp;%20File%20Structure.md#the-structure-of-an-adventure"><code>data.json</code></a> does for an Adventure.</p>
+<p>Provides basic information for the Level, much like <a href="https://github.com/Volts-of-Doom/voltsofdoom-coresystem/blob/feature-stackedit/Adventure%20Data%20&amp;%20File%20Structure.md#the-structure-of-an-adventure"><code>adventure.json</code></a> does for an Adventure.</p>
 <h4 id="registryname-1">registryName</h4>
 <p><em><strong>Short String</strong></em> The internal name for the Level. This should match the name of the root folder of the Level, i.e this string should match the name of this Level’s folder in the <strong>List of Levels</strong>. If it doesn’t, problems will arise.</p>
 <h4 id="displayname-1">displayName</h4>
