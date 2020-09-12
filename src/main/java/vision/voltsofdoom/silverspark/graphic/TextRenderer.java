@@ -1,9 +1,8 @@
-package vision.voltsofdoom.silverspark.render;
+package vision.voltsofdoom.silverspark.graphic;
 
-import vision.voltsofdoom.silverspark.display.DisplayText;
 import vision.voltsofdoom.silverspark.text.FontState;
 
-public class TextRenderer extends Renderer {
+public class TextRenderer extends Renderer{
 
 
     /** Initializes the renderer. */
@@ -72,10 +71,13 @@ public class TextRenderer extends Renderer {
     /**
      * Draw text at the specified position and color.
      *
-     * @param dt DisplayText to draw
+     * @param text Text to draw
+     * @param x    X coordinate of the text position
+     * @param y    Y coordinate of the text position
+     * @param c    Color to use
      */
-     public void drawText(DisplayText dt) { /// No, no, no! FontState shouldn't render itself!
-        dt.getDisplayFont().drawText(this, dt.getText(), dt.getPosn().x, dt.getPosn().y, dt.getColor());
+    public void drawText(FontState fs, CharSequence text, float x, float y, VODColor c) {
+        fs.drawText(this, text, x, y, c);
     }
 
 }

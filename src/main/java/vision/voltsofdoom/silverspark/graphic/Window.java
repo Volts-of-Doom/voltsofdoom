@@ -23,8 +23,8 @@
  */
 package vision.voltsofdoom.silverspark.graphic;
 
-import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GLCapabilities;
 
@@ -125,11 +125,6 @@ public class Window {
             }
         };
         glfwSetKeyCallback(id, keyCallback);
-
-        //glfwSetInputMode(id, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
-
-
-
     }
 
     /**
@@ -155,11 +150,11 @@ public class Window {
      */
     public void update() {
         glfwSwapBuffers(id);
-        glfwPollEvents(); // TODO - is this the right place to poll for events?
+        glfwPollEvents();
     }
 
     /**
-     * Destroys the window and releases its callbacks.
+     * Destroys the window an releases its callbacks.
      */
     public void destroy() {
         glfwDestroyWindow(id);
@@ -187,10 +182,6 @@ public class Window {
      */
     public boolean isVSyncEnabled() {
         return this.vsync;
-    }
-
-    public long getId() {
-        return id;
     }
 
 }

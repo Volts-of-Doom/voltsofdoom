@@ -31,8 +31,7 @@ package vision.voltsofdoom.silverspark.state;
 public class EmptyState implements State {
 
     @Override
-    public String input() {
-        return null;
+    public void input() {
     }
 
     @Override

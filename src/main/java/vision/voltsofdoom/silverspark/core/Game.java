@@ -23,18 +23,13 @@
  */
 package vision.voltsofdoom.silverspark.core;
 
+import vision.voltsofdoom.silverspark.graphic.EntityRenderer;
+import vision.voltsofdoom.silverspark.graphic.TextRenderer;
+import vision.voltsofdoom.silverspark.graphic.Window;
+import vision.voltsofdoom.silverspark.state.LevelState;
+import vision.voltsofdoom.silverspark.state.StateMachine;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
-import vision.voltsofdoom.silverspark.display.MenuTemplate;
-import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
-import vision.voltsofdoom.silverspark.graphic.VODColor;
-import vision.voltsofdoom.silverspark.graphic.Window;
-import vision.voltsofdoom.silverspark.math.Vector2f;
-import vision.voltsofdoom.silverspark.render.ListRenderer;
-import vision.voltsofdoom.silverspark.render.TextRenderer;
-import vision.voltsofdoom.silverspark.state.LevelState;
-import vision.voltsofdoom.silverspark.state.MenuState;
-import vision.voltsofdoom.silverspark.state.StateMachine;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,8 +46,6 @@ public abstract class Game {
 
     public static final int TARGET_FPS = 75;
     public static final int TARGET_UPS = 30;
-    public static final int WINDOW_WIDTH = 640;
-    public static final int WINDOW_HEIGHT = 380;
 
     /**
      * The error callback for GLFW.
@@ -75,15 +68,11 @@ public abstract class Game {
     /**
      * Used for rendering.
      */
-    private ListRenderer entityRenderer;
+    protected EntityRenderer entityRenderer;
     /**
      * Used for rendering text.
      */
-    private TextRenderer textRenderer;
-
-    private MouseEventMenuHandler mouseHandler;
-
-    private final MenuTemplate template;
+    protected TextRenderer textRenderer;
     /**
      * Stores the current state.
      */
@@ -94,10 +83,9 @@ public abstract class Game {
      */
     public Game() {
         timer = new Timer();
-        entityRenderer = new ListRenderer();
+        entityRenderer = new EntityRenderer();
         textRenderer = new TextRenderer();
         state = new StateMachine();
-        template = new MenuTemplate(new Vector2f(50,100), new Vector2f(10,10), new Vector2f(60, 10), 60, "Inconsolata:50:WHITE", VODColor.WHITE);
     }
 
     /**
@@ -144,9 +132,7 @@ public abstract class Game {
         }
 
         /* Create GLFW window */
-        window = new Window(WINDOW_WIDTH, WINDOW_HEIGHT, "Vaults of Doom", true);
-
-        mouseHandler = new MouseEventMenuHandler(window.getId());
+        window = new Window(640, 380, "Simple Game - Pong", true);
 
         /* Initialize timer */
         timer.init();
@@ -167,10 +153,8 @@ public abstract class Game {
      * Initializes the states.
      */
     public void initStates() {
-        state.add("menu", new MenuState(window.getId(), mouseHandler, entityRenderer, textRenderer, template));
-        state.add("Btn1", new LevelState(window.getId(), mouseHandler, entityRenderer, textRenderer));
-        state.add("Btn2", new LevelState(window.getId(), mouseHandler, entityRenderer, textRenderer));
-        state.change("menu");
+        state.add("game", new LevelState(entityRenderer, textRenderer));
+        state.change("game");
     }
 
     /**
@@ -183,8 +167,8 @@ public abstract class Game {
     /**
      * Handles input.
      */
-    public String input() {
-        return state.input();
+    public void input() {
+        state.input();
     }
 
     /**

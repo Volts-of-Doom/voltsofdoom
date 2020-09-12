@@ -23,22 +23,19 @@
  */
 package vision.voltsofdoom.silverspark.state;
 
+import vision.voltsofdoom.silverspark.graphic.TextRenderer;
+import vision.voltsofdoom.silverspark.graphic.Texture;
+import vision.voltsofdoom.silverspark.core.Game;
+import vision.voltsofdoom.silverspark.game.GreenBlob;
+import vision.voltsofdoom.silverspark.game.RenderableEntity;
+import vision.voltsofdoom.silverspark.graphic.EntityRenderer;
+import vision.voltsofdoom.silverspark.graphic.Renderer;
+import vision.voltsofdoom.silverspark.graphic.VODColor;
+import vision.voltsofdoom.silverspark.text.FontState;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryStack;
-import vision.voltsofdoom.silverspark.core.Game;
-import vision.voltsofdoom.silverspark.display.DisplayText;
-import vision.voltsofdoom.silverspark.display.IRenderable;
-import vision.voltsofdoom.silverspark.game.GreenBlob;
-import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
-import vision.voltsofdoom.silverspark.graphic.Texture;
-import vision.voltsofdoom.silverspark.graphic.VODColor;
-import vision.voltsofdoom.silverspark.math.Vector2f;
-import vision.voltsofdoom.silverspark.render.ListRenderer;
-import vision.voltsofdoom.silverspark.render.Renderer;
-import vision.voltsofdoom.silverspark.render.TextRenderer;
-import vision.voltsofdoom.silverspark.text.FontState;
 
-import java.awt.FontFormatException;
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.IntBuffer;
@@ -56,16 +53,14 @@ import java.util.logging.Logger;
  */
 public class LevelState implements State {
 
-    private final MouseEventMenuHandler mouseEventHandler;
-
     private Texture backgroundTexture;
     private Texture entitiesTexture;
-    private final ListRenderer listRenderer;
+    private final EntityRenderer entityRenderer;
     private final TextRenderer textRenderer;
 
     private GreenBlob greenBlob1;
     private GreenBlob greenBlob2;
-    private List<IRenderable> entitiesList = new ArrayList<>();
+    private List<RenderableEntity> entitiesList = new ArrayList<>();
     private Map<String, FontState> availableFonts;
 
     private String[] permittedFonts = {"Inconsolata:16:WHITE", "Inconsolata:20:WHITE", "Inconsolata:50:WHITE"};
@@ -74,12 +69,9 @@ public class LevelState implements State {
     private int opponentScore;
     private int gameWidth;
     private int gameHeight;
-    private long windowId;
 
-    public LevelState(long windowId, MouseEventMenuHandler mouseHandler, ListRenderer entityRenderer, TextRenderer textRenderer) {
-        this.windowId = windowId;
-        this.mouseEventHandler = mouseHandler;
-        this.listRenderer = entityRenderer;
+    public LevelState(EntityRenderer entityRenderer, TextRenderer textRenderer) {
+        this.entityRenderer = entityRenderer;
         this.textRenderer = textRenderer;
         availableFonts = loadFonts();
     }
@@ -109,8 +101,8 @@ public class LevelState implements State {
 
 
     @Override
-    public String input() {
-        return null;
+    public void input() {
+
     }
 
     @Override
@@ -121,11 +113,11 @@ public class LevelState implements State {
     @Override
     public void render(float alpha) {
         /* Clear drawing area */
-        listRenderer.clear();
+        entityRenderer.clear();
 
         drawBackground();
 
-        listRenderer.drawContents(entitiesList, entitiesTexture);
+        entityRenderer.drawEntities(entitiesList, entitiesTexture);
 
         drawText();
 
@@ -144,38 +136,32 @@ public class LevelState implements State {
         int scoreTextHeight = textRenderer.getTextHeight(availableFonts.get("Inconsolata:50:WHITE"),scoreText);
         float scoreTextX = (gameWidth - scoreTextWidth) / 2f;
         float scoreTextY = gameHeight - scoreTextHeight - 5;
-        DisplayText text = new DisplayText(availableFonts.get("Inconsolata:50:WHITE"), scoreText, new Vector2f(scoreTextX, scoreTextY), VODColor.WHITE);
-
-        textRenderer.drawText(text);
+        textRenderer.drawText(availableFonts.get("Inconsolata:50:WHITE"), scoreText, scoreTextX, scoreTextY, VODColor.WHITE);
 
         String playerText = "Player | " + playerScore;
         int playerTextWidth = textRenderer.getTextWidth(availableFonts.get("Default"), playerText);
         int playerTextHeight = textRenderer.getTextHeight(availableFonts.get("Default"),playerText);
         float playerTextX = gameWidth / 2f - playerTextWidth - 50;
         float playerTextY = scoreTextY - playerTextHeight;
-        text = new DisplayText(availableFonts.get("Default"), playerText, new Vector2f(playerTextX, playerTextY), VODColor.WHITE);
-
-        textRenderer.drawText(text);
+        textRenderer.drawText(availableFonts.get("Default"), playerText, playerTextX, playerTextY, VODColor.WHITE);
 
         String opponentText = opponentScore + " | Opponent";
         //int opponentTextWidth = textRenderer.getDebugTextWidth(availableFonts.get("Default"),playerText);
         int opponentTextHeight = textRenderer.getTextHeight(availableFonts.get("Default"), playerText);
         float opponentTextX = gameWidth / 2f + 50;
         float opponentTextY = scoreTextY - opponentTextHeight;
-        text = new DisplayText(availableFonts.get("Default"), opponentText, new Vector2f(opponentTextX, opponentTextY), VODColor.WHITE);
-
-        textRenderer.drawText(text);
+        textRenderer.drawText(availableFonts.get("Default"), opponentText, opponentTextX, opponentTextY, VODColor.WHITE);
     }
 
 
     private void drawBackground() {
         /* Draw background */
         backgroundTexture.bind();
-        listRenderer.begin();
+        entityRenderer.begin();
 
-        listRenderer.drawTextureRegion(backgroundTexture, 0, 0, 0, 0, gameWidth, gameHeight);
+        entityRenderer.drawTextureRegion(backgroundTexture, 0, 0, 0, 0, gameWidth, gameHeight);
 
-        listRenderer.end();
+        entityRenderer.end();
     }
 
     @Override
@@ -200,7 +186,8 @@ public class LevelState implements State {
         greenBlob1 = new GreenBlob(null, entitiesTexture, 100, 100, 0, 50, 50, 0, 00);
         greenBlob2 = new GreenBlob(null, entitiesTexture, 200, 200, 0, 50, 50, 0, 00);
         entitiesList.add(greenBlob1);
-        entitiesList.add(greenBlob2);
+        entitiesList.add((greenBlob2));
+
         /* Initialize variables */
         playerScore = 0;
         opponentScore = 0;
