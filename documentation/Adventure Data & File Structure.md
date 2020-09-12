@@ -108,7 +108,7 @@ A Sheet can replace the <em>domain</em>, <em>identifier</em>, and <em>data</em> 
 <ul>
 <li><strong>key</strong>: <em>Short String</em> An identifier unique within this array, used to specify where to place a Tile of this type in the <strong>map</strong> array.</li>
 <li><strong>domain</strong>: <em>Short String</em> The first half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies which mod or Adventure the <strong>identifier</strong> is from.</li>
-<li><a href="https://github.com/Volts-of-Doom/voltsofdoom/blob/stackedit/documentation/Adventure%20Data%20%26%20File%20Structure.md#notes-on-consistent-objects"><strong>identifier</strong></a> The second half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies the name of a Tile from within the given <strong>domain</strong> which the <strong>key</strong> string should be bound to.</li>
+<li><a href="https://github.com/Volts-of-Doom/voltsofdoom/blob/stackedit/documentation/Adventure%20Data%20%26%20File%20Structure.md#notes-on-consistent-objects"><strong>identifier</strong></a> Specifies the name of a Tile from within the given <strong>domain</strong> which the <strong>key</strong> string should be bound to.</li>
 <li><strong>(Optional) <a href="https://github.com/Volts-of-Doom/voltsofdoom/blob/stackedit/documentation/Adventure%20Data%20%26%20File%20Structure.md#data">data</a></strong>: <em>JSON Object</em> The contents of this JSON Object vary from Tile to Tile. These values are used to customise the properties of the Tile specified by the <strong>domain</strong> and <strong>identifier</strong>.</li>
 </ul>
 <h4 id="map">map</h4>
@@ -116,7 +116,7 @@ A Sheet can replace the <em>domain</em>, <em>identifier</em>, and <em>data</em> 
 <h2 id="entities.json">entities.json</h2>
 <p>Provides the locations of every Entity in the Level.</p>
 <h4 id="key-1">key</h4>
-<p>See <a href="https://github.com/Volts-of-Doom/voltsofdoom-coresystem/blob/feature-stackedit/Adventure%20Data%20&amp;%20File%20Structure.md#key"><code>map.json#key</code></a></p>
+<p>See <a href="https://github.com/Volts-of-Doom/voltsofdoom/blob/stackedit/documentation/Adventure%20Data%20%26%20File%20Structure.md#key"><code>map.json#key</code></a>, replacing references to <code>Tiles</code> with <code>Entities</code>.</p>
 <h4 id="map-1">map</h4>
 <p><em><strong>Array of JSON Objects, each of which contains the following values</strong></em><br>
 A Sheet can replace the <em>domain</em>, <em>identifier</em>, and <em>data</em> tags.</p>
