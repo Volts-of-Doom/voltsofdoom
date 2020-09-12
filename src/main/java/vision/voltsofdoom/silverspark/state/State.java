@@ -36,7 +36,7 @@ public interface State {
     /**
      * Handles input of the state.
      */
-    public String input();
+    public void input();
 
     /**
      * Updates the state (fixed timestep).

@@ -21,11 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package vision.voltsofdoom.silverspark.render;
-
-import vision.voltsofdoom.silverspark.graphic.ShaderProgram;
-import vision.voltsofdoom.silverspark.graphic.Texture;
-import vision.voltsofdoom.silverspark.graphic.VODColor;
+package vision.voltsofdoom.silverspark.graphic;
 
 import static org.lwjgl.opengl.GL11.*;
 

@@ -67,15 +67,14 @@ public class StateMachine implements State {
      * @param name Name of the desired state
      */
     public void change(String name) {
-        System.out.println("Changing to " + name);
         currentState.exit();
         currentState = states.get(name);
         currentState.enter();
     }
 
     @Override
-    public String  input() {
-        return currentState.input();
+    public void input() {
+        currentState.input();
     }
 
     @Override
