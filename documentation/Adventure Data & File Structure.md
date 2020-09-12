@@ -120,7 +120,7 @@ A Sheet can replace the <em>domain</em>, <em>identifier</em>, and <em>data</em> 
 <li><strong>key</strong>: <em>Short String</em> An identifier unique within this array, used to specify which Entity from the <strong>key</strong> is being referenced.</li>
 <li><strong>x</strong>: <em>Integer</em> The X coordinate that the entity should be placed at. Counted from the left, to the right.</li>
 <li><strong>y</strong>: <em>Integer</em> The Y coordinate that the entity should be placed at. Counted from the bottom, up.</li>
-<li><strong>(Optional) data</strong>: Customises the properties of the Entity specified by the <strong>domain</strong> and <strong>identifier</strong> in the <strong>key</strong>. <em><strong>This data tag will override both the data set in the key, AND any Sheet applied!</strong></em></li>
+<li><strong>(Optional) <a href="https://github.com/Volts-of-Doom/voltsofdoom/blob/stackedit/documentation/Adventure%20Data%20%26%20File%20Structure.md#data">data</a></strong>: Customises the properties of the Entity specified by the <strong>domain</strong> and <strong>identifier</strong> in the <strong>key</strong>. <em><strong>This data tag will override both the data set in the key, AND any Sheet applied!</strong></em></li>
 </ul>
 <h2 id="puzzles">Puzzles</h2>
 <p>The <code>/puzzles</code> folder contains the puzzles which can be found in the Level.</p>
