@@ -2,75 +2,113 @@ package vision.voltsofdoom.coresystem.play.adventure;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.zip.ZipFile;
 
-import vision.voltsofdoom.coresystem.play.adventure.levelcontainer.LevelContainer;
-import vision.voltsofdoom.coresystem.universal.resource.VODJsonReader;
+import com.google.common.collect.ImmutableSet;
+
+import vision.voltsofdoom.coresystem.loading.registry.RegistryEntry;
+import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
+import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
+import vision.voltsofdoom.coresystem.universal.util.Reference;
 
 /**
- * Contains all of the LevelContainers for a new Adventure! Contains a lot of
- * metadata!
+ * Contains all of the data for an Adventure!
  * 
  * @author GenElectrovise
  *
  */
-public class Adventure {
-	private File json;
-	private String registryname;
-	private String displayname;
-	private String description;
-	private String modid;
-	private String lobbyname;
-	private ArrayList<LevelContainer> levels = new ArrayList<LevelContainer>();
-	private VODJsonReader reader;
+public class Adventure extends RegistryEntry<Adventure> {
+	private ArrayList<LevelConfiguration> levelConfigurations = new ArrayList<LevelConfiguration>();
+	private Map<ISheetType, ArrayList<Sheet>> sheets = new HashMap<ISheetType, ArrayList<Sheet>>();
+	private AdventureConfiguration configuration;
+	private ImmutableSet<Level> levels = ImmutableSet.of();
 
-	public static void main(String[] args) {
-		@SuppressWarnings("unused")
-		Adventure adventure = new Adventure(new File(
-				"C:\\Users\\adam_\\AppData\\Roaming\\voltsofdoom\\resources\\adventure\\voltsofdoom-coregame\\casketofazamgarath.json"));
+	private Adventure() {
+	}
+
+	public ArrayList<LevelConfiguration> getLevelConfigurations() {
+		return levelConfigurations;
+	}
+
+	public Map<ISheetType, ArrayList<Sheet>> getSheets() {
+		return sheets;
+	}
+
+	public AdventureConfiguration getConfiguration() {
+		return configuration;
+	}
+
+	public ImmutableSet<Level> getLevels() {
+		return levels.isEmpty() ? generateLevels(levelConfigurations) : levels;
+	}
+
+	@Override
+	public ResourceLocation getIdentifier() {
+		return configuration.getIdentifier();
+	}
+
+	private ImmutableSet<Level> generateLevels(ArrayList<LevelConfiguration> configs) {
+		ArrayList<Level> levelArr = new ArrayList<Level>();
+		try {
+
+			for (LevelConfiguration config : configs) {
+
+				File file = new File(Reference.ADVENTURE + this.configuration.getIdentifier().getEntry() + "_"
+						+ this.configuration.getVersion() + ".zip");
+				levelArr.add(Level.fromZip(this, new ZipFile(file), config));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return ImmutableSet.copyOf(levelArr);
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Adventure{");
+
+		builder.append(configuration.toString());
+
+		builder.append("}");
+		return builder.toString();
 	}
 
 	/**
-	 * @param json The JSON file to read this Adventure object from.
+	 * Builds an {@link Adventure} using chained methods. Call <code>build()</code>
+	 * to access the built {@link Adventure}.
+	 * 
+	 * @author GenElectrovise
+	 *
 	 */
-	public Adventure(File json) {
-		this.json = json;
-		this.reader = new VODJsonReader(json);
-		this.registryname = reader.getObj().get("registryname").getAsString();
-		this.displayname = reader.getObj().get("displayname").getAsString();
-		this.description = reader.getObj().get("description").getAsString();
-		this.modid = reader.getObj().get("modid").getAsString();
-		this.lobbyname = reader.getObj().get("lobby").getAsString();
-	}
+	public static class Builder {
+		private Adventure adventure = new Adventure();
 
-	public File getJson() {
-		return json;
-	}
+		public Adventure.Builder withConfiguration(AdventureConfiguration config) {
+			adventure.configuration = config;
+			adventure.identifier = config.getIdentifier();
+			return this;
+		}
 
-	public String getRegistryname() {
-		return registryname;
-	}
+		public Adventure build() {
+			return adventure;
+		}
 
-	public String getDisplayname() {
-		return displayname;
-	}
+		public Adventure.Builder withSheet(Sheet sheet, ISheetType type) {
 
-	public String getDescription() {
-		return description;
-	}
+			if (!adventure.sheets.containsKey(type)) {
+				adventure.sheets.put(type, new ArrayList<Sheet>());
+			}
 
-	public String getModid() {
-		return modid;
-	}
+			adventure.sheets.get(type).add(sheet);
+			return this;
+		}
 
-	public String getLobbyname() {
-		return lobbyname;
-	}
-
-	public ArrayList<LevelContainer> getLevels() {
-		return levels;
-	}
-
-	public VODJsonReader getReader() {
-		return reader;
+		public void withLevelConfiguration(LevelConfiguration config) {
+			adventure.levelConfigurations.add(config);
+		}
 	}
 }

@@ -12,6 +12,7 @@ import org.reflections.scanners.TypeAnnotationsScanner;
 
 import vision.voltsofdoom.coresystem.loading.VODClassLoader;
 import vision.voltsofdoom.coresystem.loading.reflectory.Reflectory.Builder;
+import vision.voltsofdoom.coresystem.universal.log.Loggers;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.coresystem.universal.resource.jar.JarMapper;
 
@@ -36,6 +37,7 @@ public class Reflectories {
 				Reflectory.Builder builder = defaultBuilder();
 				URL[] urls = new URL[] { file.toURI().toURL() };
 				builder.withClassLoader(new VODClassLoader(urls));
+				builder.withVisibleName(file.getName());
 				Reflectory reflectory = builder.build();
 				reflectories.putIfAbsent(file.getName(), reflectory);
 
@@ -47,6 +49,8 @@ public class Reflectories {
 
 		Reflectory vodRefl = defaultBuilder().withClassLoader(VoltsOfDoomCoreSystem.class.getClassLoader()).build();
 		reflectories.putIfAbsent("volts_of_doom_core_system", vodRefl);
+		
+		Loggers.CORESYSTEM_LOADING.info("Generated Reflectories with IDs: " + reflectories.keySet());
 	}
 
 	/**

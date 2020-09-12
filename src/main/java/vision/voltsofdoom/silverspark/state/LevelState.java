@@ -158,7 +158,7 @@ public class LevelState implements State {
         textRenderer.drawText(text);
 
         String opponentText = opponentScore + " | Opponent";
-        int opponentTextWidth = textRenderer.getDebugTextWidth(availableFonts.get("Default"),playerText);
+        //int opponentTextWidth = textRenderer.getDebugTextWidth(availableFonts.get("Default"),playerText);
         int opponentTextHeight = textRenderer.getTextHeight(availableFonts.get("Default"), playerText);
         float opponentTextX = gameWidth / 2f + 50;
         float opponentTextY = scoreTextY - opponentTextHeight;
@@ -196,7 +196,7 @@ public class LevelState implements State {
         entitiesTexture = Texture.loadTexture("src/test/resources/greenblob.png");
 
         /* Initialize game objects */
-        float speed = 250f;
+        //float speed = 250f;
         greenBlob1 = new GreenBlob(null, entitiesTexture, 100, 100, 0, 50, 50, 0, 00);
         greenBlob2 = new GreenBlob(null, entitiesTexture, 200, 200, 0, 50, 50, 0, 00);
         entitiesList.add(greenBlob1);

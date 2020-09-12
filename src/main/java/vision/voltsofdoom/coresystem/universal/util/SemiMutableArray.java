@@ -2,7 +2,7 @@ package vision.voltsofdoom.coresystem.universal.util;
 
 import java.util.Iterator;
 
-import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
+import vision.voltsofdoom.coresystem.universal.log.Loggers;
 
 /**
  * An array which can only be added to and cleared.
@@ -13,10 +13,10 @@ import vision.voltsofdoom.coresystem.universal.log.VODLog4J;
  */
 public class SemiMutableArray<T> implements Iterable<T> {
 	private T[] contents;
-	
+
 	public static void main(String[] args) {
-		
-		VODLog4J.LOGGER.info("Starting");
+
+		Loggers.CORESYSTEM_MISCELLANEOUS_MATH_PICKY.info("Starting");
 
 		SemiMutableArray<String> smarr = new SemiMutableArray<String>();
 
@@ -35,7 +35,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
 		for (String str : smarr) {
 			builder.append(str + " ");
 		}
-		VODLog4J.LOGGER.info(builder.toString());
+		Loggers.CORESYSTEM_MISCELLANEOUS_MATH_PICKY.info(builder.toString());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -43,7 +43,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
 		try {
 			contents = (T[]) new Object[1];
 		} catch (ClassCastException c) {
-			VODLog4J.LOGGER.error("Illegal cast from Object[] to T[] in contents: " + contents);
+			Loggers.CORESYSTEM_MISCELLANEOUS_MATH.severe("Illegal cast from Object[] to T[] in contents: " + contents);
 		}
 	}
 
@@ -90,7 +90,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
 			contents = copy.clone();
 
 		} catch (ClassCastException c) {
-			VODLog4J.LOGGER.error("Illegal cast from Object[] to T[] in contents: " + contents);
+			Loggers.CORESYSTEM_MISCELLANEOUS_MATH.severe("Illegal cast from Object[] to T[] in contents: " + contents);
 		}
 
 		return this;
@@ -101,7 +101,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
 		try {
 			contents = (T[]) new Object[] {};
 		} catch (ClassCastException c) {
-			VODLog4J.LOGGER.error("Illegal cast from Object[] to T[] in contents: " + contents);
+			Loggers.CORESYSTEM_MISCELLANEOUS_MATH.severe("Illegal cast from Object[] to T[] in contents: " + contents);
 		}
 		return this;
 	}

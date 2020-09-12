@@ -6,6 +6,12 @@ import java.util.Set;
 
 import vision.voltsofdoom.coresystem.loading.reflectory.Reflectory;
 
+/**
+ * Handles the handling of {@link Mod} annotations. 
+ * 
+ * @author GenElectrovise
+ *
+ */
 public class Mods {
 	public static LinkedHashMap<String, Mod> mods = new LinkedHashMap<String, Mod>();
 

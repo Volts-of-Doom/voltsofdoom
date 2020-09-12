@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import com.google.common.collect.ImmutableList;
 
+import vision.voltsofdoom.coresystem.play.adventure.Adventure;
 import vision.voltsofdoom.coresystem.play.entity.Entity;
 import vision.voltsofdoom.coresystem.play.tile.Tile;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
@@ -27,6 +28,7 @@ public class RegistryTypes {
 
 	public static RegistryType<Tile> TILES;
 	public static RegistryType<Entity> ENTITIES;
+	public static RegistryType<Adventure> ADVENTURES;
 
 	public static volatile ImmutableList<RegistryType<? extends IRegistryEntry<?>>> prioritisedTypes;
 
@@ -34,6 +36,7 @@ public class RegistryTypes {
 	private static void generateTypes(RegistryEvent.CreateRegistryTypesEvent event) {
 		TILES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"), Tile.class);
 		ENTITIES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "entities"), Entity.class);
+		ADVENTURES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "adventures"), Adventure.class);
 
 		prioritisedTypes = ImmutableList.of(TILES, ENTITIES);
 	}

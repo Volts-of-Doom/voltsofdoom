@@ -1,11 +1,10 @@
 package vision.voltsofdoom.coresystem.play.entity;
 
-import vision.voltsofdoom.coresystem.loading.registry.IRegistryEntry;
+import javax.swing.ImageIcon;
+
+import vision.voltsofdoom.coresystem.loading.registry.RegistryEntry;
 import vision.voltsofdoom.coresystem.loading.registry.RegistryMessenger;
 import vision.voltsofdoom.coresystem.play.tile.Tile;
-import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
-
-import javax.swing.ImageIcon;
 
 /**
  * A thing in a level which isn't a Tile is probably an Entity.
@@ -14,7 +13,7 @@ import javax.swing.ImageIcon;
  *
  * @see Tile
  */
-public class Entity implements IRegistryEntry<Entity> {
+public class Entity extends RegistryEntry<Entity> {
 	private Entity.Properties properties;
 
 	public Entity(RegistryMessenger<Entity> objFromModRegistry) {
@@ -137,16 +136,5 @@ public class Entity implements IRegistryEntry<Entity> {
 			return this.properties;
 		}
 
-	}
-
-	@Override
-	public ResourceLocation getIdentifier() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setIdentifier(ResourceLocation identifier) {
-		
 	}
 }

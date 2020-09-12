@@ -1,14 +1,12 @@
-Every Adventure has a manifest file.
-This manifest file is a JSON, and should point to *the enclosing folder* of a data.json file for the adventure.
-It could also contain configuration for loading the pointed Adventure.
+
 
 Every Adventure has a data.json
-This is in the folder pointed to by the Adventure manifest.
+This is in the top level of the Adventure's folder. (i.e. resources/adventures/data/%adventure_name%)
 This should be in the top level of an Adventure's file structure.
 This contains information about the actual adventure.
 This declares levels' names, therefore what should be loaded, and what should not.
 
-Levels are contained in their /levels/%level_name% folder, names being gained from the manifest file.
+Levels are contained in their /levels/%level_name% folder, names being gained from the data.json file.
 level.json contains basic data for the level.
 map.json declares the map.
 entities.json declares entity positions.

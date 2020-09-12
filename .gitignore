@@ -6,4 +6,4 @@ src/main/lib/
 .settings/
 target/
 .idea
-vision.voltofdoom.iml
+*.iml

@@ -18,6 +18,7 @@ public class Reflectory {
 	private ClassLoader classLoader;
 	private Scanner[] scanners;
 	private Reflections reflections;
+	public String visibleName;
 
 	/**
 	 * Prevents usage of the blank constructor. <b>Use
@@ -99,6 +100,11 @@ public class Reflectory {
 			reflectory.scanners = scanners.toArray(new Scanner[scanners.size()]);
 			reflectory.index();
 			return reflectory;
+		}
+
+		public Builder withVisibleName(String name) {
+			reflectory.visibleName = name;
+			return this;
 		}
 	}
 }

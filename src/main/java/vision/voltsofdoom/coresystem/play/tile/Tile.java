@@ -1,8 +1,7 @@
 package vision.voltsofdoom.coresystem.play.tile;
 
-import vision.voltsofdoom.coresystem.loading.registry.IRegistryEntry;
+import vision.voltsofdoom.coresystem.loading.registry.RegistryEntry;
 import vision.voltsofdoom.coresystem.loading.registry.RegistryMessenger;
-import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 import vision.voltsofdoom.coresystem.universal.resource.image.VODImage;
 
 /**
@@ -11,7 +10,7 @@ import vision.voltsofdoom.coresystem.universal.resource.image.VODImage;
  * @author GenElectrovise
  *
  */
-public class Tile implements IRegistryEntry<Tile> {
+public class Tile extends RegistryEntry<Tile> {
 	private Tile.Properties properties;
 
 	public Tile(String modid, String registryName) {
@@ -143,17 +142,6 @@ public class Tile implements IRegistryEntry<Tile> {
 			return this.properties;
 		}
 
-	}
-
-	@Override
-	public ResourceLocation getIdentifier() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setIdentifier(ResourceLocation identifier) {
-		
 	}
 
 }

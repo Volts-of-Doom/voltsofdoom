@@ -5,6 +5,12 @@ import java.util.ArrayList;
 
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 
+/**
+ * Maps out the locations of jar files in the mods directory.
+ * 
+ * @author GenElectrovise
+ *
+ */
 public class JarMapper {
 
 	/**

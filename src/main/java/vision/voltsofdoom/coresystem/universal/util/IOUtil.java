@@ -9,6 +9,13 @@ import java.nio.file.*;
 
 import static org.lwjgl.BufferUtils.*;
 
+/**
+ * A class taken from one of the LWJGL examples, used for reading images into
+ * {@link ByteBuffer}s.
+ * 
+ * @author GenElectrovise
+ *
+ */
 public final class IOUtil {
 
 	private IOUtil() {
