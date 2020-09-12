@@ -87,8 +87,8 @@
 <p><em>Short String</em> The first half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies which mod or Adventure the <strong>identifier</strong> is from.</p>
 <h4 id="identifier-1">identifier</h4>
 <p><a href="https://github.com/Volts-of-Doom/voltsofdoom/blob/stackedit/documentation/Adventure%20Data%20%26%20File%20Structure.md#note-on-identifiers"><em>Identifier,</em></a> Specifies the name of an Object from within the given <strong>domain</strong> which the <strong>key</strong> string should be bound to. The location of where to access this item from is inferred from where this Sheet is called from, i.e. if this Sheet is called from the <code>map.json</code> file, it is safe to assume that the <strong>identifier</strong> should reference a Tile.</p>
-<h4 id="data-1">data</h4>
-<p><em>JSON Object</em> Varies. Configures the Object that the <strong>identifier</strong> references.</p>
+<h4 id="data-1"><a href="https://github.com/Volts-of-Doom/voltsofdoom/blob/stackedit/documentation/Adventure%20Data%20%26%20File%20Structure.md#data">data</a></h4>
+<p>Configures the Object that the <strong>identifier</strong> references.</p>
 <h1 id="the-structure-of-a-level">The Structure of a Level</h1>
 <h2 id="level.json">level.json</h2>
 <p>Provides basic information for the Level, much like <a href="https://github.com/Volts-of-Doom/voltsofdoom-coresystem/blob/feature-stackedit/Adventure%20Data%20&amp;%20File%20Structure.md#the-structure-of-an-adventure"><code>adventure.json</code></a> does for an Adventure.</p>
@@ -105,7 +105,7 @@ A Sheet can replace the <em>domain</em>, <em>identifier</em>, and <em>data</em> 
 <li><strong>key</strong>: <em>Short String</em> An identifier unique within this array, used to specify where to place a Tile of this type in the <strong>map</strong> array.</li>
 <li><strong>domain</strong>: <em>Short String</em> The first half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies which mod or Adventure the <strong>identifier</strong> is from.</li>
 <li><a href="https://github.com/Volts-of-Doom/voltsofdoom/blob/stackedit/documentation/Adventure%20Data%20%26%20File%20Structure.md#note-on-identifiers"><strong>identifier</strong></a> The second half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies the name of a Tile from within the given <strong>domain</strong> which the <strong>key</strong> string should be bound to.</li>
-<li><strong>(Optional) data</strong>: <em>JSON Object</em> The contents of this JSON Object vary from Tile to Tile. These values are used to customise the properties of the Tile specified by the <strong>domain</strong> and <strong>identifier</strong>.</li>
+<li><strong>(Optional) <a href="https://github.com/Volts-of-Doom/voltsofdoom/blob/stackedit/documentation/Adventure%20Data%20%26%20File%20Structure.md#data">data</a></strong>: <em>JSON Object</em> The contents of this JSON Object vary from Tile to Tile. These values are used to customise the properties of the Tile specified by the <strong>domain</strong> and <strong>identifier</strong>.</li>
 </ul>
 <h4 id="map">map</h4>
 <p><em>Array of Nested-Arrays of Strings</em> The actual layout of the Level. Each nested-array signifies another Layer in the Level, with the Tiles being added from the <em>top-left</em> of the screen (first array, first item), to the <em>bottom-right</em> (last array, last item). Each item in each array should be a string equal to a key found in the <strong>key</strong> section of this file.</p>
@@ -120,7 +120,7 @@ A Sheet can replace the <em>domain</em>, <em>identifier</em>, and <em>data</em> 
 <li><strong>key</strong>: <em>Short String</em> An identifier unique within this array, used to specify which Entity from the <strong>key</strong> is being referenced.</li>
 <li><strong>x</strong>: <em>Integer</em> The X coordinate that the entity should be placed at. Counted from the left, to the right.</li>
 <li><strong>y</strong>: <em>Integer</em> The Y coordinate that the entity should be placed at. Counted from the bottom, up.</li>
-<li><strong>(Optional) data</strong>: <em>JSON Object</em> The contents of this JSON Object vary from Entity to Entity . These values are used to customise the properties of the Entity specified by the <strong>domain</strong> and <strong>identifier</strong> in the <strong>key</strong>. <em><strong>This data tag will override both the data set in the key, AND any Sheet applied!</strong></em></li>
+<li><strong>(Optional) data</strong>: Customises the properties of the Entity specified by the <strong>domain</strong> and <strong>identifier</strong> in the <strong>key</strong>. <em><strong>This data tag will override both the data set in the key, AND any Sheet applied!</strong></em></li>
 </ul>
 <h2 id="puzzles">Puzzles</h2>
 <p>The <code>/puzzles</code> folder contains the puzzles which can be found in the Level.</p>
