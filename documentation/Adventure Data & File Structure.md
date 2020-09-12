@@ -63,9 +63,12 @@
 <h2 id="list-of-adventures">List of Adventures</h2>
 <p>Each Adventure should be in the form of a <code>.zip</code> file, with the file structure (below “<strong>List of Adventures</strong>”) detailed above enclosed. The <code>adventure.json</code> file should be in the top level of the <code>.zip</code> file. The name of the <code>zip</code> file (disregarding file extension), should be: <code>&lt;registryName&gt;_&lt;version&gt;</code>, replacing the variable names with the values defined for them in the <code>adventure.json</code> file.</p>
 <h1 id="the-structure-of-an-adventure">The Structure of an Adventure</h1>
-<h3 id="note-on-identifiers">Note on Identifiers:</h3>
-<p>In every case where an <code>identifier</code> object is needed, it should be in the following format:<br>
-<code>identifier: {domain: &lt;domainName&gt;, entry: &lt;entry&gt;}</code>, where <code>domainName</code> and <code>entryName</code> are both <em><strong>Short Strings</strong></em></p>
+<h3 id="notes-on-consistent-objects">Notes on Consistent Objects:</h3>
+<p>In every case where these tags are found, follow the given syntax:</p>
+<h4 id="identifier">identifier</h4>
+<p><code>"identifier": {domain: &lt;domainName&gt;, entry: &lt;entry&gt;}</code>, where <code>domainName</code> and <code>entryName</code> are both <em><strong>Short Strings</strong></em></p>
+<h4 id="data">data</h4>
+<p><code>"data": {"tags":[{"key":&lt;key1&gt;,"value":&lt;value1&gt;}]}</code>, continuing the <code>tags</code> list in the same style for as long as necessary.</p>
 <h2 id="adventure.json">adventure.json</h2>
 <p>The <code>adventure.json</code> file contains basic, core data about the Adventure – i.e. metadata.</p>
 <h4 id="registryname">registryName</h4>
@@ -82,9 +85,9 @@
 <p>Use of Sheets is not limited to Entities. Check the relevant section of this documentation to see when a Sheet can be used.</p>
 <h4 id="domain">domain</h4>
 <p><em>Short String</em> The first half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies which mod or Adventure the <strong>identifier</strong> is from.</p>
-<h4 id="identifier">identifier</h4>
-<p><em>Short String</em> The second half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies the name of am Object from within the given <strong>domain</strong> which the <strong>key</strong> string should be bound to. The location of where to access this item from is inferred from where this Sheet is called from, i.e. if this Sheet is called from the <code>map.json</code> file, it is safe to assume that the <strong>identifier</strong> should reference a Tile.</p>
-<h4 id="data">data</h4>
+<h4 id="identifier-1">identifier</h4>
+<p><a href="https://github.com/Volts-of-Doom/voltsofdoom/blob/stackedit/documentation/Adventure%20Data%20%26%20File%20Structure.md#note-on-identifiers"><em>Identifier,</em></a> Specifies the name of an Object from within the given <strong>domain</strong> which the <strong>key</strong> string should be bound to. The location of where to access this item from is inferred from where this Sheet is called from, i.e. if this Sheet is called from the <code>map.json</code> file, it is safe to assume that the <strong>identifier</strong> should reference a Tile.</p>
+<h4 id="data-1">data</h4>
 <p><em>JSON Object</em> Varies. Configures the Object that the <strong>identifier</strong> references.</p>
 <h1 id="the-structure-of-a-level">The Structure of a Level</h1>
 <h2 id="level.json">level.json</h2>
@@ -101,7 +104,7 @@ A Sheet can replace the <em>domain</em>, <em>identifier</em>, and <em>data</em> 
 <ul>
 <li><strong>key</strong>: <em>Short String</em> An identifier unique within this array, used to specify where to place a Tile of this type in the <strong>map</strong> array.</li>
 <li><strong>domain</strong>: <em>Short String</em> The first half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies which mod or Adventure the <strong>identifier</strong> is from.</li>
-<li><strong>identifier</strong>: <em>Short String</em> The second half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies the name of a Tile from within the given <strong>domain</strong> which the <strong>key</strong> string should be bound to.</li>
+<li><a href="https://github.com/Volts-of-Doom/voltsofdoom/blob/stackedit/documentation/Adventure%20Data%20%26%20File%20Structure.md#note-on-identifiers"><strong>identifier</strong></a> The second half of a <em>Volts of Doom <strong>Resource Location</strong></em>. Specifies the name of a Tile from within the given <strong>domain</strong> which the <strong>key</strong> string should be bound to.</li>
 <li><strong>(Optional) data</strong>: <em>JSON Object</em> The contents of this JSON Object vary from Tile to Tile. These values are used to customise the properties of the Tile specified by the <strong>domain</strong> and <strong>identifier</strong>.</li>
 </ul>
 <h4 id="map">map</h4>
