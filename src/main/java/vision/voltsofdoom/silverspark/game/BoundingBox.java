@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright © 2014-2016, Heiko Brumme
+ * Copyright © 2015, Heiko Brumme
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,27 +21,54 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package vision.voltsofdoom.silverspark;
+package vision.voltsofdoom.silverspark.game;
 
 
-import vision.voltsofdoom.silverspark.core.Game;
-import vision.voltsofdoom.silverspark.core.VariableTimestepGame;
+import vision.voltsofdoom.silverspark.math.Vector2f;
 
 /**
- * The main class creates a fixed timestep game and starts it.
+ * This class represents an axis-aligned bounding box.
  *
  * @author Heiko Brumme
  */
-public class Main {
+public class BoundingBox {
+
+    public Vector2f min, max;
+
+    public BoundingBox(Entity entity) {
+        min = new Vector2f(entity.getX(), entity.getY());
+        max = new Vector2f(
+                entity.getX() + entity.getWidth(),
+                entity.getY() + entity.getHeight()
+        );
+    }
 
     /**
-     * Main function.
+     * Checks if this BoundingBox intersects another AABB.
      *
-     * @param args the command line arguments
+     * @param other The other BoundingBox
+     *
+     * @return true if a collision was detected.
      */
-    public static void main(String[] args) {
-        Game game = new VariableTimestepGame();
-        game.start();
+    public boolean intersects(BoundingBox other) {
+        if (this.max.x < other.min.x) {
+            return false;
+        }
+
+        if (this.max.y < other.min.y) {
+            return false;
+        }
+
+        if (this.min.x > other.max.x) {
+            return false;
+        }
+
+        if (this.min.y > other.max.y) {
+            return false;
+        }
+
+        // All tests failed, we have a intersection
+        return true;
     }
 
 }

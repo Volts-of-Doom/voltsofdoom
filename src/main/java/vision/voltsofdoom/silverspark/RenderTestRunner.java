@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright © 2015, Heiko Brumme
+ * Copyright © 2014-2016, Heiko Brumme
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,34 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package vision.voltsofdoom.silverspark.state;
+package vision.voltsofdoom.silverspark;
+
+
+import vision.voltsofdoom.silverspark.core.Game;
+import vision.voltsofdoom.silverspark.core.VariableTimestepGame;
 
 /**
- * The empty state does nothing. Really.
+ * The main class creates a fixed timestep game and starts it.
  *
  * @author Heiko Brumme
  */
-public class EmptyState implements State {
+public class RenderTestRunner {
 
-    @Override
-    public String input() {
-        return null;
-    }
-
-    @Override
-    public void update(float delta) {
-    }
-
-    @Override
-    public void render(float alpha) {
-    }
-
-    @Override
-    public void enter() {
-    }
-
-    @Override
-    public void exit() {
+    /**
+     * Main function.
+     *
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Game game = new VariableTimestepGame();
+        game.start();
     }
 
 }
