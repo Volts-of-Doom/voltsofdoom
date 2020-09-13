@@ -1,9 +1,9 @@
-package vision.voltsofdoom.silverspark.game;
+package vision.voltsofdoom.silverspark.display;
 
 
 import vision.voltsofdoom.silverspark.graphic.Texture;
 
-public interface RenderableEntity {
+public interface IRenderable {
     float getX();
 
     float getY();

@@ -32,7 +32,7 @@ import vision.voltsofdoom.silverspark.core.VariableTimestepGame;
  *
  * @author Heiko Brumme
  */
-public class Main {
+public class RenderTestRunner {
 
     /**
      * Main function.

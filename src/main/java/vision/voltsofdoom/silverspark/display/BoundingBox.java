@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package vision.voltsofdoom.silverspark.game;
+package vision.voltsofdoom.silverspark.display;
 
 
 import vision.voltsofdoom.silverspark.math.Vector2f;
@@ -31,15 +31,15 @@ import vision.voltsofdoom.silverspark.math.Vector2f;
  *
  * @author Heiko Brumme
  */
-public class AABB {
+public class BoundingBox {
 
     public Vector2f min, max;
 
-    public AABB(Entity entity) {
-        min = new Vector2f(entity.getX(), entity.getY());
+    public BoundingBox(ICollidable owner) {
+        min = new Vector2f(owner.getX(), owner.getY());
         max = new Vector2f(
-                entity.getX() + entity.getWidth(),
-                entity.getY() + entity.getHeight()
+                owner.getX() + owner.getWidth(),
+                owner.getY() + owner.getHeight()
         );
     }
 
@@ -50,7 +50,7 @@ public class AABB {
      *
      * @return true if a collision was detected.
      */
-    public boolean intersects(AABB other) {
+    public boolean intersects(BoundingBox other) {
         if (this.max.x < other.min.x) {
             return false;
         }

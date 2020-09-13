@@ -22,7 +22,10 @@ public class VariableTimestepGame extends Game {
             delta = timer.getDelta();
 
             /* Handle input */
-            input();
+            String stateChange = input();
+            if (stateChange != null) {
+                state.change(stateChange);
+            }
 
             /* Update game and timer UPS */
             update(delta);
