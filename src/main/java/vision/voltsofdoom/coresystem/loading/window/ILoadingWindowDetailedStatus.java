@@ -16,6 +16,7 @@ public interface ILoadingWindowDetailedStatus {
 		public String getDetailedMessage() {
 			return "No additional information...";
 		}
+		
 	};
 
 	public String getDetailedMessage();

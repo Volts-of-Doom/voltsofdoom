@@ -6,11 +6,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>vision.voltsofdoom</groupId>
-		<artifactId>coresystem</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<artifactId>voltsofdoom</artifactId>
+		<version>0.0.1</version>
 	</parent>
 	<artifactId>zapbyte</artifactId>
-	<version>0.0.1</version>
 	<name>zapbyte</name>
 	<url>http://maven.apache.org</url>
 	<properties>
