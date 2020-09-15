@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>voltsofdoom</artifactId>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 	<name>voltsofdoom</name>
 	<url>http://maven.apache.org</url>
@@ -35,24 +35,24 @@
 				<type>pom</type>
 			</dependency>
 
-			<!-- Volts of Doom -->
-
-			<dependency>
-				<groupId>vision.voltsofdoom</groupId>
-				<artifactId>zapbyte</artifactId>
-				<version>0.0.1</version>
-			</dependency>
-
-			<dependency>
-				<groupId>vision.voltsofdoom</groupId>
-				<artifactId>silverspark</artifactId>
-				<version>0.0.1</version>
-			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
 
 	<dependencies>
+
+		<!-- Volts of Doom -->
+
+		<dependency>
+			<groupId>vision.voltsofdoom</groupId>
+			<artifactId>zapbyte</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>vision.voltsofdoom</groupId>
+			<artifactId>silverspark</artifactId>
+			<version>0.0.1</version>
+		</dependency>
 
 		<!-- JUnit -->
 
@@ -214,7 +214,7 @@
 		</dependency>
 
 	</dependencies>
-
+	
 	<build>
 		<plugins>
 			<plugin>

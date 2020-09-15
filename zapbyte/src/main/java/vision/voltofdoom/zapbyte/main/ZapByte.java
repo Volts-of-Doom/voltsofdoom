@@ -16,6 +16,11 @@ import java.util.Set;
  * then should call {@link #run()} to start the application.
  */
 public abstract class ZapByte implements Runnable {
+	
+	public String[] args = null;
+	private static String[] defaultArgs = {};
+	private boolean launched = false;
+	
 	private Set<ZapBit> zapBits;
 
 	public ZapByte() {
@@ -30,6 +35,14 @@ public abstract class ZapByte implements Runnable {
 
 	@Override
 	public void run() {
+		
+		if (launched) {
+			throw new IllegalStateException("This instance of <? extends ZapByte> has already been launched!");
+		}
+		
+		launched = true;
+		if (this.args == null)
+			args = defaultArgs;
 
 		// Get all into map
 		Map<Integer, ZapBit> bits = new HashMap<Integer, ZapBit>();

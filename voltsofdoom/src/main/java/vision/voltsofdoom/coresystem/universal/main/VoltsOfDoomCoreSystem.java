@@ -9,6 +9,7 @@ import java.util.logging.LogManager;
 
 import com.google.gson.JsonArray;
 
+import vision.voltofdoom.zapbyte.main.ZapByte;
 import vision.voltsofdoom.coresystem.universal.log.Loggers;
 import vision.voltsofdoom.coresystem.universal.resource.VODJsonReader;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
@@ -24,7 +25,7 @@ import vision.voltsofdoom.coresystem.universal.util.StringUtils;
  * @author GenElectrovise
  *
  */
-public class VoltsOfDoomCoreSystem extends Thread {
+public class VoltsOfDoomCoreSystem extends ZapByte {
 	public static final GameController GAME_CONTROLLER = new GameController();
 
 	public static final String ID = "coresystem";
@@ -42,11 +43,15 @@ public class VoltsOfDoomCoreSystem extends Thread {
 	 */
 	public static void main(String[] args) {
 		VoltsOfDoomCoreSystem vodcs = new VoltsOfDoomCoreSystem();
-		
+
 		vodcs.setArgs(args);
-		//vodcs.applyLoggerProperties();
-		
-		vodcs.start();
+
+		vodcs.run();
+	}
+
+	@Override
+	public void collectZapbits() {
+
 	}
 
 	@SuppressWarnings("unused")
@@ -56,8 +61,7 @@ public class VoltsOfDoomCoreSystem extends Thread {
 
 		Properties properties = new Properties();
 		try {
-			InputStream configFile = VoltsOfDoomCoreSystem.class.getClassLoader()
-					.getResourceAsStream(configFileLocation);
+			InputStream configFile = VoltsOfDoomCoreSystem.class.getClassLoader().getResourceAsStream(configFileLocation);
 			properties.load(configFile);
 			System.out.println("Internal logger properties file '" + configFileLocation + "' \n >> " + properties);
 			LogManager.getLogManager().readConfiguration(configFile);
@@ -87,14 +91,6 @@ public class VoltsOfDoomCoreSystem extends Thread {
 	 */
 	public String[] getArgs() {
 		return args;
-	}
-
-	@Override
-	public synchronized void start() {
-		launched = true;
-		if (this.args == null)
-			args = defaultArgs;
-		super.start();
 	}
 
 	@Override

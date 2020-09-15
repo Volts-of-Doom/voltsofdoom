@@ -5,11 +5,12 @@ import java.util.Calendar;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 
+import vision.voltofdoom.zapbyte.misc.ZapByteReference;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 
 public class Handlers {
 	private static String formattedDate = genFormattedDate();
-	private static String baseFilePath = Reference.LOGS + formattedDate + Reference.SEP;
+	private static String baseFilePath = Reference.LOGS + formattedDate + ZapByteReference.SEP;
 
 	public static FileHandler FILE_HANDLER_ONE;
 	public static ConsoleHandler CONSOLE_HANDLER_ONE;
