@@ -28,6 +28,7 @@ public abstract class ZapByte implements Runnable {
 
 	public abstract void collectZapbits();
 
+	@Override
 	public void run() {
 
 		// Get all into map
