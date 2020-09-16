@@ -1,7 +1,7 @@
 package vision.voltsofdoom.coresystem.loading.registry;
 
-import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 import vision.voltsofdoom.zapbyte.log.Loggers;
+import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
 
 /**
  * An abstract {@link RegistryEntry}. Contains concrete implementations of the

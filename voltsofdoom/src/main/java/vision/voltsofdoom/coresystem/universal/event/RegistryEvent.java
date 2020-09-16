@@ -8,7 +8,7 @@ import vision.voltsofdoom.coresystem.loading.registry.RegistryTypes;
 import vision.voltsofdoom.coresystem.loading.registry.TypeRegistry;
 import vision.voltsofdoom.coresystem.loading.window.ILoadingWindowDetailedStatus;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Event;
-import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
 
 /**
  * Nested classes hold the {@link Event}s played during registry loading.

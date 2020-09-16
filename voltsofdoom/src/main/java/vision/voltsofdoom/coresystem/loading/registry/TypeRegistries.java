@@ -6,8 +6,8 @@ import vision.voltsofdoom.coresystem.play.tile.Tile;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
-import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 import vision.voltsofdoom.zapbyte.log.Loggers;
+import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
 
 public class TypeRegistries {
 

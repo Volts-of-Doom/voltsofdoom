@@ -1,18 +1,9 @@
 package vision.voltsofdoom.coresystem.universal.main;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.LogManager;
 
-import com.google.gson.JsonArray;
-
-import vision.voltsofdoom.coresystem.universal.resource.VODJsonReader;
-import vision.voltsofdoom.coresystem.universal.util.Reference;
-import vision.voltsofdoom.coresystem.universal.util.StringUtils;
-import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
 
 /**
@@ -37,21 +28,30 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
 	public static volatile boolean launched = false;
 
-	public String[] args = null;
-
-	private static String[] defaultArgs = {};
-
 	/**
 	 * Begins the program.
 	 * 
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		mainStepIn();
+	}
+
+	public static void mainStepIn() {
 		VoltsOfDoomCoreSystem vodcs = new VoltsOfDoomCoreSystem("voltsofdoom");
 
-		vodcs.setArgs(args);
-
 		vodcs.run();
+	}
+
+	@Override
+	public void run() {
+		super.run();
+
+		try {
+			GAME_CONTROLLER.initialiseAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -77,72 +77,5 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 		}
 
 		return this;
-	}
-
-	/**
-	 * Sets this object's arguments to the arguments given to the VM at launch so
-	 * they may be queried later.
-	 * 
-	 * @param args The {@link String}[] of arguments in.
-	 * @return This {@link VoltsOfDoomCoreSystem} object.
-	 */
-	private VoltsOfDoomCoreSystem setArgs(String[] args) {
-		this.args = args;
-		return this;
-	}
-
-	/**
-	 * @return The current program arguments.
-	 */
-	public String[] getArgs() {
-		return args;
-	}
-
-	@Override
-	public void run() {
-		super.run();
-
-		try {
-			GAME_CONTROLLER.initialiseAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Reads the VM configuration in voltsofdoom/config.json
-	 * 
-	 * @return A {@link String}[] of the configuration options.
-	 */
-	public static String[] getVMArgs() {
-
-		File configFile = new File(Reference.CONFIG + "vmconfig.json");
-
-		if (!configFile.exists()) {
-			Loggers.ZAPBYTE.info("Configuration file does not exist at: " + configFile);
-			try {
-				Loggers.ZAPBYTE.info("Trying to write a new configuration file...");
-				BufferedWriter writer = new BufferedWriter(new FileWriter(configFile));
-				writer.write("{\"vmargs\":[\"argument\"]}");
-				writer.close();
-				Loggers.ZAPBYTE.info("Written!");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		Loggers.ZAPBYTE.info("Reading configuration file: " + configFile);
-
-		VODJsonReader reader = new VODJsonReader(configFile);
-		JsonArray array = reader.fromKey("vmargs").getAsJsonArray();
-		String[] args = new String[array.size()];
-
-		for (int i = 0; i < array.size(); i++) {
-			args[i] = array.get(i).getAsString();
-		}
-
-		Loggers.ZAPBYTE.info("Read configuration: " + StringUtils.arrayToString(args));
-
-		return args;
 	}
 }

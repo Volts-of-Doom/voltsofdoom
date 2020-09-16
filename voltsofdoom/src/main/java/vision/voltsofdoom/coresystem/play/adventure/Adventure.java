@@ -10,8 +10,8 @@ import com.google.common.collect.ImmutableSet;
 
 import vision.voltsofdoom.coresystem.loading.registry.RegistryEntry;
 import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
-import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
+import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
 
 /**
  * Contains all of the data for an Adventure!

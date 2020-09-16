@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
 
 /**
  * The finalised and immutable version of a {@link TypeRegistry} which will be

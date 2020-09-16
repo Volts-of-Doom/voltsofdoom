@@ -1,4 +1,4 @@
-package vision.voltsofdoom.coresystem.universal.resource;
+package vision.voltsofdoom.zapbyte.misc;
 
 import java.util.ArrayList;
 import java.util.Objects;

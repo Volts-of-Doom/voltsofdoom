@@ -1,4 +1,4 @@
-package vision.voltsofdoom.coresystem.universal.util;
+package vision.voltsofdoom.zapbyte.misc.util;
 
 /**
  * Utility methods for working with {@link String}s

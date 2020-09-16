@@ -3,7 +3,7 @@ package vision.voltsofdoom.coresystem.loading.registry;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
 
 /**
  * THIS OBJECT DOES NOT GO INTO THE REGISTRY!! <br>

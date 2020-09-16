@@ -1,7 +1,7 @@
 package vision.voltsofdoom.coresystem.loading.registry;
 
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
-import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
 
 public interface IRegistryEntry<T> {
 

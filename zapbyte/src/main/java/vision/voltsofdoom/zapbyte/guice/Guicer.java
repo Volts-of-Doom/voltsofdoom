@@ -1,4 +1,4 @@
-package vision.voltsofdoom.coresystem.universal.main.guice;
+package vision.voltsofdoom.zapbyte.guice;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -19,7 +19,7 @@ public class Guicer {
 	}
 
 	public Guicer() {
-		this.injector = Guice.createInjector(new ExampleBasicModule());
+		this.injector = Guice.createInjector(new GuiceBindingModule());
 	}
 
 	public Injector getInjector() {

@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import vision.voltsofdoom.zapbyte.misc.ZapByteReference;
+import vision.voltsofdoom.zapbyte.config.ConfigHandler;
+import vision.voltsofdoom.zapbyte.guice.Guicer;
+import vision.voltsofdoom.zapbyte.log.Loggers;
 
 /**
  * The main class of the {@link ZapByte} module. Any application wishing to use
@@ -19,21 +21,30 @@ import vision.voltsofdoom.zapbyte.misc.ZapByteReference;
  */
 public abstract class ZapByte implements Runnable {
 
-	public String[] args = null;
-	private static String[] defaultArgs = {};
 	private boolean launched = false;
 
 	private Set<ZapBit> zapBits;
+	private ConfigHandler configHandler;
+	private Guicer guicer;
 
 	public ZapByte(String applicationNamespace) {
 		this.zapBits = new HashSet<ZapBit>();
-		ZapByteReference.APPLICATION_NAMESPACE = applicationNamespace;
+		this.configHandler = new ConfigHandler();
+		
 	}
 
 	public Set<ZapBit> getZapBits() {
 		return zapBits;
 	}
 
+	public void addZapBit(ZapBit bit) {
+		zapBits.add(bit);
+	}
+
+	/**
+	 * Call {@link #addZapBit(ZapBit)} to add {@link ZapBit}s to the list of
+	 * {@link #zapBits} used in loading.
+	 */
 	public abstract void collectZapbits();
 
 	@Override
@@ -44,8 +55,9 @@ public abstract class ZapByte implements Runnable {
 		}
 
 		launched = true;
-		if (this.args == null)
-			args = defaultArgs;
+		configHandler.loadIfConfigurationFileBlank();
+
+		Loggers.ZAPBYTE_LOADING.info("Running Java Vitual Machine (JVM) with arguments: " + configHandler.getConfigurationFile().toString());
 
 		// Get all into map
 		Map<Integer, ZapBit> bits = new HashMap<Integer, ZapBit>();
@@ -59,5 +71,9 @@ public abstract class ZapByte implements Runnable {
 		for (Integer integer : ints) {
 			bits.get(integer).getTask().run();
 		}
+	}
+
+	public ConfigHandler getConfigHandler() {
+		return configHandler;
 	}
 }

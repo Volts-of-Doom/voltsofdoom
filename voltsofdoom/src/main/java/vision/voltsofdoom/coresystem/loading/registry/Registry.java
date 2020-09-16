@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 
 import vision.voltsofdoom.coresystem.universal.band_wagon.Event;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
-import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
 
 /**
  * The {@link Registry} is a central repository of {@link Supplier}s of game

@@ -1,4 +1,4 @@
-package vision.voltsofdoom.coresystem.universal.resource;
+package vision.voltsofdoom.zapbyte.misc.json;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,8 +10,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-
-import vision.voltsofdoom.coresystem.universal.util.Reference;
 
 /**
  * A handy class for reading the contents of .json files. Should use convenience
@@ -42,12 +40,6 @@ public class VODJsonReader {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static void main(String[] args) {
-		VODJsonReader r = new VODJsonReader(
-				new File(Reference.ROAMING + "\\resources\\adventure\\voltsofdoom-coregame\\casketofazamgarath.json"));
-		System.out.println(r.getObj().get("registryname").getAsString());
 	}
 
 	/**
