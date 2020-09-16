@@ -9,7 +9,7 @@ import java.util.Set;
 
 import vision.voltsofdoom.coresystem.loading.reflectory.Reflectory;
 import vision.voltsofdoom.coresystem.universal.event.LoadingEvent;
-import vision.voltsofdoom.coresystem.universal.log.Loggers;
+import vision.voltsofdoom.zapbyte.log.Loggers;
 
 /**
  * Sick of hearing about event buses? Well Volts of Doom has a
@@ -41,7 +41,7 @@ public class BandWagon {
 	 */
 	public static void playEvent(Event event) {
 
-		Loggers.CORESYSTEM_LOADING_BANDWAGON.info("Playing Event: " + event);
+		Loggers.ZAPBYTE_LOADING_BANDWAGON.info("Playing Event: " + event);
 
 		stowawayMethods.forEach((method) -> {
 			try {
@@ -101,33 +101,30 @@ public class BandWagon {
 
 		// If is not static
 		if (!Modifier.isStatic(method.getModifiers())) {
-			Loggers.CORESYSTEM_LOADING_BANDWAGON.finer("Could not validate Method : " + method + " : to the BandWagon because it is not static.");
+			Loggers.ZAPBYTE_LOADING_BANDWAGON.finer("Could not validate Method : " + method + " : to the BandWagon because it is not static.");
 			return false;
 		}
 
 		// If has not-one parameter
 		if (!(method.getParameterCount() == 1)) {
-			Loggers.CORESYSTEM_LOADING_BANDWAGON.finer("Could not validate Method : " + method
-					+ " : to the BandWagon because it does not have only 1 parameter");
+			Loggers.ZAPBYTE_LOADING_BANDWAGON.finer("Could not validate Method : " + method + " : to the BandWagon because it does not have only 1 parameter");
 			return false;
 		}
 
 		// If the superclass is not Event
 		Class<?> parameterType = method.getParameters()[0].getType();
 		if (!Event.class.isAssignableFrom(parameterType)) {
-			Loggers.CORESYSTEM_LOADING_BANDWAGON.finer("Could not validate Method : " + method
-					+ " : to the BandWagon because it does not extend the Volts of Doom Event directly.");
+			Loggers.ZAPBYTE_LOADING_BANDWAGON.finer("Could not validate Method : " + method + " : to the BandWagon because it does not extend the Volts of Doom Event directly.");
 			return false;
 		}
 
-		Loggers.CORESYSTEM_LOADING_BANDWAGON.finest("Validated Method : " + method
-				+ " : for subscription to the BandWagon, as it meets all required criteria. ");
+		Loggers.ZAPBYTE_LOADING_BANDWAGON.finest("Validated Method : " + method + " : for subscription to the BandWagon, as it meets all required criteria. ");
 		return true;
 	}
 
 	@Stowaway
 	private static void createBandWagonEventListener(LoadingEvent.BandWagonCreation event) {
-		Loggers.CORESYSTEM_LOADING_BANDWAGON.info("Creating BandWagon: Playing creation event.");
+		Loggers.ZAPBYTE_LOADING_BANDWAGON.info("Creating BandWagon: Playing creation event.");
 	}
 
 }

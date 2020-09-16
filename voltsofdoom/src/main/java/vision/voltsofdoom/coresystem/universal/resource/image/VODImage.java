@@ -7,8 +7,7 @@ import java.net.URL;
 
 import javax.imageio.ImageIO;
 
-import vision.voltsofdoom.coresystem.universal.log.Loggers;
-
+import vision.voltsofdoom.zapbyte.log.Loggers;
 
 /**
  * Holds an image for the game, in an expected format, with additional utility
@@ -27,7 +26,7 @@ public class VODImage {
 
 			URI formattedUri = new URI(f.getAbsolutePath().replace("\\", "/"));
 			url = new URL("file://" + formattedUri.getPath());
-			Loggers.CORESYSTEM_LOADING_RESOURCE.finest("URL : " + url.getPath());
+			Loggers.ZAPBYTE_LOADING_RESOURCE.finest("URL : " + url.getPath());
 
 			image = ImageIO.read(url);
 		} catch (Exception e) {

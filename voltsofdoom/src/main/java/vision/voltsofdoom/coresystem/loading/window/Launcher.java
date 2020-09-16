@@ -13,9 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
 
-import vision.voltsofdoom.coresystem.universal.log.Loggers;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.coresystem.universal.util.StringUtils;
+import vision.voltsofdoom.zapbyte.log.Loggers;
 
 /**
  * The launcher for the game. Likely will contain various helping tools at a
@@ -91,7 +91,7 @@ public class Launcher extends JFrame {
 					btnLaunch.setEnabled(false);
 
 					String[] arguments = VoltsOfDoomCoreSystem.getVMArgs();
-					Loggers.CORESYSTEM_LOADING.info("Running Java Vitual Machine (JVM) with arguments: "
+					Loggers.ZAPBYTE_LOADING.info("Running Java Vitual Machine (JVM) with arguments: "
 							+ StringUtils.arrayToString(arguments));
 
 					VoltsOfDoomCoreSystem.main(arguments);

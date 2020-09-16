@@ -21,9 +21,9 @@ import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent.GenerateAdventuresEvent;
-import vision.voltsofdoom.coresystem.universal.log.Loggers;
 import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
+import vision.voltsofdoom.zapbyte.log.Loggers;
 
 /**
  * Generates a list of {@link Adventure}s to register.
@@ -212,8 +212,8 @@ public class AdventureLoader {
 		} catch (Exception e) {
 			e.printStackTrace();
 			
-			Loggers.CORESYSTEM_LOADING_RESOURCE.severe("EXCEPTION LOADING ADVENTURES!");
-			Loggers.CORESYSTEM_LOADING_RESOURCE.severe(e.toString());
+			Loggers.ZAPBYTE_LOADING_RESOURCE.severe("EXCEPTION LOADING ADVENTURES!");
+			Loggers.ZAPBYTE_LOADING_RESOURCE.severe(e.toString());
 			System.exit(-1);
 		}
 	}

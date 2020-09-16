@@ -1,7 +1,7 @@
 package vision.voltsofdoom.coresystem.loading.registry;
 
-import vision.voltsofdoom.coresystem.universal.log.Loggers;
 import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.log.Loggers;
 
 /**
  * An abstract {@link RegistryEntry}. Contains concrete implementations of the
@@ -21,7 +21,7 @@ public abstract class RegistryEntry<T extends IRegistryEntry<T>> implements IReg
 	public ResourceLocation getIdentifier() {
 
 		if (identifier == null) {
-			Loggers.CORESYSTEM_LOADING_REGISTRY.warning(
+			Loggers.ZAPBYTE_LOADING_REGISTRY.warning(
 					"Registry entry returning a null identifier! Going on with it, but this may cause issues later!");
 		}
 

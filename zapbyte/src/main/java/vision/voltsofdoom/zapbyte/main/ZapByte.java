@@ -1,4 +1,4 @@
-package vision.voltofdoom.zapbyte.main;
+package vision.voltsofdoom.zapbyte.main;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import vision.voltsofdoom.zapbyte.misc.ZapByteReference;
+
 /**
  * The main class of the {@link ZapByte} module. Any application wishing to use
  * {@link ZapByte} should extends this class. Its <code>main</code> method
@@ -16,15 +18,16 @@ import java.util.Set;
  * then should call {@link #run()} to start the application.
  */
 public abstract class ZapByte implements Runnable {
-	
+
 	public String[] args = null;
 	private static String[] defaultArgs = {};
 	private boolean launched = false;
-	
+
 	private Set<ZapBit> zapBits;
 
-	public ZapByte() {
+	public ZapByte(String applicationNamespace) {
 		this.zapBits = new HashSet<ZapBit>();
+		ZapByteReference.APPLICATION_NAMESPACE = applicationNamespace;
 	}
 
 	public Set<ZapBit> getZapBits() {
@@ -35,11 +38,11 @@ public abstract class ZapByte implements Runnable {
 
 	@Override
 	public void run() {
-		
+
 		if (launched) {
 			throw new IllegalStateException("This instance of <? extends ZapByte> has already been launched!");
 		}
-		
+
 		launched = true;
 		if (this.args == null)
 			args = defaultArgs;

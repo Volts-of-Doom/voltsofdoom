@@ -9,11 +9,11 @@ import java.util.logging.LogManager;
 
 import com.google.gson.JsonArray;
 
-import vision.voltofdoom.zapbyte.main.ZapByte;
-import vision.voltsofdoom.coresystem.universal.log.Loggers;
 import vision.voltsofdoom.coresystem.universal.resource.VODJsonReader;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 import vision.voltsofdoom.coresystem.universal.util.StringUtils;
+import vision.voltsofdoom.zapbyte.log.Loggers;
+import vision.voltsofdoom.zapbyte.main.ZapByte;
 
 /**
  * The main class for Volts of Doom's Core System. The game starts running here.
@@ -26,6 +26,11 @@ import vision.voltsofdoom.coresystem.universal.util.StringUtils;
  *
  */
 public class VoltsOfDoomCoreSystem extends ZapByte {
+	
+	public VoltsOfDoomCoreSystem(String applicationNamespace) {
+		super(applicationNamespace);
+	}
+
 	public static final GameController GAME_CONTROLLER = new GameController();
 
 	public static final String ID = "coresystem";
@@ -42,7 +47,7 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		VoltsOfDoomCoreSystem vodcs = new VoltsOfDoomCoreSystem();
+		VoltsOfDoomCoreSystem vodcs = new VoltsOfDoomCoreSystem("voltsofdoom");
 
 		vodcs.setArgs(args);
 
@@ -114,19 +119,19 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 		File configFile = new File(Reference.CONFIG + "vmconfig.json");
 
 		if (!configFile.exists()) {
-			Loggers.CORESYSTEM.info("Configuration file does not exist at: " + configFile);
+			Loggers.ZAPBYTE.info("Configuration file does not exist at: " + configFile);
 			try {
-				Loggers.CORESYSTEM.info("Trying to write a new configuration file...");
+				Loggers.ZAPBYTE.info("Trying to write a new configuration file...");
 				BufferedWriter writer = new BufferedWriter(new FileWriter(configFile));
 				writer.write("{\"vmargs\":[\"argument\"]}");
 				writer.close();
-				Loggers.CORESYSTEM.info("Written!");
+				Loggers.ZAPBYTE.info("Written!");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
-		Loggers.CORESYSTEM.info("Reading configuration file: " + configFile);
+		Loggers.ZAPBYTE.info("Reading configuration file: " + configFile);
 
 		VODJsonReader reader = new VODJsonReader(configFile);
 		JsonArray array = reader.fromKey("vmargs").getAsJsonArray();
@@ -136,7 +141,7 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 			args[i] = array.get(i).getAsString();
 		}
 
-		Loggers.CORESYSTEM.info("Read configuration: " + StringUtils.arrayToString(args));
+		Loggers.ZAPBYTE.info("Read configuration: " + StringUtils.arrayToString(args));
 
 		return args;
 	}

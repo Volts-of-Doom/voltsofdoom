@@ -1,16 +1,22 @@
-package vision.voltsofdoom.coresystem.universal.log;
+package vision.voltsofdoom.zapbyte.log;
 
 import java.io.File;
 import java.util.Calendar;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 
-import vision.voltofdoom.zapbyte.misc.ZapByteReference;
-import vision.voltsofdoom.coresystem.universal.util.Reference;
+import vision.voltsofdoom.zapbyte.misc.ZapByteReference;
 
+/**
+ * Logging {@link Handler}s.
+ * 
+ * @author GenElectrovise
+ *
+ */
 public class Handlers {
 	private static String formattedDate = genFormattedDate();
-	private static String baseFilePath = Reference.LOGS + formattedDate + ZapByteReference.SEP;
+	private static String baseFilePath = ZapByteReference.LOGS + formattedDate + ZapByteReference.SEP;
 
 	public static FileHandler FILE_HANDLER_ONE;
 	public static ConsoleHandler CONSOLE_HANDLER_ONE;
@@ -30,7 +36,7 @@ public class Handlers {
 
 	static {
 		try {
-			
+
 			new File(baseFilePath).mkdirs();
 
 			FILE_HANDLER_ONE = new FileHandler(TIER_ONE_PATH, 51200, 1, false);

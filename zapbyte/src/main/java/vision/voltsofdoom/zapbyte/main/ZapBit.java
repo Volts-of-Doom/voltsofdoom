@@ -1,4 +1,4 @@
-package vision.voltofdoom.zapbyte.main;
+package vision.voltsofdoom.zapbyte.main;
 
 /**
  * A {@link Runnable} task with associated {@link #priority} used in the

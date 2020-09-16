@@ -1,9 +1,15 @@
-package vision.voltsofdoom.coresystem.universal.log;
+package vision.voltsofdoom.zapbyte.log;
 
 import java.util.logging.Formatter;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
+/**
+ * Logging {@link Formatter}s.
+ * 
+ * @author GenElectrovise
+ *
+ */
 public class Formatters {
 
 	public static final Formatter DEFAULT = new Formatter() {
@@ -35,7 +41,7 @@ public class Formatters {
 				builder.append(thrown.toString());
 				builder.append("\n");
 			}
-			
+
 			builder.append("\n");
 
 			return builder.toString();

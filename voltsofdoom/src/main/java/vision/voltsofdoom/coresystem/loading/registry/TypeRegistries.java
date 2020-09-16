@@ -5,9 +5,9 @@ import vision.voltsofdoom.coresystem.play.entity.Entity;
 import vision.voltsofdoom.coresystem.play.tile.Tile;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
-import vision.voltsofdoom.coresystem.universal.log.Loggers;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.coresystem.universal.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.log.Loggers;
 
 public class TypeRegistries {
 
@@ -17,7 +17,7 @@ public class TypeRegistries {
 
 	@Stowaway
 	private static void createAndSubmitTypeRegistries(RegistryEvent.CreateAndSubmitRegistriesEvent event) {
-		Loggers.CORESYSTEM_LOADING_REGISTRY.fine("Creating and submitting default TypeRegistries");
+		Loggers.ZAPBYTE_LOADING_REGISTRY.fine("Creating and submitting default TypeRegistries");
 		
 		TILES = new TypeRegistry<Tile>(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"), RegistryTypes.TILES);
 		ENTITIES = new TypeRegistry<Entity>(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "entities"),

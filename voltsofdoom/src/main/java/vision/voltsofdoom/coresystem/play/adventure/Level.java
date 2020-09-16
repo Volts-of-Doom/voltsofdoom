@@ -8,8 +8,8 @@ import java.util.zip.ZipFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import vision.voltsofdoom.coresystem.universal.log.Loggers;
 import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
+import vision.voltsofdoom.zapbyte.log.Loggers;
 
 /**
  * A uhhhhh... {@link Level} in an {@link Adventure}...
@@ -43,7 +43,7 @@ public class Level {
 	@Override
 	public String toString() {
 
-		Loggers.CORESYSTEM_LOADING.severe("Levels not loaded yet, either at loading or runtime!");
+		Loggers.ZAPBYTE_LOADING.severe("Levels not loaded yet, either at loading or runtime!");
 
 		StringBuilder builder = new StringBuilder();
 		builder.append("Level{");
@@ -66,12 +66,10 @@ public class Level {
 			builder.withConfiguration(config);
 
 			// TileMap
-			builder.withTileMap(TileMap.fromJson(gson
-					.fromJson(ZipFileReader.asJsonReader(reader.getStream(base + "tiles.json")), JsonObject.class)));
+			builder.withTileMap(TileMap.fromJson(gson.fromJson(ZipFileReader.asJsonReader(reader.getStream(base + "tiles.json")), JsonObject.class)));
 
 			// EntityMap
-			builder.withEntityMap(EntityMap.fromJson(gson
-					.fromJson(ZipFileReader.asJsonReader(reader.getStream(base + "entities.json")), JsonObject.class)));
+			builder.withEntityMap(EntityMap.fromJson(gson.fromJson(ZipFileReader.asJsonReader(reader.getStream(base + "entities.json")), JsonObject.class)));
 
 			// Behaviours
 			ArrayList<String> behaviourFiles = new ArrayList<String>();
@@ -84,8 +82,7 @@ public class Level {
 				}
 			}
 			for (String behaviourName : behaviourFiles) {
-				builder.withBehaviour(Behaviour.fromJson(
-						gson.fromJson(ZipFileReader.asJsonReader(reader.getStream(behaviourName)), JsonObject.class)));
+				builder.withBehaviour(Behaviour.fromJson(gson.fromJson(ZipFileReader.asJsonReader(reader.getStream(behaviourName)), JsonObject.class)));
 			}
 
 			// Puzzles
@@ -99,8 +96,7 @@ public class Level {
 				}
 			}
 			for (String puzzleName : puzzleFiles) {
-				builder.withPuzzle(Puzzle.fromJson(
-						gson.fromJson(ZipFileReader.asJsonReader(reader.getStream(puzzleName)), JsonObject.class)));
+				builder.withPuzzle(Puzzle.fromJson(gson.fromJson(ZipFileReader.asJsonReader(reader.getStream(puzzleName)), JsonObject.class)));
 			}
 
 		} catch (Exception e) {
