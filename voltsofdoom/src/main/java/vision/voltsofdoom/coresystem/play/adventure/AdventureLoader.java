@@ -24,6 +24,7 @@ import vision.voltsofdoom.coresystem.universal.event.RegistryEvent.GenerateAdven
 import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 import vision.voltsofdoom.zapbyte.log.Loggers;
+import vision.voltsofdoom.zapbyte.misc.ZapByteReference;
 
 /**
  * Generates a list of {@link Adventure}s to register.
@@ -79,7 +80,7 @@ public class AdventureLoader {
 		if (!adventureFolder.exists() || !adventureFolder.isDirectory()) {
 			adventureFolder.mkdir();
 			throw new FileNotFoundException("Adventure folder in the located Volts of Doom directory"
-					+ Reference.ROAMING + " cannot be located (" + Reference.ADVENTURE
+					+ ZapByteReference.getApplicationRoaming() + " cannot be located (" + Reference.ADVENTURE
 					+ ")! This is an error! Program will terminate.");
 		}
 

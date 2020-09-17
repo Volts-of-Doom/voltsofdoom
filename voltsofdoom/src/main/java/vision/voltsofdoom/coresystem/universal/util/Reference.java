@@ -12,18 +12,11 @@ import static vision.voltsofdoom.zapbyte.misc.ZapByteReference.*;
 public class Reference {
 
 	// Roaming
-
-	/**
-	 * The game's %App Data%/Roaming directory
-	 */
-	public static final String ROAMING = ZAP_BYTE_ROAMING + "voltsofdoom" + SEP;
-	public static final String ROAMING_RESOURCES = ROAMING + "resources" + SEP;
-	public static final String ADVENTURE = ROAMING_RESOURCES + SEP + "adventure" + SEP;
-	public static final String MODS_DIRECTORY = ROAMING + "mods" + SEP;
-	public static final String CONFIG = ROAMING + SEP + "config" + SEP;
-	public static final String LOGS = ROAMING + SEP + "logs" + SEP;
+	public static final String ROAMING_RESOURCES = getApplicationRoaming() + "resources" + getSep();
+	public static final String ADVENTURE = ROAMING_RESOURCES + getSep() + "adventure" + getSep();
+	public static final String MODS_DIRECTORY = getApplicationRoaming() + "mods" + getSep();
 
 	// Internal
-	public static final String INTERNAL_RESOURCES = "src" + SEP + "main" + SEP + "resources" + SEP;
+	public static final String INTERNAL_RESOURCES = "src" + getSep() + "main" + getSep() + "resources" + getSep();
 
 }

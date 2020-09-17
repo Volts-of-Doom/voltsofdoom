@@ -16,7 +16,7 @@ import vision.voltsofdoom.zapbyte.misc.ZapByteReference;
  */
 public class Handlers {
 	private static String formattedDate = genFormattedDate();
-	private static String baseFilePath = ZapByteReference.LOGS + formattedDate + ZapByteReference.SEP;
+	private static String baseFilePath = ZapByteReference.getLogs() + formattedDate + ZapByteReference.getSep();
 
 	public static FileHandler FILE_HANDLER_ONE;
 	public static ConsoleHandler CONSOLE_HANDLER_ONE;

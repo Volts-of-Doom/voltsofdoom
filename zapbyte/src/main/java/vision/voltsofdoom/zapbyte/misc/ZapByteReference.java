@@ -2,49 +2,52 @@ package vision.voltsofdoom.zapbyte.misc;
 
 import java.io.File;
 
-import com.google.inject.name.Named;
-
 import vision.voltsofdoom.zapbyte.main.ZapByte;
 
 public class ZapByteReference {
-	
-	public static String getSep(){
-		return File.separator;
-	}
-
-	/**
-	 * The system file path section separator
-	 */
-	public static final String SEP = File.separator;
 
 	/**
 	 * Populated at startup by {@link ZapByte#run()}
 	 */
-	@Named("applicationNamespace")
 	public static String APPLICATION_NAMESPACE = null;
 
-	/**
-	 * The directory the application is running in (the user's home directory)
-	 */
-	public static final String USER_HOME = System.getProperty("user.dir");
+	public static String getSep() {
+		return File.separator;
+	}
+
+	public static String getApplicationNamespace() {
+		return APPLICATION_NAMESPACE;
+	}
+
+	public static String getUserHome() {
+		return System.getProperty("user.dir");
+	}
 
 	/**
 	 * The game's %App Data%/Roaming directory
 	 */
-	public static final String ZAP_BYTE_ROAMING = System.getProperty("user.home") + SEP + "AppData" + SEP + "Roaming" + SEP + "zapbyte" + SEP;
+	public static String getZapByteRoaming() {
+		return getUserHome() + getSep() + "AppData" + getSep() + "Roaming" + getSep() + ZapByte.ZAPBYTE + getSep();
+	}
 
 	/**
 	 * The roaming directory of this particular application.
 	 */
-	public static final String APPLICATION_ROAMING = ZAP_BYTE_ROAMING + SEP + APPLICATION_NAMESPACE + SEP;
+	public static String getApplicationRoaming() {
+		return getZapByteRoaming() + getSep() + getApplicationNamespace() + getSep();
+	}
 
 	/**
 	 * The output location of log files
 	 */
-	public static final String LOGS = ZAP_BYTE_ROAMING + SEP + APPLICATION_NAMESPACE + SEP + "logs" + SEP;
+	public static String getLogs() {
+		return getApplicationRoaming() + getSep() + APPLICATION_NAMESPACE + getSep() + "logs" + getSep();
+	}
 
 	/**
 	 * The location of this application's configuration files' folder
 	 */
-	public static final String CONFIG = APPLICATION_ROAMING + "config" + SEP;
+	public static String getConfig() {
+		return getApplicationRoaming() + "config" + getSep();
+	}
 }

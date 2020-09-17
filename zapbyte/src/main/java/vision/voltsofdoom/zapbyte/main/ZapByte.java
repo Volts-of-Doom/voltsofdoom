@@ -26,6 +26,7 @@ public abstract class ZapByte implements Runnable {
 	private Set<ZapBit> zapBits;
 	private ConfigHandler configHandler;
 	private Guicer guicer;
+	public static final String ZAPBYTE = "zapbyte";
 
 	public ZapByte(String applicationNamespace) {
 		this.zapBits = new HashSet<ZapBit>();

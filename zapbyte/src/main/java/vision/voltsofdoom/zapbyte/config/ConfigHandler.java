@@ -39,7 +39,7 @@ public class ConfigHandler {
 	 */
 	public void loadConfigurationFile() {
 
-		File configFile = new File(ZapByteReference.CONFIG + "vmconfig.json");
+		File configFile = new File(ZapByteReference.getConfig() + "vmconfig.json");
 
 		// If the configuration file does not exist...
 		if (!configFile.exists()) {
