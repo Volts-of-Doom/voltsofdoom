@@ -4,9 +4,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
-
 /**
  * Holds the {@link IRegistry}s submitted during
  * {@link RegistryEvent.CreateAndSubmitRegistriesEvent}
@@ -16,14 +15,14 @@ import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
  */
 public class CollectedRegistries {
 
-	private static final LinkedHashMap<ResourceLocation, IRegistry<? extends IRegistryEntry<?>>> typeRegistries = new LinkedHashMap<ResourceLocation, IRegistry<? extends IRegistryEntry<?>>>();
+	private static final LinkedHashMap<IResourceLocation, IRegistry<? extends IRegistryEntry<?>>> typeRegistries = new LinkedHashMap<IResourceLocation, IRegistry<? extends IRegistryEntry<?>>>();
 
 	public static <T extends IRegistryEntry<T>> void submit(IRegistry<T> typeRegistry) {
 		Objects.requireNonNull(typeRegistry, () -> "Cannot submit a null TypeRegistry");
 		typeRegistries.put(typeRegistry.getRegistryIdentifier(), typeRegistry);
 	}
 
-	public static IRegistry<? extends IRegistryEntry<?>> get(ResourceLocation identifier) {
+	public static IRegistry<? extends IRegistryEntry<?>> get(IResourceLocation identifier) {
 		return typeRegistries.get(identifier);
 	}
 

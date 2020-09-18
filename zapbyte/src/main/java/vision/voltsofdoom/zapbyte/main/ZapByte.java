@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
 import vision.voltsofdoom.zapbyte.config.ConfigHandler;
 import vision.voltsofdoom.zapbyte.guice.Guicer;
 import vision.voltsofdoom.zapbyte.log.Loggers;
@@ -24,7 +25,7 @@ public abstract class ZapByte implements Runnable {
 	private boolean launched = false;
 
 	private Set<ZapBit> zapBits;
-	private ConfigHandler configHandler;
+	private IConfigHandler configHandler;
 	private Guicer guicer;
 	public static final String ZAPBYTE = "zapbyte";
 
@@ -74,7 +75,7 @@ public abstract class ZapByte implements Runnable {
 		}
 	}
 
-	public ConfigHandler getConfigHandler() {
+	public IConfigHandler getConfigHandler() {
 		return configHandler;
 	}
 }

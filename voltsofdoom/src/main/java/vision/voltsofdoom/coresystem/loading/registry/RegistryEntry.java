@@ -1,7 +1,7 @@
 package vision.voltsofdoom.coresystem.loading.registry;
 
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 import vision.voltsofdoom.zapbyte.log.Loggers;
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
 
 /**
  * An abstract {@link RegistryEntry}. Contains concrete implementations of the
@@ -15,10 +15,10 @@ import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
  */
 public abstract class RegistryEntry<T extends IRegistryEntry<T>> implements IRegistryEntry<T> {
 
-	public ResourceLocation identifier;
+	public IResourceLocation identifier;
 
 	@Override
-	public ResourceLocation getIdentifier() {
+	public IResourceLocation getIdentifier() {
 
 		if (identifier == null) {
 			Loggers.ZAPBYTE_LOADING_REGISTRY.warning(
@@ -29,7 +29,7 @@ public abstract class RegistryEntry<T extends IRegistryEntry<T>> implements IReg
 	}
 
 	@Override
-	public void setIdentifier(ResourceLocation identifier) {
+	public void setIdentifier(IResourceLocation identifier) {
 		if (getIdentifier() != null) {
 			throw new IllegalStateException("Cannot assign new identifier ('" + identifier
 					+ "') to a RegistryEntry which already has an identifier ('" + getIdentifier() + "')!");

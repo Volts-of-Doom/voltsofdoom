@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 
 /**
  * Handles the registration of {@link IRegistryEntry}s of type T.
@@ -17,12 +17,12 @@ import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
  */
 public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
 
-	private final ResourceLocation identifier;
+	private final IResourceLocation identifier;
 	private final RegistryType<T> type;
-	private final LinkedHashMap<ResourceLocation, Supplier<T>> entries = new LinkedHashMap<ResourceLocation, Supplier<T>>();
+	private final LinkedHashMap<IResourceLocation, Supplier<T>> entries = new LinkedHashMap<IResourceLocation, Supplier<T>>();
 	private IRegistryState state;
 
-	public TypeRegistry(ResourceLocation identifier, RegistryType<T> type) {
+	public TypeRegistry(IResourceLocation identifier, RegistryType<T> type) {
 		this.identifier = identifier;
 		this.type = type;
 		this.state = IRegistryState.ACTIVE;
@@ -30,7 +30,7 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
 	}
 
 	@Override
-	public ResourceLocation getRegistryIdentifier() {
+	public IResourceLocation getRegistryIdentifier() {
 		return this.identifier;
 	}
 
@@ -40,18 +40,18 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
 	}
 
 	@Override
-	public RegistryMessenger<T> register(ResourceLocation identifier, Supplier<T> instanceSupplier) {
+	public RegistryMessenger<T> register(IResourceLocation iResourceLocation, Supplier<T> instanceSupplier) {
 
 		if (!this.state.isMutable()) {
 			throw new IllegalStateException("Registry is not mutable at the moment!");
 		}
 
-		entries.put(identifier, instanceSupplier);
-		return new RegistryMessenger<T>(identifier, instanceSupplier, this);
+		entries.put(iResourceLocation, instanceSupplier);
+		return new RegistryMessenger<T>(iResourceLocation, instanceSupplier, this);
 	}
 
 	@Override
-	public Supplier<T> retrieveSupplier(ResourceLocation identifier) {
+	public Supplier<T> retrieveSupplier(IResourceLocation identifier) {
 		Objects.requireNonNull(identifier,
 				() -> "If the identifier is null, how do you expect to retrieve anything!? The identifier cannot be null!");
 		return entries.get(identifier);
@@ -73,7 +73,7 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
 	}
 
 	@Override
-	public Map<ResourceLocation, Supplier<T>> getEntries() {
+	public Map<IResourceLocation, Supplier<T>> getEntries() {
 		return entries;
 	}
 

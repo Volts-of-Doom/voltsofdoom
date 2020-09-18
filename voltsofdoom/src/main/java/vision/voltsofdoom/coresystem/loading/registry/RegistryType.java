@@ -1,6 +1,6 @@
 package vision.voltsofdoom.coresystem.loading.registry;
 
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 
 /**
  * Denotes a type of registry for identifying {@link TypeRegistry}s.
@@ -10,15 +10,15 @@ import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
  */
 public class RegistryType<T extends IRegistryEntry<T>> {
 
-	private final ResourceLocation identifier;
+	private final IResourceLocation identifier;
 	private final Class<? extends IRegistryEntry<?>> clazzType;
 
-	protected RegistryType(ResourceLocation identifier, Class<? extends IRegistryEntry<?>> clazzType) {
+	protected RegistryType(IResourceLocation identifier, Class<? extends IRegistryEntry<?>> clazzType) {
 		this.identifier = identifier;
 		this.clazzType = clazzType;
 	}
 
-	public ResourceLocation getIdentifier() {
+	public IResourceLocation getIdentifier() {
 		return identifier;
 	}
 

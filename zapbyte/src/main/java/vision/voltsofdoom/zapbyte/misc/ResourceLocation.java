@@ -6,6 +6,10 @@ import java.util.PrimitiveIterator.OfInt;
 
 import com.google.common.collect.ImmutableList;
 
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
+import vision.voltsofdoom.api.zapyte.misc.ResourceLocationInvalidException;
+import vision.voltsofdoom.api.zapyte.misc.ResourceLocationValidityState;
+
 /**
  * Identifies the location of *something*. This could be a resource or an object
  * in a registry, for example.
@@ -13,7 +17,7 @@ import com.google.common.collect.ImmutableList;
  * @author GenElectrovise
  *
  */
-public class ResourceLocation {
+public class ResourceLocation implements IResourceLocation {
 
 	private String domain;
 	private String entry;
@@ -52,6 +56,7 @@ public class ResourceLocation {
 	 * 
 	 * @return Whether this {@link ResourceLocation} is valid.
 	 */
+	@Override
 	public ResourceLocationValidityState validate() {
 		return (domain != null && entry != null) ? ResourceLocationValidityState.VALID
 				: ResourceLocationValidityState.GENERIC_INVALID;
@@ -116,7 +121,7 @@ public class ResourceLocation {
 		return ResourceLocationValidityState.VALID;
 	}
 
-	public static ResourceLocation fromString(String str) {
+	public static IResourceLocation fromString(String str) {
 		Objects.requireNonNull(str, () -> "Constructing ResourceLocation fromString() >> Input string cannot be null!");
 
 		ResourceLocationValidityState validityState = validate(str);
@@ -160,14 +165,17 @@ public class ResourceLocation {
 		return new ResourceLocation(domainBuilder.toString(), pathBuilder.toString());
 	}
 
+	@Override
 	public String getEntry() {
 		return entry;
 	}
 
+	@Override
 	public String getDomain() {
 		return domain;
 	}
 
+	@Override
 	public String stringify() {
 		return domain + ":" + entry;
 	}
@@ -184,13 +192,13 @@ public class ResourceLocation {
 			return false;
 		}
 
-		obj = (ResourceLocation) obj;
+		obj = (IResourceLocation) obj;
 
-		if (!((ResourceLocation) obj).getDomain().equals(domain)) {
+		if (!((IResourceLocation) obj).getDomain().equals(domain)) {
 			return false;
 		}
 
-		if (!((ResourceLocation) obj).getEntry().equals(entry)) {
+		if (!((IResourceLocation) obj).getEntry().equals(entry)) {
 			return false;
 		}
 
@@ -199,7 +207,7 @@ public class ResourceLocation {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		ResourceLocation r2 = ResourceLocation.fromString("domain:entry");
+		IResourceLocation r2 = ResourceLocation.fromString("domain:entry");
 		System.out.println(validate("domain::entry"));
 	}
 
@@ -209,53 +217,5 @@ public class ResourceLocation {
 
 	public static boolean isColon(char c) {
 		return isColon(new Character(c));
-	}
-
-	/**
-	 * Various reasons why a ResourceLocation might, or might not be valid. Useful
-	 * for error messages!
-	 * 
-	 * @author GenElectrovise
-	 *
-	 */
-	public static enum ResourceLocationValidityState {
-		VALID(true, "ResourceLocation valid!"),
-		TOO_LONG(false, "ResourceLocation spec is too long! (One half of the given spec exceeds 32 characters)"),
-		TOO_SHORT(false, "ResourceLocation spec is too short! (One half of the given spec is less than 4 characters)"),
-		INVALID_COLON_COUNT(false, "ResourceLocation does not contain 1 colon!"),
-		ILLEGAL_CHARACTER(false,
-				"ResourceLocation contains an illegal character! Only alphabetic characters, and colons are allowed!"),
-		GENERIC_INVALID(true, "ResourceLocation invalid in unspecified manner, though likely contains a null element!");
-
-		private boolean valid;
-		private String message;
-
-		private ResourceLocationValidityState(boolean valid, String message) {
-			this.valid = valid;
-			this.message = message;
-		}
-
-		public String getMessage() {
-			return message;
-		}
-
-		public boolean isValid() {
-			return valid;
-		}
-
-		@Override
-		public String toString() {
-			return "ResourceLocationValidityState{isValid=" + isValid() + ", message='" + getMessage() + "'}";
-		}
-	}
-
-	public static class ResourceLocationInvalidException extends Exception {
-
-		public ResourceLocationInvalidException(String string) {
-			super(string);
-		}
-
-		private static final long serialVersionUID = 4488245000256283124L;
-
 	}
 }

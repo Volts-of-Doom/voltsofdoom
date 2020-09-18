@@ -6,7 +6,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 
 /**
  * Represents a <code>sheet</code> file from an {@link Adventure}.
@@ -15,10 +15,10 @@ import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
  *
  */
 public class Sheet {
-	private ResourceLocation identifier;
+	private IResourceLocation identifier;
 	private DataTagList data;
 
-	public ResourceLocation getIdentifier() {
+	public IResourceLocation getIdentifier() {
 		return identifier;
 	}
 

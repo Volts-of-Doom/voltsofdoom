@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 
 /**
  * The finalised and immutable version of a {@link TypeRegistry} which will be
@@ -15,15 +15,15 @@ import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
  */
 public class FinalisedTypeRegistry<T extends IRegistryEntry<T>> implements IFinalisedRegistry<T> {
 
-	private final ResourceLocation identifier;
+	private final IResourceLocation identifier;
 	private final RegistryType<?> type;
 	private IRegistryState state;
 	private boolean finalised;
 
-	private final LinkedHashMap<ResourceLocation, Supplier<T>> entries;
+	private final LinkedHashMap<IResourceLocation, Supplier<T>> entries;
 
-	public FinalisedTypeRegistry(RegistryType<?> type, ResourceLocation identifier,
-			LinkedHashMap<ResourceLocation, Supplier<T>> entries) {
+	public FinalisedTypeRegistry(RegistryType<?> type, IResourceLocation identifier,
+			LinkedHashMap<IResourceLocation, Supplier<T>> entries) {
 		this.state = IRegistryState.ACTIVE;
 		this.finalised = false;
 		this.identifier = identifier;
@@ -32,7 +32,7 @@ public class FinalisedTypeRegistry<T extends IRegistryEntry<T>> implements IFina
 	}
 
 	@Override
-	public ResourceLocation getRegistryIdentifier() {
+	public IResourceLocation getRegistryIdentifier() {
 		return identifier;
 	}
 
@@ -42,7 +42,7 @@ public class FinalisedTypeRegistry<T extends IRegistryEntry<T>> implements IFina
 	}
 
 	@Override
-	public Supplier<T> retrieveSupplier(ResourceLocation identifier) {
+	public Supplier<T> retrieveSupplier(IResourceLocation identifier) {
 		Objects.requireNonNull(identifier,
 				() -> "If the identifier is null, how do you expect to retrieve anything!? The identifier cannot be null!");
 		return entries.get(identifier);
@@ -71,13 +71,13 @@ public class FinalisedTypeRegistry<T extends IRegistryEntry<T>> implements IFina
 	@SuppressWarnings("unchecked")
 	@Override
 	public void inject(IFinalisedRegistry<?> finalisedRegistry) {
-		for (ResourceLocation location : finalisedRegistry.getEntries().keySet()) {
+		for (IResourceLocation location : finalisedRegistry.getEntries().keySet()) {
 			this.entries.put(location, (Supplier<T>) finalisedRegistry.getEntries().get(location));
 		}
 	}
 
 	@Override
-	public Map<ResourceLocation, Supplier<T>> getEntries() {
+	public Map<IResourceLocation, Supplier<T>> getEntries() {
 		return entries;
 	}
 

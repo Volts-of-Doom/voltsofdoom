@@ -10,33 +10,32 @@ import java.io.IOException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
+import vision.voltsofdoom.api.zapyte.config.IConfigurationFile;
 import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.misc.ZapByteReference;
 import vision.voltsofdoom.zapbyte.misc.util.StacktraceUtils;
 
-public class ConfigHandler {
+public class ConfigHandler implements IConfigHandler {
 
 	private static String[] defaultArgs = { "argument" };
-	private ConfigurationFile configurationFile;
-	
+	private IConfigurationFile configurationFile;
+
 	public ConfigHandler() {
-		this.configurationFile = ConfigurationFile.BLANK;
+		this.configurationFile = IConfigurationFile.BLANK;
 		loadConfigurationFile();
 	}
 	
-	public ConfigurationFile loadIfConfigurationFileBlank() {
-		if (configurationFile == ConfigurationFile.BLANK) {
+	@Override
+	public IConfigurationFile loadIfConfigurationFileBlank() {
+		if (configurationFile == IConfigurationFile.BLANK) {
 			loadConfigurationFile();
 		}
-		
+
 		return configurationFile;
 	}
-
-	/**
-	 * Reads the VM configuration in {@link ZapByteReference#CONFIG}/config.json
-	 * 
-	 * @return A {@link String}[] of the configuration options.
-	 */
+	
+	@Override
 	public void loadConfigurationFile() {
 
 		File configFile = new File(ZapByteReference.getConfig() + "vmconfig.json");
@@ -81,21 +80,13 @@ public class ConfigHandler {
 		}
 	}
 
-	/**
-	 * Sets this object's arguments to the arguments given to the VM at launch so
-	 * they may be queried later.
-	 * 
-	 * @param configurationFile2 The {@link String}[] of arguments in.
-	 * @return This {@link VoltsOfDoomCoreSystem} object.
-	 */
-	public void setConfigurationFile(ConfigurationFile configurationFile2) {
+	@Override
+	public void setConfigurationFile(IConfigurationFile configurationFile2) {
 		this.configurationFile = configurationFile2;
 	}
 
-	/**
-	 * @return The current program arguments.
-	 */
-	public ConfigurationFile getConfigurationFile() {
+	@Override
+	public IConfigurationFile getConfigurationFile() {
 		return configurationFile;
 	}
 }

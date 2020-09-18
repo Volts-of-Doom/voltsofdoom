@@ -3,6 +3,7 @@ package vision.voltsofdoom.coresystem.loading.registry;
 import java.util.Map;
 import java.util.function.Supplier;
 
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
 
 /**
@@ -18,12 +19,12 @@ public interface IFinalisedRegistry<T extends IRegistryEntry<T>> {
 	/**
 	 * @return The contents of this {@link IFinalisedRegistry}.
 	 */
-	public Map<ResourceLocation, Supplier<T>> getEntries();
+	public Map<IResourceLocation, Supplier<T>> getEntries();
 
 	/**
 	 * @return The {@link ResourceLocation} identifier of this {@link IRegistry}.
 	 */
-	public ResourceLocation getRegistryIdentifier();
+	public IResourceLocation getRegistryIdentifier();
 
 	/**
 	 * @return The {@link RegistryType} of this {@link IRegistry}
@@ -34,7 +35,7 @@ public interface IFinalisedRegistry<T extends IRegistryEntry<T>> {
 	 * @return the supplier of the {@link IRegistryEntry} identified by the given
 	 *         {@link ResourceLocation}.
 	 */
-	public Supplier<T> retrieveSupplier(ResourceLocation identifier);
+	public Supplier<T> retrieveSupplier(IResourceLocation identifier);
 
 	/**
 	 * @return The current {@link IRegistryState} of this {@link IRegistry}

@@ -11,6 +11,8 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
+import vision.voltsofdoom.api.zapyte.misc.json.IVODJsonReader;
+
 /**
  * A handy class for reading the contents of .json files. Should use convenience
  * methods in Gson ( eg getAsString and getAsInteger ) to get the contents of
@@ -23,7 +25,7 @@ import com.google.gson.JsonSyntaxException;
  * @author GenElectrovise
  *
  */
-public class VODJsonReader {
+public class VODJsonReader implements IVODJsonReader {
 	private Gson gson;
 	private File file;
 	private JsonObject obj;
@@ -57,10 +59,12 @@ public class VODJsonReader {
 	 * @param key A String value to get the JsonElement of.
 	 * @return A JsonElement associated with the name of the key.
 	 */
+	@Override
 	public JsonElement fromKey(String key) {
 		return obj.get(key);
 	}
 
+	@Override
 	public JsonObject getObj() {
 		return obj;
 	}

@@ -12,6 +12,7 @@
 		<module>zapbyte</module>
 		<module>voltsofdoom</module>
 		<module>silverspark</module>
+		<module>api</module>
 	</modules>
 	
 	<build>

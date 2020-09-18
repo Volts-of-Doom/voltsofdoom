@@ -1,5 +1,6 @@
 package vision.voltsofdoom.coresystem.universal.event;
 
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 import vision.voltsofdoom.coresystem.loading.LoadingManager;
 import vision.voltsofdoom.coresystem.loading.registry.CollectedRegistries;
 import vision.voltsofdoom.coresystem.loading.registry.IRegistryEntry;
@@ -61,7 +62,7 @@ public class RegistryEvent {
 			}
 		};
 
-		public <T extends IRegistryEntry<T>> TypeRegistry<T> create(ResourceLocation identifier, RegistryType<T> type) {
+		public <T extends IRegistryEntry<T>> TypeRegistry<T> create(IResourceLocation identifier, RegistryType<T> type) {
 			return new TypeRegistry<T>(identifier, type);
 		}
 

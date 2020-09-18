@@ -1,5 +1,6 @@
 package vision.voltsofdoom.coresystem.loading.registry;
 
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
 
@@ -9,7 +10,7 @@ public interface IRegistryEntry<T> {
 	 * @return The {@link ResourceLocation} identifier of this
 	 *         {@link IRegistryEntry}.
 	 */
-	public ResourceLocation getIdentifier();
+	public IResourceLocation getIdentifier();
 
 	/**
 	 * Sets the identifier of this {@link IRegistryEntry}. If called more than once,
@@ -21,5 +22,5 @@ public interface IRegistryEntry<T> {
 	 * if you are writing your own registry system <i>completely disregarding the
 	 * built in system</i>.
 	 */
-	public void setIdentifier(ResourceLocation identifier);
+	public void setIdentifier(IResourceLocation identifier);
 }

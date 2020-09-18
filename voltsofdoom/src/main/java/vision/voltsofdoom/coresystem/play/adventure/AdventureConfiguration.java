@@ -7,6 +7,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
 
 /**
@@ -73,7 +74,7 @@ public class AdventureConfiguration {
 	}
 
 	// Get
-	public ResourceLocation getIdentifier() {
+	public IResourceLocation getIdentifier() {
 		return identifier;
 	}
 

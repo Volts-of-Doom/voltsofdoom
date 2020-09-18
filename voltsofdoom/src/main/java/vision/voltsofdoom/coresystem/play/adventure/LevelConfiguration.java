@@ -5,9 +5,10 @@ import java.util.Objects;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
+import vision.voltsofdoom.api.zapyte.misc.ResourceLocationInvalidException;
+import vision.voltsofdoom.api.zapyte.misc.ResourceLocationValidityState;
 import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation.ResourceLocationInvalidException;
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation.ResourceLocationValidityState;
 
 public class LevelConfiguration {
 	private ResourceLocation identifier;
@@ -19,7 +20,7 @@ public class LevelConfiguration {
 		return this;
 	}
 
-	public ResourceLocation getIdentifier() {
+	public IResourceLocation getIdentifier() {
 		return identifier;
 	}
 
@@ -40,7 +41,7 @@ public class LevelConfiguration {
 
 		ResourceLocationValidityState state = config.identifier.validate();
 		if (!state.isValid())
-			throw new ResourceLocation.ResourceLocationInvalidException(
+			throw new ResourceLocationInvalidException(
 					"ResourceLocation " + config.identifier.stringify() + " is invalid. >> " + state.getMessage());
 
 		return config;

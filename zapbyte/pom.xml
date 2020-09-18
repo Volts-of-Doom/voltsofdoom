@@ -23,6 +23,14 @@
 
 	<dependencies>
 
+		<!-- Volts of Doom -->
+
+		<dependency>
+			<groupId>vision.voltsofdoom</groupId>
+			<artifactId>api</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
 		<!-- JUnit -->
 
 		<dependency>

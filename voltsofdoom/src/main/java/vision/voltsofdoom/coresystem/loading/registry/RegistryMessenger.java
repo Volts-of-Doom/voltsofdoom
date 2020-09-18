@@ -3,7 +3,7 @@ package vision.voltsofdoom.coresystem.loading.registry;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 
 /**
  * THIS OBJECT DOES NOT GO INTO THE REGISTRY!! <br>
@@ -18,11 +18,11 @@ import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
  */
 public class RegistryMessenger<T extends IRegistryEntry<T>> implements Supplier<T> {
 
-	private final ResourceLocation identifier;
+	private final IResourceLocation identifier;
 	private Supplier<T> instanceSupplier;
 	private final IRegistry<T> parentRegistry;
 
-	public RegistryMessenger(ResourceLocation identifier, Supplier<T> instanceSupplier, IRegistry<T> parentRegistry) {
+	public RegistryMessenger(IResourceLocation identifier, Supplier<T> instanceSupplier, IRegistry<T> parentRegistry) {
 		Objects.requireNonNull(identifier, () -> "Identifier cannot be null!");
 		Objects.requireNonNull(instanceSupplier, () -> "Supplier cannot be null!");
 		Objects.requireNonNull(parentRegistry, () -> "Parent IRegistry cannot be null!");
@@ -32,7 +32,7 @@ public class RegistryMessenger<T extends IRegistryEntry<T>> implements Supplier<
 		this.parentRegistry = parentRegistry;
 	}
 
-	public ResourceLocation getIdentifier() {
+	public IResourceLocation getIdentifier() {
 		return identifier;
 	}
 

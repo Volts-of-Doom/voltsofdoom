@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import com.google.common.collect.ImmutableList;
 
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 import vision.voltsofdoom.coresystem.play.adventure.Adventure;
 import vision.voltsofdoom.coresystem.play.entity.Entity;
 import vision.voltsofdoom.coresystem.play.tile.Tile;
@@ -84,11 +85,11 @@ public class RegistryTypes {
 	 * @return The {@link ResourceLocation} of the given {@link RegistryType}, if it
 	 *         exists.
 	 */
-	public static ResourceLocation getInverted(RegistryType<?> type) {
+	public static IResourceLocation getInverted(RegistryType<?> type) {
 
 		Objects.requireNonNull(type, () -> "Cannot get an identifier from a null RegistryType.");
 
-		for (ResourceLocation id : types.keySet()) {
+		for (IResourceLocation id : types.keySet()) {
 			if (types.get(id).equals(type)) {
 				return id;
 			}

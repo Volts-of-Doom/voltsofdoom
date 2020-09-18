@@ -6,9 +6,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 import vision.voltsofdoom.coresystem.universal.band_wagon.Event;
 import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
 
 /**
  * The {@link Registry} is a central repository of {@link Supplier}s of game
@@ -48,7 +48,7 @@ public class Registry {
 
 	private static boolean finallyFrozen = false;
 
-	private static final LinkedHashMap<ResourceLocation, IFinalisedRegistry<? extends IRegistryEntry<?>>> registry = new LinkedHashMap<ResourceLocation, IFinalisedRegistry<? extends IRegistryEntry<?>>>();
+	private static final LinkedHashMap<IResourceLocation, IFinalisedRegistry<? extends IRegistryEntry<?>>> registry = new LinkedHashMap<IResourceLocation, IFinalisedRegistry<? extends IRegistryEntry<?>>>();
 
 	/**
 	 * Locks and adds the {@link IFinalisedRegistry} to the
@@ -58,7 +58,7 @@ public class Registry {
 	 * @param registry
 	 * @throws IllegalAccessException
 	 */
-	public static void register(ResourceLocation identifier, IFinalisedRegistry<? extends IRegistryEntry<?>> registry)
+	public static void register(IResourceLocation identifier, IFinalisedRegistry<? extends IRegistryEntry<?>> registry)
 			throws IllegalAccessException {
 		Objects.requireNonNull(identifier, () -> "Identifier cannot be null!");
 		Objects.requireNonNull(registry, () -> "Registry cannot be null!");
