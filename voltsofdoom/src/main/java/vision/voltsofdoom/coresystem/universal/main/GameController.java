@@ -2,8 +2,8 @@ package vision.voltsofdoom.coresystem.universal.main;
 
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.core.VariableTimestepGame;
-import vision.voltsofdoom.coresystem.loading.LoadingManager;
-import vision.voltsofdoom.coresystem.loading.registry.Registry;
+import vision.voltsofdoom.zapbyte.loading.LoadingManager;
+import vision.voltsofdoom.zapbyte.loading.registry.Registry;
 
 /**
  * Is the first object to be created when the game starts. Manages loading via

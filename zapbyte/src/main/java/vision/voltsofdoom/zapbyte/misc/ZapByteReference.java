@@ -50,4 +50,11 @@ public class ZapByteReference {
 	public static String getConfig() {
 		return getApplicationRoaming() + "config" + getSep();
 	}
+
+	/**
+	 * Gets the mods directory's location.
+	 */
+	public static String getModsDir() {
+		return getApplicationRoaming() + "mods" + getSep();
+	}
 }

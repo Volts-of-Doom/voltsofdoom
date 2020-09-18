@@ -9,9 +9,9 @@ import java.util.zip.ZipFile;
 import com.google.common.collect.ImmutableSet;
 
 import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
-import vision.voltsofdoom.coresystem.loading.registry.RegistryEntry;
 import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
+import vision.voltsofdoom.zapbyte.loading.registry.RegistryEntry;
 
 /**
  * Contains all of the data for an Adventure!

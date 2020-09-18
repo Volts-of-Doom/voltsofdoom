@@ -16,13 +16,13 @@ import java.util.zip.ZipFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import vision.voltsofdoom.coresystem.loading.registry.TypeRegistries;
 import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
-import vision.voltsofdoom.coresystem.universal.band_wagon.Stowaway;
-import vision.voltsofdoom.coresystem.universal.event.RegistryEvent;
-import vision.voltsofdoom.coresystem.universal.event.RegistryEvent.GenerateAdventuresEvent;
+import vision.voltsofdoom.coresystem.universal.registry.TypeRegistries;
 import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
+import vision.voltsofdoom.zapbyte.band_wagon.Stowaway;
+import vision.voltsofdoom.zapbyte.event.RegistryEvent;
+import vision.voltsofdoom.zapbyte.event.RegistryEvent.GenerateAdventuresEvent;
 import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.misc.ZapByteReference;
 

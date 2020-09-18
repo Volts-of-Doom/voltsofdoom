@@ -1,8 +1,8 @@
 package vision.voltsofdoom.coresystem.play.tile;
 
-import vision.voltsofdoom.coresystem.loading.registry.RegistryEntry;
-import vision.voltsofdoom.coresystem.loading.registry.RegistryMessenger;
 import vision.voltsofdoom.coresystem.universal.resource.image.VODImage;
+import vision.voltsofdoom.zapbyte.loading.registry.RegistryEntry;
+import vision.voltsofdoom.zapbyte.loading.registry.RegistryMessenger;
 
 /**
  * A very important thing.

@@ -1,6 +1,6 @@
 package vision.voltsofdoom.coresystem.universal.main;
 
-import vision.voltsofdoom.coresystem.loading.registry.RegistryEntry;
+import vision.voltsofdoom.zapbyte.loading.registry.RegistryEntry;
 
 /**
  * A concrete extension of {@link RegistryEntry} used for testing registries in

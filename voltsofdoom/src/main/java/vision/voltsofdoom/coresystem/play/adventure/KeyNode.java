@@ -1,10 +1,10 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
-import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
+import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
 
 public class KeyNode {
 	private String key;
-	private IResourceLocation identifier;
+	private ResourceLocation identifier;
 	private DataTagList data;
 	private Sheet sheet;
 	
@@ -12,7 +12,7 @@ public class KeyNode {
 		return key;
 	}
 	
-	public IResourceLocation getIdentifier() {
+	public ResourceLocation getIdentifier() {
 		return identifier;
 	}
 	
