@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.logging.LogManager;
 
+import vision.voltsofdoom.zapbyte.main.ZapBit;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
 
 /**
@@ -17,14 +18,14 @@ import vision.voltsofdoom.zapbyte.main.ZapByte;
  *
  */
 public class VoltsOfDoomCoreSystem extends ZapByte {
-	
+
 	public VoltsOfDoomCoreSystem(String applicationNamespace) {
 		super(applicationNamespace);
 	}
 
 	public static final GameController GAME_CONTROLLER = new GameController();
 
-	public static final String ID = "coresystem";
+	public static final String ID = "voltsofdoom";
 
 	public static volatile boolean launched = false;
 
@@ -38,7 +39,7 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 	}
 
 	public static void mainStepIn() {
-		VoltsOfDoomCoreSystem vodcs = new VoltsOfDoomCoreSystem("voltsofdoom");
+		VoltsOfDoomCoreSystem vodcs = new VoltsOfDoomCoreSystem(ID);
 
 		vodcs.run();
 	}
@@ -56,7 +57,9 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
 	@Override
 	public void collectZapbits() {
-
+		addZapBit(new ZapBit(0, () -> {
+			
+		}));
 	}
 
 	@SuppressWarnings("unused")

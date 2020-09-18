@@ -20,7 +20,7 @@ public class ZapByteReference {
 	}
 
 	public static String getUserHome() {
-		return System.getProperty("user.dir");
+		return System.getProperty("user.home");
 	}
 
 	/**

@@ -18,6 +18,7 @@ import vision.voltsofdoom.zapbyte.misc.util.StacktraceUtils;
 
 public class ConfigHandler implements IConfigHandler {
 
+	private static final String CONFIG_FILE = "config.json";
 	private static String[] defaultArgs = { "argument" };
 	private IConfigurationFile configurationFile;
 
@@ -38,11 +39,13 @@ public class ConfigHandler implements IConfigHandler {
 	@Override
 	public void loadConfigurationFile() {
 
-		File configFile = new File(ZapByteReference.getConfig() + "vmconfig.json");
+		File configFile = new File(ZapByteReference.getConfig() + CONFIG_FILE);
 
 		// If the configuration file does not exist...
 		if (!configFile.exists()) {
 			Loggers.ZAPBYTE.info("Configuration file does not exist at: " + configFile);
+			
+			new File(ZapByteReference.getConfig()).mkdirs();
 
 			// Make new file and write default values.
 			try {

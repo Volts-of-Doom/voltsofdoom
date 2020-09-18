@@ -22,12 +22,6 @@ public class GameController {
 		try {
 
 			LoadingManager.load();
-			
-			/*
-			 * setRegistry(Registry.createInThreadedFashion());
-			 * 
-			 * GameController.getSystemControl().begin();
-			 */
 
 			Game game = new VariableTimestepGame();
 			game.start();

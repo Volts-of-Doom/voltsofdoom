@@ -12,6 +12,7 @@ import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
 import vision.voltsofdoom.zapbyte.config.ConfigHandler;
 import vision.voltsofdoom.zapbyte.guice.Guicer;
 import vision.voltsofdoom.zapbyte.log.Loggers;
+import vision.voltsofdoom.zapbyte.misc.ZapByteReference;
 
 /**
  * The main class of the {@link ZapByte} module. Any application wishing to use
@@ -30,9 +31,9 @@ public abstract class ZapByte implements Runnable {
 	public static final String ZAPBYTE = "zapbyte";
 
 	public ZapByte(String applicationNamespace) {
+		ZapByteReference.APPLICATION_NAMESPACE = applicationNamespace;
 		this.zapBits = new HashSet<ZapBit>();
 		this.configHandler = new ConfigHandler();
-		
 	}
 
 	public Set<ZapBit> getZapBits() {
@@ -51,6 +52,8 @@ public abstract class ZapByte implements Runnable {
 
 	@Override
 	public void run() {
+		
+		collectZapbits();
 
 		if (launched) {
 			throw new IllegalStateException("This instance of <? extends ZapByte> has already been launched!");
