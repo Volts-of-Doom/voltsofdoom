@@ -9,6 +9,10 @@ import vision.voltsofdoom.zapbyte.loading.LoadingManager;
  *
  */
 public class ZapBits {
+	
+	/**
+	 * Runs {@link LoadingManager#load()}
+	 */
 	public static final ZapBit LOAD_MODS = new ZapBit(10, () -> {
 		LoadingManager.load();
 	});

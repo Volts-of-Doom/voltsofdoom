@@ -18,6 +18,9 @@ import java.awt.Font;
  *
  */
 public class LoadingWindow extends JFrame implements Runnable {
+	
+	public static LoadingWindow loadingWindow = new LoadingWindow();
+	
 	private static final long serialVersionUID = 1L;
 
 	private volatile ILoadingWindowStatus status = ILoadingWindowStatus.OPENING_WINDOW;

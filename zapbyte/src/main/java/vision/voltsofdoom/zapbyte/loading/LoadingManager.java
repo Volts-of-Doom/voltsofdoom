@@ -30,15 +30,12 @@ import java.util.Iterator;
 
 public class LoadingManager {
 
-	private static LoadingWindow loadingWindow;
-
 	public static void load() {
 
 		try {
 
 			// 1) Create loading window in new thread.
-			loadingWindow = new LoadingWindow();
-			loadingWindow.run();
+			LoadingWindow.loadingWindow.run();
 			setStatus(ILoadingWindowStatus.OPENING_WINDOW);
 
 			// 2) Create reflectories
@@ -87,7 +84,7 @@ public class LoadingManager {
 			// Finally terminate the loading window
 			setStatus(ILoadingWindowStatus.DONE);
 			BandWagon.playEvent(new RegistryEvent.LoadingDoneEvent());
-			loadingWindow.setEnabled(false);
+			LoadingWindow.loadingWindow.setEnabled(false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,11 +92,11 @@ public class LoadingManager {
 	}
 
 	private static void setStatus(ILoadingWindowStatus status) {
-		loadingWindow.setStatus(status);
+		LoadingWindow.loadingWindow.setStatus(status);
 	}
 
 	private static void setDetailedStatus(ILoadingWindowDetailedStatus detailedStatus) {
-		loadingWindow.setDetailedStatus(detailedStatus);
+		LoadingWindow.loadingWindow.setDetailedStatus(detailedStatus);
 	}
 
 	@Stowaway
