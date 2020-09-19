@@ -6,8 +6,8 @@ import java.util.Objects;
 
 import com.google.common.collect.ImmutableList;
 
-import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 /**
  * Manages {@link RegistryType}s for the application.

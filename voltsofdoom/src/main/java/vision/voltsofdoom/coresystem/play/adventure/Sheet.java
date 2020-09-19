@@ -6,7 +6,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 /**
  * Represents a <code>sheet</code> file from an {@link Adventure}.

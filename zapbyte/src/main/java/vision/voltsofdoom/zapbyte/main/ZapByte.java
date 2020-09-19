@@ -12,7 +12,6 @@ import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
 import vision.voltsofdoom.zapbyte.config.ConfigHandler;
 import vision.voltsofdoom.zapbyte.guice.Guicer;
 import vision.voltsofdoom.zapbyte.log.Loggers;
-import vision.voltsofdoom.zapbyte.misc.ZapByteReference;
 
 /**
  * The main class of the {@link ZapByte} module. Any application wishing to use

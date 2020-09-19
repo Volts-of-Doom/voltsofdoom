@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.misc.json;
+package vision.voltsofdoom.zapbyte.resource;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,8 +10,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-
-import vision.voltsofdoom.api.zapyte.misc.json.IVODJsonReader;
 
 /**
  * A handy class for reading the contents of .json files. Should use convenience
@@ -25,7 +23,7 @@ import vision.voltsofdoom.api.zapyte.misc.json.IVODJsonReader;
  * @author GenElectrovise
  *
  */
-public class VODJsonReader implements IVODJsonReader {
+public class VODJsonReader {
 	private Gson gson;
 	private File file;
 	private JsonObject obj;
@@ -59,12 +57,10 @@ public class VODJsonReader implements IVODJsonReader {
 	 * @param key A String value to get the JsonElement of.
 	 * @return A JsonElement associated with the name of the key.
 	 */
-	@Override
 	public JsonElement fromKey(String key) {
 		return obj.get(key);
 	}
 
-	@Override
 	public JsonObject getObj() {
 		return obj;
 	}

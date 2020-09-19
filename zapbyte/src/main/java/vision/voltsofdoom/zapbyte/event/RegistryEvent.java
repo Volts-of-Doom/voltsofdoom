@@ -1,7 +1,6 @@
 package vision.voltsofdoom.zapbyte.event;
 
-import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
-import vision.voltsofdoom.zapbyte.band_wagon.Event;
+import vision.voltsofdoom.zapbyte.bandwagon.Event;
 import vision.voltsofdoom.zapbyte.loading.LoadingManager;
 import vision.voltsofdoom.zapbyte.loading.registry.CollectedRegistries;
 import vision.voltsofdoom.zapbyte.loading.registry.IRegistryEntry;
@@ -9,7 +8,8 @@ import vision.voltsofdoom.zapbyte.loading.registry.RegistryType;
 import vision.voltsofdoom.zapbyte.loading.registry.RegistryTypes;
 import vision.voltsofdoom.zapbyte.loading.registry.TypeRegistry;
 import vision.voltsofdoom.zapbyte.loading.window.ILoadingWindowDetailedStatus;
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 /**
  * Nested classes hold the {@link Event}s played during registry loading.

@@ -5,9 +5,9 @@ import java.util.Objects;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import vision.voltsofdoom.api.zapyte.misc.ResourceLocationInvalidException;
-import vision.voltsofdoom.api.zapyte.misc.ResourceLocationValidityState;
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ResourceLocationInvalidException;
+import vision.voltsofdoom.zapbyte.resource.ResourceLocationValidityState;
 
 public class LevelConfiguration {
 	private ResourceLocation identifier;

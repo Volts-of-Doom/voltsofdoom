@@ -1,6 +1,6 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 public class KeyNode {
 	private String key;

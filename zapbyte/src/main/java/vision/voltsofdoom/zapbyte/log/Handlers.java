@@ -6,7 +6,7 @@ import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 
-import vision.voltsofdoom.zapbyte.misc.ZapByteReference;
+import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 
 /**
  * Logging {@link Handler}s.

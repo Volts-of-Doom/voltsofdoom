@@ -1,7 +1,7 @@
 package vision.voltsofdoom.zapbyte.loading.registry;
 
-import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 import vision.voltsofdoom.zapbyte.log.Loggers;
+import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
 
 /**
  * An abstract {@link RegistryEntry}. Contains concrete implementations of the

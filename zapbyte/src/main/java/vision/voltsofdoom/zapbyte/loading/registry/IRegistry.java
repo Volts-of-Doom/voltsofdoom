@@ -3,8 +3,8 @@ package vision.voltsofdoom.zapbyte.loading.registry;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 /**
  * A mutable (non finalised) registry.

@@ -1,7 +1,7 @@
 package vision.voltsofdoom.zapbyte.event;
 
-import vision.voltsofdoom.zapbyte.band_wagon.BandWagon;
-import vision.voltsofdoom.zapbyte.band_wagon.Event;
+import vision.voltsofdoom.zapbyte.bandwagon.BandWagon;
+import vision.voltsofdoom.zapbyte.bandwagon.Event;
 import vision.voltsofdoom.zapbyte.loading.window.ILoadingWindowDetailedStatus;
 
 /**

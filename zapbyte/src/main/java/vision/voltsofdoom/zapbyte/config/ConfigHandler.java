@@ -13,7 +13,7 @@ import com.google.gson.JsonObject;
 import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
 import vision.voltsofdoom.api.zapyte.config.IConfigurationFile;
 import vision.voltsofdoom.zapbyte.log.Loggers;
-import vision.voltsofdoom.zapbyte.misc.ZapByteReference;
+import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 import vision.voltsofdoom.zapbyte.misc.util.StacktraceUtils;
 
 public class ConfigHandler implements IConfigHandler {

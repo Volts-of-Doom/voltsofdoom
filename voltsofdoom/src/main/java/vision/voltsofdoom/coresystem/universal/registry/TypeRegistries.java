@@ -4,11 +4,11 @@ import vision.voltsofdoom.coresystem.play.adventure.Adventure;
 import vision.voltsofdoom.coresystem.play.entity.Entity;
 import vision.voltsofdoom.coresystem.play.tile.Tile;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
-import vision.voltsofdoom.zapbyte.band_wagon.Stowaway;
+import vision.voltsofdoom.zapbyte.bandwagon.Stowaway;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.loading.registry.TypeRegistry;
 import vision.voltsofdoom.zapbyte.log.Loggers;
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 public class TypeRegistries {
 

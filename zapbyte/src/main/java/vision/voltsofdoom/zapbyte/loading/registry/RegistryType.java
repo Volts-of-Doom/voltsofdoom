@@ -1,6 +1,6 @@
 package vision.voltsofdoom.zapbyte.loading.registry;
 
-import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
 
 /**
  * Denotes a type of registry for identifying {@link TypeRegistry}s.

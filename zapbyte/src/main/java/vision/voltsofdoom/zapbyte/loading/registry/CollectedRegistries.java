@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Objects;
 
-import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
+import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
 /**
  * Holds the {@link IRegistry}s submitted during
  * {@link RegistryEvent.CreateAndSubmitRegistriesEvent}

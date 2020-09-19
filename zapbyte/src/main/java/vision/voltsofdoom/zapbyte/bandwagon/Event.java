@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.band_wagon;
+package vision.voltsofdoom.zapbyte.bandwagon;
 
 /**
  * An in game event, which is posted to the {@link BandWagon}, and received by
@@ -7,7 +7,7 @@ package vision.voltsofdoom.zapbyte.band_wagon;
  * @author GenElectrovise
  *
  */
-public class Event {
+public abstract class Event {
 
 	public Event() {
 

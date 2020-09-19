@@ -1,8 +1,6 @@
-package vision.voltsofdoom.zapbyte.misc;
+package vision.voltsofdoom.zapbyte.main;
 
 import java.io.File;
-
-import vision.voltsofdoom.zapbyte.main.ZapByte;
 
 public class ZapByteReference {
 

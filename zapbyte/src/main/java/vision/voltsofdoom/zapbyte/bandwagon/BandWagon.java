@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.band_wagon;
+package vision.voltsofdoom.zapbyte.bandwagon;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;

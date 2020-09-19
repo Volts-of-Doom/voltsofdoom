@@ -1,7 +1,7 @@
 package vision.voltsofdoom.zapbyte.loading.registry;
 
-import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
-import vision.voltsofdoom.zapbyte.misc.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 public interface IRegistryEntry<T> {
 

@@ -6,9 +6,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 
-import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
-import vision.voltsofdoom.zapbyte.band_wagon.Event;
+import vision.voltsofdoom.zapbyte.bandwagon.Event;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
+import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
 
 /**
  * The {@link Registry} is a central repository of {@link Supplier}s of game

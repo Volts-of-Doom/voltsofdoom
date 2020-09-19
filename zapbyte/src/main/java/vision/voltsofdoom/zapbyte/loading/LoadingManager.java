@@ -1,8 +1,8 @@
 package vision.voltsofdoom.zapbyte.loading;
 
-import vision.voltsofdoom.zapbyte.band_wagon.BandWagon;
-import vision.voltsofdoom.zapbyte.band_wagon.Event;
-import vision.voltsofdoom.zapbyte.band_wagon.Stowaway;
+import vision.voltsofdoom.zapbyte.bandwagon.BandWagon;
+import vision.voltsofdoom.zapbyte.bandwagon.Event;
+import vision.voltsofdoom.zapbyte.bandwagon.Stowaway;
 import vision.voltsofdoom.zapbyte.event.LoadingEvent;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent.PollRegistryTypeEventsEvent;

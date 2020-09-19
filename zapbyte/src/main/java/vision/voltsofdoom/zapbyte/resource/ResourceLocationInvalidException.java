@@ -1,4 +1,4 @@
-package vision.voltsofdoom.api.zapyte.misc;
+package vision.voltsofdoom.zapbyte.resource;
 
 public class ResourceLocationInvalidException extends Exception {
 

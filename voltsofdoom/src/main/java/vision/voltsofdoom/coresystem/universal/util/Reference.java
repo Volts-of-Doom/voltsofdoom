@@ -1,6 +1,6 @@
 package vision.voltsofdoom.coresystem.universal.util;
 
-import static vision.voltsofdoom.zapbyte.misc.ZapByteReference.*;
+import static vision.voltsofdoom.zapbyte.main.ZapByteReference.*;
 
 /**
  * Holds static final variables which must be visible to the rest of the game.

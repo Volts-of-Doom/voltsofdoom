@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
 
 /**
  * Handles the registration of {@link IRegistryEntry}s of type T.

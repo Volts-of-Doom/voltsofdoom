@@ -1,11 +1,11 @@
 package vision.voltsofdoom.zapbyte.loading.window;
 
-import vision.voltsofdoom.zapbyte.band_wagon.BandWagon;
+import vision.voltsofdoom.zapbyte.bandwagon.BandWagon;
 import vision.voltsofdoom.zapbyte.loading.LoadingManager;
 
 /**
  * The main status to be shown on the {@link LoadingWindow} during startup. Updated using
- * {@link BandWagon#playEvent(vision.voltsofdoom.zapbyte.band_wagon.Event)},
+ * {@link BandWagon#playEvent(vision.voltsofdoom.zapbyte.bandwagon.Event)},
  * playing a {@link LoadingManager.UpdateStatusEvent}.
  * 
  * @author GenElectrovise

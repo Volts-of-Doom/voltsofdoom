@@ -1,14 +1,10 @@
-package vision.voltsofdoom.zapbyte.misc;
+package vision.voltsofdoom.zapbyte.resource;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.PrimitiveIterator.OfInt;
 
 import com.google.common.collect.ImmutableList;
-
-import vision.voltsofdoom.api.zapyte.misc.IResourceLocation;
-import vision.voltsofdoom.api.zapyte.misc.ResourceLocationInvalidException;
-import vision.voltsofdoom.api.zapyte.misc.ResourceLocationValidityState;
 
 /**
  * Identifies the location of *something*. This could be a resource or an object

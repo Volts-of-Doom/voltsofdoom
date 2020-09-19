@@ -14,7 +14,7 @@ import vision.voltsofdoom.zapbyte.loading.VODClassLoader;
 import vision.voltsofdoom.zapbyte.loading.reflectory.Reflectory.Builder;
 import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
-import vision.voltsofdoom.zapbyte.resource.jar.JarMapper;
+import vision.voltsofdoom.zapbyte.resource.JarMapper;
 
 public class Reflectories {
 

@@ -20,11 +20,11 @@ import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
 import vision.voltsofdoom.coresystem.universal.registry.TypeRegistries;
 import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
-import vision.voltsofdoom.zapbyte.band_wagon.Stowaway;
+import vision.voltsofdoom.zapbyte.bandwagon.Stowaway;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent.GenerateAdventuresEvent;
 import vision.voltsofdoom.zapbyte.log.Loggers;
-import vision.voltsofdoom.zapbyte.misc.ZapByteReference;
+import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 
 /**
  * Generates a list of {@link Adventure}s to register.

@@ -1,4 +1,4 @@
-package vision.voltsofdoom.api.zapyte.misc;
+package vision.voltsofdoom.zapbyte.resource;
 
 /**
  * Various reasons why a ResourceLocation might, or might not be valid. Useful
