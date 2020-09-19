@@ -6,4 +6,5 @@ src/main/lib/
 .settings/
 target/
 .idea
+.idea/*
 *.iml
