@@ -1,5 +1,9 @@
 package vision.voltsofdoom.zapbyte.main;
 
+import java.util.Objects;
+
+import javax.annotation.Nonnull;
+
 /**
  * A {@link Runnable} task with associated {@link #priority} used in the
  * {@link ZapByte} class, and run at loading time.
@@ -12,7 +16,9 @@ public class ZapBit {
 	private final int priority;
 	private final Runnable task;
 
-	public ZapBit(int priority, Runnable task) {
+	public ZapBit(@Nonnull int priority, @Nonnull Runnable task) {
+		Objects.requireNonNull(priority, "ZapBit priority cannot be null");
+		Objects.requireNonNull(task, "ZapBit Runnable task cannot be null");
 		this.priority = priority;
 		this.task = task;
 	}

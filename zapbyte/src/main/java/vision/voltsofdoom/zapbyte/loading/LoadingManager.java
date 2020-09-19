@@ -126,8 +126,6 @@ public class LoadingManager {
 					RegistryType<?> comparedType = RegistryTypes.prioritisedTypes.get(i);
 
 					if (type.equals(comparedType)) {
-						System.out.println("TODO FINALISE 95 LoadingManager");
-
 						IFinalisedRegistry<? extends IRegistryEntry<?>> finalisedRegistry = registry.genFinalised();
 						Registry.register(registry.getRegistryIdentifier(), finalisedRegistry);
 					}

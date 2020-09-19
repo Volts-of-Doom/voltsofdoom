@@ -145,7 +145,7 @@ public class Registry {
 
 	public static String asStaticStringRepresentation() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("\nBEGINING REGISTRY DUMP!\n");
+		builder.append("\nBEGIN REGISTRY DUMP!\n");
 
 		registry.forEach((id, fReg) -> {
 			builder.append(fReg.toString() + "\n");

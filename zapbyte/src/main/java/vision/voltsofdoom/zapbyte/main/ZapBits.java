@@ -1,5 +1,7 @@
 package vision.voltsofdoom.zapbyte.main;
 
+import vision.voltsofdoom.zapbyte.loading.LoadingManager;
+
 /**
  * Holds pre-made {@link ZapBit}s.
  * 
@@ -7,5 +9,7 @@ package vision.voltsofdoom.zapbyte.main;
  *
  */
 public class ZapBits {
-
+	public static final ZapBit LOAD_MODS = new ZapBit(10, () -> {
+		LoadingManager.load();
+	});
 }

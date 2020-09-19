@@ -1,8 +1,6 @@
 package vision.voltsofdoom.coresystem.universal.main;
 
-import java.io.InputStream;
-import java.util.Properties;
-import java.util.logging.LogManager;
+import java.io.IOException;
 
 import vision.voltsofdoom.zapbyte.main.ZapBit;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
@@ -19,8 +17,8 @@ import vision.voltsofdoom.zapbyte.main.ZapByte;
  */
 public class VoltsOfDoomCoreSystem extends ZapByte {
 
-	public VoltsOfDoomCoreSystem(String applicationNamespace) {
-		super(applicationNamespace);
+	public VoltsOfDoomCoreSystem() {
+		super(ID);
 	}
 
 	public static final GameController GAME_CONTROLLER = new GameController();
@@ -39,7 +37,7 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 	}
 
 	public static void mainStepIn() {
-		VoltsOfDoomCoreSystem vodcs = new VoltsOfDoomCoreSystem(ID);
+		VoltsOfDoomCoreSystem vodcs = new VoltsOfDoomCoreSystem();
 
 		vodcs.run();
 	}
@@ -47,38 +45,18 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 	@Override
 	public void run() {
 		super.run();
-
-		try {
-			GAME_CONTROLLER.initialiseAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
 	public void collectZapbits() {
-		addZapBit(new ZapBit(0, () -> {
-			
+		addZapBit(new ZapBit(0, () -> System.out.println("Starting Volts of Doom!")));
+		
+		addZapBit(new ZapBit(10, () -> {
+			try {
+				GAME_CONTROLLER.initialiseAll();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}));
-	}
-
-	@SuppressWarnings("unused")
-	private VoltsOfDoomCoreSystem applyLoggerProperties() {
-
-		String configFileLocation = "config/logger/logging.properties";
-
-		Properties properties = new Properties();
-		try {
-			InputStream configFile = VoltsOfDoomCoreSystem.class.getClassLoader().getResourceAsStream(configFileLocation);
-			properties.load(configFile);
-			System.out.println("Internal logger properties file '" + configFileLocation + "' \n >> " + properties);
-			LogManager.getLogManager().readConfiguration(configFile);
-		} catch (Exception e) {
-			System.err.println("Warning! Logging failed to configure!");
-			e.printStackTrace();
-			throw new IllegalStateException("Logging failed to configure");
-		}
-
-		return this;
 	}
 }
