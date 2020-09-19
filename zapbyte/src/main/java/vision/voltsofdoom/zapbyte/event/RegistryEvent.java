@@ -1,7 +1,6 @@
 package vision.voltsofdoom.zapbyte.event;
 
 import vision.voltsofdoom.zapbyte.bandwagon.Event;
-import vision.voltsofdoom.zapbyte.loading.LoadingManager;
 import vision.voltsofdoom.zapbyte.loading.registry.CollectedRegistries;
 import vision.voltsofdoom.zapbyte.loading.registry.IRegistryEntry;
 import vision.voltsofdoom.zapbyte.loading.registry.RegistryType;
@@ -40,8 +39,7 @@ public class RegistryEvent {
 			}
 		};
 
-		public <T extends IRegistryEntry<T>> RegistryType<T> createRegistryType(ResourceLocation identifier,
-				Class<T> clazzType) {
+		public <T extends IRegistryEntry<T>> RegistryType<T> createRegistryType(ResourceLocation identifier, Class<T> clazzType) {
 			return RegistryTypes.create(identifier, clazzType);
 		}
 	}
@@ -87,15 +85,6 @@ public class RegistryEvent {
 		};
 	}
 
-	public static class GenerateAdventuresEvent extends Event {
-		public static final ILoadingWindowDetailedStatus DETAILED_STATUS = new ILoadingWindowDetailedStatus() {
-			@Override
-			public String getDetailedMessage() {
-				return "Loading Adventures...";
-			}
-		};
-	}
-
 	/**
 	 * Primarily for internal systems, though modders may listen for it as well.
 	 * Signifies when the {@link RegisterTypeEvent} events will begin playing.
@@ -111,9 +100,9 @@ public class RegistryEvent {
 			}
 		};
 	}
-	
+
 	public static class LoadingDoneEvent extends Event {
-		
+
 	}
 
 }

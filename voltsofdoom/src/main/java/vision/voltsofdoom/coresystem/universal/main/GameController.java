@@ -2,7 +2,6 @@ package vision.voltsofdoom.coresystem.universal.main;
 
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.core.VariableTimestepGame;
-import vision.voltsofdoom.zapbyte.loading.LoadingManager;
 import vision.voltsofdoom.zapbyte.loading.registry.Registry;
 
 /**
@@ -21,7 +20,7 @@ public class GameController {
 	public void initialiseAll() throws IOException {
 		try {
 
-			LoadingManager.load();
+			//LoadingManager.load();
 
 			Game game = new VariableTimestepGame();
 			game.start();

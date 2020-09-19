@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
  * @author GenElectrovise
  *
  */
-public class ZapBit {
+public class ZapBit implements Runnable {
 
 	private final int priority;
 	private final Runnable task;
@@ -29,5 +29,10 @@ public class ZapBit {
 
 	public Runnable getTask() {
 		return task;
+	}
+	
+	@Override
+	public void run() {
+		getTask().run();
 	}
 }

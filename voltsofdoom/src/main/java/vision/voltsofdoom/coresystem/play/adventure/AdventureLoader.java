@@ -22,7 +22,6 @@ import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 import vision.voltsofdoom.zapbyte.bandwagon.Stowaway;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
-import vision.voltsofdoom.zapbyte.event.RegistryEvent.GenerateAdventuresEvent;
 import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 
@@ -74,7 +73,7 @@ public class AdventureLoader {
 	 * @see LevelMeta
 	 */
 	@Stowaway
-	private static void generateAdventures(RegistryEvent.GenerateAdventuresEvent event) throws FileNotFoundException {
+	private static void generateAdventures(GenerateAdventuresEvent event) throws FileNotFoundException {
 		List<ZipFile> adventureZips = new ArrayList<ZipFile>();
 		File adventureFolder = new File(Reference.ADVENTURE);
 		if (!adventureFolder.exists() || !adventureFolder.isDirectory()) {

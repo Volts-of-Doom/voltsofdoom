@@ -73,11 +73,15 @@ public abstract class ZapByte implements Runnable {
 
 		// Run
 		for (Integer integer : ints) {
-			bits.get(integer).getTask().run();
+			bits.get(integer).run();
 		}
 	}
 
 	public IConfigHandler getConfigHandler() {
 		return configHandler;
+	}
+	
+	public Guicer getGuicer() {
+		return guicer;
 	}
 }

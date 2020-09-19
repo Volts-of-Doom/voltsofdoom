@@ -1,8 +1,8 @@
 package vision.voltsofdoom.coresystem.universal.main;
 
-import java.io.IOException;
-
+import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
+import vision.voltsofdoom.zapbyte.main.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
 
 /**
@@ -49,14 +49,19 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
 	@Override
 	public void collectZapbits() {
-		addZapBit(new ZapBit(0, () -> System.out.println("Starting Volts of Doom!")));
-		
-		addZapBit(new ZapBit(10, () -> {
-			try {
-				GAME_CONTROLLER.initialiseAll();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}));
+		addZapBit(new ZapBit(0, () -> Loggers.ZAPBYTE.info("Starting Volts of Doom!")));
+		addZapBit(DefaultZapBits.CREATE_LOADING_WINDOW_10);
+		addZapBit(DefaultZapBits.CREATE_REFLECTORIES_20);
+		addZapBit(DefaultZapBits.SCAN_FOR_MODS_30);
+		addZapBit(DefaultZapBits.CREATE_BANDWAGON_40);
+
+		addZapBit(DefaultZapBits.CREATE_REGISTRY_CREATE_REGISTRY_TYPES_50);
+		addZapBit(DefaultZapBits.CREATE_REGISTRY_CREATE_AND_SUBMIT_TYPE_REGISTRIES_54);
+		addZapBit(DefaultZapBits.CREATE_REGISTRY_POPULATE_TYPE_REGISTRIES_58);
+		addZapBit(VODZapBits.CREATE_REGISTRY_GENERATE_ADVENTURES_62);
+		addZapBit(DefaultZapBits.CREATE_REGISTRY_POLL_REGISTRY_TYPES_68);
+
+		addZapBit(DefaultZapBits.CLOSE_LOADING_WINDOW_70);
+		addZapBit(VODZapBits.CREATE_GAME_70);
 	}
 }

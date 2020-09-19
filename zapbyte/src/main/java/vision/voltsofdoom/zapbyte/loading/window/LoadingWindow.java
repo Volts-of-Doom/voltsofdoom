@@ -6,6 +6,12 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
+
+import vision.voltsofdoom.zapbyte.bandwagon.Event;
+import vision.voltsofdoom.zapbyte.bandwagon.Stowaway;
+import vision.voltsofdoom.zapbyte.loading.window.LoadingWindow.UpdateDetailedStatusEvent;
+import vision.voltsofdoom.zapbyte.loading.window.LoadingWindow.UpdateStatusEvent;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -19,6 +25,42 @@ import java.awt.Font;
  */
 public class LoadingWindow extends JFrame implements Runnable {
 	
+	/**
+	 * Updates the status of the window.
+	 * 
+	 * @author GenElectrovise
+	 *
+	 */
+	public static class UpdateStatusEvent extends Event {
+		private ILoadingWindowStatus status;
+	
+		public UpdateStatusEvent(ILoadingWindowStatus status) {
+			this.status = status;
+		}
+	
+		public ILoadingWindowStatus getStatus() {
+			return status;
+		}
+	}
+
+	/**
+	 * Updates the detailed status of the window.
+	 * 
+	 * @author GenElectrovise
+	 *
+	 */
+	public static class UpdateDetailedStatusEvent extends Event {
+		private ILoadingWindowDetailedStatus detatiledStatus;
+	
+		public UpdateDetailedStatusEvent(ILoadingWindowDetailedStatus status) {
+			this.detatiledStatus = status;
+		}
+	
+		public ILoadingWindowDetailedStatus getDetailedStatus() {
+			return detatiledStatus;
+		}
+	}
+
 	public static LoadingWindow loadingWindow = new LoadingWindow();
 	
 	private static final long serialVersionUID = 1L;
@@ -99,6 +141,16 @@ public class LoadingWindow extends JFrame implements Runnable {
 	public synchronized void setDetailedStatus(ILoadingWindowDetailedStatus detailedStatus) {
 		this.detailedStatus = detailedStatus;
 		updateContents();
+	}
+	
+	@Stowaway
+	private static void listenForStatusUpdates(LoadingWindow.UpdateStatusEvent event) {
+		loadingWindow.setStatus(event.getStatus());
+	}
+
+	@Stowaway
+	private static void listenForDetailedStatusUpdates(LoadingWindow.UpdateDetailedStatusEvent event) {
+		loadingWindow.setDetailedStatus(event.getDetailedStatus());
 	}
 
 	public void disableAndDispose() {
