@@ -11,6 +11,7 @@ import java.util.Set;
 import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
 import vision.voltsofdoom.zapbyte.config.ConfigHandler;
 import vision.voltsofdoom.zapbyte.guice.Guicer;
+import vision.voltsofdoom.zapbyte.guice.Guicer.GuiceTest;
 import vision.voltsofdoom.zapbyte.log.Loggers;
 
 /**
@@ -31,8 +32,12 @@ public abstract class ZapByte implements Runnable {
 
 	public ZapByte(String applicationNamespace) {
 		ZapByteReference.APPLICATION_NAMESPACE = applicationNamespace;
+		this.guicer = new Guicer();
 		this.zapBits = new HashSet<ZapBit>();
 		this.configHandler = new ConfigHandler();
+		
+		@SuppressWarnings("unused")
+		GuiceTest guiceTest = guicer.getInjector().getInstance(GuiceTest.class);
 	}
 
 	public Set<ZapBit> getZapBits() {

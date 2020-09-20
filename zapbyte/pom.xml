@@ -61,8 +61,15 @@
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>4.2.3</version>
+			<version>4.0</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-multibindings</artifactId>
+			<version>4.0</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

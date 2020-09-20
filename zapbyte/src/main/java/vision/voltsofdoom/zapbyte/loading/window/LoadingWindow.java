@@ -9,8 +9,6 @@ import javax.swing.border.MatteBorder;
 
 import vision.voltsofdoom.zapbyte.bandwagon.Event;
 import vision.voltsofdoom.zapbyte.bandwagon.Stowaway;
-import vision.voltsofdoom.zapbyte.loading.window.LoadingWindow.UpdateDetailedStatusEvent;
-import vision.voltsofdoom.zapbyte.loading.window.LoadingWindow.UpdateStatusEvent;
 
 import java.awt.Color;
 import java.awt.EventQueue;
