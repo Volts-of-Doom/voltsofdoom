@@ -1,7 +1,7 @@
 package genelectrovise.voltsofdoom;
 
-import vision.voltsofdoom.silverspark.core.Game;
-import vision.voltsofdoom.silverspark.core.VariableTimestepGame;
+import vision.voltsofdoom.gamebase.core.Game;
+import vision.voltsofdoom.gamebase.core.VariableTimestepGame;
 
 public class LoopTest {
 

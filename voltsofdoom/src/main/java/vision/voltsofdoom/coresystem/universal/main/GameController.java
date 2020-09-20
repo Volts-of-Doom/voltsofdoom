@@ -1,18 +1,15 @@
 package vision.voltsofdoom.coresystem.universal.main;
 
-import vision.voltsofdoom.silverspark.core.Game;
-import vision.voltsofdoom.silverspark.core.VariableTimestepGame;
+import java.io.IOException;
+import vision.voltsofdoom.gamebase.core.Game;
+import vision.voltsofdoom.gamebase.core.VariableTimestepGame;
 import vision.voltsofdoom.zapbyte.loading.registry.Registry;
 
 /**
- * Is the first object to be created when the game starts. Manages loading via
- * the {@link LoadingManager#load()} method, and provides the game's central
- * "catch" block.
- * 
- * @author GenElectrovise
+ * Is the first object to be created when the game starts. Manages loading  and provides the game's central "catch" block.
  *
+ * @author GenElectrovise
  */
-import java.io.IOException;
 
 public class GameController {
 	private static Registry registry;
