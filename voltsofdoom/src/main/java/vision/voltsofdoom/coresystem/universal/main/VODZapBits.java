@@ -9,7 +9,7 @@ import vision.voltsofdoom.zapbyte.main.ZapBit;
 
 public class VODZapBits {
 	public static final ZapBit CREATE_GAME_70 = new ZapBit(70, () -> {
-		Game game = new VariableTimestepGame();
+		Game game = new VariableTimestepGame("../silverspark/classes");
 		game.start();
 	});
 

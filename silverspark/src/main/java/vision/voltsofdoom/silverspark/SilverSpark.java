@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package vision.voltsofdoom.silverspark.graphic;
+package vision.voltsofdoom.silverspark;
 
 import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MAJOR;
 import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MINOR;
@@ -62,7 +62,7 @@ import org.lwjgl.opengl.GLCapabilities;
  *
  * @author Heiko Brumme
  */
-public class Window {
+public class SilverSpark {
 
     /**
      * Stores the window handle.
@@ -88,7 +88,7 @@ public class Window {
      * @param title  Title of the window
      * @param vsync  Set to true, if you want v-sync
      */
-    public Window(int width, int height, CharSequence title, boolean vsync) {
+    public SilverSpark(int width, int height, CharSequence title, boolean vsync) {
         this.vsync = vsync;
 
         /* Creating a temporary window for getting the available OpenGL version */

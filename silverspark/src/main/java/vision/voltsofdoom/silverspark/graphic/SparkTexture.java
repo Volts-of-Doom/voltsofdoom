@@ -42,6 +42,7 @@ import static org.lwjgl.stb.STBImage.stbi_failure_reason;
 import static org.lwjgl.stb.STBImage.stbi_load;
 import static org.lwjgl.stb.STBImage.stbi_set_flip_vertically_on_load;
 
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import org.lwjgl.system.MemoryStack;
@@ -51,7 +52,7 @@ import org.lwjgl.system.MemoryStack;
  *
  * @author Heiko Brumme
  */
-public class Texture {
+public class SparkTexture {
 
     /**
      * Stores the handle of the texture.
@@ -68,7 +69,7 @@ public class Texture {
     private int height;
 
     /** Creates a texture. */
-    public Texture() {
+    public SparkTexture() {
         id = glGenTextures();
     }
 
@@ -170,8 +171,8 @@ public class Texture {
      *
      * @return Texture from the specified data
      */
-    public static Texture createTexture(int width, int height, ByteBuffer data) {
-        Texture texture = new Texture();
+    public static SparkTexture createTexture(int width, int height, ByteBuffer data) {
+        SparkTexture texture = new SparkTexture();
         texture.setWidth(width);
         texture.setHeight(height);
 
@@ -194,7 +195,13 @@ public class Texture {
      *
      * @return Texture from specified file
      */
-    public static Texture loadTexture(String path) {
+    public static SparkTexture loadTexture(String path) throws IOException {
+/*
+        SparkLoader loader = new SparkLoader();
+
+        InputStream in = loader.loadResourceAsStream(path);
+        ByteBuffer imageBuffer = loader.inputStreamAsByteBuffer(in);*/
+
         ByteBuffer image;
         int width, height;
         try (MemoryStack stack = MemoryStack.stackPush()) {
@@ -218,5 +225,8 @@ public class Texture {
 
         return createTexture(width, height, image);
     }
+
+
+
 
 }

@@ -35,7 +35,7 @@ import vision.voltsofdoom.gamebase.state.LevelState;
 import vision.voltsofdoom.gamebase.state.StateMachine;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
-import vision.voltsofdoom.silverspark.graphic.Window;
+import vision.voltsofdoom.silverspark.SilverSpark;
 import vision.voltsofdoom.silverspark.math.Vector2f;
 import vision.voltsofdoom.gamebase.state.MenuState;
 import vision.voltsofdoom.silverspark.render.ListRenderer;
@@ -67,7 +67,7 @@ public abstract class Game {
     /**
      * The GLFW window used by the game.
      */
-    protected Window window;
+    protected SilverSpark window;
     /**
      * Used for timing calculations.
      */
@@ -84,6 +84,8 @@ public abstract class Game {
     private MouseEventMenuHandler mouseHandler;
 
     private final MenuTemplate template;
+
+    private final String resourceRoot;
     /**
      * Stores the current state.
      */
@@ -92,12 +94,13 @@ public abstract class Game {
     /**
      * Default contructor for the game.
      */
-    public Game() {
-        timer = new Timer();
-        entityRenderer = new ListRenderer();
-        textRenderer = new TextRenderer();
-        state = new StateMachine();
-        template = new MenuTemplate(new Vector2f(50,100), new Vector2f(10,10), new Vector2f(60, 10), 60, "Inconsolata:50:WHITE", VODColor.WHITE);
+    public Game(String resourceRoot) {
+      this.resourceRoot = resourceRoot;
+      timer = new Timer();
+      entityRenderer = new ListRenderer();
+      textRenderer = new TextRenderer();
+      state = new StateMachine();
+      template = new MenuTemplate(new Vector2f(50,100), new Vector2f(10,10), new Vector2f(60, 10), 60, "Inconsolata:50:WHITE", VODColor.WHITE);
     }
 
     /**
@@ -144,7 +147,7 @@ public abstract class Game {
         }
 
         /* Create GLFW window */
-        window = new Window(WINDOW_WIDTH, WINDOW_HEIGHT, "Vaults of Doom", true);
+        window = new SilverSpark( WINDOW_WIDTH, WINDOW_HEIGHT, "Vaults of Doom", true);
 
         mouseHandler = new MouseEventMenuHandler(window.getId());
 
@@ -167,9 +170,9 @@ public abstract class Game {
      * Initializes the states.
      */
     public void initStates() {
-        state.add("menu", new MenuState(window.getId(), mouseHandler, entityRenderer, textRenderer, template));
-        state.add("Btn1", new LevelState(window.getId(), mouseHandler, entityRenderer, textRenderer));
-        state.add("Btn2", new LevelState(window.getId(), mouseHandler, entityRenderer, textRenderer));
+        state.add("menu", new MenuState(window.getId(), mouseHandler, entityRenderer, textRenderer, template, resourceRoot));
+        state.add("Btn1", new LevelState(window.getId(), mouseHandler, entityRenderer, textRenderer, resourceRoot));
+        state.add("Btn2", new LevelState(window.getId(), mouseHandler, entityRenderer, textRenderer, resourceRoot));
         state.change("menu");
     }
 
@@ -245,6 +248,9 @@ public abstract class Game {
         }
     }
 
+  public String getResourceRoot() {
+    return resourceRoot;
+  }
 
 
 }

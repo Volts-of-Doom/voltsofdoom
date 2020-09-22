@@ -37,9 +37,9 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryStack;
 import vision.voltsofdoom.silverspark.api.IRenderable;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
-import vision.voltsofdoom.silverspark.graphic.Texture;
+import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
-import vision.voltsofdoom.silverspark.graphic.Window;
+import vision.voltsofdoom.silverspark.SilverSpark;
 import vision.voltsofdoom.silverspark.math.Vector2f;
 import vision.voltsofdoom.gamebase.display.DisplayText;
 import vision.voltsofdoom.gamebase.game.GreenBlob;
@@ -57,8 +57,8 @@ public class LevelState implements State {
 
     private final MouseEventMenuHandler mouseEventHandler;
 
-    private Texture backgroundTexture;
-    private Texture entitiesTexture;
+    private SparkTexture backgroundTexture;
+    private SparkTexture entitiesTexture;
     private final ListRenderer listRenderer;
     private final TextRenderer textRenderer;
 
@@ -74,8 +74,10 @@ public class LevelState implements State {
     private int gameWidth;
     private int gameHeight;
     private long windowId;
+    private final String resourceRoot;
 
-    public LevelState(long windowId, MouseEventMenuHandler mouseHandler, ListRenderer entityRenderer, TextRenderer textRenderer) {
+    public LevelState(long windowId, MouseEventMenuHandler mouseHandler, ListRenderer entityRenderer, TextRenderer textRenderer, String resourceRoot) {
+        this.resourceRoot = resourceRoot;
         this.windowId = windowId;
         this.mouseEventHandler = mouseHandler;
         this.listRenderer = entityRenderer;
@@ -93,7 +95,7 @@ public class LevelState implements State {
         for (String key: permittedFonts) {
             try {
                 String[] bits = key.split(":");
-                FileInputStream fis = new FileInputStream("src/test/resources/" + bits[0] + ".ttf");
+                FileInputStream fis = new FileInputStream(resourceRoot + bits[0] + ".ttf");
                 int size = Integer.parseInt(bits[1]);
                 // todo - should get the colour dynamically,from key
                 FontState thisFS = new FontState(key, fis, size, VODColor.WHITE, true);
@@ -131,7 +133,7 @@ public class LevelState implements State {
         /* Draw FPS, UPS and Context version */
         int height = textRenderer.getDebugTextHeight(availableFonts.get("Default"),"Context");
         textRenderer.drawDebugText(availableFonts.get("Default"), "FPS: XXX" + " | UPS: XXX", 5, 5 + height);
-        textRenderer.drawDebugText(availableFonts.get("Default"), "Context: " + (Window.isDefaultContext() ? "3.2 core" : "2.1"), 5, 5);
+        textRenderer.drawDebugText(availableFonts.get("Default"), "Context: " + (SilverSpark.isDefaultContext() ? "3.2 core" : "2.1"), 5, 5);
 
     }
 
@@ -189,9 +191,14 @@ public class LevelState implements State {
             height = heightBuffer.get();
         }
 
-        /* Load backgroundTexture */
-        backgroundTexture = Texture.loadTexture("src/test/resources/cobbleandwoodlog_stitchedLevel.png");
-        entitiesTexture = Texture.loadTexture("src/test/resources/greenblob.png");
+        try {
+            /* Load backgroundTexture */
+            backgroundTexture = SparkTexture
+                .loadTexture(resourceRoot + "cobbleandwoodlog_stitchedLevel.png");
+            entitiesTexture = SparkTexture.loadTexture(resourceRoot + "greenblob.png");
+        } catch (IOException e) {
+            // todo - do something
+        }
 
         /* Initialize game objects */
         //float speed = 250f;

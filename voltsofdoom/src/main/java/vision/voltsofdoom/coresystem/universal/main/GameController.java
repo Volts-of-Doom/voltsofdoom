@@ -19,7 +19,7 @@ public class GameController {
 
 			//LoadingManager.load();
 
-			Game game = new VariableTimestepGame();
+			Game game = new VariableTimestepGame("../silverspark/target/classes");
 			game.start();
 
 		} catch (Exception e) {

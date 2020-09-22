@@ -33,7 +33,7 @@ import static org.lwjgl.opengl.GL11.glClear;
 import static org.lwjgl.opengl.GL11.glEnable;
 
 import vision.voltsofdoom.silverspark.graphic.ShaderProgram;
-import vision.voltsofdoom.silverspark.graphic.Texture;
+import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 
 
@@ -102,7 +102,7 @@ public class Renderer {
      * @param x       X position of the texture
      * @param y       Y position of the texture
      */
-    public void drawTexture(Texture texture, float x, float y) {
+    public void drawTexture(SparkTexture texture, float x, float y) {
         drawTexture(texture, x, y, VODColor.WHITE);
     }
 
@@ -115,7 +115,7 @@ public class Renderer {
      * @param y       Y position of the texture
      * @param c       The color to use
      */
-    public void drawTexture(Texture texture, float x, float y, VODColor c) {
+    public void drawTexture(SparkTexture texture, float x, float y, VODColor c) {
         /* Vertex positions */
         float x1 = x;
         float y1 = y;
@@ -143,7 +143,7 @@ public class Renderer {
      * @param regWidth  Width of the texture region
      * @param regHeight Height of the texture region
      */
-    public void drawTextureRegion(Texture texture, float x, float y, float regX, float regY, float regWidth, float regHeight) {
+    public void drawTextureRegion(SparkTexture texture, float x, float y, float regX, float regY, float regWidth, float regHeight) {
         drawTextureRegion(texture, x, y, regX, regY, regWidth, regHeight, VODColor.WHITE);
     }
 
@@ -160,7 +160,7 @@ public class Renderer {
      * @param regHeight Height of the texture region
      * @param c         The color to use
      */
-    public void drawTextureRegion(Texture texture, float x, float y, float regX, float regY, float regWidth, float regHeight, VODColor c) {
+    public void drawTextureRegion(SparkTexture texture, float x, float y, float regX, float regY, float regWidth, float regHeight, VODColor c) {
         /* Vertex positions */
         float x1 = x;
         float y1 = y;

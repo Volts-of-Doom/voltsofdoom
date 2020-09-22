@@ -26,7 +26,7 @@ package vision.voltsofdoom.gamebase.game;
 
 import vision.voltsofdoom.gamebase.display.BoundingBox;
 import vision.voltsofdoom.gamebase.display.ICollidable;
-import vision.voltsofdoom.silverspark.graphic.Texture;
+import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.math.Vector2f;
 
@@ -46,7 +46,7 @@ public abstract class Entity implements ICollidable {
     protected Vector2f direction;
 
     protected final VODColor color;
-    protected final Texture texture;
+    protected final SparkTexture texture;
 
     protected final int width;
     protected final int height;
@@ -55,7 +55,7 @@ public abstract class Entity implements ICollidable {
     protected final int textureX; // X and Y co-ordinates of entity image on texture
     protected final int textureY;
 
-    public Entity (VODColor color, Texture texture, float x, float y, float speed, int width, int height, int textureX, int textureY)
+    public Entity (VODColor color, SparkTexture texture, float x, float y, float speed, int width, int height, int textureX, int textureY)
 
     {
 
@@ -132,7 +132,7 @@ public abstract class Entity implements ICollidable {
         return height;
     }
 
-    public Texture getTexture() {
+    public SparkTexture getTexture() {
         return texture;
     }
 

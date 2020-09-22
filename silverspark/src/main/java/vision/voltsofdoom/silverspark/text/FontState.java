@@ -42,7 +42,7 @@ import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 import org.lwjgl.system.MemoryUtil;
-import vision.voltsofdoom.silverspark.graphic.Texture;
+import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.render.Renderer;
 
@@ -60,7 +60,7 @@ public class FontState {
     /**
      * Contains the font texture.
      */
-    private final Texture texture;
+    private final SparkTexture texture;
 
     public String getKey() {
         return key;
@@ -116,7 +116,7 @@ public class FontState {
      *
      * @return font texture - a texture containing the concatenated images of all characters for the font
      */
-    private Texture createFontTexture(Font font, boolean antiAlias) {
+    private SparkTexture createFontTexture(Font font, boolean antiAlias) {
         /* Loop through the characters to get charWidth and charHeight */
         int imageWidth = 0;
         int imageHeight = 0;
@@ -163,7 +163,7 @@ public class FontState {
         ByteBuffer buffer = loadByteBuffer(width, height, pixels);
 
         /* Create texture */
-        Texture fontTexture = Texture.createTexture(width, height, buffer);
+        SparkTexture fontTexture = SparkTexture.createTexture(width, height, buffer);
         MemoryUtil.memFree(buffer);
         return fontTexture;
     }

@@ -19,7 +19,7 @@ import vision.voltsofdoom.gamebase.display.MenuTemplate;
 import vision.voltsofdoom.silverspark.api.IRenderable;
 import vision.voltsofdoom.silverspark.api.IRenderableText;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
-import vision.voltsofdoom.silverspark.graphic.Texture;
+import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.math.Vector2f;
 import vision.voltsofdoom.silverspark.render.ListRenderer;
@@ -29,10 +29,11 @@ import vision.voltsofdoom.silverspark.text.FontState;
 
 public class MenuState implements State {
 
+    private final String resourceRoot;
     private MouseEventMenuHandler mouseEventHandler;
 
-    private Texture backgroundTexture;
-    private Texture contentsTexture;
+    private SparkTexture backgroundTexture;
+    private SparkTexture contentsTexture;
     private final ListRenderer listRenderer;
     private final TextRenderer textRenderer;
     private final MenuTemplate menuTemplate;
@@ -49,13 +50,16 @@ public class MenuState implements State {
     private int gameHeight;
     private long windowId;
 
-    public MenuState(long windowId, MouseEventMenuHandler mouseEventHandler, ListRenderer listRenderer, TextRenderer textRenderer, MenuTemplate menuTemplate) {
+    public MenuState(long windowId, MouseEventMenuHandler mouseEventHandler,
+        ListRenderer listRenderer, TextRenderer textRenderer, MenuTemplate menuTemplate, String resourceRoot) {
+        this.resourceRoot = resourceRoot;
         this.windowId = windowId;
         this.mouseEventHandler = mouseEventHandler;
         this.listRenderer = listRenderer;
         this.textRenderer = textRenderer;
         this.menuTemplate = menuTemplate;
         availableFonts = loadFonts();
+
     }
 
     private Map<String, FontState> loadFonts() {
@@ -81,7 +85,7 @@ public class MenuState implements State {
 
     private void loadFont(String key) throws FontFormatException, IOException {
         String[] bits = key.split(":");
-        FileInputStream fis = new FileInputStream("src/test/resources/" + bits[0] + ".ttf");
+        FileInputStream fis = new FileInputStream(resourceRoot + bits[0] + ".ttf");
         int size = Integer.parseInt(bits[1]);
         // todo - should get the colour dynamically,from key
         FontState thisFS = new FontState(key, fis, size, VODColor.WHITE, true);
@@ -174,8 +178,13 @@ public class MenuState implements State {
 
 
         /* Load backgroundTexture */
-        backgroundTexture = Texture.loadTexture("src/test/resources/cobbleandwoodlog_stitchedLevel.png");
-        contentsTexture = Texture.loadTexture("src/test/resources/greenblob.png");
+        try {
+            backgroundTexture = SparkTexture
+                .loadTexture(resourceRoot + "cobbleandwoodlog_stitchedLevel.png");
+            contentsTexture = SparkTexture.loadTexture(resourceRoot + "greenblob.png");
+        } catch (IOException e) {
+            // todo - do something
+        }
 
         /* Initialize game objects */
         Label label1 = new Label("Btn1", availableFonts.get(permittedFonts[1]), "Adventure No. 1");

@@ -22,7 +22,7 @@ public class MouseEventMenuHandler {
 
     public MouseEventMenuHandler(long windowId) {
 
-        System.out.println("Constructing MoseHandler");
+        System.out.println("Constructing MouseHandler");
 
         glfwSetMouseButtonCallback(windowId, mouseCallback = new GLFWMouseButtonCallback() {
             @Override

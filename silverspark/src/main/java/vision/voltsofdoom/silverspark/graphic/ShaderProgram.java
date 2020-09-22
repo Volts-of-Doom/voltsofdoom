@@ -58,6 +58,7 @@ import java.nio.IntBuffer;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
+import vision.voltsofdoom.silverspark.SilverSpark;
 import vision.voltsofdoom.silverspark.math.Matrix2f;
 import vision.voltsofdoom.silverspark.math.Matrix3f;
 import vision.voltsofdoom.silverspark.math.Matrix4f;
@@ -110,16 +111,16 @@ public class ShaderProgram {
 
     /** Setups the default shader program. */
     public ShaderProgram setupShaderProgram() {
-        if (Window.isDefaultContext()) {
+        if (SilverSpark.isDefaultContext()) {
             /* Generate Vertex Array Object */
-            vao = new vision.voltsofdoom.silverspark.graphic.VertexArrayObject();
+            vao = new VertexArrayObject();
             vao.bind();
         } else {
             vao = null;
         }
 
         /* Generate Vertex Buffer Object */
-        vbo = new vision.voltsofdoom.silverspark.graphic.VertexBufferObject();
+        vbo = new VertexBufferObject();
         vbo.bind(GL_ARRAY_BUFFER);
 
         /* Create FloatBuffer */
@@ -134,12 +135,13 @@ public class ShaderProgram {
 
         /* Load shaders */
         Shader vertexShader, fragmentShader;
-        if (Window.isDefaultContext()) {
-            vertexShader = Shader.loadShader(GL_VERTEX_SHADER, "src/main/resources/default.vert");
-            fragmentShader = Shader.loadShader(GL_FRAGMENT_SHADER, "src/main/resources/default.frag");
+        ShaderCreater sc = new ShaderCreater();
+        if (SilverSpark.isDefaultContext()) {
+            vertexShader = sc.loadShader(GL_VERTEX_SHADER, "default.vert");
+            fragmentShader = sc.loadShader(GL_FRAGMENT_SHADER, "default.frag");
         } else {
-            vertexShader = Shader.loadShader(GL_VERTEX_SHADER, "src/main/resources/legacy.vert");
-            fragmentShader = Shader.loadShader(GL_FRAGMENT_SHADER, "src/main/resources/legacy.frag");
+            vertexShader = sc.loadShader(GL_VERTEX_SHADER, "legacy.vert");
+            fragmentShader = sc.loadShader(GL_FRAGMENT_SHADER, "legacy.frag");
         }
 
         //vertexShader = Shader.loadShader(GL_VERTEX_SHADER, "resources/texturedQuad.vs");
@@ -149,7 +151,7 @@ public class ShaderProgram {
         /* Create shader program */
         this.attachShader(vertexShader);
         this.attachShader(fragmentShader);
-        if (Window.isDefaultContext()) {
+        if (SilverSpark.isDefaultContext()) {
             this.bindFragmentDataLocation(0, "fragColor");
         }
         this.link();

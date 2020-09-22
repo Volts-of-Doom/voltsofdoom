@@ -8,7 +8,7 @@ import org.lwjgl.glfw.GLFW;
 import vision.voltsofdoom.gamebase.display.Label;
 import vision.voltsofdoom.silverspark.api.IRenderable;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
-import vision.voltsofdoom.silverspark.graphic.Texture;
+import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import vision.voltsofdoom.silverspark.math.Vector2f;
 import vision.voltsofdoom.gamebase.display.BoundingBox;
 import vision.voltsofdoom.gamebase.display.ICollidable;
@@ -19,7 +19,7 @@ public class MenuButton implements ICollidable, IRenderable {
 
     private BoundingBox boundingBox;
 
-    protected final Texture texture;
+    protected final SparkTexture texture;
 
     protected final int width;
     protected final int height;
@@ -35,7 +35,7 @@ public class MenuButton implements ICollidable, IRenderable {
     private final Label label;
     private final MouseEventMenuHandler handler;
 
-    public MenuButton(Label label, Texture texture, int width, int height, int textureX, int textureY,
+    public MenuButton(Label label, SparkTexture texture, int width, int height, int textureX, int textureY,
                       MouseEventMenuHandler handler) {
 
         this.label = label;
@@ -98,7 +98,7 @@ public class MenuButton implements ICollidable, IRenderable {
         return height;
     }
 
-    public Texture getTexture() {
+    public SparkTexture getTexture() {
         return texture;
     }
 

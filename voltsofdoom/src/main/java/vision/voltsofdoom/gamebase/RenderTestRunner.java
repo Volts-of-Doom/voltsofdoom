@@ -40,7 +40,7 @@ public class RenderTestRunner {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Game game = new VariableTimestepGame();
+        Game game = new VariableTimestepGame("/home/richards/workspace/vod2/voltsofdoom/silverspark/target/classes/");
         game.start();
     }
 
