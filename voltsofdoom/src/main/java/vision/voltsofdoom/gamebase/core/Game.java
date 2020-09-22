@@ -47,7 +47,7 @@ import vision.voltsofdoom.silverspark.render.TextRenderer;
  *
  * @author Heiko Brumme
  */
-public abstract class Game {
+public class Game {
 
     public static final int TARGET_FPS = 75;
     public static final int TARGET_UPS = 30;
@@ -181,7 +181,45 @@ public abstract class Game {
      * For implementation take a look at <code>VariableDeltaGame</code> and
      * <code>FixedTimestepGame</code>.
      */
-    public abstract void gameLoop();
+
+     public void gameLoop() {
+        float delta;
+
+        while (running) {
+          /* Check if game should close */
+          if (window.isClosing()) {
+            running = false;
+          }
+
+          /* Get delta time */
+          delta = timer.getDelta();
+
+          /* Handle input */
+          String stateChange = input();
+          if (stateChange != null) {
+            state.change(stateChange);
+          }
+
+          /* Update game and timer UPS */
+          update(delta);
+          timer.updateUPS();
+
+          /* Render game and update timer FPS */
+          render();
+          timer.updateFPS();
+
+          /* Update timer */
+          timer.update();
+
+          /* Update window to show the new screen */
+          window.update();
+
+          /* Synchronize if v-sync is disabled */
+          if (!window.isVSyncEnabled()) {
+            sync(TARGET_FPS);
+          }
+        }
+      }
 
     /**
      * Handles input.

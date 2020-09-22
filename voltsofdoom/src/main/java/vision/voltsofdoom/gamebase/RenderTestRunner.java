@@ -25,7 +25,6 @@ package vision.voltsofdoom.gamebase;
 
 
 import vision.voltsofdoom.gamebase.core.Game;
-import vision.voltsofdoom.gamebase.core.VariableTimestepGame;
 
 /**
  * The main class creates a fixed timestep game and starts it.
@@ -40,7 +39,7 @@ public class RenderTestRunner {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Game game = new VariableTimestepGame("/home/richards/workspace/vod2/voltsofdoom/silverspark/target/classes/");
+        Game game = new Game("/home/richards/workspace/vod2/voltsofdoom/silverspark/target/classes/");
         game.start();
     }
 
