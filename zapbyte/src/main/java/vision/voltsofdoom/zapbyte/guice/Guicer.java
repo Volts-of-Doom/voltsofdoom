@@ -1,5 +1,9 @@
 package vision.voltsofdoom.zapbyte.guice;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -23,30 +27,59 @@ import com.google.inject.name.Named;
 public class Guicer {
 
 	private static final Guicer GUICER = new Guicer();
+	private List<AbstractModule> modules;
 	private Injector injector;
 
-	public static Guicer getInstance() {
+	public static Guicer getGuicer() {
 		return GUICER;
 	}
 
-	public Guicer() {
-		this.injector = Guice.createInjector(new ZapByteGuiceBindingModule());
+	public Guicer(AbstractModule... modules) {
+		this.modules = Lists.newArrayList(modules);
+		reload();
+	}
+
+	/**
+	 * Adds one {@link AbstractModule} to the {@link #modules}. To apply changes,
+	 * call the {@link #reload()} method.
+	 * 
+	 * @param abstractModule
+	 */
+	public void addBindingModule(AbstractModule abstractModule) {
+		modules.add(abstractModule);
+	}
+
+	/**
+	 * Reloads the {@link Guicer} and creates a new {@link Injector}.
+	 */
+	public void reload() {
+		this.injector = Guice.createInjector(getModules());
 	}
 
 	public Injector getInjector() {
 		return injector;
 	}
 
+	public List<AbstractModule> getModules() {
+		return modules;
+	}
+
 	public static void main(String[] args) {
 		GuiceTest.main(null);
 	}
 
+	/**
+	 * A handy class for testing {@link Guicer}.
+	 * 
+	 * @author GenElectrovise
+	 *
+	 */
 	public static class GuiceTest {
 
 		String str;
 
 		public static void main(String[] args) {
-			Guicer guicer = new Guicer();
+			Guicer guicer = new Guicer(new ZapByteGuiceBindingModule());
 			GuiceTest test = guicer.injector.getInstance(GuiceTest.class);
 			test.test();
 		}
@@ -54,7 +87,7 @@ public class Guicer {
 		@Inject
 		public GuiceTest(String str) {
 			this.str = str;
-			System.out.println("GuiceTest init successful? " + test());
+			System.out.println("GuiceTest init, injection & comparison successful? " + test());
 		}
 
 		private boolean test() {
