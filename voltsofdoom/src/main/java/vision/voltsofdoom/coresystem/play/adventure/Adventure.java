@@ -20,9 +20,9 @@ import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
  *
  */
 public class Adventure extends RegistryEntry<Adventure> {
+	private AdventureConfiguration configuration;
 	private ArrayList<LevelConfiguration> levelConfigurations = new ArrayList<LevelConfiguration>();
 	private Map<ISheetType, ArrayList<Sheet>> sheets = new HashMap<ISheetType, ArrayList<Sheet>>();
-	private AdventureConfiguration configuration;
 	private ImmutableSet<Level> levels = ImmutableSet.of();
 
 	private Adventure() {

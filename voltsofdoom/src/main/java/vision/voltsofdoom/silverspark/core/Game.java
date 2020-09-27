@@ -23,11 +23,17 @@
  */
 package vision.voltsofdoom.silverspark.core;
 
+import vision.voltsofdoom.coresystem.play.adventure.Adventure;
+import vision.voltsofdoom.coresystem.universal.registry.RegistryTypes;
 import vision.voltsofdoom.silverspark.graphic.EntityRenderer;
 import vision.voltsofdoom.silverspark.graphic.TextRenderer;
 import vision.voltsofdoom.silverspark.graphic.Window;
 import vision.voltsofdoom.silverspark.state.LevelState;
 import vision.voltsofdoom.silverspark.state.StateMachine;
+import vision.voltsofdoom.zapbyte.loading.registry.Registry;
+import vision.voltsofdoom.zapbyte.loading.registry.RegistryType;
+import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
+
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 
@@ -155,6 +161,8 @@ public abstract class Game {
     public void initStates() {
         state.add("game", new LevelState(entityRenderer, textRenderer));
         state.change("game");
+        
+        Adventure adventure = (Adventure) Registry.getTyped(RegistryTypes.ADVENTURES).retrieveSupplier(new ResourceLocation("", "")).get();
     }
 
     /**

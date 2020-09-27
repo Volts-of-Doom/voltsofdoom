@@ -12,8 +12,7 @@ import static vision.voltsofdoom.zapbyte.main.ZapByteReference.*;
 public class Reference {
 
 	// Roaming
-	public static final String ROAMING_RESOURCES = getApplicationRoaming() + "resources" + getSep();
-	public static final String ADVENTURE = ROAMING_RESOURCES + getSep() + "adventure" + getSep();
+	public static final String ADVENTURE = getResources() + getSep() + "adventure" + getSep();
 	public static final String MODS_DIRECTORY = getApplicationRoaming() + "mods" + getSep();
 
 	// Internal

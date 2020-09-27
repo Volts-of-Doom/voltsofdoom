@@ -58,8 +58,7 @@ public class Registry {
 	 * @param registry
 	 * @throws IllegalAccessException
 	 */
-	public static void register(IResourceLocation identifier, IFinalisedRegistry<? extends IRegistryEntry<?>> registry)
-			throws IllegalAccessException {
+	public static void register(IResourceLocation identifier, IFinalisedRegistry<? extends IRegistryEntry<?>> registry) throws IllegalAccessException {
 		Objects.requireNonNull(identifier, () -> "Identifier cannot be null!");
 		Objects.requireNonNull(registry, () -> "Registry cannot be null!");
 
@@ -99,8 +98,7 @@ public class Registry {
 	 * @return The {@link IFinalisedRegistry} of the type, or null if no such
 	 *         {@link IFinalisedRegistry} exists.
 	 */
-	public static IFinalisedRegistry<? extends IRegistryEntry<?>> getTyped(
-			RegistryType<? extends IRegistryEntry<?>> registryType) {
+	public static IFinalisedRegistry<? extends IRegistryEntry<?>> getTyped(RegistryType<? extends IRegistryEntry<?>> registryType) {
 
 		Objects.requireNonNull(registryType, () -> "Type cannot be null!");
 

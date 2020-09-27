@@ -17,6 +17,9 @@ public class ZapByteReference {
 		return APPLICATION_NAMESPACE;
 	}
 
+	/**
+	 * i.e. C:/Users/Username on windows, or home/username on Linux
+	 */
 	public static String getUserHome() {
 		return System.getProperty("user.home");
 	}
@@ -39,7 +42,7 @@ public class ZapByteReference {
 	 * The output location of log files
 	 */
 	public static String getLogs() {
-		return getApplicationRoaming() + getSep() + APPLICATION_NAMESPACE + getSep() + "logs" + getSep();
+		return getApplicationRoaming() + getSep() + "logs" + getSep();
 	}
 
 	/**
@@ -50,9 +53,16 @@ public class ZapByteReference {
 	}
 
 	/**
+	 * The resources directory within the roaming folder.
+	 */
+	public static String getResources() {
+		return getApplicationRoaming() + getSep() + "resources" + getSep();
+	}
+
+	/**
 	 * Gets the mods directory's location.
 	 */
 	public static String getModsDir() {
-		return getApplicationRoaming() + "mods" + getSep();
+		return getResources() + "mods" + getSep();
 	}
 }
