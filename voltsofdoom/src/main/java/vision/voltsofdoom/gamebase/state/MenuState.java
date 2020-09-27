@@ -179,6 +179,7 @@ public class MenuState implements State {
 
         /* Load backgroundTexture */
         try {
+            System.out.println("Resource root = " + resourceRoot);
             backgroundTexture = SparkTexture
                 .loadTexture(resourceRoot + "cobbleandwoodlog_stitchedLevel.png");
             contentsTexture = SparkTexture.loadTexture(resourceRoot + "greenblob.png");

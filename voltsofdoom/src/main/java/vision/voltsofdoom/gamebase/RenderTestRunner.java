@@ -39,6 +39,7 @@ public class RenderTestRunner {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
         Game game = new Game("/home/richards/workspace/vod2/voltsofdoom/silverspark/target/classes/");
         game.start();
     }

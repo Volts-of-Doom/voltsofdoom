@@ -5,10 +5,11 @@ import vision.voltsofdoom.gamebase.core.Game;
 import vision.voltsofdoom.zapbyte.bandwagon.BandWagon;
 import vision.voltsofdoom.zapbyte.loading.window.LoadingWindow;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
+import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 
 public class VODZapBits {
 	public static final ZapBit CREATE_GAME_70 = new ZapBit(70, () -> {
-		Game game = new Game("../silverspark/classes");
+		Game game = new Game(ZapByteReference.getTexture());
 		game.start();
 	});
 

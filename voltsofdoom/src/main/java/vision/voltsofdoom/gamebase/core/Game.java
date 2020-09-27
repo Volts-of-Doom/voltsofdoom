@@ -32,12 +32,12 @@ import java.util.logging.Logger;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import vision.voltsofdoom.gamebase.display.MenuTemplate;
 import vision.voltsofdoom.gamebase.state.LevelState;
+import vision.voltsofdoom.gamebase.state.MenuState;
 import vision.voltsofdoom.gamebase.state.StateMachine;
+import vision.voltsofdoom.silverspark.SilverSpark;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
-import vision.voltsofdoom.silverspark.SilverSpark;
 import vision.voltsofdoom.silverspark.math.Vector2f;
-import vision.voltsofdoom.gamebase.state.MenuState;
 import vision.voltsofdoom.silverspark.render.ListRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
 
@@ -174,7 +174,8 @@ public class Game {
         state.add("Btn1", new LevelState(window.getId(), mouseHandler, entityRenderer, textRenderer, resourceRoot));
         state.add("Btn2", new LevelState(window.getId(), mouseHandler, entityRenderer, textRenderer, resourceRoot));
         state.change("menu");
-    }
+
+     }
 
     /**
      * The game loop. <br>

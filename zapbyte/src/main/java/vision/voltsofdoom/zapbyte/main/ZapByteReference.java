@@ -55,4 +55,8 @@ public class ZapByteReference {
 	public static String getModsDir() {
 		return getApplicationRoaming() + "mods" + getSep();
 	}
+
+	public static String getTexture(){
+	return getApplicationRoaming()
+			+ getSep() + "resources" + getSep() + "texture" + getSep();}
 }
