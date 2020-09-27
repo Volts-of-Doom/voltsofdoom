@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.guice;
+package vision.voltsofdoom.api.guice;
 
 import java.util.List;
 

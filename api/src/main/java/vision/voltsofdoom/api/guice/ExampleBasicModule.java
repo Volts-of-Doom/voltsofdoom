@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.guice;
+package vision.voltsofdoom.api.guice;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;

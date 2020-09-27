@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import vision.voltsofdoom.api.guice.Guicer;
+import vision.voltsofdoom.api.guice.ZapByteGuiceBindingModule;
+import vision.voltsofdoom.api.guice.Guicer.GuiceTest;
 import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
 import vision.voltsofdoom.zapbyte.config.ConfigHandler;
-import vision.voltsofdoom.zapbyte.guice.Guicer;
-import vision.voltsofdoom.zapbyte.guice.Guicer.GuiceTest;
-import vision.voltsofdoom.zapbyte.guice.ZapByteGuiceBindingModule;
 import vision.voltsofdoom.zapbyte.log.Loggers;
 
 /**
