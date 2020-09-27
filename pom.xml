@@ -13,6 +13,7 @@
 		<module>voltsofdoom</module>
 		<module>silverspark</module>
 		<module>api</module>
+		<module>alkali</module>
 	</modules>
 	
 	<build>
