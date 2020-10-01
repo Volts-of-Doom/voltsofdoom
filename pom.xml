@@ -15,7 +15,141 @@
 		<module>api</module>
 		<module>alkali</module>
 	</modules>
-	
+
+	<properties>
+		<voltsofdoomparent.version>0.0.1</voltsofdoomparent.version>
+		<lwjgl.version>3.2.3</lwjgl.version>
+		<lwjgl.natives>natives-windows</lwjgl.natives>
+		<joml.version>1.9.23</joml.version>
+	</properties>
+
+	<!-- All dependencies should be defined and managed in this tag -->
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- GSON -->
+
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.3.1</version>
+			</dependency>
+
+			<!-- Reflections -->
+
+			<dependency>
+				<groupId>org.reflections</groupId>
+				<artifactId>reflections</artifactId>
+				<version>0.9.10</version>
+			</dependency>
+
+			<!-- Guice -->
+
+			<dependency>
+				<groupId>com.google.inject</groupId>
+				<artifactId>guice</artifactId>
+				<version>4.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.inject.extensions</groupId>
+				<artifactId>guice-multibindings</artifactId>
+				<version>4.0</version>
+			</dependency>
+
+			<!-- Guava -->
+
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>29.0-jre</version>
+			</dependency>
+
+			<!-- JUnit -->
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>3.8.1</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- Lightweight Java Game Library -->
+
+			<!-- https://lwjgl.com -->
+
+			<!-- LWJGL -->
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl-bom</artifactId>
+				<version>${lwjgl.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl</artifactId>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl</artifactId>
+				<classifier>${lwjgl.natives}</classifier>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+			<!-- OpenGL -->
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl-opengl</artifactId>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl-opengl</artifactId>
+				<classifier>${lwjgl.natives}</classifier>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+			<!-- GLFW -->
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl-glfw</artifactId>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl-glfw</artifactId>
+				<classifier>${lwjgl.natives}</classifier>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+			<!-- STB -->
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl-stb</artifactId>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl-stb</artifactId>
+				<classifier>${lwjgl.natives}</classifier>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+
 	<build>
 		<plugins>
 			<plugin>
