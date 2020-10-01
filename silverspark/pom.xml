@@ -22,26 +22,69 @@
 	</properties>
 
 	<dependencies>
+
+		<!-- Volts of Doom -->
+
+		<dependency>
+			<groupId>vision.voltsofdoom</groupId>
+			<artifactId>api</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<!-- JUnit -->
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+		<!-- LWJGL -->
+
+		<dependency>
+			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl</artifactId>
+		</dependency>
+
+		<!-- OpenGL -->
+
+		<dependency>
+			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl-opengl</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl-opengl</artifactId>
+			<classifier>${lwjgl.natives}</classifier>
+		</dependency>
+
+		<!-- GLFW -->
+
+		<dependency>
+			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl-glfw</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl-glfw</artifactId>
+			<classifier>${lwjgl.natives}</classifier>
+		</dependency>
+
+		<!-- STB -->
+
+		<dependency>
+			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl-stb</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.lwjgl</groupId>
+			<artifactId>lwjgl-stb</artifactId>
+			<classifier>${lwjgl.natives}</classifier>
+		</dependency>
+
+	</dependencies>
 
 </project>

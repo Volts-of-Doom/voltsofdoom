@@ -1,0 +1,25 @@
+Registries
+	Contains all core vod registries
+	
+TypeRegistry<ResourceLocation, RegistryObject<T extends IRegistryEntry>> implements IRegistry
+	Is not an IRegistry!
+	Equivalent of deferred register.
+	Is a staging post for the registry objects to be registered.
+	
+RegistryObject<T extends IRegistryEntry>(ResourceLocation, Supplier<IRegistryEntry>) implements Supplier<T extends IRegistryEntry>
+	Contains a supplier of something to be registered.
+	Original can be retrieved via this object.
+	
+IRegistryEntry
+	Dennotes something which can be registered
+	All types which can be registered MUST implement this interface.
+	Keeps the code clean and less confusing, as provides filter for registering things.
+	
+IRegistry
+	An interface for denoting a registry.
+	Should contain a register method at the least.
+	Probs a get method too.
+	Should have to register itself to the GameRegistry
+
+Registry<ResourceLocation, TypeRegistry> implements IRegistry
+	LinkedMap of <ResourceLocation, IRegistry>

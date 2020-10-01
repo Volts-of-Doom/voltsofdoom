@@ -16,28 +16,6 @@
 	<name>voltsofdoom</name>
 	<url>http://maven.apache.org</url>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<lwjgl.version>3.2.3</lwjgl.version>
-		<joml.version>1.9.23</joml.version>
-		<lwjgl.natives>natives-windows</lwjgl.natives>
-	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-
-			<!-- LWJGL -->
-			<dependency>
-				<groupId>org.lwjgl</groupId>
-				<artifactId>lwjgl-bom</artifactId>
-				<version>${lwjgl.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
 
 		<!-- Volts of Doom -->
@@ -45,13 +23,13 @@
 		<dependency>
 			<groupId>vision.voltsofdoom</groupId>
 			<artifactId>zapbyte</artifactId>
-			<version>0.0.1</version>
+			<version>${voltsofdoomparent.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>vision.voltsofdoom</groupId>
 			<artifactId>silverspark</artifactId>
-			<version>0.0.1</version>
+			<version>${voltsofdoomparent.version}</version>
 		</dependency>
 
 		<!-- JUnit -->
@@ -59,7 +37,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -89,19 +66,6 @@
 			<classifier>${lwjgl.natives}</classifier>
 		</dependency>
 
-		<!-- GLFW -->
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-glfw</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-glfw</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-
 		<!-- STB -->
 
 		<dependency>
@@ -113,13 +77,6 @@
 			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl-stb</artifactId>
 			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-
-		<!-- JAWT -->
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-jawt</artifactId>
 		</dependency>
 
 		<!-- OpenAL -->
@@ -135,52 +92,6 @@
 			<classifier>${lwjgl.natives}</classifier>
 		</dependency>
 
-		<!-- OpenGL -->
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opengl</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opengl</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-
-		<!-- OpenGLES -->
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opengles</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opengles</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-
-		<!-- ShaderC -->
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-shaderc</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-shaderc</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-
-		<!-- ZSTD -->
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-zstd</artifactId>
-		</dependency>
-
 		<!-- JOML -->
 
 		<dependency>
@@ -190,18 +101,4 @@
 		</dependency>
 
 	</dependencies>
-	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
