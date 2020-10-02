@@ -20,14 +20,14 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
 
   private final IResourceLocation identifier;
   private final RegistryType<T> type;
-  private final LinkedHashMap<IResourceLocation, Supplier<T>> entries =
-      new LinkedHashMap<IResourceLocation, Supplier<T>>();
+  private final LinkedHashMap<String, Supplier<T>> entries =
+      new LinkedHashMap<String, Supplier<T>>();
   private IRegistryState state;
 
   public TypeRegistry(IResourceLocation identifier, RegistryType<T> type) {
     this.identifier = identifier;
     this.type = type;
-    this.state = IRegistryState.ACTIVE;
+    this.state = IRegistryState.UNPOPULATED;
     CollectedRegistries.submit(this);
   }
 
@@ -45,19 +45,32 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
   public RegistryMessenger<T> register(IResourceLocation iResourceLocation,
       Supplier<T> instanceSupplier) {
 
-    if (!this.state.isMutable()) {
+    if (this.state == IRegistryState.UNPOPULATED) {
+      this.setState(IRegistryState.ACTIVE);
+    }
+
+    if (!this.getState().isMutable()) {
       throw new IllegalStateException("Registry is not mutable at the moment!");
     }
 
-    entries.put(iResourceLocation, instanceSupplier);
+    entries.put(iResourceLocation.stringify(), instanceSupplier);
     return new RegistryMessenger<T>(iResourceLocation, instanceSupplier, this);
   }
 
   @Override
   public Supplier<T> retrieveSupplier(IResourceLocation identifier) {
+
+    if (this.getState() == IRegistryState.UNPOPULATED) {
+      throw new IllegalStateException(
+          "Steady on there! This TypeRegistry hasn't even been populated yet!");
+    }
+
     Objects.requireNonNull(identifier,
         () -> "If the identifier is null, how do you expect to retrieve anything!? The identifier cannot be null!");
-    return entries.get(identifier);
+    Supplier<T> supp = entries.get(identifier.stringify());
+    Objects.requireNonNull(supp, "IResourceLocation '" + identifier.stringify()
+        + "' has no bound Supplier<T> (Value was null when queried)");
+    return supp;
   }
 
   @Override
@@ -76,7 +89,7 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
   }
 
   @Override
-  public Map<IResourceLocation, Supplier<T>> getEntries() {
+  public Map<String, Supplier<T>> getEntries() {
     return entries;
   }
 

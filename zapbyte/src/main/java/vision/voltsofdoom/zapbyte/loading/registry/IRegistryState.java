@@ -17,6 +17,13 @@ public interface IRegistryState {
       return true;
     }
   };
+  
+  public static final IRegistryState UNPOPULATED = new IRegistryState() {
+    @Override
+    public boolean isMutable() {
+      return true;
+    }
+  };
 
   public static final IRegistryState FROZEN = new IRegistryState() {
 

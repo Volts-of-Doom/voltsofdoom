@@ -156,8 +156,10 @@ public abstract class Game {
     state.add("game", new LevelState(entityRenderer, textRenderer));
     state.change("game");
 
-    Adventure adventure = (Adventure) Registry.getTyped(RegistryTypes.ADVENTURES)
-        .retrieveSupplier(new ResourceLocation("", "")).get();
+    /*
+     * Adventure adventure = (Adventure) Registry.getTyped(RegistryTypes.ADVENTURES)
+     * .retrieveSupplier(new ResourceLocation("", "")).get();
+     */
   }
 
   /**

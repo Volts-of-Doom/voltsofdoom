@@ -35,6 +35,11 @@ public class Tile extends RegistryEntry<Tile> {
   }
 
   public Tile.Properties getProperties() {
+    
+    if (properties == null) {
+      properties = Properties.DEFAULT;
+    }
+    
     return properties;
   }
 
@@ -57,6 +62,8 @@ public class Tile extends RegistryEntry<Tile> {
 
     return builder.toString();
   }
+  
+  
 
   // Classes
   // =================================================================================
@@ -68,6 +75,9 @@ public class Tile extends RegistryEntry<Tile> {
    *
    */
   public static class Properties {
+    
+    public static final Properties DEFAULT = new Properties().setAnimated(false).setImage(new VODImage(""));
+    
     private boolean isAnimated;
     private VODImage image;
 

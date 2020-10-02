@@ -13,7 +13,7 @@ public class KeyNode {
   }
 
   public ResourceLocation getIdentifier() {
-    return identifier;
+    return identifier == null ? sheet.getIdentifier() : identifier;
   }
 
   public DataTagList getData() {

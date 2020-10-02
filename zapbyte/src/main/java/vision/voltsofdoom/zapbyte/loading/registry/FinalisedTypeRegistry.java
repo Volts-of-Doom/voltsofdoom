@@ -19,10 +19,10 @@ public class FinalisedTypeRegistry<T extends IRegistryEntry<T>> implements IFina
   private IRegistryState state;
   private boolean finalised;
 
-  private final LinkedHashMap<IResourceLocation, Supplier<T>> entries;
+  private final LinkedHashMap<String, Supplier<T>> entries;
 
   public FinalisedTypeRegistry(RegistryType<?> type, IResourceLocation identifier,
-      LinkedHashMap<IResourceLocation, Supplier<T>> entries) {
+      LinkedHashMap<String, Supplier<T>> entries) {
     this.state = IRegistryState.ACTIVE;
     this.finalised = false;
     this.identifier = identifier;
@@ -44,7 +44,10 @@ public class FinalisedTypeRegistry<T extends IRegistryEntry<T>> implements IFina
   public Supplier<T> retrieveSupplier(IResourceLocation identifier) {
     Objects.requireNonNull(identifier,
         () -> "If the identifier is null, how do you expect to retrieve anything!? The identifier cannot be null!");
-    return entries.get(identifier);
+    Supplier<T> supp = entries.get(identifier.stringify());
+    Objects.requireNonNull(supp, "IResourceLocation '" + identifier.stringify()
+        + "' has no bound Supplier<T> (Value was null when queried)");
+    return supp;
   }
 
   @Override
@@ -70,13 +73,13 @@ public class FinalisedTypeRegistry<T extends IRegistryEntry<T>> implements IFina
   @SuppressWarnings("unchecked")
   @Override
   public void inject(IFinalisedRegistry<?> finalisedRegistry) {
-    for (IResourceLocation location : finalisedRegistry.getEntries().keySet()) {
+    for (String location : finalisedRegistry.getEntries().keySet()) {
       this.entries.put(location, (Supplier<T>) finalisedRegistry.getEntries().get(location));
     }
   }
 
   @Override
-  public Map<IResourceLocation, Supplier<T>> getEntries() {
+  public Map<String, Supplier<T>> getEntries() {
     return entries;
   }
 

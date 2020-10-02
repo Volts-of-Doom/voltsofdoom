@@ -17,7 +17,7 @@ public interface IRegistry<T extends IRegistryEntry<T>> {
   /**
    * @return The contents of this {@link IFinalisedRegistry}.
    */
-  public Map<IResourceLocation, Supplier<T>> getEntries();
+  public Map<String, Supplier<T>> getEntries();
 
   /**
    * @return The {@link ResourceLocation} identifier of this {@link IRegistry}.

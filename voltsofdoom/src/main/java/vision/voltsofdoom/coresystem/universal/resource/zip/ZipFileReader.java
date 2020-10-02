@@ -3,6 +3,8 @@ package vision.voltsofdoom.coresystem.universal.resource.zip;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Objects;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -26,8 +28,14 @@ public class ZipFileReader {
     return zipFile;
   }
 
-  public InputStream getStream(String pathToEntry) throws IOException {
-    return zipFile.getInputStream(zipFile.getEntry(pathToEntry));
+  public InputStream getStream(String pathToEntry) throws IOException, NullPointerException {
+    ZipEntry entry = zipFile.getEntry(pathToEntry);
+    Objects.requireNonNull(entry, "ZipEntry null from path: " + pathToEntry);
+    
+    InputStream stream = zipFile.getInputStream(entry);
+    Objects.requireNonNull(stream, "Stream null from ZipEntry: " + entry.getName());
+    
+    return stream;
   }
 
   /**

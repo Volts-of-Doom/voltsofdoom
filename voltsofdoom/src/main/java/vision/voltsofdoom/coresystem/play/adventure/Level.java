@@ -1,5 +1,6 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
@@ -10,7 +11,12 @@ import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
 import vision.voltsofdoom.zapbyte.log.Loggers;
 
 /**
- * A uhhhhh... {@link Level} in an {@link Adventure}...
+ * A {@link Level} in an {@link Adventure}... <br>
+ * <br>
+ * <code>//Test Level loading<br>
+ * Registry.getTyped(RegistryTypes.ADVENTURES).getEntries().forEach((rl, advSuppl) -> { <br>Adventure
+ * adv = (Adventure) advSuppl.get(); <br>adv.getLevels().forEach((level) -> {<br>
+ * level.getTileMap().generateTwoDimensionalListOfTileObjects(); <br>}); <br>}); </code>
  * 
  * @author GenElectrovise
  *
@@ -40,8 +46,6 @@ public class Level {
   @Override
   public String toString() {
 
-    Loggers.ZAPBYTE_LOADING.severe("Levels not loaded yet, either at loading or runtime!");
-
     StringBuilder builder = new StringBuilder();
     builder.append("Level{");
 
@@ -51,6 +55,16 @@ public class Level {
     return builder.toString();
   }
 
+  /**
+   * Generates a new {@link Level} from a {@link ZipFile} objects read from .zip file on the system.
+   * 
+   * @param parent The parent {@link Adventure} of this level. Used to access adventure resources in
+   *        the adventure .zip file.
+   * @param zip The {@link ZipFile} to read from.
+   * @param config The {@link LevelConfiguration} of the {@link Level} you want to create. This is
+   *        normally gained from the parent {@link Adventure}.
+   * @return A built {@link Level}.
+   */
   public static Level fromZip(Adventure parent, ZipFile zip, LevelConfiguration config) {
     Level.Builder builder = new Builder();
 
@@ -100,8 +114,12 @@ public class Level {
             .fromJson(ZipFileReader.asJsonReader(reader.getStream(puzzleName)), JsonObject.class)));
       }
 
-    } catch (Exception e) {
+    } catch (IOException e) {
+      Loggers.ZAPBYTE_LOADING.severe("System IO error loading Level : " + config.getIdentifier());
       e.printStackTrace();
+    } catch (NullPointerException n) {
+      Loggers.ZAPBYTE_LOADING.severe("NullPointerException thrown during Level loading.");
+      n.printStackTrace();
     }
 
     return builder.build();
