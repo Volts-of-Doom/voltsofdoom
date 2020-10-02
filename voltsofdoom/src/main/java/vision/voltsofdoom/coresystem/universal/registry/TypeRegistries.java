@@ -12,21 +12,24 @@ import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 public class TypeRegistries {
 
-	public static TypeRegistry<Tile> TILES;
-	public static TypeRegistry<Entity> ENTITIES;
-	public static TypeRegistry<Adventure> ADVENTURES;
+  public static TypeRegistry<Tile> TILES;
+  public static TypeRegistry<Entity> ENTITIES;
+  public static TypeRegistry<Adventure> ADVENTURES;
 
-	@Stowaway
-	private static void createAndSubmitTypeRegistries(RegistryEvent.CreateAndSubmitRegistriesEvent event) {
-		Loggers.ZAPBYTE_LOADING_REGISTRY.fine("Creating and submitting default TypeRegistries");
-		
-		TILES = new TypeRegistry<Tile>(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"), RegistryTypes.TILES);
-		ENTITIES = new TypeRegistry<Entity>(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "entities"),
-				RegistryTypes.ENTITIES);
-		ADVENTURES = new TypeRegistry<Adventure>(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "adventures"), RegistryTypes.ADVENTURES);
-		
-		event.submit(TILES);
-		event.submit(ENTITIES);
-		event.submit(ADVENTURES);
-	}
+  @Stowaway
+  private static void createAndSubmitTypeRegistries(
+      RegistryEvent.CreateAndSubmitRegistriesEvent event) {
+    Loggers.ZAPBYTE_LOADING_REGISTRY.fine("Creating and submitting default TypeRegistries");
+
+    TILES = new TypeRegistry<Tile>(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"),
+        RegistryTypes.TILES);
+    ENTITIES = new TypeRegistry<Entity>(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "entities"),
+        RegistryTypes.ENTITIES);
+    ADVENTURES = new TypeRegistry<Adventure>(
+        new ResourceLocation(VoltsOfDoomCoreSystem.ID, "adventures"), RegistryTypes.ADVENTURES);
+
+    event.submit(TILES);
+    event.submit(ENTITIES);
+    event.submit(ADVENTURES);
+  }
 }

@@ -2,7 +2,6 @@ package vision.voltsofdoom.zapbyte.resource;
 
 import java.io.File;
 import java.util.ArrayList;
-
 import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 
 /**
@@ -13,22 +12,21 @@ import vision.voltsofdoom.zapbyte.main.ZapByteReference;
  */
 public class JarMapper {
 
-	/**
-	 * Finds all {@link File}s ending in ".jar" in the {@link Reference#ROAMING}
-	 * directory.
-	 * 
-	 * @return
-	 */
-	public static ArrayList<File> find() {
-		ArrayList<File> out = new ArrayList<File>();
+  /**
+   * Finds all {@link File}s ending in ".jar" in the {@link Reference#ROAMING} directory.
+   * 
+   * @return
+   */
+  public static ArrayList<File> find() {
+    ArrayList<File> out = new ArrayList<File>();
 
-		File modsDir = new File(ZapByteReference.getModsDir());
-		for (File file : modsDir.listFiles()) {
-			if (file.getName().endsWith(".jar")) {
-				out.add(file);
-			}
-		}
+    File modsDir = new File(ZapByteReference.getModsDir());
+    for (File file : modsDir.listFiles()) {
+      if (file.getName().endsWith(".jar")) {
+        out.add(file);
+      }
+    }
 
-		return out;
-	}
+    return out;
+  }
 }

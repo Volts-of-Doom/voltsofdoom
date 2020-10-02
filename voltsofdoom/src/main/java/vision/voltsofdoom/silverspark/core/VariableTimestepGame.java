@@ -8,41 +8,41 @@ package vision.voltsofdoom.silverspark.core;
  */
 public class VariableTimestepGame extends Game {
 
-    @Override
-    public void gameLoop() {
-        float delta;
+  @Override
+  public void gameLoop() {
+    float delta;
 
-        while (running) {
-            /* Check if game should close */
-            if (window.isClosing()) {
-                running = false;
-            }
+    while (running) {
+      /* Check if game should close */
+      if (window.isClosing()) {
+        running = false;
+      }
 
-            /* Get delta time */
-            delta = timer.getDelta();
+      /* Get delta time */
+      delta = timer.getDelta();
 
-            /* Handle input */
-            input();
+      /* Handle input */
+      input();
 
-            /* Update game and timer UPS */
-            update(delta);
-            timer.updateUPS();
+      /* Update game and timer UPS */
+      update(delta);
+      timer.updateUPS();
 
-            /* Render game and update timer FPS */
-            render();
-            timer.updateFPS();
+      /* Render game and update timer FPS */
+      render();
+      timer.updateFPS();
 
-            /* Update timer */
-            timer.update();
+      /* Update timer */
+      timer.update();
 
-            /* Update window to show the new screen */
-            window.update();
+      /* Update window to show the new screen */
+      window.update();
 
-            /* Synchronize if v-sync is disabled */
-            if (!window.isVSyncEnabled()) {
-                sync(TARGET_FPS);
-            }
-        }
+      /* Synchronize if v-sync is disabled */
+      if (!window.isVSyncEnabled()) {
+        sync(TARGET_FPS);
+      }
     }
+  }
 
 }

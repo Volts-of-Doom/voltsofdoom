@@ -8,14 +8,14 @@ import vision.voltsofdoom.zapbyte.loading.window.LoadingWindow;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
 
 public class VODZapBits {
-	public static final ZapBit CREATE_GAME_70 = new ZapBit(70, () -> {
-		Game game = new VariableTimestepGame();
-		game.start();
-	});
+  public static final ZapBit CREATE_GAME_70 = new ZapBit(70, () -> {
+    Game game = new VariableTimestepGame();
+    game.start();
+  });
 
-	public static final ZapBit CREATE_REGISTRY_GENERATE_ADVENTURES_62 = new ZapBit(62, () -> {
-		// GenerateAdventuresEvent
-		LoadingWindow.loadingWindow.setDetailedStatus(GenerateAdventuresEvent.DETAILED_STATUS);
-		BandWagon.playEvent(new GenerateAdventuresEvent());
-	});
+  public static final ZapBit CREATE_REGISTRY_GENERATE_ADVENTURES_62 = new ZapBit(62, () -> {
+    // GenerateAdventuresEvent
+    LoadingWindow.loadingWindow.setDetailedStatus(GenerateAdventuresEvent.DETAILED_STATUS);
+    BandWagon.playEvent(new GenerateAdventuresEvent());
+  });
 }

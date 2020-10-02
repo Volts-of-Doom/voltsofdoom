@@ -10,10 +10,11 @@ import vision.voltsofdoom.zapbyte.loading.window.ILoadingWindowDetailedStatus;
  *
  */
 public class GenerateAdventuresEvent extends Event {
-	public static final ILoadingWindowDetailedStatus DETAILED_STATUS = new ILoadingWindowDetailedStatus() {
-		@Override
-		public String getDetailedMessage() {
-			return "Loading Adventures...";
-		}
-	};
+  public static final ILoadingWindowDetailedStatus DETAILED_STATUS =
+      new ILoadingWindowDetailedStatus() {
+        @Override
+        public String getDetailedMessage() {
+          return "Loading Adventures...";
+        }
+      };
 }

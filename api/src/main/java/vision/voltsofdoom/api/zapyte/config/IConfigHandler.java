@@ -2,27 +2,27 @@ package vision.voltsofdoom.api.zapyte.config;
 
 public interface IConfigHandler {
 
-	IConfigurationFile loadIfConfigurationFileBlank();
+  IConfigurationFile loadIfConfigurationFileBlank();
 
-	/**
-	 * Should the a configuration file.
-	 * 
-	 * @return A {@link String}[] of the configuration options.
-	 */
-	void loadConfigurationFile();
+  /**
+   * Should the a configuration file.
+   * 
+   * @return A {@link String}[] of the configuration options.
+   */
+  void loadConfigurationFile();
 
-	/**
-	 * Sets this object's arguments to the arguments given to the VM at launch so
-	 * they may be queried later.
-	 * 
-	 * @param configurationFile The {@link String}[] of arguments in.
-	 * @return This {@link VoltsOfDoomCoreSystem} object.
-	 */
-	void setConfigurationFile(IConfigurationFile configurationFile);
+  /**
+   * Sets this object's arguments to the arguments given to the VM at launch so they may be queried
+   * later.
+   * 
+   * @param configurationFile The {@link String}[] of arguments in.
+   * @return This {@link VoltsOfDoomCoreSystem} object.
+   */
+  void setConfigurationFile(IConfigurationFile configurationFile);
 
-	/**
-	 * @return The current program arguments.
-	 */
-	IConfigurationFile getConfigurationFile();
+  /**
+   * @return The current program arguments.
+   */
+  IConfigurationFile getConfigurationFile();
 
 }

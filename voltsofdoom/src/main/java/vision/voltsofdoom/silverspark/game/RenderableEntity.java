@@ -4,18 +4,18 @@ package vision.voltsofdoom.silverspark.game;
 import vision.voltsofdoom.silverspark.graphic.Texture;
 
 public interface RenderableEntity {
-    float getX();
+  float getX();
 
-    float getY();
+  float getY();
 
-    float getWidth();
+  float getWidth();
 
-    float getHeight();
+  float getHeight();
 
-    Texture getTexture();
+  Texture getTexture();
 
-    int getTextureX();
+  int getTextureX();
 
-    int getTextureY();
+  int getTextureY();
 
 }

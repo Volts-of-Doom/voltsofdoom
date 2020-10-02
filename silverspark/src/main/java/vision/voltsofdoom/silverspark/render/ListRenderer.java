@@ -7,22 +7,23 @@ import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 
 public class ListRenderer extends Renderer {
 
-    public void drawContents(List<IRenderable> renderableList, SparkTexture texture) {
-        /* Draw game objects */
-        texture.bind();
-        begin();
+  public void drawContents(List<IRenderable> renderableList, SparkTexture texture) {
+    /* Draw game objects */
+    texture.bind();
+    begin();
 
-        for (IRenderable renderable: renderableList) {
-            drawItem(texture, renderable);
-        }
-
-        end();
+    for (IRenderable renderable : renderableList) {
+      drawItem(texture, renderable);
     }
 
+    end();
+  }
 
-    private void drawItem(SparkTexture texture, IRenderable renderable) {
-        drawTextureRegion(texture, renderable.getX(), renderable.getY(), 0, 0, renderable.getHeight(), renderable.getWidth());
-    }
+
+  private void drawItem(SparkTexture texture, IRenderable renderable) {
+    drawTextureRegion(texture, renderable.getX(), renderable.getY(), 0, 0, renderable.getHeight(),
+        renderable.getWidth());
+  }
 
 
 

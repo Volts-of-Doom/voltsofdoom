@@ -5,11 +5,11 @@ import vision.voltsofdoom.silverspark.math.Vector2f;
 import vision.voltsofdoom.silverspark.text.FontState;
 
 public interface IRenderableText {
-    FontState getDisplayFont();
+  FontState getDisplayFont();
 
-    CharSequence getText();
+  CharSequence getText();
 
-    Vector2f getPosn();
+  Vector2f getPosn();
 
-    VODColor getColor();
+  VODColor getColor();
 }
