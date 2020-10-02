@@ -15,22 +15,22 @@ public class SparkLoader {
     // get a file from the resources folder
     // works everywhere, IDEA, unit test and JAR file.
 
-      // The class loader that loaded the class
-      ClassLoader classLoader = getClass().getClassLoader();
-      InputStream inputStream = classLoader.getResourceAsStream(fileName);
+    // The class loader that loaded the class
+    ClassLoader classLoader = getClass().getClassLoader();
+    InputStream inputStream = classLoader.getResourceAsStream(fileName);
 
-      // the stream holding the file content
-      if (inputStream == null) {
-        throw new IllegalArgumentException("file not found! " + fileName);
-      } else {
-        return inputStream;
-      }
+    // the stream holding the file content
+    if (inputStream == null) {
+      throw new IllegalArgumentException("file not found! " + fileName);
+    } else {
+      return inputStream;
     }
+  }
 
   public ByteBuffer inputStreamAsByteBuffer(InputStream is) throws IOException {
 
-      byte[] targetArray = ByteStreams.toByteArray(is);
-      return ByteBuffer.wrap(targetArray);
+    byte[] targetArray = ByteStreams.toByteArray(is);
+    return ByteBuffer.wrap(targetArray);
 
   }
 

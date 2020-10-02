@@ -1,7 +1,6 @@
 package vision.voltsofdoom.coresystem.universal.log;
 
 import java.util.logging.Handler;
-
 import vision.voltsofdoom.zapbyte.log.Handlers;
 
 /**

@@ -6,10 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
 import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
 import vision.voltsofdoom.api.zapyte.config.IConfigurationFile;
 import vision.voltsofdoom.zapbyte.log.Loggers;
@@ -18,78 +16,79 @@ import vision.voltsofdoom.zapbyte.misc.util.StacktraceUtils;
 
 public class ConfigHandler implements IConfigHandler {
 
-	private static final String CONFIG_FILE = "config.json";
-	private static String[] defaultArgs = { "argument" };
-	private IConfigurationFile configurationFile;
+  private static final String CONFIG_FILE = "config.json";
+  private static String[] defaultArgs = {"argument"};
+  private IConfigurationFile configurationFile;
 
-	public ConfigHandler() {
-		this.configurationFile = IConfigurationFile.BLANK;
-		loadConfigurationFile();
-	}
-	
-	@Override
-	public IConfigurationFile loadIfConfigurationFileBlank() {
-		if (configurationFile == IConfigurationFile.BLANK) {
-			loadConfigurationFile();
-		}
+  public ConfigHandler() {
+    this.configurationFile = IConfigurationFile.BLANK;
+    loadConfigurationFile();
+  }
 
-		return configurationFile;
-	}
-	
-	@Override
-	public void loadConfigurationFile() {
+  @Override
+  public IConfigurationFile loadIfConfigurationFileBlank() {
+    if (configurationFile == IConfigurationFile.BLANK) {
+      loadConfigurationFile();
+    }
 
-		File configFile = new File(ZapByteReference.getConfig() + CONFIG_FILE);
+    return configurationFile;
+  }
 
-		// If the configuration file does not exist...
-		if (!configFile.exists()) {
-			Loggers.ZAPBYTE.info("Configuration file does not exist at: " + configFile);
-			
-			new File(ZapByteReference.getConfig()).mkdirs();
+  @Override
+  public void loadConfigurationFile() {
 
-			// Make new file and write default values.
-			try {
-				Loggers.ZAPBYTE.info("Trying to write a new configuration file...");
-				BufferedWriter writer = new BufferedWriter(new FileWriter(configFile));
+    File configFile = new File(ZapByteReference.getConfig() + CONFIG_FILE);
 
-				StringBuilder builder = new StringBuilder();
-				for (String string : defaultArgs) {
-					builder.append(string);
-				}
+    // If the configuration file does not exist...
+    if (!configFile.exists()) {
+      Loggers.ZAPBYTE.info("Configuration file does not exist at: " + configFile);
 
-				writer.write("{\"vmargs\":[\"" + builder.toString() + "\"]}");
-				writer.close();
-				Loggers.ZAPBYTE.info("Written!");
-			} catch (FileNotFoundException f) {
-				f.printStackTrace();
-			} catch (IOException i) {
-				i.printStackTrace();
-			}
-		}
+      new File(ZapByteReference.getConfig()).mkdirs();
 
-		try {
+      // Make new file and write default values.
+      try {
+        Loggers.ZAPBYTE.info("Trying to write a new configuration file...");
+        BufferedWriter writer = new BufferedWriter(new FileWriter(configFile));
 
-			// Read config file
-			Loggers.ZAPBYTE.info("Reading configuration file: " + configFile);
+        StringBuilder builder = new StringBuilder();
+        for (String string : defaultArgs) {
+          builder.append(string);
+        }
 
-			configurationFile = ConfigurationFile.fromJson(new Gson().fromJson(new FileReader(configFile), JsonObject.class));
+        writer.write("{\"vmargs\":[\"" + builder.toString() + "\"]}");
+        writer.close();
+        Loggers.ZAPBYTE.info("Written!");
+      } catch (FileNotFoundException f) {
+        f.printStackTrace();
+      } catch (IOException i) {
+        i.printStackTrace();
+      }
+    }
 
-			Loggers.ZAPBYTE.info("Read configuration: " + configurationFile.toString());
+    try {
 
-			setConfigurationFile(configurationFile);
-		} catch (FileNotFoundException f) {
-			f.printStackTrace();
-			Loggers.ZAPBYTE.severe(StacktraceUtils.stacktraceToString(f.getStackTrace()));
-		}
-	}
+      // Read config file
+      Loggers.ZAPBYTE.info("Reading configuration file: " + configFile);
 
-	@Override
-	public void setConfigurationFile(IConfigurationFile configurationFile2) {
-		this.configurationFile = configurationFile2;
-	}
+      configurationFile = ConfigurationFile
+          .fromJson(new Gson().fromJson(new FileReader(configFile), JsonObject.class));
 
-	@Override
-	public IConfigurationFile getConfigurationFile() {
-		return configurationFile;
-	}
+      Loggers.ZAPBYTE.info("Read configuration: " + configurationFile.toString());
+
+      setConfigurationFile(configurationFile);
+    } catch (FileNotFoundException f) {
+      f.printStackTrace();
+      Loggers.ZAPBYTE.severe(StacktraceUtils.stacktraceToString(f.getStackTrace()));
+    }
+  }
+
+  @Override
+  public void setConfigurationFile(IConfigurationFile configurationFile2) {
+    this.configurationFile = configurationFile2;
+  }
+
+  @Override
+  public IConfigurationFile getConfigurationFile() {
+    return configurationFile;
+  }
 }

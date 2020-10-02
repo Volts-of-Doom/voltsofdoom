@@ -8,11 +8,10 @@ import java.io.InputStreamReader;
 public class ShaderCreater {
 
   /**
-   * Creates a shader with specified type and source and compiles it. The type
-   * in the tutorial should be either <code>GL_VERTEX_SHADER</code> or
-   * <code>GL_FRAGMENT_SHADER</code>.
+   * Creates a shader with specified type and source and compiles it. The type in the tutorial
+   * should be either <code>GL_VERTEX_SHADER</code> or <code>GL_FRAGMENT_SHADER</code>.
    *
-   * @param type   Type of the shader
+   * @param type Type of the shader
    * @param source Source of the shader
    *
    * @return Compiled Shader from the specified source
@@ -43,8 +42,8 @@ public class ShaderCreater {
         builder.append(line).append("\n");
       }
     } catch (IOException ex) {
-      throw new RuntimeException("Failed to load a shader file!"
-          + System.lineSeparator() + ex.getMessage());
+      throw new RuntimeException(
+          "Failed to load a shader file!" + System.lineSeparator() + ex.getMessage());
     }
     CharSequence source = builder.toString();
 

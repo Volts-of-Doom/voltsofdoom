@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.ZipFile;
-
 import com.google.common.collect.ImmutableSet;
-
 import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 import vision.voltsofdoom.zapbyte.loading.registry.RegistryEntry;
@@ -20,95 +18,94 @@ import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
  *
  */
 public class Adventure extends RegistryEntry<Adventure> {
-	private AdventureConfiguration configuration;
-	private ArrayList<LevelConfiguration> levelConfigurations = new ArrayList<LevelConfiguration>();
-	private Map<ISheetType, ArrayList<Sheet>> sheets = new HashMap<ISheetType, ArrayList<Sheet>>();
-	private ImmutableSet<Level> levels = ImmutableSet.of();
+  private AdventureConfiguration configuration;
+  private ArrayList<LevelConfiguration> levelConfigurations = new ArrayList<LevelConfiguration>();
+  private Map<ISheetType, ArrayList<Sheet>> sheets = new HashMap<ISheetType, ArrayList<Sheet>>();
+  private ImmutableSet<Level> levels = ImmutableSet.of();
 
-	private Adventure() {
-	}
+  private Adventure() {}
 
-	public ArrayList<LevelConfiguration> getLevelConfigurations() {
-		return levelConfigurations;
-	}
+  public ArrayList<LevelConfiguration> getLevelConfigurations() {
+    return levelConfigurations;
+  }
 
-	public Map<ISheetType, ArrayList<Sheet>> getSheets() {
-		return sheets;
-	}
+  public Map<ISheetType, ArrayList<Sheet>> getSheets() {
+    return sheets;
+  }
 
-	public AdventureConfiguration getConfiguration() {
-		return configuration;
-	}
+  public AdventureConfiguration getConfiguration() {
+    return configuration;
+  }
 
-	public ImmutableSet<Level> getLevels() {
-		return levels.isEmpty() ? generateLevels(levelConfigurations) : levels;
-	}
+  public ImmutableSet<Level> getLevels() {
+    return levels.isEmpty() ? generateLevels(levelConfigurations) : levels;
+  }
 
-	@Override
-	public IResourceLocation getIdentifier() {
-		return configuration.getIdentifier();
-	}
+  @Override
+  public IResourceLocation getIdentifier() {
+    return configuration.getIdentifier();
+  }
 
-	private ImmutableSet<Level> generateLevels(ArrayList<LevelConfiguration> configs) {
-		ArrayList<Level> levelArr = new ArrayList<Level>();
-		try {
+  private ImmutableSet<Level> generateLevels(ArrayList<LevelConfiguration> configs) {
+    ArrayList<Level> levelArr = new ArrayList<Level>();
+    try {
 
-			for (LevelConfiguration config : configs) {
+      for (LevelConfiguration config : configs) {
 
-				File file = new File(Reference.ADVENTURE + this.configuration.getIdentifier().getEntry() + "_"
-						+ this.configuration.getVersion() + ".zip");
-				levelArr.add(Level.fromZip(this, new ZipFile(file), config));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        File file = new File(Reference.ADVENTURE + this.configuration.getIdentifier().getEntry()
+            + "_" + this.configuration.getVersion() + ".zip");
+        levelArr.add(Level.fromZip(this, new ZipFile(file), config));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
-		return ImmutableSet.copyOf(levelArr);
-	}
+    return ImmutableSet.copyOf(levelArr);
+  }
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Adventure{");
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append("Adventure{");
 
-		builder.append(configuration.toString());
+    builder.append(configuration.toString());
 
-		builder.append("}");
-		return builder.toString();
-	}
+    builder.append("}");
+    return builder.toString();
+  }
 
-	/**
-	 * Builds an {@link Adventure} using chained methods. Call <code>build()</code>
-	 * to access the built {@link Adventure}.
-	 * 
-	 * @author GenElectrovise
-	 *
-	 */
-	public static class Builder {
-		private Adventure adventure = new Adventure();
+  /**
+   * Builds an {@link Adventure} using chained methods. Call <code>build()</code> to access the
+   * built {@link Adventure}.
+   * 
+   * @author GenElectrovise
+   *
+   */
+  public static class Builder {
+    private Adventure adventure = new Adventure();
 
-		public Adventure.Builder withConfiguration(AdventureConfiguration config) {
-			adventure.configuration = config;
-			adventure.identifier = config.getIdentifier();
-			return this;
-		}
+    public Adventure.Builder withConfiguration(AdventureConfiguration config) {
+      adventure.configuration = config;
+      adventure.identifier = config.getIdentifier();
+      return this;
+    }
 
-		public Adventure build() {
-			return adventure;
-		}
+    public Adventure build() {
+      return adventure;
+    }
 
-		public Adventure.Builder withSheet(Sheet sheet, ISheetType type) {
+    public Adventure.Builder withSheet(Sheet sheet, ISheetType type) {
 
-			if (!adventure.sheets.containsKey(type)) {
-				adventure.sheets.put(type, new ArrayList<Sheet>());
-			}
+      if (!adventure.sheets.containsKey(type)) {
+        adventure.sheets.put(type, new ArrayList<Sheet>());
+      }
 
-			adventure.sheets.get(type).add(sheet);
-			return this;
-		}
+      adventure.sheets.get(type).add(sheet);
+      return this;
+    }
 
-		public void withLevelConfiguration(LevelConfiguration config) {
-			adventure.levelConfigurations.add(config);
-		}
-	}
+    public void withLevelConfiguration(LevelConfiguration config) {
+      adventure.levelConfigurations.add(config);
+    }
+  }
 }
