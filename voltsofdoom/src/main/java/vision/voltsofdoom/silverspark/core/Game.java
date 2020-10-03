@@ -20,21 +20,18 @@
  */
 package vision.voltsofdoom.silverspark.core;
 
-import vision.voltsofdoom.coresystem.play.adventure.Adventure;
-import vision.voltsofdoom.coresystem.universal.registry.RegistryTypes;
+import static org.lwjgl.glfw.GLFW.glfwInit;
+import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
+import static org.lwjgl.glfw.GLFW.glfwTerminate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.opengl.GL;
 import vision.voltsofdoom.silverspark.graphic.EntityRenderer;
 import vision.voltsofdoom.silverspark.graphic.TextRenderer;
 import vision.voltsofdoom.silverspark.graphic.Window;
 import vision.voltsofdoom.silverspark.state.LevelState;
 import vision.voltsofdoom.silverspark.state.StateMachine;
-import vision.voltsofdoom.zapbyte.loading.registry.Registry;
-import vision.voltsofdoom.zapbyte.loading.registry.RegistryType;
-import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
-import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.opengl.GL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import static org.lwjgl.glfw.GLFW.*;
 
 /**
  * The game class just initializes the game and starts the game loop. After ending the loop it will

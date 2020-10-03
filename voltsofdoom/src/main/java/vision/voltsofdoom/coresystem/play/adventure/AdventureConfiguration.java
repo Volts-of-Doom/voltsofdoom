@@ -5,6 +5,7 @@ import java.util.Objects;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import vision.voltsofdoom.coresystem.universal.resource.json.GsonHandler;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 /**
@@ -24,7 +25,7 @@ public class AdventureConfiguration {
   public static AdventureConfiguration fromJson(JsonObject json) {
 
     AdventureConfiguration config = new AdventureConfiguration();
-    Gson gson = new Gson();
+    Gson gson = GsonHandler.GSON;
 
     config = gson.fromJson(json, AdventureConfiguration.class);
     config.levelNames = gson.fromJson(json.get("levelNames"), new TypeToken<List<String>>() {

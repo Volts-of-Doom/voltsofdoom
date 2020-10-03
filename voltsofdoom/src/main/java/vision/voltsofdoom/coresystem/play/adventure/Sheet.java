@@ -2,8 +2,8 @@ package vision.voltsofdoom.coresystem.play.adventure;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import vision.voltsofdoom.coresystem.universal.resource.json.GsonHandler;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 /**
@@ -25,7 +25,7 @@ public class Sheet {
   }
 
   public static Sheet fromJson(JsonObject json) {
-    return new Gson().fromJson(json, Sheet.class);
+    return GsonHandler.GSON.fromJson(json, Sheet.class);
   }
 
   public static interface ISheetType {

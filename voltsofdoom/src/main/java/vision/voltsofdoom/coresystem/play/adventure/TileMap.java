@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import vision.voltsofdoom.coresystem.play.tile.Tile;
 import vision.voltsofdoom.coresystem.universal.registry.RegistryTypes;
+import vision.voltsofdoom.coresystem.universal.resource.json.GsonHandler;
 import vision.voltsofdoom.zapbyte.loading.registry.IFinalisedRegistry;
 import vision.voltsofdoom.zapbyte.loading.registry.Registry;
 import vision.voltsofdoom.zapbyte.log.Loggers;
@@ -33,7 +33,7 @@ public class TileMap {
   }
 
   public static TileMap fromJson(JsonObject json) {
-    TileMap tileMap = new Gson().fromJson(json, TileMap.class);
+    TileMap tileMap = GsonHandler.GSON.fromJson(json, TileMap.class);
     Objects.requireNonNull(tileMap.key, () -> "TileMap#fromJson found key to be null.");
     Objects.requireNonNull(tileMap.map, () -> "TileMap#fromJson found map to be null.");
 

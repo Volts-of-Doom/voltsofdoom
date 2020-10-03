@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
 import vision.voltsofdoom.coresystem.universal.registry.TypeRegistries;
+import vision.voltsofdoom.coresystem.universal.resource.json.GsonHandler;
 import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
 import vision.voltsofdoom.coresystem.universal.util.ExitCodes;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
@@ -113,7 +114,7 @@ public class AdventureLoader {
    * Uses variants on:<br>
    * <code>
    * ZipFileReader reader = new ZipFileReader(zip); <br>
-   * Class.fromJson(new Gson().fromJson(ZipFileReader.asJsonReader(reader.getStream("path")), JsonObject.class))
+   * Class.fromJson(GsonHandler.GSON.fromJson(ZipFileReader.asJsonReader(reader.getStream("path")), JsonObject.class))
    * </code> <br>
    * to load parts of {@link Adventure}s from ZIP files.
    * 
@@ -125,7 +126,6 @@ public class AdventureLoader {
     try {
 
       ZipFileReader reader = new ZipFileReader(zip);
-      Gson gson = new Gson();
       List<ZipEntry> entries = new ArrayList<ZipEntry>();
 
       Enumeration<? extends ZipEntry> entriesS = zip.entries();
@@ -137,8 +137,9 @@ public class AdventureLoader {
       Adventure.Builder adventureBuilder = new Adventure.Builder();
 
       // AdventureConfiguration
-      AdventureConfiguration adventureConfiguration = AdventureConfiguration.fromJson(gson.fromJson(
-          ZipFileReader.asJsonReader(reader.getStream("adventure.json")), JsonObject.class));
+      AdventureConfiguration adventureConfiguration =
+          AdventureConfiguration.fromJson(GsonHandler.GSON.fromJson(
+              ZipFileReader.asJsonReader(reader.getStream("adventure.json")), JsonObject.class));
       adventureBuilder.withConfiguration(adventureConfiguration);
 
       // Sheets
@@ -164,7 +165,7 @@ public class AdventureLoader {
       }
 
       for (ZipEntry zipEntry : entryMap.keySet()) {
-        Sheet sheet = Sheet.fromJson(gson.fromJson(
+        Sheet sheet = Sheet.fromJson(GsonHandler.GSON.fromJson(
             ZipFileReader.asJsonReader(reader.getStream(zipEntry.getName())), JsonObject.class));
         adventureBuilder.withSheet(sheet, entryMap.get(zipEntry));
       }
@@ -195,8 +196,9 @@ public class AdventureLoader {
         String base = "levels/" + levelFolderName + "/";
 
         // LevelConfiguration
-        LevelConfiguration levelConfiguration = LevelConfiguration.fromJson(gson.fromJson(
-            ZipFileReader.asJsonReader(reader.getStream(base + "level.json")), JsonObject.class));
+        LevelConfiguration levelConfiguration = LevelConfiguration.fromJson(GsonHandler.GSON
+            .fromJson(ZipFileReader.asJsonReader(reader.getStream(base + "level.json")),
+                JsonObject.class));
         adventureBuilder.withLevelConfiguration(levelConfiguration);
       }
 
@@ -205,6 +207,9 @@ public class AdventureLoader {
       Adventure adventure = adventureBuilder.build();
 
       TypeRegistries.ADVENTURES.register(adventure.getIdentifier(), () -> adventure);
+
+      Loggers.ZAPBYTE_LOADING_RESOURCE.info(
+          "Loaded Adventure by name: " + adventure.getConfiguration().getIdentifier().stringify());
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -219,7 +224,7 @@ public class AdventureLoader {
   private static void generatePreMadeObjects() {
 
     try {
-      Gson gson = new Gson();
+      Gson gson = GsonHandler.GSON;
 
       // Adv config
       AdventureConfiguration ac = AdventureConfiguration.fromJson(gson.fromJson(

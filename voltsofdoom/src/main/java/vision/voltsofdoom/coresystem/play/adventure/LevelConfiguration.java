@@ -1,8 +1,8 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
 import java.util.Objects;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import vision.voltsofdoom.coresystem.universal.resource.json.GsonHandler;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocationInvalidException;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocationValidityState;
@@ -31,7 +31,7 @@ public class LevelConfiguration {
 
   public static LevelConfiguration fromJson(JsonObject json)
       throws ResourceLocationInvalidException {
-    LevelConfiguration config = new Gson().fromJson(json, LevelConfiguration.class);
+    LevelConfiguration config = GsonHandler.GSON.fromJson(json, LevelConfiguration.class);
 
     Objects.requireNonNull(config.description,
         () -> "LevelConfiguration#fromJson found description to be null.");

@@ -7,6 +7,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import vision.voltsofdoom.coresystem.universal.resource.json.GsonHandler;
 import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
 import vision.voltsofdoom.zapbyte.log.Loggers;
 
@@ -69,7 +70,7 @@ public class Level {
     Level.Builder builder = new Builder();
 
     try {
-      Gson gson = new Gson();
+      Gson gson = GsonHandler.GSON;
       ZipFileReader reader = new ZipFileReader(zip);
       String base = "levels/" + config.getIdentifier().getEntry() + "/";
 
