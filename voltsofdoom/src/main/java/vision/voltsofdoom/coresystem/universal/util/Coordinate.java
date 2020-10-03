@@ -1,4 +1,4 @@
-package vision.voltsofdoom.coresystem.play.entity;
+package vision.voltsofdoom.coresystem.universal.util;
 
 /**
  * A coordinate on a grid.

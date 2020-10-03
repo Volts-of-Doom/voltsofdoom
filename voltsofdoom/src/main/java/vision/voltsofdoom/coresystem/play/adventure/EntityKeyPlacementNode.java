@@ -1,6 +1,6 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
-import vision.voltsofdoom.coresystem.play.entity.Coordinate;
+import vision.voltsofdoom.coresystem.universal.util.Coordinate;
 
 public class EntityKeyPlacementNode {
   private String key;
