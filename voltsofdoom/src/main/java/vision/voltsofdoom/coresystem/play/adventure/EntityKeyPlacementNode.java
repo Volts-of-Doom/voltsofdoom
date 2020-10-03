@@ -5,7 +5,7 @@ import vision.voltsofdoom.coresystem.play.entity.Coordinate;
 public class EntityKeyPlacementNode {
   private String key;
   private Coordinate coordinate;
-  private DataTagList data;
+  private DataTagMap data;
 
   public String getKey() {
     return key;
@@ -15,7 +15,7 @@ public class EntityKeyPlacementNode {
     return coordinate;
   }
 
-  public DataTagList getData() {
+  public DataTagMap getData() {
     return data;
   }
 }

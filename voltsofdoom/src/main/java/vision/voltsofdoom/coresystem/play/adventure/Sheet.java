@@ -14,13 +14,13 @@ import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
  */
 public class Sheet {
   private ResourceLocation identifier;
-  private DataTagList data;
+  private DataTagMap data;
 
   public ResourceLocation getIdentifier() {
     return identifier;
   }
 
-  public DataTagList getData() {
+  public DataTagMap getData() {
     return data;
   }
 

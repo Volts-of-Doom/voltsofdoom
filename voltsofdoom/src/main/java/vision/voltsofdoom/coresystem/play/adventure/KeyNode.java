@@ -5,7 +5,7 @@ import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 public class KeyNode {
   private String key;
   private ResourceLocation identifier;
-  private DataTagList data;
+  private DataTagMap data;
   private Sheet sheet;
 
   public String getKey() {
@@ -16,7 +16,7 @@ public class KeyNode {
     return identifier == null ? sheet.getIdentifier() : identifier;
   }
 
-  public DataTagList getData() {
+  public DataTagMap getData() {
     return data;
   }
 
