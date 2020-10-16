@@ -1,5 +1,6 @@
 package vision.voltsofdoom.zapbyte.bandwagon;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -43,13 +44,22 @@ public class BandWagon {
 
     stowawayMethods.forEach((method) -> {
       try {
+
         Class<?> parameterType = method.getParameters()[0].getType();
         if (event.getClass().isAssignableFrom(parameterType)) {
           method.setAccessible(true);
           method.invoke(method, event);
         }
-      } catch (Exception e) {
-        e.printStackTrace();
+
+      } catch (InvocationTargetException | IllegalAccessException | IllegalArgumentException e) {
+        if (e.getCause() != null) {
+          Loggers.ZAPBYTE.severe("Throwing: " + e.getClass().getName());
+          Loggers.ZAPBYTE.severe("Message: " + e.getLocalizedMessage());
+          e.getCause().printStackTrace();
+        } else {
+          e.printStackTrace();
+        }
+
       }
     });
   }

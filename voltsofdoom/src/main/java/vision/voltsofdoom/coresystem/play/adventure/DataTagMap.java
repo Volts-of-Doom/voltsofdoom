@@ -69,6 +69,12 @@ public class DataTagMap {
 
       Map<String, DataTag> map = new HashMap<String, DataTag>();
       JsonObject object = element.getAsJsonObject();
+      
+      if(!object.has("tags")) {
+        Loggers.ZAPBYTE_LOADING_RESOURCE.warning("DataMapDeserializer found a member named 'tags' from an unknown JSON file to not exist. A basic DataTagMap(HashMap) will be injected in its place.");
+        return new DataTagMap(new HashMap<String, DataTag>());
+      }
+      
       JsonArray array = object.get("tags").getAsJsonArray();
 
       // Each {tag} object (members of the "tags" array)

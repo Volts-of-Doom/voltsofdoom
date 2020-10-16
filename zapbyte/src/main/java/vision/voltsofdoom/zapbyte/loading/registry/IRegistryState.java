@@ -3,12 +3,11 @@ package vision.voltsofdoom.zapbyte.loading.registry;
 /**
  * The state of an {@link IRegistry} or {@link IFinalisedRegistry}, or some other kind of
  * registry... <br>
- * This is a functional interface.
+ * s *
  * 
  * @author GenElectrovise
  *
  */
-@FunctionalInterface
 public interface IRegistryState {
 
   public static final IRegistryState ACTIVE = new IRegistryState() {
@@ -16,11 +15,21 @@ public interface IRegistryState {
     public boolean isMutable() {
       return true;
     }
+
+    @Override
+    public boolean isQueriable() {
+      return true;
+    }
   };
-  
+
   public static final IRegistryState UNPOPULATED = new IRegistryState() {
     @Override
     public boolean isMutable() {
+      return true;
+    }
+
+    @Override
+    public boolean isQueriable() {
       return true;
     }
   };
@@ -29,6 +38,11 @@ public interface IRegistryState {
 
     @Override
     public boolean isMutable() {
+      return false;
+    }
+
+    @Override
+    public boolean isQueriable() {
       return false;
     }
   };
@@ -44,4 +58,9 @@ public interface IRegistryState {
    * @return Whether the registry can be changed.
    */
   public boolean isMutable();
+
+  /**
+   * @return Can the {@link IRegistry} be queried?
+   */
+  public boolean isQueriable();
 }

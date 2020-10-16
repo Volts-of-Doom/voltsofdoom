@@ -242,7 +242,7 @@ public class AdventureLoader {
           JsonObject.class));
 
       // Tile map
-      TileMap tm = TileMap.fromJson(gson.fromJson(
+      RawTileMap tm = RawTileMap.fromJson(gson.fromJson(
           "{\"key\":[{\"key\":\"e\",\"identifier\":{\"domain\":\"coresystem\",\"entry\":\"example_tile\"},\"data\":{}},{\"key\":\"a\",\"sheet\":{\"identifier\":{\"domain\":\"coresystem\",\"entry\":\"cobble\"}}}],\"map\":[[\"e\",\"e\",\"e\",\"e\"],[\"e\",\"a\",\"e\",\"a\"],[\"a\",\"e\",\"a\",\"e\"],[\"a\",\"a\",\"a\",\"a\"]]}",
           JsonObject.class));
 

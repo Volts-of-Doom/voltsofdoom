@@ -26,7 +26,7 @@ public class Level {
 
   private LevelConfiguration levelConfiguration;
   private EntityMap entityMap;
-  private TileMap tileMap;
+  private RawTileMap tileMap;
   public ArrayList<Puzzle> puzzles = new ArrayList<Puzzle>();
   public ArrayList<Behaviour> behaviours = new ArrayList<Behaviour>();
 
@@ -40,7 +40,7 @@ public class Level {
     return entityMap;
   }
 
-  public TileMap getTileMap() {
+  public RawTileMap getRawTileMap() {
     return tileMap;
   }
 
@@ -78,7 +78,7 @@ public class Level {
       builder.withConfiguration(config);
 
       // TileMap
-      builder.withTileMap(TileMap.fromJson(gson.fromJson(
+      builder.withTileMap(RawTileMap.fromJson(gson.fromJson(
           ZipFileReader.asJsonReader(reader.getStream(base + "tiles.json")), JsonObject.class)));
 
       // EntityMap
@@ -138,7 +138,7 @@ public class Level {
       level.entityMap = entityMap;
     }
 
-    public void withTileMap(TileMap tileMap) {
+    public void withTileMap(RawTileMap tileMap) {
       level.tileMap = tileMap;
     }
 

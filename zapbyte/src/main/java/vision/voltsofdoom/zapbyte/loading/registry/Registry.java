@@ -98,6 +98,10 @@ public class Registry {
       RegistryType<? extends IRegistryEntry<?>> registryType) {
 
     Objects.requireNonNull(registryType, () -> "Type cannot be null!");
+    
+    if(!state.isQueriable()) {
+      throw new IllegalStateException("Registry not initialised!");
+    }
 
     for (IFinalisedRegistry<? extends IRegistryEntry<?>> finalisedRegistry : registry.values()) {
       if (finalisedRegistry.getType().equals(registryType)) {
