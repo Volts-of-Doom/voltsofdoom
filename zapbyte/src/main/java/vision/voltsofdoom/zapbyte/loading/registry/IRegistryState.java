@@ -10,6 +10,8 @@ package vision.voltsofdoom.zapbyte.loading.registry;
  */
 public interface IRegistryState {
 
+  // Constant registry states
+
   public static final IRegistryState ACTIVE = new IRegistryState() {
     @Override
     public boolean isMutable() {
@@ -19,6 +21,11 @@ public interface IRegistryState {
     @Override
     public boolean isQueriable() {
       return true;
+    }
+
+    @Override
+    public String getName() {
+      return "ACTIVE";
     }
   };
 
@@ -31,6 +38,11 @@ public interface IRegistryState {
     @Override
     public boolean isQueriable() {
       return true;
+    }
+
+    @Override
+    public String getName() {
+      return "UNPOPULATED";
     }
   };
 
@@ -45,7 +57,14 @@ public interface IRegistryState {
     public boolean isQueriable() {
       return false;
     }
+
+    @Override
+    public String getName() {
+      return "FROZEN";
+    }
   };
+
+  // Interface methods
 
   /**
    * In the case of {@link IRegistry}:<br>
@@ -63,4 +82,21 @@ public interface IRegistryState {
    * @return Can the {@link IRegistry} be queried?
    */
   public boolean isQueriable();
+
+  /**
+   * @return The name of this {@link IRegistryState}
+   */
+  public String getName();
+
+  // Static methods
+
+  public static String stringify(IRegistryState state) {
+    StringBuilder builder = new StringBuilder(state.getName() + "{IRegistryState:");
+
+    builder.append(" queriable=" + state.isQueriable());
+    builder.append(" mutable=" + state.isMutable());
+
+    builder.append("}");
+    return builder.toString();
+  }
 }

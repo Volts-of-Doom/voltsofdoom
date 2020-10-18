@@ -59,7 +59,7 @@ public class Registry {
     Objects.requireNonNull(registry, () -> "Registry cannot be null!");
 
     if (state.equals(IRegistryState.FROZEN)) {
-      throw new IllegalAccessException("Cannot add to a frozen registry. State = " + state);
+      throw new IllegalAccessException("Cannot add to a frozen registry. State = " + state.toString());
     }
 
     if (containsType(registry.getType())) {
@@ -98,9 +98,9 @@ public class Registry {
       RegistryType<? extends IRegistryEntry<?>> registryType) {
 
     Objects.requireNonNull(registryType, () -> "Type cannot be null!");
-    
-    if(!state.isQueriable()) {
-      throw new IllegalStateException("Registry not initialised!");
+
+    if (!state.isQueriable()) {
+      throw new IllegalStateException("Registry not queriable! (State= " + state + " )");
     }
 
     for (IFinalisedRegistry<? extends IRegistryEntry<?>> finalisedRegistry : registry.values()) {
