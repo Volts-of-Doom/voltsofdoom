@@ -18,8 +18,6 @@ public class GameController {
   public void initialiseAll() throws IOException {
     try {
 
-      // LoadingManager.load();
-
       Game game = new VariableTimestepGame();
       game.start();
 

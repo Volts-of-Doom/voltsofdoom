@@ -91,6 +91,9 @@ public abstract class ZapByte implements Runnable {
     for (Integer integer : ints) {
       bits.get(integer).run();
     }
+    
+    Loggers.ZAPBYTE.severe("ZapBit execution complete. Exiting.");
+    System.exit(1);
   }
 
   public void addZapBit(ZapBit bit) {
