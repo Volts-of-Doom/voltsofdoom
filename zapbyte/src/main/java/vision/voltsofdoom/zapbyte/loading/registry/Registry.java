@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
-import vision.voltsofdoom.zapbyte.bandwagon.Event;
+import vision.voltsofdoom.zapbyte.event.Event;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
 

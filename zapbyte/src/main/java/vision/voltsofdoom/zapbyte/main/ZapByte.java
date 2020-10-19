@@ -20,7 +20,7 @@ import vision.voltsofdoom.zapbyte.log.Loggers;
  * run the {@link #collectZapbits()} method, adding each found {@link ZapBit} to the
  * {@link #zapBits} {@link Set}, then should call {@link #run()} to start the application.
  */
-public abstract class ZapByte implements Runnable {
+public abstract class ZapByte {
 
   private boolean launched = false;
 
@@ -62,8 +62,9 @@ public abstract class ZapByte implements Runnable {
    * loading.
    */
   public abstract void collectZapbits();
+  
+  public abstract void continueExecution();
 
-  @Override
   public void run() {
 
     collectZapbits();
@@ -92,7 +93,11 @@ public abstract class ZapByte implements Runnable {
       bits.get(integer).run();
     }
     
-    Loggers.ZAPBYTE.severe("ZapBit execution complete. Exiting.");
+    Loggers.ZAPBYTE.warning("ZapBit execution complete. Continuing external (none-ZapBit) execution.");
+    
+    continueExecution();
+    
+    Loggers.ZAPBYTE.severe("ZapByte cycle complete. Exiting.");
     System.exit(1);
   }
 

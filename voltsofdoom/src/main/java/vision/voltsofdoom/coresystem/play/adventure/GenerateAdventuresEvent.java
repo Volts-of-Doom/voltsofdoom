@@ -1,6 +1,6 @@
 package vision.voltsofdoom.coresystem.play.adventure;
 
-import vision.voltsofdoom.zapbyte.bandwagon.Event;
+import vision.voltsofdoom.zapbyte.event.Event;
 import vision.voltsofdoom.zapbyte.loading.window.ILoadingWindowDetailedStatus;
 
 /**

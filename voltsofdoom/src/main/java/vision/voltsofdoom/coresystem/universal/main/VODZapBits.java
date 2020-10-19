@@ -3,7 +3,7 @@ package vision.voltsofdoom.coresystem.universal.main;
 import vision.voltsofdoom.coresystem.play.adventure.GenerateAdventuresEvent;
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.core.VariableTimestepGame;
-import vision.voltsofdoom.zapbyte.bandwagon.BandWagon;
+import vision.voltsofdoom.zapbyte.event.BandWagon;
 import vision.voltsofdoom.zapbyte.loading.window.LoadingWindow;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
 

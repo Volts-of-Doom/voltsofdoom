@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.bandwagon;
+package vision.voltsofdoom.zapbyte.event;
 
 /**
  * An in game event, which is posted to the {@link BandWagon}, and received by all listening

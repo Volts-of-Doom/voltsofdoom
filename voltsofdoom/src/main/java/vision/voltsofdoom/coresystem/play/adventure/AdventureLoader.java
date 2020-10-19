@@ -20,8 +20,8 @@ import vision.voltsofdoom.coresystem.universal.resource.json.GsonHandler;
 import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
 import vision.voltsofdoom.coresystem.universal.util.ExitCodes;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
-import vision.voltsofdoom.zapbyte.bandwagon.Stowaway;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
+import vision.voltsofdoom.zapbyte.event.Stowaway;
 import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 
@@ -32,16 +32,6 @@ import vision.voltsofdoom.zapbyte.main.ZapByteReference;
  *
  */
 public class AdventureLoader {
-
-  public static void main(String[] args) {
-    try {
-      generateAdventures(new GenerateAdventuresEvent());
-
-      // generatePreMadeObjects();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
 
   /**
    * Constructs the Adventure objects for a list of JSON files during the
@@ -207,6 +197,8 @@ public class AdventureLoader {
       Adventure adventure = adventureBuilder.build();
 
       TypeRegistries.ADVENTURES.register(adventure.getIdentifier(), () -> adventure);
+
+      // Cannot test level generation here as registry not yet loaded.
 
       Loggers.ZAPBYTE_LOADING_RESOURCE.info(
           "Loaded Adventure by name: " + adventure.getConfiguration().getIdentifier().stringify());

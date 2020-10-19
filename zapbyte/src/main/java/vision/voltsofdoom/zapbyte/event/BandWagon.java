@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.bandwagon;
+package vision.voltsofdoom.zapbyte.event;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import vision.voltsofdoom.zapbyte.event.LoadingEvent;
 import vision.voltsofdoom.zapbyte.loading.reflectory.Reflectory;
 import vision.voltsofdoom.zapbyte.log.Loggers;
 

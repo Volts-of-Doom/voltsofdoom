@@ -1,6 +1,6 @@
 package vision.voltsofdoom.zapbyte.main;
 
-import vision.voltsofdoom.zapbyte.bandwagon.BandWagon;
+import vision.voltsofdoom.zapbyte.event.BandWagon;
 import vision.voltsofdoom.zapbyte.event.LoadingEvent;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.loading.mod.Mods;

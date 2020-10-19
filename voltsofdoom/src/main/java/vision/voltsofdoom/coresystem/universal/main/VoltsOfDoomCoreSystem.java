@@ -4,6 +4,7 @@ import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.main.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
+
 /**
  * The main class for Volts of Doom's Core System. The game starts running here. In the case that
  * you need it, the game should be run from {@link #main(String[])}. The arguments can be passed
@@ -60,5 +61,15 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
     addZapBit(DefaultZapBits.CREATE_REGISTRY_POLL_REGISTRY_TYPES_68);
 
     addZapBit(DefaultZapBits.CLOSE_LOADING_WINDOW_70);
+  }
+
+  @Override
+  public void continueExecution() {
+
+    /*
+     * //Test level creation Registry.getTyped(RegistryTypes.ADVENTURES).getEntries().forEach((k, a)
+     * -> ((Adventure) a.get()) .getLevels().forEach((l) ->
+     * l.getRawTileMap().generateTwoDimensionalListOfTileObjects()));
+     */
   }
 }

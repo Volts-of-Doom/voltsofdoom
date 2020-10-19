@@ -5,8 +5,8 @@ import vision.voltsofdoom.coresystem.play.adventure.Adventure;
 import vision.voltsofdoom.coresystem.play.entity.Entity;
 import vision.voltsofdoom.coresystem.play.tile.Tile;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
-import vision.voltsofdoom.zapbyte.bandwagon.Stowaway;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
+import vision.voltsofdoom.zapbyte.event.Stowaway;
 import vision.voltsofdoom.zapbyte.loading.registry.RegistryType;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 

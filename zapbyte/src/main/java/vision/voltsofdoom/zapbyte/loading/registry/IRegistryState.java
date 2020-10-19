@@ -37,7 +37,7 @@ public interface IRegistryState {
 
     @Override
     public boolean isQueriable() {
-      return true;
+      return false;
     }
 
     @Override
@@ -55,7 +55,7 @@ public interface IRegistryState {
 
     @Override
     public boolean isQueriable() {
-      return false;
+      return true;
     }
 
     @Override

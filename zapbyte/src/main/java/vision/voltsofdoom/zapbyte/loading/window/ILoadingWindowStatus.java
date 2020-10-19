@@ -1,6 +1,6 @@
 package vision.voltsofdoom.zapbyte.loading.window;
 
-import vision.voltsofdoom.zapbyte.bandwagon.BandWagon;
+import vision.voltsofdoom.zapbyte.event.BandWagon;
 
 /**
  * The main status to be shown on the {@link LoadingWindow} during startup. Updated using

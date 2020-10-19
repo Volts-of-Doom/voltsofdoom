@@ -1,6 +1,5 @@
 package vision.voltsofdoom.zapbyte.event;
 
-import vision.voltsofdoom.zapbyte.bandwagon.Event;
 import vision.voltsofdoom.zapbyte.loading.registry.CollectedRegistries;
 import vision.voltsofdoom.zapbyte.loading.registry.IRegistryEntry;
 import vision.voltsofdoom.zapbyte.loading.registry.RegistryType;
