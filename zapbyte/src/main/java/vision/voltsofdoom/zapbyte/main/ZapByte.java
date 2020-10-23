@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import vision.voltsofdoom.api.guice.Guicer;
-import vision.voltsofdoom.api.guice.ZapByteGuiceBindingModule;
 import vision.voltsofdoom.api.guice.Guicer.GuiceTest;
 import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
 import vision.voltsofdoom.zapbyte.config.ConfigHandler;
 import vision.voltsofdoom.zapbyte.log.Loggers;
+import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
 /**
  * The main class of the {@link ZapByte} module. Any application wishing to use {@link ZapByte}
@@ -28,6 +28,7 @@ public abstract class ZapByte {
   private IConfigHandler configHandler;
   private Guicer guicer;
   public static final String ZAPBYTE = "zapbyte";
+  private ZBSystemResourceHandler zbSystemResourceHandler;
 
   /**
    * Constructs a new root class for a {@link ZapByte} driven application loading cycle. <br>
@@ -49,12 +50,13 @@ public abstract class ZapByte {
     ZapByteReference.APPLICATION_NAMESPACE = applicationNamespace;
 
     setGuicer(new Guicer(new ZapByteGuiceBindingModule()));
-
+    
     this.zapBits = new HashSet<ZapBit>();
     this.configHandler = new ConfigHandler();
 
     @SuppressWarnings("unused")
     GuiceTest guiceTest = guicer.getInjector().getInstance(GuiceTest.class);
+    setZbSystemResourceHandler(guicer.getInjector().getInstance(ZBSystemResourceHandler.class));
   }
 
   /**
@@ -118,6 +120,10 @@ public abstract class ZapByte {
   public Set<ZapBit> getZapBits() {
     return zapBits;
   }
+  
+  public ZBSystemResourceHandler getZbSystemResourceHandler() {
+    return zbSystemResourceHandler;
+  }
 
   // Set
 
@@ -135,5 +141,9 @@ public abstract class ZapByte {
 
   protected void setZapBits(Set<ZapBit> zapBits) {
     this.zapBits = zapBits;
+  }
+  
+  public void setZbSystemResourceHandler(ZBSystemResourceHandler zbSystemResourceHandler) {
+    this.zbSystemResourceHandler = zbSystemResourceHandler;
   }
 }
