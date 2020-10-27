@@ -12,6 +12,3 @@ voltsofdoom:
     -   voltsofdoom/*
 zapbyte:
     -   zapbyte/*
-
-#Inputs
-sync-labels: true
