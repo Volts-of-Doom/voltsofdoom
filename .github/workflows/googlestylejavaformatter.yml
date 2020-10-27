@@ -14,7 +14,6 @@ jobs:
       - name: Google Java Format
         uses: axel-op/googlejavaformat-action@v3.4.0
         with:
-          java-version: 11
           version: 1.9
           commitMessage: "Auto generated commit to reformat code in line with Google Style Format v1.9"
           args: "--skip-reflowing-long-strings --skip-removing-unused-imports"
