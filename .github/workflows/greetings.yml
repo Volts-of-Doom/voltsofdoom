@@ -5,12 +5,9 @@ on: [pull_request, issues]
 jobs:
   greeting:
     runs-on: ubuntu-latest
-    steps:
-      - name: Actions - Checkout Project
-        uses: actions/checkout@v2
-        
+    steps:        
       - uses: actions/first-interaction@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          issue-message: "Oops! Looks like you found a bug! Or maybe just an improvement! We'll get right on that!"
-          pr-message: "Congrats on your first pull request! Thanks for contributing to Volts of Doom!"
+          issue-message: '### Greetings!\nOops! Looks like you found a bug! Or maybe just an improvement! We''ll get right on that!'
+          pr-message: 'Congrats on your first pull request! Thanks for contributing to Volts of Doom!'
