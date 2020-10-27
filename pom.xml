@@ -3,23 +3,84 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>genelectrovise</groupId>
-	<artifactId>voltsofdoom</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<groupId>vision.voltsofdoom</groupId>
+	<artifactId>voltsofdoomparent</artifactId>
+	<version>0.0.1</version>
+	<packaging>pom</packaging>
 
-	<name>voltsofdoom</name>
-	<url>http://maven.apache.org</url>
+	<modules>
+		<module>zapbyte</module>
+		<module>voltsofdoom</module>
+		<module>silverspark</module>
+		<module>api</module>
+		<module>alkali</module>
+	</modules>
 
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<voltsofdoomparent.version>0.0.1</voltsofdoomparent.version>
 		<lwjgl.version>3.2.3</lwjgl.version>
-		<joml.version>1.9.23</joml.version>
 		<lwjgl.natives>natives-windows</lwjgl.natives>
+		<joml.version>1.9.23</joml.version>
 	</properties>
-	
+
+	<!-- All dependencies should be defined and managed in this tag -->
+
 	<dependencyManagement>
 		<dependencies>
+
+			<!-- GSON -->
+
+			<dependency>
+				<groupId>com.google.code.gson</groupId>
+				<artifactId>gson</artifactId>
+				<version>2.3.1</version>
+			</dependency>
+
+			<!-- Reflections -->
+
+			<dependency>
+				<groupId>org.reflections</groupId>
+				<artifactId>reflections</artifactId>
+				<version>0.9.10</version>
+			</dependency>
+
+			<!-- Guice -->
+
+			<dependency>
+				<groupId>com.google.inject</groupId>
+				<artifactId>guice</artifactId>
+				<version>4.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.google.inject.extensions</groupId>
+				<artifactId>guice-multibindings</artifactId>
+				<version>4.0</version>
+			</dependency>
+
+			<!-- Guava -->
+
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>29.0-jre</version>
+			</dependency>
+
+			<!-- JUnit -->
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.13.1</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- Lightweight Java Game Library -->
+
+			<!-- https://lwjgl.com -->
+
+			<!-- LWJGL -->
+
 			<dependency>
 				<groupId>org.lwjgl</groupId>
 				<artifactId>lwjgl-bom</artifactId>
@@ -27,429 +88,80 @@
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl</artifactId>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl</artifactId>
+				<classifier>${lwjgl.natives}</classifier>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+			<!-- OpenGL -->
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl-opengl</artifactId>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl-opengl</artifactId>
+				<classifier>${lwjgl.natives}</classifier>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+			<!-- GLFW -->
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl-glfw</artifactId>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl-glfw</artifactId>
+				<classifier>${lwjgl.natives}</classifier>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+			<!-- STB -->
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl-stb</artifactId>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.lwjgl</groupId>
+				<artifactId>lwjgl-stb</artifactId>
+				<classifier>${lwjgl.natives}</classifier>
+				<version>${lwjgl.version}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
-	<dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.3.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.reflections</groupId>
-			<artifactId>reflections</artifactId>
-			<version>0.9.10</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>2.13.1</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-assimp</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-bgfx</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-cuda</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-egl</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-glfw</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-jawt</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-jemalloc</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-libdivide</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-llvm</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-lmdb</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-lz4</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-meow</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-nanovg</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-nfd</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-nuklear</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-odbc</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-openal</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opencl</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opengl</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opengles</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-openvr</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opus</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-ovr</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-par</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-remotery</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-rpmalloc</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-shaderc</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-sse</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-stb</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-tinyexr</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-tinyfd</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-tootle</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-vma</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-vulkan</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-xxhash</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-yoga</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-zstd</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-assimp</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-bgfx</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-glfw</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-jemalloc</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-libdivide</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-llvm</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-lmdb</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-lz4</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-meow</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-nanovg</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-nfd</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-nuklear</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-openal</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opengl</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opengles</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-openvr</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opus</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-ovr</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-par</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-remotery</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-rpmalloc</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-shaderc</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-sse</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-stb</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-tinyexr</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-tinyfd</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-tootle</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-vma</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-xxhash</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-yoga</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-zstd</artifactId>
-			<classifier>${lwjgl.natives}</classifier>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.joml</groupId>
-			<artifactId>joml</artifactId>
-			<version>${joml.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.13.2</version>
-		</dependency>
-
-	</dependencies>
 </project>
