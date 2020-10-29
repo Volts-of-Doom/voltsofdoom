@@ -1,0 +1,14 @@
+#Configuration for the pullRequestLabeler action.
+
+#Path configurations
+#Modules
+alkali:
+    -   alkali/*
+api:
+    -   api/*
+silverspark:
+    -   silverspark/*
+voltsofdoom:
+    -   voltsofdoom/*
+zapbyte:
+    -   zapbyte/*

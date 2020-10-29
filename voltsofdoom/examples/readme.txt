@@ -1,0 +1,2 @@
+Treat the "voltsofdoom" folder contained here as if it were the "voltsofdoom" folder specified in the "windows resources.txt" file.
+(i.e. All of the resources are in their correct places in that folder. It is structured correctly, so you could simply drop it into your actual voltsofdoom folder)

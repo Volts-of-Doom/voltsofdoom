@@ -5,3 +5,7 @@ src/main/lib/
 !src/main/
 .settings/
 target/
+.idea
+.idea/*
+*.iml
+*/javadoc/*
