@@ -1,11 +1,11 @@
 package vision.voltsofdoom.zapbyte.log;
 
-import java.io.File;
 import java.util.Calendar;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import vision.voltsofdoom.zapbyte.main.ZapByteReference;
+import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
 /**
  * Logging {@link Handler}s.
@@ -37,7 +37,7 @@ public class Handlers {
   static {
     try {
 
-      new File(baseFilePath).mkdirs();
+      ZBSystemResourceHandler.instance.getFile_canIgnoreMissing(() -> baseFilePath, true).mkdirs();
 
       FILE_HANDLER_ONE = new FileHandler(TIER_ONE_PATH, 51200, 1, false);
       CONSOLE_HANDLER_ONE = new ConsoleHandler();

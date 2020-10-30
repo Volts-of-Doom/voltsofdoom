@@ -10,6 +10,7 @@ import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 import vision.voltsofdoom.zapbyte.loading.registry.RegistryEntry;
 import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
 /**
  * Contains all of the data for an Adventure!
@@ -52,8 +53,8 @@ public class Adventure extends RegistryEntry<Adventure> {
 
       for (LevelConfiguration config : configs) {
 
-        File file = new File(Reference.ADVENTURE + this.configuration.getIdentifier().getEntry()
-            + "_" + this.configuration.getVersion() + ".zip");
+        File file = ZBSystemResourceHandler.instance.getFile(() -> (Reference.ADVENTURE + this.configuration.getIdentifier().getEntry()
+            + "_" + this.configuration.getVersion() + ".zip"));
         levelArr.add(Level.fromZip(this, new ZipFile(file), config));
       }
     } catch (Exception e) {
