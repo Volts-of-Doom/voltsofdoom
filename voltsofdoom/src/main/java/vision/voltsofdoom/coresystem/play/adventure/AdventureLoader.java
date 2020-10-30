@@ -24,6 +24,7 @@ import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.event.Stowaway;
 import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.main.ZapByteReference;
+import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
 /**
  * Generates a list of {@link Adventure}s to register.
@@ -63,7 +64,7 @@ public class AdventureLoader {
   private static void generateAdventures(GenerateAdventuresEvent event)
       throws FileNotFoundException {
     List<ZipFile> adventureZips = new ArrayList<ZipFile>();
-    File adventureFolder = new File(Reference.ADVENTURE);
+    File adventureFolder = ZBSystemResourceHandler.instance.getFile(() -> Reference.ADVENTURE);
     if (!adventureFolder.exists() || !adventureFolder.isDirectory()) {
       adventureFolder.mkdir();
       throw new FileNotFoundException("Adventure folder in the located Volts of Doom directory"

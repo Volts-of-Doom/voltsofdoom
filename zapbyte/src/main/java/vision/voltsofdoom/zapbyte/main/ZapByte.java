@@ -48,9 +48,8 @@ public abstract class ZapByte {
    */
   public ZapByte(String applicationNamespace) {
     ZapByteReference.APPLICATION_NAMESPACE = applicationNamespace;
-
     setGuicer(new Guicer(new ZapByteGuiceBindingModule()));
-    
+
     this.zapBits = new HashSet<ZapBit>();
     this.configHandler = new ConfigHandler();
 
@@ -64,7 +63,7 @@ public abstract class ZapByte {
    * loading.
    */
   public abstract void collectZapbits();
-  
+
   public abstract void continueExecution();
 
   public void run() {
@@ -94,11 +93,12 @@ public abstract class ZapByte {
     for (Integer integer : ints) {
       bits.get(integer).run();
     }
-    
-    Loggers.ZAPBYTE.warning("ZapBit execution complete. Continuing external (none-ZapBit) execution.");
-    
+
+    Loggers.ZAPBYTE
+        .warning("ZapBit execution complete. Continuing external (none-ZapBit) execution.");
+
     continueExecution();
-    
+
     Loggers.ZAPBYTE.severe("ZapByte cycle complete. Exiting.");
     System.exit(1);
   }
@@ -120,7 +120,7 @@ public abstract class ZapByte {
   public Set<ZapBit> getZapBits() {
     return zapBits;
   }
-  
+
   public ZBSystemResourceHandler getZbSystemResourceHandler() {
     return zbSystemResourceHandler;
   }
@@ -142,7 +142,7 @@ public abstract class ZapByte {
   protected void setZapBits(Set<ZapBit> zapBits) {
     this.zapBits = zapBits;
   }
-  
+
   public void setZbSystemResourceHandler(ZBSystemResourceHandler zbSystemResourceHandler) {
     this.zbSystemResourceHandler = zbSystemResourceHandler;
   }

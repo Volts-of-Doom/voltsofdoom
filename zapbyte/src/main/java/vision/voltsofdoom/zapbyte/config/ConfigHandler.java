@@ -13,6 +13,7 @@ import vision.voltsofdoom.api.zapyte.config.IConfigurationFile;
 import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 import vision.voltsofdoom.zapbyte.misc.util.StacktraceUtils;
+import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
 public class ConfigHandler implements IConfigHandler {
 
@@ -37,13 +38,13 @@ public class ConfigHandler implements IConfigHandler {
   @Override
   public void loadConfigurationFile() {
 
-    File configFile = new File(ZapByteReference.getConfig() + CONFIG_FILE);
+    File configFile = ZBSystemResourceHandler.instance.getFile_canIgnoreMissing(() -> ZapByteReference.getConfig() + CONFIG_FILE, true);
 
     // If the configuration file does not exist...
     if (!configFile.exists()) {
       Loggers.ZAPBYTE.info("Configuration file does not exist at: " + configFile);
 
-      new File(ZapByteReference.getConfig()).mkdirs();
+      ZBSystemResourceHandler.instance.getFile_canIgnoreMissing(() -> ZapByteReference.getConfig(), true).mkdirs();
 
       // Make new file and write default values.
       try {

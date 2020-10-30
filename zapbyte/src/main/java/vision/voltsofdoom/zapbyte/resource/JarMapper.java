@@ -21,6 +21,7 @@ public class JarMapper {
     ArrayList<File> out = new ArrayList<File>();
     
     File modsDir = ZBSystemResourceHandler.instance.getFile(() -> ZapByteReference.getModsDir());
+    
     for (File file : modsDir.listFiles()) {
       if (file.getName().endsWith(".jar")) {
         out.add(file);
