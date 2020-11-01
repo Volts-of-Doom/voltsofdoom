@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
-public class SparkLoader {
+public class Resources {
 
   /**
    * Should be used to load image data from source.
