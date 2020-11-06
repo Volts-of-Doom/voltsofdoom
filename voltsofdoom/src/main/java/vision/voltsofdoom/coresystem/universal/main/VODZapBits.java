@@ -8,7 +8,7 @@ import vision.voltsofdoom.zapbyte.loading.window.LoadingWindow;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
 
 public class VODZapBits {
-  public static final ZapBit CREATE_GAME_70 = new ZapBit(70, () -> {
+  public static final ZapBit CREATE_GAME_100 = new ZapBit(100, () -> {
     Game game = new VariableTimestepGame();
     game.start();
   });
@@ -18,4 +18,5 @@ public class VODZapBits {
     LoadingWindow.loadingWindow.setDetailedStatus(GenerateAdventuresEvent.DETAILED_STATUS);
     BandWagon.playEvent(new GenerateAdventuresEvent());
   });
+
 }

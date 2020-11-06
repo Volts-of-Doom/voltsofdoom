@@ -38,13 +38,13 @@ public class ConfigHandler implements IConfigHandler {
   @Override
   public void loadConfigurationFile() {
 
-    File configFile = ZBSystemResourceHandler.instance.getFile_canIgnoreMissing(() -> ZapByteReference.getConfig() + CONFIG_FILE, true);
+    File configFile = ZBSystemResourceHandler.instance.getFile(() -> ZapByteReference.getConfig() + CONFIG_FILE, true);
 
     // If the configuration file does not exist...
     if (!configFile.exists()) {
       Loggers.ZAPBYTE.info("Configuration file does not exist at: " + configFile);
 
-      ZBSystemResourceHandler.instance.getFile_canIgnoreMissing(() -> ZapByteReference.getConfig(), true).mkdirs();
+      ZBSystemResourceHandler.instance.getFile(() -> ZapByteReference.getConfig(), true).mkdirs();
 
       // Make new file and write default values.
       try {

@@ -1,5 +1,7 @@
 package vision.voltsofdoom.coresystem.universal.main;
 
+import vision.voltsofdoom.coresystem.universal.resource.image.TextureManager;
+import vision.voltsofdoom.coresystem.universal.util.Reference;
 import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.main.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
@@ -20,11 +22,11 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
     super(ID);
   }
 
-  public static final GameController GAME_CONTROLLER = new GameController();
-
   public static final String ID = "voltsofdoom";
 
   public static volatile boolean launched = false;
+  
+  public static final TextureManager textureManager = new TextureManager(() -> Reference.getTexturesDir());
 
   /**
    * Begins the program.

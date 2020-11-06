@@ -10,7 +10,7 @@ public class ZBSystemResourceHandler implements ISystemResourceHandler {
 
   @Override
   public File getFile(IResource resource) {
-    return getFile_canIgnoreMissing(resource, false);
+    return getFile(resource, false);
   }
 
   /**
@@ -24,7 +24,7 @@ public class ZBSystemResourceHandler implements ISystemResourceHandler {
    * @throws FileNotFoundException If shouldn't <code>ignoreMissing</code>, and the {@link File}
    *         doesn't exist.
    */
-  public File getFile_canIgnoreMissing(IResource resource, boolean ignoreMissing) {
+  public File getFile(IResource resource, boolean ignoreMissing) {
     try {
 
       File file = new File(resource.getPath());

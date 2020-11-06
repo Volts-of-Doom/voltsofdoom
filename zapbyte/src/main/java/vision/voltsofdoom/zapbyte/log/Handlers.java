@@ -16,7 +16,7 @@ import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 public class Handlers {
   private static String formattedDate = genFormattedDate();
   private static String baseFilePath =
-      ZapByteReference.getLogs() + formattedDate + ZapByteReference.getSep();
+      ZapByteReference.getLogs() + formattedDate + ZapByteReference.seperator();
 
   public static FileHandler FILE_HANDLER_ONE;
   public static ConsoleHandler CONSOLE_HANDLER_ONE;
@@ -37,7 +37,7 @@ public class Handlers {
   static {
     try {
 
-      ZBSystemResourceHandler.instance.getFile_canIgnoreMissing(() -> baseFilePath, true).mkdirs();
+      ZBSystemResourceHandler.instance.getFile(() -> baseFilePath, true).mkdirs();
 
       FILE_HANDLER_ONE = new FileHandler(TIER_ONE_PATH, 51200, 1, false);
       CONSOLE_HANDLER_ONE = new ConsoleHandler();

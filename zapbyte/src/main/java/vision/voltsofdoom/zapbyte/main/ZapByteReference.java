@@ -9,7 +9,7 @@ public class ZapByteReference {
    */
   public static String APPLICATION_NAMESPACE = null;
 
-  public static String getSep() {
+  public static String seperator() {
     return File.separator;
   }
 
@@ -28,42 +28,42 @@ public class ZapByteReference {
    * The game's %App Data%/Roaming directory
    */
   public static String getZapByteRoaming() {
-    return getUserHome() + getSep() + "AppData" + getSep() + "Roaming" + getSep() + ZapByte.ZAPBYTE
-        + getSep();
+    return getUserHome() + seperator() + "AppData" + seperator() + "Roaming" + seperator() + ZapByte.ZAPBYTE
+        + seperator();
   }
 
   /**
    * The roaming directory of this particular application.
    */
   public static String getApplicationRoaming() {
-    return getZapByteRoaming() + getSep() + getApplicationNamespace() + getSep();
+    return getZapByteRoaming() + seperator() + getApplicationNamespace() + seperator();
   }
 
   /**
    * The output location of log files
    */
   public static String getLogs() {
-    return getApplicationRoaming() + getSep() + "logs" + getSep();
+    return getApplicationRoaming() + seperator() + "logs" + seperator();
   }
 
   /**
    * The location of this application's configuration files' folder
    */
   public static String getConfig() {
-    return getApplicationRoaming() + "config" + getSep();
+    return getApplicationRoaming() + "config" + seperator();
   }
 
   /**
    * The resources directory within the roaming folder.
    */
   public static String getResources() {
-    return getApplicationRoaming() + getSep() + "resources" + getSep();
+    return getApplicationRoaming() + seperator() + "resources" + seperator();
   }
 
   /**
    * Gets the mods directory's location.
    */
   public static String getModsDir() {
-    return getResources() + "mods" + getSep();
+    return getResources() + "mods" + seperator();
   }
 }
