@@ -15,7 +15,7 @@ import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
  * @author GenElectrovise
  *
  */
-public class VODImage {
+public class VODImage implements ITextureDimensionsProvider {
   private URL url;
   private BufferedImage image;
 
@@ -39,6 +39,16 @@ public class VODImage {
 
   public URL getUrl() {
     return url;
+  }
+
+  @Override
+  public int getWidth() {
+    return image.getWidth();
+  }
+
+  @Override
+  public int getHeight() {
+    return image.getHeight();
   }
 
 }
