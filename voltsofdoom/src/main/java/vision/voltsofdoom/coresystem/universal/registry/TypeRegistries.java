@@ -21,12 +21,12 @@ public class TypeRegistries {
       RegistryEvent.CreateAndSubmitRegistriesEvent event) {
     Loggers.ZAPBYTE_LOADING_REGISTRY.fine("Creating and submitting default TypeRegistries");
 
-    TILES = new TypeRegistry<Tile>(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"),
+    TILES = new TypeRegistry<Tile>(new ResourceLocation(VoltsOfDoomCoreSystem.getId(), "tiles"),
         RegistryTypes.TILES);
-    ENTITIES = new TypeRegistry<Entity>(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "entities"),
+    ENTITIES = new TypeRegistry<Entity>(new ResourceLocation(VoltsOfDoomCoreSystem.getId(), "entities"),
         RegistryTypes.ENTITIES);
     ADVENTURES = new TypeRegistry<Adventure>(
-        new ResourceLocation(VoltsOfDoomCoreSystem.ID, "adventures"), RegistryTypes.ADVENTURES);
+        new ResourceLocation(VoltsOfDoomCoreSystem.getId(), "adventures"), RegistryTypes.ADVENTURES);
 
     event.submit(TILES);
     event.submit(ENTITIES);

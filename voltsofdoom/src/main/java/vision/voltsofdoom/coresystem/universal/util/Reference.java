@@ -26,4 +26,11 @@ public class Reference {
     return getResources() + "adventure" + seperator();
   }
 
+  /**
+   * Gets the location of the internal textures folder in a zipped resource pack.
+   */
+  public static String getTexturePackInternalTextureDir() {
+    return "textures" + seperator();
+  }
+
 }

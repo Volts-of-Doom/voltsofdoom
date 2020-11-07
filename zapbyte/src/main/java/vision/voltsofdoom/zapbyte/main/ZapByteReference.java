@@ -21,14 +21,14 @@ public class ZapByteReference {
    * i.e. C:/Users/Username on windows, or home/username on Linux
    */
   public static String getUserHome() {
-    return System.getProperty("user.home");
+    return System.getProperty("user.home") + seperator();
   }
 
   /**
    * The game's %App Data%/Roaming directory
    */
   public static String getZapByteRoaming() {
-    return getUserHome() + seperator() + "AppData" + seperator() + "Roaming" + seperator() + ZapByte.ZAPBYTE
+    return getUserHome() + "AppData" + seperator() + "Roaming" + seperator() + ZapByte.getZapbyte()
         + seperator();
   }
 
@@ -36,14 +36,14 @@ public class ZapByteReference {
    * The roaming directory of this particular application.
    */
   public static String getApplicationRoaming() {
-    return getZapByteRoaming() + seperator() + getApplicationNamespace() + seperator();
+    return getZapByteRoaming() + getApplicationNamespace() + seperator();
   }
 
   /**
    * The output location of log files
    */
   public static String getLogs() {
-    return getApplicationRoaming() + seperator() + "logs" + seperator();
+    return getApplicationRoaming() + "logs" + seperator();
   }
 
   /**
@@ -57,7 +57,7 @@ public class ZapByteReference {
    * The resources directory within the roaming folder.
    */
   public static String getResources() {
-    return getApplicationRoaming() + seperator() + "resources" + seperator();
+    return getApplicationRoaming() + "resources" + seperator();
   }
 
   /**

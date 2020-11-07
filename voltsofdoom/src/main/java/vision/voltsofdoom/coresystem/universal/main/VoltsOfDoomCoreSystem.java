@@ -18,15 +18,16 @@ import vision.voltsofdoom.zapbyte.main.ZapByte;
  */
 public class VoltsOfDoomCoreSystem extends ZapByte {
 
+  private static final String ID = "voltsofdoom";
+  private static VoltsOfDoomCoreSystem instance;
+
+  private final TextureManager textureManager;
+
   public VoltsOfDoomCoreSystem() {
     super(ID);
+    instance = this;
+    textureManager = new TextureManager(() -> Reference.getTexturesDir());
   }
-
-  public static final String ID = "voltsofdoom";
-
-  public static volatile boolean launched = false;
-  
-  public static final TextureManager textureManager = new TextureManager(() -> Reference.getTexturesDir());
 
   /**
    * Begins the program.
@@ -67,11 +68,18 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
   @Override
   public void continueExecution() {
-
-    /*
-     * //Test level creation Registry.getTyped(RegistryTypes.ADVENTURES).getEntries().forEach((k, a)
-     * -> ((Adventure) a.get()) .getLevels().forEach((l) ->
-     * l.getRawTileMap().generateTwoDimensionalListOfTileObjects()));
-     */
+    
+  }
+  
+  public static VoltsOfDoomCoreSystem getInstance() {
+    return instance;
+  }
+  
+  public TextureManager getTextureManager() {
+    return textureManager;
+  }
+  
+  public static String getId() {
+    return ID;
   }
 }

@@ -3,6 +3,7 @@ package vision.voltsofdoom.coresystem.universal.resource.image;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.List;
+import vision.voltsofdoom.zapbyte.log.Loggers;
 
 public class TextureAtlas {
 
@@ -12,6 +13,7 @@ public class TextureAtlas {
 
   public TextureAtlas(List<ITextureAtlasEntry> rawAtlasEntries) {
     this.image = new BufferedImage(32, 32, BufferedImage.TYPE_4BYTE_ABGR);
+    Loggers.ZAPBYTE.severe("We have some raw atlas entries, but no atlas is being stitched!");
   }
 
   protected BufferedImage getAtlasImage() {

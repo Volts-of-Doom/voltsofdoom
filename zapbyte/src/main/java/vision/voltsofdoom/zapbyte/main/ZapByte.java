@@ -27,7 +27,7 @@ public abstract class ZapByte {
   private Set<ZapBit> zapBits;
   private IConfigHandler configHandler;
   private Guicer guicer;
-  public static final String ZAPBYTE = "zapbyte";
+  private static final String ZAPBYTE = "zapbyte";
   private ZBSystemResourceHandler zbSystemResourceHandler;
 
   /**
@@ -108,6 +108,10 @@ public abstract class ZapByte {
   }
 
   // Get
+  
+  public static String getZapbyte() {
+    return ZAPBYTE;
+  }
 
   public Guicer getGuicer() {
     return guicer;
