@@ -21,12 +21,12 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
   private static final String ID = "voltsofdoom";
   private static VoltsOfDoomCoreSystem instance;
 
-  private final TextureManager textureManager;
+  private TextureManager textureManager;
 
   public VoltsOfDoomCoreSystem() {
     super(ID);
     instance = this;
-    textureManager = new TextureManager(() -> Reference.getTexturesDir());
+   // textureManager = new TextureManager(() -> Reference.getTexturesDir());
   }
 
   /**
