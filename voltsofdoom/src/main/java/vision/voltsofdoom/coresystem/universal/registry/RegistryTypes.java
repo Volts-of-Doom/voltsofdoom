@@ -8,6 +8,7 @@ import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.event.Stowaway;
 import vision.voltsofdoom.zapbyte.loading.registry.RegistryType;
+import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 
@@ -25,6 +26,7 @@ public class RegistryTypes {
 
   @Stowaway
   private static void generateTypes(RegistryEvent.CreateRegistryTypesEvent event) {
+	  Loggers.ZAPBYTE_LOADING_REGISTRY.info("Creating VOD RegistryTypes");
     TILES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"),
         Tile.class);
     ENTITIES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "entities"),

@@ -37,7 +37,7 @@ public class RenderTestRunner {
    */
   public static void main(String[] args) {
 
-    Game game = new Game("/home/richards/workspace/vod2/voltsofdoom/silverspark/target/classes/");
+    Game game = new Game("C:\\Users\\admin\\eclipse-workspace\\voltsofdoomparent\\silverspark\\target");
     game.start();
   }
 

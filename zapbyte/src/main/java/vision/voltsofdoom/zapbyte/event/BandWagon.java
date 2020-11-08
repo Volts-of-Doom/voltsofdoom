@@ -108,14 +108,14 @@ public class BandWagon {
 
     // If is not static
     if (!Modifier.isStatic(method.getModifiers())) {
-      Loggers.ZAPBYTE_LOADING_BANDWAGON.finer("Could not validate Method : " + method
+      Loggers.ZAPBYTE_LOADING_BANDWAGON.info("Could not validate Method : " + method.getName()
           + " : to the BandWagon because it is not static.");
       return false;
     }
 
     // If has not-one parameter
     if (!(method.getParameterCount() == 1)) {
-      Loggers.ZAPBYTE_LOADING_BANDWAGON.finer("Could not validate Method : " + method
+      Loggers.ZAPBYTE_LOADING_BANDWAGON.info("Could not validate Method : " + method.getName()
           + " : to the BandWagon because it does not have only 1 parameter");
       return false;
     }
@@ -123,12 +123,12 @@ public class BandWagon {
     // If the superclass is not Event
     Class<?> parameterType = method.getParameters()[0].getType();
     if (!Event.class.isAssignableFrom(parameterType)) {
-      Loggers.ZAPBYTE_LOADING_BANDWAGON.finer("Could not validate Method : " + method
+      Loggers.ZAPBYTE_LOADING_BANDWAGON.info("Could not validate Method : " + method.getName()
           + " : to the BandWagon because it does not extend the Volts of Doom Event directly.");
       return false;
     }
 
-    Loggers.ZAPBYTE_LOADING_BANDWAGON.finest("Validated Method : " + method
+    Loggers.ZAPBYTE_LOADING_BANDWAGON.info("Validated Method : " + method.getName()
         + " : for subscription to the BandWagon, as it meets all required criteria. ");
     return true;
   }
