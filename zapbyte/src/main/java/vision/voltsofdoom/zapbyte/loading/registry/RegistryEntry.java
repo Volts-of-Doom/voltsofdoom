@@ -1,6 +1,6 @@
 package vision.voltsofdoom.zapbyte.loading.registry;
 
-import vision.voltsofdoom.zapbyte.log.Loggers;
+import vision.voltsofdoom.zapbyte.log.ZBLoggers;
 import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
 
 /**
@@ -20,7 +20,7 @@ public abstract class RegistryEntry<T extends IRegistryEntry<T>> implements IReg
   public IResourceLocation getIdentifier() {
 
     if (identifier == null) {
-      Loggers.ZAPBYTE_LOADING_REGISTRY.warning(
+      ZBLoggers.ZAPBYTE.warn(
           "Registry entry returning a null identifier! Going on with it, but this may cause issues later!");
     }
 

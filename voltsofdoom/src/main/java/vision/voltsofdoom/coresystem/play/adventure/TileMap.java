@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 import vision.voltsofdoom.coresystem.play.tile.Tile;
+import vision.voltsofdoom.coresystem.universal.log.VODLoggers;
 import vision.voltsofdoom.coresystem.universal.registry.RegistryTypes;
 import vision.voltsofdoom.zapbyte.loading.registry.IFinalisedRegistry;
 import vision.voltsofdoom.zapbyte.loading.registry.Registry;
-import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 /**
@@ -49,7 +49,7 @@ public class TileMap {
       tiles.add(tilesToAdd);
     }
 
-    Loggers.ZAPBYTE_LOADING_RESOURCE
+    VODLoggers.VOLTSOFDOOM
         .info("Finished loading " + this.getClass().getSimpleName() + " for latest Level");
   }
 

@@ -11,7 +11,7 @@ import vision.voltsofdoom.api.guice.Guicer;
 import vision.voltsofdoom.api.guice.Guicer.GuiceTest;
 import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
 import vision.voltsofdoom.zapbyte.config.ConfigHandler;
-import vision.voltsofdoom.zapbyte.log.Loggers;
+import vision.voltsofdoom.zapbyte.log.ZBLoggers;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
 /**
@@ -78,7 +78,7 @@ public abstract class ZapByte {
     launched = true;
     configHandler.loadIfConfigurationFileBlank();
 
-    Loggers.ZAPBYTE_LOADING.info("Running Java Vitual Machine (JVM) with arguments: "
+    ZBLoggers.ZAPBYTE.info("Running Java Vitual Machine (JVM) with arguments: "
         + configHandler.getConfigurationFile().toString());
 
     // Get all into map
@@ -94,12 +94,12 @@ public abstract class ZapByte {
       bits.get(integer).run();
     }
 
-    Loggers.ZAPBYTE
-        .warning("ZapBit execution complete. Continuing external (none-ZapBit) execution.");
+    ZBLoggers.ZAPBYTE
+        .warn("ZapBit execution complete. Continuing external (none-ZapBit) execution.");
 
     continueExecution();
 
-    Loggers.ZAPBYTE.severe("ZapByte cycle complete. Exiting.");
+    ZBLoggers.ZAPBYTE.error("ZapByte cycle complete. Exiting.");
     System.exit(1);
   }
 

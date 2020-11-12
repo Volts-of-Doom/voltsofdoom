@@ -1,6 +1,6 @@
 package vision.voltsofdoom.coresystem.universal.main;
 
-import vision.voltsofdoom.zapbyte.log.Loggers;
+import vision.voltsofdoom.coresystem.universal.log.VODLoggers;
 import vision.voltsofdoom.zapbyte.main.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
@@ -48,7 +48,7 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
   @Override
   public void collectZapbits() {
-    addZapBit(new ZapBit(0, () -> Loggers.ZAPBYTE.info("Starting Volts of Doom!")));
+    addZapBit(new ZapBit(0, () -> VODLoggers.VOLTSOFDOOM.info("Starting Volts of Doom!")));
     addZapBit(DefaultZapBits.CREATE_LOADING_WINDOW_10);
     addZapBit(DefaultZapBits.CREATE_REFLECTORIES_20);
     addZapBit(DefaultZapBits.SCAN_FOR_MODS_30);
