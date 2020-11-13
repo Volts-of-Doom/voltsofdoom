@@ -15,6 +15,7 @@ import java.util.zip.ZipFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import vision.voltsofdoom.coresystem.play.adventure.Sheet.ISheetType;
+import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.coresystem.universal.registry.TypeRegistries;
 import vision.voltsofdoom.coresystem.universal.resource.json.GsonHandler;
 import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
@@ -22,7 +23,6 @@ import vision.voltsofdoom.coresystem.universal.util.ExitCodes;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.event.Stowaway;
-import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
@@ -201,14 +201,14 @@ public class AdventureLoader {
 
       // Cannot test level generation here as registry not yet loaded.
 
-      Loggers.ZAPBYTE_LOADING_RESOURCE.info(
+      VoltsOfDoomCoreSystem.instance.getApplicationLogger().info(
           "Loaded Adventure by name: " + adventure.getConfiguration().getIdentifier().stringify());
 
     } catch (Exception e) {
       e.printStackTrace();
 
-      Loggers.ZAPBYTE_LOADING_RESOURCE.severe("EXCEPTION LOADING ADVENTURES!");
-      Loggers.ZAPBYTE_LOADING_RESOURCE.severe(e.toString());
+      VoltsOfDoomCoreSystem.instance.getApplicationLogger().error("EXCEPTION LOADING ADVENTURES!");
+      VoltsOfDoomCoreSystem.instance.getApplicationLogger().error(e.toString());
       System.exit(ExitCodes.ADVENTURE_LOADING_FAILIURE);
     }
   }

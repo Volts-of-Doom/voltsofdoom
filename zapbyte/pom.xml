@@ -39,6 +39,11 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+
 		<!-- GSON -->
 
 		<dependency>
@@ -52,7 +57,7 @@
 			<groupId>org.reflections</groupId>
 			<artifactId>reflections</artifactId>
 		</dependency>
-		
+
 	</dependencies>
 
 </project>

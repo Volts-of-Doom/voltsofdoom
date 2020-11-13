@@ -5,7 +5,7 @@ import java.io.File;
 import java.net.URI;
 import java.net.URL;
 import javax.imageio.ImageIO;
-import vision.voltsofdoom.zapbyte.log.Loggers;
+import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
 /**
@@ -25,7 +25,7 @@ public class VODImage {
 
       URI formattedUri = new URI(f.getAbsolutePath().replace("\\", "/"));
       url = new URL("file://" + formattedUri.getPath());
-      Loggers.ZAPBYTE_LOADING_RESOURCE.finest("URL : " + url.getPath());
+      VoltsOfDoomCoreSystem.instance.getApplicationLogger().debug("URL : " + url.getPath());
 
       image = ImageIO.read(url);
     } catch (Exception e) {
