@@ -79,6 +79,8 @@ public abstract class ZapByte {
         + Calendar.getInstance().getTime().toString().replace(" ", "_").replace(":", "-") + ".log");
 
     ZapByte.LOGGER = LoggerFactory.getLogger(ZapByte.class);
+
+    Thread.setDefaultUncaughtExceptionHandler(new ZapByteUncaughtExceptionHandler(LOGGER));
   }
 
   /**

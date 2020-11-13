@@ -201,14 +201,14 @@ public class AdventureLoader {
 
       // Cannot test level generation here as registry not yet loaded.
 
-      VoltsOfDoomCoreSystem.instance.getApplicationLogger().info(
+      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().info(
           "Loaded Adventure by name: " + adventure.getConfiguration().getIdentifier().stringify());
 
     } catch (Exception e) {
       e.printStackTrace();
 
-      VoltsOfDoomCoreSystem.instance.getApplicationLogger().error("EXCEPTION LOADING ADVENTURES!");
-      VoltsOfDoomCoreSystem.instance.getApplicationLogger().error(e.toString());
+      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("EXCEPTION LOADING ADVENTURES!");
+      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error(e.toString());
       System.exit(ExitCodes.ADVENTURE_LOADING_FAILIURE);
     }
   }

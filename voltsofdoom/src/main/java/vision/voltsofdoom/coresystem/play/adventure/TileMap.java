@@ -49,7 +49,7 @@ public class TileMap {
       tiles.add(tilesToAdd);
     }
 
-    VoltsOfDoomCoreSystem.instance.getApplicationLogger()
+    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
         .info("Finished loading " + this.getClass().getSimpleName() + " for latest Level");
   }
 

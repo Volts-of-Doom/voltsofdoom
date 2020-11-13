@@ -116,10 +116,10 @@ public class Level {
       }
 
     } catch (IOException e) {
-      VoltsOfDoomCoreSystem.instance.getApplicationLogger().error("System IO error loading Level : " + config.getIdentifier());
+      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("System IO error loading Level : " + config.getIdentifier());
       e.printStackTrace();
     } catch (NullPointerException n) {
-      VoltsOfDoomCoreSystem.instance.getApplicationLogger().error("NullPointerException thrown during Level loading.");
+      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("NullPointerException thrown during Level loading.");
       n.printStackTrace();
     }
 

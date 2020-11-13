@@ -62,7 +62,7 @@ public class DataTagMap {
         JsonDeserializationContext context) throws JsonParseException {
 
       if (!type.equals(DataTagMap.class)) {
-        VoltsOfDoomCoreSystem.instance.getApplicationLogger()
+        VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
             .info("Illegal type for DataTagMapDeserializer: " + type.getTypeName());
         return null;
       }
@@ -71,7 +71,7 @@ public class DataTagMap {
       JsonObject object = element.getAsJsonObject();
       
       if(!object.has("tags")) {
-        VoltsOfDoomCoreSystem.instance.getApplicationLogger().warn("DataMapDeserializer found a member named 'tags' from an unknown JSON file to not exist. A basic DataTagMap(HashMap) will be injected in its place.");
+        VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().warn("DataMapDeserializer found a member named 'tags' from an unknown JSON file to not exist. A basic DataTagMap(HashMap) will be injected in its place.");
         return new DataTagMap(new HashMap<String, DataTag>());
       }
       

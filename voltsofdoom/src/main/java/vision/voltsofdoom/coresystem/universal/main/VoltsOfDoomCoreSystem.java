@@ -3,6 +3,7 @@ package vision.voltsofdoom.coresystem.universal.main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.coresystem.universal.resource.image.TextureManager;
+import vision.voltsofdoom.coresystem.universal.util.Reference;
 import vision.voltsofdoom.zapbyte.main.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
@@ -17,8 +18,8 @@ import vision.voltsofdoom.zapbyte.main.ZapByte;
  *
  */
 public class VoltsOfDoomCoreSystem extends ZapByte {
-  
-  public static VoltsOfDoomCoreSystem instance;
+
+  private static VoltsOfDoomCoreSystem instance;
 
   private static final String ID = "voltsofdoom";
 
@@ -27,7 +28,7 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
   public VoltsOfDoomCoreSystem() {
     super(ID);
     instance = this;
-   // textureManager = new TextureManager(() -> Reference.getTexturesDir());
+    textureManager = new TextureManager(() -> Reference.getTexturesDir());
   }
 
   /**
@@ -54,9 +55,9 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
   @Override
   public void collectZapbits() {
     getApplicationLogger().debug("Collecting ZapBits for Volts of Doom Core System");
-    
-    addZapBit(
-        new ZapBit(0, () -> VoltsOfDoomCoreSystem.instance.getApplicationLogger().info("Starting Volts of Doom!")));
+
+    addZapBit(new ZapBit(0, () -> VoltsOfDoomCoreSystem.instance.getApplicationLogger()
+        .info("Starting Volts of Doom!")));
     addZapBit(DefaultZapBits.CREATE_LOADING_WINDOW_10);
     addZapBit(DefaultZapBits.CREATE_REFLECTORIES_20);
     addZapBit(DefaultZapBits.SCAN_FOR_MODS_30);
@@ -73,8 +74,9 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
   @Override
   public void continueExecution() {
-    
-    VoltsOfDoomCoreSystem.instance.getApplicationLogger().debug("Volts of Doom Core System continuing execution");
+
+    VoltsOfDoomCoreSystem.instance.getApplicationLogger()
+        .debug("Volts of Doom Core System continuing execution");
 
     /*
      * //Test level creation Registry.getTyped(RegistryTypes.ADVENTURES).getEntries().forEach((k, a)
@@ -82,15 +84,15 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
      * l.getRawTileMap().generateTwoDimensionalListOfTileObjects()));
      */
   }
-  
+
   public static VoltsOfDoomCoreSystem getInstance() {
     return instance;
   }
-  
+
   public TextureManager getTextureManager() {
     return textureManager;
   }
-  
+
   public static String getId() {
     return ID;
   }

@@ -15,7 +15,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
 
   public static void main(String[] args) {
 
-    VoltsOfDoomCoreSystem.instance.getApplicationLogger().info("Starting");
+    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().info("Starting");
 
     SemiMutableArray<String> smarr = new SemiMutableArray<String>();
 
@@ -34,7 +34,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
     for (String str : smarr) {
       builder.append(str + " ");
     }
-    VoltsOfDoomCoreSystem.instance.getApplicationLogger().info(builder.toString());
+    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().info(builder.toString());
   }
 
   @SuppressWarnings("unchecked")
@@ -42,7 +42,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
     try {
       contents = (T[]) new Object[1];
     } catch (ClassCastException c) {
-      VoltsOfDoomCoreSystem.instance.getApplicationLogger().error("Illegal cast from Object[] to T[] in contents: " + contents);
+      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("Illegal cast from Object[] to T[] in contents: " + contents);
     }
   }
 
@@ -89,7 +89,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
       contents = copy.clone();
 
     } catch (ClassCastException c) {
-      VoltsOfDoomCoreSystem.instance.getApplicationLogger().error("Illegal cast from Object[] to T[] in contents: " + contents);
+      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("Illegal cast from Object[] to T[] in contents: " + contents);
     }
 
     return this;
@@ -100,7 +100,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
     try {
       contents = (T[]) new Object[] {};
     } catch (ClassCastException c) {
-      VoltsOfDoomCoreSystem.instance.getApplicationLogger().error("Illegal cast from Object[] to T[] in contents: " + contents);
+      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("Illegal cast from Object[] to T[] in contents: " + contents);
     }
     return this;
   }

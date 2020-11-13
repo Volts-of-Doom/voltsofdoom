@@ -18,7 +18,7 @@ public class TypeRegistries {
   @Stowaway
   private static void createAndSubmitTypeRegistries(
       RegistryEvent.CreateAndSubmitRegistriesEvent event) {
-    VoltsOfDoomCoreSystem.instance.getApplicationLogger().debug("Creating and submitting default TypeRegistries");
+    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().debug("Creating and submitting default TypeRegistries");
 
     TILES = new TypeRegistry<Tile>(new ResourceLocation(VoltsOfDoomCoreSystem.getId(), "tiles"),
         RegistryTypes.TILES);

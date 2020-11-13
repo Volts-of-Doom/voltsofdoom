@@ -13,9 +13,9 @@ import com.google.common.collect.HashBiMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.coresystem.universal.resource.zip.ZipFileReader;
 import vision.voltsofdoom.coresystem.universal.util.Reference;
-import vision.voltsofdoom.zapbyte.main.ZapByte;
 import vision.voltsofdoom.zapbyte.resource.IResource;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
@@ -24,6 +24,8 @@ public class TextureManager {
   private final TextureAtlas atlas;
 
   public TextureManager(IResource parentFile) {
+    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
+        .info("Creating TextureManager with root directory " + parentFile.getPath());
     this.atlas = new TextureAtlas(createAtlasEntries());
   }
 
@@ -144,7 +146,8 @@ public class TextureManager {
    * @return The default image for a non-functioning texture.
    */
   private InputStream getDefaultImageAsStream() {
-    ZapByte.LOGGER.error("NO DEFAULT IMAGE TextureManager#getDefaultImageAsStream");
+    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
+        .error("NO DEFAULT IMAGE TextureManager#getDefaultImageAsStream");
     return null;
   }
 

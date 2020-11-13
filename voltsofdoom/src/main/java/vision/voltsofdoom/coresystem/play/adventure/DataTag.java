@@ -33,7 +33,7 @@ public class DataTag {
         throws JsonParseException {
 
       if (!type.equals(DataTag.class)) {
-        VoltsOfDoomCoreSystem.instance.getApplicationLogger()
+        VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
             .error("Illegal type for DataTagMapDeserializer: " + type.getTypeName());
         return null;
       }
