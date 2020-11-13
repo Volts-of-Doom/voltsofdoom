@@ -2,7 +2,7 @@ package vision.voltsofdoom.zapbyte.resource;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import vision.voltsofdoom.zapbyte.log.ZBLoggers;
+import vision.voltsofdoom.zapbyte.main.ZapByte;
 
 public class ZBSystemResourceHandler implements ISystemResourceHandler {
 
@@ -46,7 +46,7 @@ public class ZBSystemResourceHandler implements ISystemResourceHandler {
 
     } catch (FileNotFoundException e) {
       e.printStackTrace();
-      ZBLoggers.ZAPBYTE.error(getClass().getSimpleName() + "getFile" + e.getStackTrace());
+      ZapByte.LOGGER.error(getClass().getSimpleName() + "getFile" + e.getStackTrace());
       return null;
     }
   }

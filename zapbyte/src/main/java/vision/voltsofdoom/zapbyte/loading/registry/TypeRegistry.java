@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 import vision.voltsofdoom.zapbyte.event.Stowaway;
+import vision.voltsofdoom.zapbyte.main.ZapByte;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent.PollRegistryTypeEventsEvent;
-import vision.voltsofdoom.zapbyte.log.ZBLoggers;
 import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
 
 /**
@@ -113,7 +113,7 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
                 registry.genFinalised();
             Registry.register(registry.getRegistryIdentifier(), finalisedRegistry);
             
-            ZBLoggers.ZAPBYTE.debug("Registered " + registry.getRegistryIdentifier());
+            ZapByte.LOGGER.debug("Registered " + registry.getRegistryIdentifier());
           }
         }
       }

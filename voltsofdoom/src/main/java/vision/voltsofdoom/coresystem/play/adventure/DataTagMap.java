@@ -12,7 +12,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import vision.voltsofdoom.coresystem.universal.log.VODLoggers;
+import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 
 /**
  * Represents a {@link Map} of {@link DataTag}s.
@@ -62,7 +62,7 @@ public class DataTagMap {
         JsonDeserializationContext context) throws JsonParseException {
 
       if (!type.equals(DataTagMap.class)) {
-        VODLoggers.VOLTSOFDOOM
+        VoltsOfDoomCoreSystem.instance.getApplicationLogger()
             .info("Illegal type for DataTagMapDeserializer: " + type.getTypeName());
         return null;
       }
@@ -71,7 +71,7 @@ public class DataTagMap {
       JsonObject object = element.getAsJsonObject();
       
       if(!object.has("tags")) {
-        VODLoggers.VOLTSOFDOOM.warn("DataMapDeserializer found a member named 'tags' from an unknown JSON file to not exist. A basic DataTagMap(HashMap) will be injected in its place.");
+        VoltsOfDoomCoreSystem.instance.getApplicationLogger().warn("DataMapDeserializer found a member named 'tags' from an unknown JSON file to not exist. A basic DataTagMap(HashMap) will be injected in its place.");
         return new DataTagMap(new HashMap<String, DataTag>());
       }
       

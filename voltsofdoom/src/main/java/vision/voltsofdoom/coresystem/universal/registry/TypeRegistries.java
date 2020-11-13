@@ -3,7 +3,6 @@ package vision.voltsofdoom.coresystem.universal.registry;
 import vision.voltsofdoom.coresystem.play.adventure.Adventure;
 import vision.voltsofdoom.coresystem.play.entity.Entity;
 import vision.voltsofdoom.coresystem.play.tile.Tile;
-import vision.voltsofdoom.coresystem.universal.log.VODLoggers;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.event.Stowaway;
@@ -19,7 +18,7 @@ public class TypeRegistries {
   @Stowaway
   private static void createAndSubmitTypeRegistries(
       RegistryEvent.CreateAndSubmitRegistriesEvent event) {
-    VODLoggers.VOLTSOFDOOM.debug("Creating and submitting default TypeRegistries");
+    VoltsOfDoomCoreSystem.instance.getApplicationLogger().debug("Creating and submitting default TypeRegistries");
 
     TILES = new TypeRegistry<Tile>(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"),
         RegistryTypes.TILES);

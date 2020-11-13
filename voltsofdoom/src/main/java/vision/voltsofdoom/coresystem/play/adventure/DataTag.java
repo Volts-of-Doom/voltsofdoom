@@ -6,7 +6,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
-import vision.voltsofdoom.coresystem.universal.log.VODLoggers;
+import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 
 public class DataTag {
   public static final DataTagDeserializer DESERIALIZER = new DataTagDeserializer();
@@ -33,7 +33,7 @@ public class DataTag {
         throws JsonParseException {
 
       if (!type.equals(DataTag.class)) {
-        VODLoggers.VOLTSOFDOOM
+        VoltsOfDoomCoreSystem.instance.getApplicationLogger()
             .error("Illegal type for DataTagMapDeserializer: " + type.getTypeName());
         return null;
       }

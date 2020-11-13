@@ -10,7 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
 import vision.voltsofdoom.api.zapyte.config.IConfigurationFile;
-import vision.voltsofdoom.zapbyte.log.ZBLoggers;
+import vision.voltsofdoom.zapbyte.main.ZapByte;
 import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 import vision.voltsofdoom.zapbyte.misc.util.StacktraceUtils;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
@@ -29,9 +29,11 @@ public class ConfigHandler implements IConfigHandler {
   @Override
   public IConfigurationFile loadIfConfigurationFileBlank() {
     if (configurationFile == IConfigurationFile.BLANK) {
+      ZapByte.LOGGER.warn("ConfigHandler IConfigurationFile found to be blank! Reloading...");
       loadConfigurationFile();
     }
 
+    ZapByte.LOGGER.debug("ConfigHandler IConfigurationFile populated (was not blank)");
     return configurationFile;
   }
 
@@ -42,13 +44,13 @@ public class ConfigHandler implements IConfigHandler {
 
     // If the configuration file does not exist...
     if (!configFile.exists()) {
-      ZBLoggers.ZAPBYTE.info("Configuration file does not exist at: " + configFile);
+      ZapByte.LOGGER.warn("Configuration file does not exist at: " + configFile);
 
       ZBSystemResourceHandler.instance.getFile_canIgnoreMissing(() -> ZapByteReference.getConfig(), true).mkdirs();
 
       // Make new file and write default values.
       try {
-        ZBLoggers.ZAPBYTE.info("Trying to write a new configuration file...");
+        ZapByte.LOGGER.debug("Trying to write a new configuration file...");
         BufferedWriter writer = new BufferedWriter(new FileWriter(configFile));
 
         StringBuilder builder = new StringBuilder();
@@ -58,7 +60,7 @@ public class ConfigHandler implements IConfigHandler {
 
         writer.write("{\"vmargs\":[\"" + builder.toString() + "\"]}");
         writer.close();
-        ZBLoggers.ZAPBYTE.info("Written!");
+        ZapByte.LOGGER.debug("Written!");
       } catch (FileNotFoundException f) {
         f.printStackTrace();
       } catch (IOException i) {
@@ -69,17 +71,17 @@ public class ConfigHandler implements IConfigHandler {
     try {
 
       // Read config file
-      ZBLoggers.ZAPBYTE.info("Reading configuration file: " + configFile);
+      ZapByte.LOGGER.debug("Reading configuration file: " + configFile);
 
       configurationFile = ConfigurationFile
           .fromJson(new Gson().fromJson(new FileReader(configFile), JsonObject.class));
 
-      ZBLoggers.ZAPBYTE.info("Read configuration: " + configurationFile.toString());
+      ZapByte.LOGGER.debug("Read configuration: " + configurationFile.toString());
 
       setConfigurationFile(configurationFile);
     } catch (FileNotFoundException f) {
       f.printStackTrace();
-      ZBLoggers.ZAPBYTE.error(StacktraceUtils.stacktraceToString(f.getStackTrace()));
+      ZapByte.LOGGER.error(StacktraceUtils.stacktraceToString(f.getStackTrace()));
     }
   }
 

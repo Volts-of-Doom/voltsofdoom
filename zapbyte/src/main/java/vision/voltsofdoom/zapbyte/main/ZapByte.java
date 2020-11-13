@@ -1,17 +1,19 @@
 package vision.voltsofdoom.zapbyte.main;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.api.guice.Guicer;
 import vision.voltsofdoom.api.guice.Guicer.GuiceTest;
 import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
 import vision.voltsofdoom.zapbyte.config.ConfigHandler;
-import vision.voltsofdoom.zapbyte.log.ZBLoggers;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
 /**
@@ -29,6 +31,8 @@ public abstract class ZapByte {
   private Guicer guicer;
   public static final String ZAPBYTE = "zapbyte";
   private ZBSystemResourceHandler zbSystemResourceHandler;
+
+  public static Logger LOGGER;
 
   /**
    * Constructs a new root class for a {@link ZapByte} driven application loading cycle. <br>
@@ -48,6 +52,10 @@ public abstract class ZapByte {
    */
   public ZapByte(String applicationNamespace) {
     ZapByteReference.APPLICATION_NAMESPACE = applicationNamespace;
+
+    configureLogger();
+    // You can now use Logback logging calls
+
     setGuicer(new Guicer(new ZapByteGuiceBindingModule()));
 
     this.zapBits = new HashSet<ZapBit>();
@@ -56,6 +64,21 @@ public abstract class ZapByte {
     @SuppressWarnings("unused")
     GuiceTest guiceTest = guicer.getInjector().getInstance(GuiceTest.class);
     setZbSystemResourceHandler(guicer.getInjector().getInstance(ZBSystemResourceHandler.class));
+  }
+
+  /**
+   * The loggers WILL NOT work before this method is called, hence it is called before anything
+   * else.
+   */
+  private void configureLogger() {
+
+    // Set location of config file
+    System.setProperty("logback.configurationFile", ZapByteReference.getConfig() + "logback.xml");
+    // Set location of output file
+    System.setProperty("vision.voltsofdoom.zapbyte.log.outputFile", ZapByteReference.getLogs()
+        + Calendar.getInstance().getTime().toString().replace(" ", "_").replace(":", "-") + ".log");
+
+    ZapByte.LOGGER = LoggerFactory.getLogger(ZapByte.class);
   }
 
   /**
@@ -78,9 +101,6 @@ public abstract class ZapByte {
     launched = true;
     configHandler.loadIfConfigurationFileBlank();
 
-    ZBLoggers.ZAPBYTE.info("Running Java Vitual Machine (JVM) with arguments: "
-        + configHandler.getConfigurationFile().toString());
-
     // Get all into map
     Map<Integer, ZapBit> bits = new HashMap<Integer, ZapBit>();
     zapBits.forEach((bit) -> bits.put(bit.getPriority(), bit));
@@ -94,12 +114,10 @@ public abstract class ZapByte {
       bits.get(integer).run();
     }
 
-    ZBLoggers.ZAPBYTE
-        .warn("ZapBit execution complete. Continuing external (none-ZapBit) execution.");
-
+    ZapByte.LOGGER.warn("ZapBit execution complete. Continuing external (none-ZapBit) execution.");
     continueExecution();
 
-    ZBLoggers.ZAPBYTE.error("ZapByte cycle complete. Exiting.");
+    ZapByte.LOGGER.error("ZapByte cycle complete. Exiting.");
     System.exit(1);
   }
 
@@ -125,10 +143,18 @@ public abstract class ZapByte {
     return zbSystemResourceHandler;
   }
 
+  /**
+   * Override to return the desired instance of {@link Logger} for your application.
+   */
+  public Logger getApplicationLogger() {
+    return LOGGER;
+  }
+
   // Set
 
   protected void setGuicer(Guicer guicer) {
     this.guicer = guicer;
+    ZapByte.LOGGER.info("Guicer has been reset!");
   }
 
   protected void setConfigHandler(IConfigHandler configHandler) {

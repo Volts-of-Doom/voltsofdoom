@@ -10,7 +10,6 @@ import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
 import vision.voltsofdoom.zapbyte.loading.VODClassLoader;
 import vision.voltsofdoom.zapbyte.loading.reflectory.Reflectory.Builder;
-import vision.voltsofdoom.zapbyte.log.ZBLoggers;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
 import vision.voltsofdoom.zapbyte.resource.JarMapper;
 
@@ -47,7 +46,7 @@ public class Reflectories {
     Reflectory vodRefl = defaultBuilder().withClassLoader(ZapByte.class.getClassLoader()).build();
     reflectories.putIfAbsent("volts_of_doom_core_system", vodRefl);
 
-    ZBLoggers.ZAPBYTE.info("Generated Reflectories with IDs: " + reflectories.keySet());
+    ZapByte.LOGGER.info("Generated Reflectories with IDs: " + reflectories.keySet());
   }
 
   /**

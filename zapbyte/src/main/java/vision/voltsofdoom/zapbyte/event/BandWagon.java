@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import vision.voltsofdoom.zapbyte.loading.reflectory.Reflectory;
-import vision.voltsofdoom.zapbyte.log.ZBLoggers;
+import vision.voltsofdoom.zapbyte.main.ZapByte;
 
 /**
  * Sick of hearing about event buses? Well Volts of Doom has a {@link BandWagon}!
@@ -39,7 +39,7 @@ public class BandWagon {
    */
   public static void playEvent(Event event) {
 
-    ZBLoggers.ZAPBYTE.info("Playing Event: " + event);
+    ZapByte.LOGGER.info("Playing Event: " + event);
 
     stowawayMethods.forEach((method) -> {
       try {
@@ -52,8 +52,8 @@ public class BandWagon {
 
       } catch (InvocationTargetException | IllegalAccessException | IllegalArgumentException e) {
         if (e.getCause() != null) {
-          ZBLoggers.ZAPBYTE.error("Throwing: " + e.getClass().getName());
-          ZBLoggers.ZAPBYTE.error("Message: " + e.getLocalizedMessage());
+          ZapByte.LOGGER.error("Throwing: " + e.getClass().getName());
+          ZapByte.LOGGER.error("Message: " + e.getLocalizedMessage());
           e.getCause().printStackTrace();
         } else {
           e.printStackTrace();
@@ -108,14 +108,14 @@ public class BandWagon {
 
     // If is not static
     if (!Modifier.isStatic(method.getModifiers())) {
-      ZBLoggers.ZAPBYTE.debug("Could not validate Method : " + method
+      ZapByte.LOGGER.debug("Could not validate Method : " + method
           + " : to the BandWagon because it is not static.");
       return false;
     }
 
     // If has not-one parameter
     if (!(method.getParameterCount() == 1)) {
-      ZBLoggers.ZAPBYTE.debug("Could not validate Method : " + method
+      ZapByte.LOGGER.debug("Could not validate Method : " + method
           + " : to the BandWagon because it does not have only 1 parameter");
       return false;
     }
@@ -123,19 +123,19 @@ public class BandWagon {
     // If the superclass is not Event
     Class<?> parameterType = method.getParameters()[0].getType();
     if (!Event.class.isAssignableFrom(parameterType)) {
-      ZBLoggers.ZAPBYTE.debug("Could not validate Method : " + method
+      ZapByte.LOGGER.debug("Could not validate Method : " + method
           + " : to the BandWagon because it does not extend the Volts of Doom Event directly.");
       return false;
     }
 
-    ZBLoggers.ZAPBYTE.debug("Validated Method : " + method
+    ZapByte.LOGGER.debug("Validated Method : " + method
         + " : for subscription to the BandWagon, as it meets all required criteria. ");
     return true;
   }
 
   @Stowaway
   private static void createBandWagonEventListener(LoadingEvent.BandWagonCreation event) {
-    ZBLoggers.ZAPBYTE.info("Creating BandWagon: Playing creation event.");
+    ZapByte.LOGGER.info("Creating BandWagon: Playing creation event.");
   }
 
 }
