@@ -2,6 +2,7 @@ package vision.voltsofdoom.coresystem.universal.main;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vision.voltsofdoom.coresystem.universal.resource.image.TextureManager;
 import vision.voltsofdoom.zapbyte.main.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
@@ -19,15 +20,15 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
   
   public static VoltsOfDoomCoreSystem instance;
 
+  private static final String ID = "voltsofdoom";
+
+  private TextureManager textureManager;
+
   public VoltsOfDoomCoreSystem() {
     super(ID);
+    instance = this;
+   // textureManager = new TextureManager(() -> Reference.getTexturesDir());
   }
-
-  public static final GameController GAME_CONTROLLER = new GameController();
-
-  public static final String ID = "voltsofdoom";
-
-  public static volatile boolean launched = false;
 
   /**
    * Begins the program.
@@ -80,6 +81,18 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
      * -> ((Adventure) a.get()) .getLevels().forEach((l) ->
      * l.getRawTileMap().generateTwoDimensionalListOfTileObjects()));
      */
+  }
+  
+  public static VoltsOfDoomCoreSystem getInstance() {
+    return instance;
+  }
+  
+  public TextureManager getTextureManager() {
+    return textureManager;
+  }
+  
+  public static String getId() {
+    return ID;
   }
 
   @Override

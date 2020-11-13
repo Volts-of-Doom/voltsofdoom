@@ -64,11 +64,11 @@ public class AdventureLoader {
   private static void generateAdventures(GenerateAdventuresEvent event)
       throws FileNotFoundException {
     List<ZipFile> adventureZips = new ArrayList<ZipFile>();
-    File adventureFolder = ZBSystemResourceHandler.instance.getFile(() -> Reference.ADVENTURE);
+    File adventureFolder = ZBSystemResourceHandler.instance.getFile(() -> Reference.getAdventuresDir());
     if (!adventureFolder.exists() || !adventureFolder.isDirectory()) {
       adventureFolder.mkdir();
       throw new FileNotFoundException("Adventure folder in the located Volts of Doom directory"
-          + ZapByteReference.getApplicationRoaming() + " cannot be located (" + Reference.ADVENTURE
+          + ZapByteReference.getApplicationRoaming() + " cannot be located (" + Reference.getAdventuresDir()
           + ")! This is an error! Program will terminate.");
     }
 

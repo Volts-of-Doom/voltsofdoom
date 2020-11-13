@@ -53,7 +53,7 @@ public class Adventure extends RegistryEntry<Adventure> {
 
       for (LevelConfiguration config : configs) {
 
-        File file = ZBSystemResourceHandler.instance.getFile(() -> (Reference.ADVENTURE + this.configuration.getIdentifier().getEntry()
+        File file = ZBSystemResourceHandler.instance.getFile(() -> (Reference.getAdventuresDir() + this.configuration.getIdentifier().getEntry()
             + "_" + this.configuration.getVersion() + ".zip"));
         levelArr.add(Level.fromZip(this, new ZipFile(file), config));
       }
