@@ -5,6 +5,7 @@ import org.reflections.Reflections;
 import org.reflections.scanners.Scanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
+import org.reflections.util.FilterBuilder;
 
 /**
  * A place for the Volts of Doom monks to search through jar files in peace.
@@ -17,7 +18,8 @@ public class Reflectory {
   private ClassLoader classLoader;
   private Scanner[] scanners;
   private Reflections reflections;
-  public String visibleName;
+  private String visibleName;
+  private FilterBuilder filterBuilder;
 
   /**
    * Prevents usage of the blank constructor. <b>Use {@link Reflectory.Builder}</b>
@@ -38,7 +40,7 @@ public class Reflectory {
     configBuilder.addClassLoader(classLoader);
     configBuilder.addScanners(scanners);
 
-    reflections = new Reflections(configBuilder);
+    setReflections(new Reflections(configBuilder));
     return this;
   }
 
@@ -52,6 +54,49 @@ public class Reflectory {
 
   public Reflections getReflections() {
     return reflections;
+  }
+
+  public String getVisibleName() {
+    return visibleName;
+  }
+
+  public void setVisibleName(String visibleName) {
+    this.visibleName = visibleName;
+  }
+
+  /**
+   * @return the filterBuilder
+   */
+  public FilterBuilder getFilterBuilder() {
+    return filterBuilder;
+  }
+
+  /**
+   * @param filterBuilder the filterBuilder to set
+   */
+  private void setFilterBuilder(FilterBuilder filterBuilder) {
+    this.filterBuilder = filterBuilder;
+  }
+
+  /**
+   * @param classLoader the classLoader to set
+   */
+  private void setClassLoader(ClassLoader classLoader) {
+    this.classLoader = classLoader;
+  }
+
+  /**
+   * @param scanners the scanners to set
+   */
+  private void setScanners(Scanner[] scanners) {
+    this.scanners = scanners;
+  }
+
+  /**
+   * @param reflections the reflections to set
+   */
+  private void setReflections(Reflections reflections) {
+    this.reflections = reflections;
   }
 
   /**
@@ -78,7 +123,7 @@ public class Reflectory {
      * @return This {@link Builder}
      */
     public Builder withClassLoader(ClassLoader classLoader) {
-      reflectory.classLoader = classLoader;
+      reflectory.setClassLoader(classLoader);
       return this;
     }
 
@@ -90,18 +135,23 @@ public class Reflectory {
      * @return This {@link Builder}
      */
     public Builder withScanner(Scanner scanner) {
-      scanners.add(scanner);
+      this.scanners.add(scanner);
       return this;
     }
 
     public Reflectory build() {
-      reflectory.scanners = scanners.toArray(new Scanner[scanners.size()]);
+      reflectory.setScanners(this.scanners.toArray(new Scanner[scanners.size()]));
       reflectory.index();
       return reflectory;
     }
 
     public Builder withVisibleName(String name) {
-      reflectory.visibleName = name;
+      reflectory.setVisibleName(name);
+      return this;
+    }
+
+    public Builder withFilterBuilder(FilterBuilder filterBuilder) {
+      reflectory.setFilterBuilder(filterBuilder);
       return this;
     }
   }

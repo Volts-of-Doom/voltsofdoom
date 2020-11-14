@@ -8,6 +8,7 @@ import java.util.Set;
 import org.reflections.scanners.MethodAnnotationsScanner;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
+import org.reflections.util.FilterBuilder;
 import vision.voltsofdoom.zapbyte.loading.VODClassLoader;
 import vision.voltsofdoom.zapbyte.loading.reflectory.Reflectory.Builder;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
@@ -50,7 +51,8 @@ public class Reflectories {
   }
 
   /**
-   * A {@link Builder} with default properties. Does not contain a {@link ClassLoader}.
+   * A {@link Builder} with default properties. Does not contain a {@link ClassLoader}. Excludes
+   * java package. Excludes org.reflections package.
    * 
    * @return The builder.
    */
@@ -59,6 +61,7 @@ public class Reflectories {
     builder.withScanner(new TypeAnnotationsScanner());
     builder.withScanner(new MethodAnnotationsScanner());
     builder.withScanner(new SubTypesScanner(false));
+    builder.withFilterBuilder(new FilterBuilder().excludePackage("java").excludePackage("org.reflections").excludePackage("com.google").excludePackage("com.sun"));
     return builder;
   }
 
