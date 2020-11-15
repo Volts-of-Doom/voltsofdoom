@@ -61,8 +61,9 @@ public class TextureAtlas {
     Packer packer = new Packer(1, 64, 64);
     packer.fit(nodes);
     VoltsOfDoomCoreSystem.easyDebug("Packed!");
-    
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("Oops! No image is returned! Passing on...");
+
+    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
+        .error("Oops! No image is returned! Passing on...");
 
     return baseImage;
   }

@@ -27,7 +27,8 @@ public class TextureManager {
   private final TextureAtlas atlas;
 
   public TextureManager(IResource parentFile) {
-    VoltsOfDoomCoreSystem.easyInfo("Creating TextureManager with root directory " + parentFile.getPath());
+    VoltsOfDoomCoreSystem
+        .easyInfo("Creating TextureManager with root directory " + parentFile.getPath());
     this.atlas = new TextureAtlas(createAtlasEntries(parentFile));
   }
 
@@ -48,9 +49,20 @@ public class TextureManager {
 
     BiMap<String, JsonObject> manifests = obtainManifestFiles(zipFiles);
 
-    /////////////////
-    // Read manifests, and bind entries
-    /////////////////
+    readManifestsAndBindEntries(images, zipFiles, manifests);
+
+    return images;
+  }
+
+  /**
+   * Reads the manifests, and binds their entries to images.
+   * 
+   * @param images
+   * @param zipFiles
+   * @param manifests
+   */
+  private void readManifestsAndBindEntries(ArrayList<ITextureAtlasEntry> images,
+      BiMap<String, ZipFile> zipFiles, BiMap<String, JsonObject> manifests) {
 
     // Log new process
     VoltsOfDoomCoreSystem.easyDebug("Reading manifests...");
@@ -86,10 +98,7 @@ public class TextureManager {
 
           final String finalValue = resolveFinalNameOfEntry(readValue);
 
-          final InputStream stream = finalValue != "default"
-              ? reader.getStream(Reference.getTexturePackInternalTextureDir() + finalValue,
-                  "Unable to get stream for file " + finalValue + " from ZIP file " + zipName)
-              : getDefaultImageAsStream();
+          final InputStream stream = resolveStream(zipName, reader, finalValue);
 
           // Bind
           bindNewITextureAtlasEntry(images, key, finalValue, stream);
@@ -106,8 +115,22 @@ public class TextureManager {
 
 
     }
+  }
 
-    return images;
+  /**
+   * Gets the stream of the finalValue's imaged
+   * 
+   * @param zipName
+   * @param reader
+   * @param finalValue
+   * @return
+   */
+  private InputStream resolveStream(String zipName, ZipFileReader reader, final String finalValue) {
+    final InputStream stream = finalValue != "default"
+        ? reader.getStream(Reference.getTexturePackInternalTextureDir() + finalValue,
+            "Unable to get stream for file " + finalValue + " from ZIP file " + zipName)
+        : getDefaultImageAsStream();
+    return stream;
   }
 
   /**
