@@ -7,7 +7,6 @@ import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.event.Stowaway;
 import vision.voltsofdoom.zapbyte.loading.registry.TypeRegistry;
-import vision.voltsofdoom.zapbyte.log.Loggers;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 public class TypeRegistries {
@@ -19,7 +18,7 @@ public class TypeRegistries {
   @Stowaway
   private static void createAndSubmitTypeRegistries(
       RegistryEvent.CreateAndSubmitRegistriesEvent event) {
-    Loggers.ZAPBYTE_LOADING_REGISTRY.fine("Creating and submitting default TypeRegistries");
+    VoltsOfDoomCoreSystem.instance.getApplicationLogger().debug("Creating and submitting default TypeRegistries");
 
     TILES = new TypeRegistry<Tile>(new ResourceLocation(VoltsOfDoomCoreSystem.ID, "tiles"),
         RegistryTypes.TILES);

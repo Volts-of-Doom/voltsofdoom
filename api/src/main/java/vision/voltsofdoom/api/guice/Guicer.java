@@ -76,7 +76,7 @@ public class Guicer {
     String str;
 
     public static void main(String[] args) {
-      Guicer guicer = new Guicer(new ZapByteGuiceBindingModule());
+      Guicer guicer = new Guicer(new VODApiGuiceBindingModule());
       GuiceTest test = guicer.injector.getInstance(GuiceTest.class);
       test.test();
     }

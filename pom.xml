@@ -28,6 +28,27 @@
 	<dependencyManagement>
 		<dependencies>
 
+			<!-- JUnit -->
+
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.13.1</version>
+				<scope>test</scope>
+			</dependency>
+
+			<!-- Logback -->
+
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>1.2.3</version>
+			</dependency>
+
+			<!-- Google -->
+
+			<!-- https://code.google.com/ -->
+
 			<!-- GSON -->
 
 			<dependency>
@@ -64,15 +85,6 @@
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>29.0-jre</version>
-			</dependency>
-
-			<!-- JUnit -->
-
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>4.13.1</version>
-				<scope>test</scope>
 			</dependency>
 
 			<!-- Lightweight Java Game Library -->
