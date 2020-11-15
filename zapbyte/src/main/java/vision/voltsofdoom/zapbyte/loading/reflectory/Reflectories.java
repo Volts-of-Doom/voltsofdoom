@@ -8,8 +8,8 @@ import java.util.Set;
 import org.reflections.scanners.MethodAnnotationsScanner;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
+import org.reflections.util.FilterBuilder;
 import vision.voltsofdoom.zapbyte.loading.VODClassLoader;
-import vision.voltsofdoom.zapbyte.loading.reflectory.Reflectory.Builder;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
 import vision.voltsofdoom.zapbyte.resource.JarMapper;
 
@@ -50,15 +50,23 @@ public class Reflectories {
   }
 
   /**
-   * A {@link Builder} with default properties. Does not contain a {@link ClassLoader}.
-   * 
-   * @return The builder.
+   * @return A {@link Reflectory.Builder} with default properties. Does not contain a
+   *         {@link ClassLoader}. <br>
+   *         Excludes packages:
+   *         <ul>
+   *         <li>java
+   *         <li>com.sun
+   *         <li>org.reflections
+   *         <li>com.google
+   *         </ul>
    */
   public static Reflectory.Builder defaultBuilder() {
     Reflectory.Builder builder = new Reflectory.Builder();
     builder.withScanner(new TypeAnnotationsScanner());
     builder.withScanner(new MethodAnnotationsScanner());
     builder.withScanner(new SubTypesScanner(false));
+    builder.withFilterBuilder(new FilterBuilder().excludePackage("java")
+        .excludePackage("org.reflections").excludePackage("com.google").excludePackage("com.sun"));
     return builder;
   }
 
