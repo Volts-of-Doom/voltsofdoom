@@ -15,7 +15,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
 
   public static void main(String[] args) {
 
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().info("Starting");
+    VoltsOfDoomCoreSystem.easyInfo("Starting");
 
     SemiMutableArray<String> smarr = new SemiMutableArray<String>();
 
@@ -34,7 +34,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
     for (String str : smarr) {
       builder.append(str + " ");
     }
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().info(builder.toString());
+    VoltsOfDoomCoreSystem.easyInfo(builder.toString());
   }
 
   @SuppressWarnings("unchecked")

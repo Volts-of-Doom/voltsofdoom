@@ -62,8 +62,8 @@ public class DataTagMap {
         JsonDeserializationContext context) throws JsonParseException {
 
       if (!type.equals(DataTagMap.class)) {
-        VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-            .info("Illegal type for DataTagMapDeserializer: " + type.getTypeName());
+        VoltsOfDoomCoreSystem.
+            easyInfo("Illegal type for DataTagMapDeserializer: " + type.getTypeName());
         return null;
       }
 

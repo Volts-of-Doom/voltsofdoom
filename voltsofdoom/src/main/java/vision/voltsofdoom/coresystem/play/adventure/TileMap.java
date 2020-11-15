@@ -18,7 +18,7 @@ import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
  */
 public class TileMap {
   private List<List<Tile>> tiles = new ArrayList<List<Tile>>();
-  
+
   public TileMap(RawTileMap raw) {
     this(raw.getMap(), raw.getKey());
   }
@@ -49,8 +49,8 @@ public class TileMap {
       tiles.add(tilesToAdd);
     }
 
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-        .info("Finished loading " + this.getClass().getSimpleName() + " for latest Level");
+    VoltsOfDoomCoreSystem
+        .easyInfo("Finished loading " + this.getClass().getSimpleName() + " for latest Level");
   }
 
   public List<List<Tile>> getTiles() {

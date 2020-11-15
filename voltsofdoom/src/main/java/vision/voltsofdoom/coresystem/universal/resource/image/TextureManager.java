@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import javax.imageio.ImageIO;
 import com.google.common.collect.BiMap;
@@ -26,8 +27,7 @@ public class TextureManager {
   private final TextureAtlas atlas;
 
   public TextureManager(IResource parentFile) {
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-        .info("Creating TextureManager with root directory " + parentFile.getPath());
+    VoltsOfDoomCoreSystem.easyInfo("Creating TextureManager with root directory " + parentFile.getPath());
     this.atlas = new TextureAtlas(createAtlasEntries(parentFile));
   }
 
@@ -39,16 +39,207 @@ public class TextureManager {
   private List<ITextureAtlasEntry> createAtlasEntries(IResource parentFile) {
 
     // Setup
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-        .debug("Creating TextureAtlasEntries");
+    VoltsOfDoomCoreSystem.easyDebug("Creating TextureAtlasEntries");
 
     ArrayList<ITextureAtlasEntry> images = new ArrayList<ITextureAtlasEntry>();
 
-    // Get relevant texture ZIP files
-    /**
-     * String = name of ZIP <br>
-     * ZipFile = the texture pack ZIP
-     */
+    // Get the relevant ZIP files
+    BiMap<String, ZipFile> zipFiles = getRelevantZipFiles(parentFile);
+
+    BiMap<String, JsonObject> manifests = obtainManifestFiles(zipFiles);
+
+    /////////////////
+    // Read manifests, and bind entries
+    /////////////////
+
+    // Log new process
+    VoltsOfDoomCoreSystem.easyDebug("Reading manifests...");
+
+    // For each manifest file, read and bind all listed images
+    for (String name : manifests.keySet()) {
+
+      VoltsOfDoomCoreSystem.easyDebug("Reading manifest: " + name);
+
+      JsonObject manifest = manifests.get(name);
+
+      /////////////
+      // For each entry in the manifest, obtain the denoted image, and bind
+      /////////////
+      manifest.entrySet().forEach((entry) -> {
+
+        VoltsOfDoomCoreSystem.easyDebug("Reading manifest (JSONObject) JSONEntry: " + entry);
+
+        // Get the key and value
+        String key = entry.getKey();
+        JsonElement rawValue = entry.getValue();
+        String readValue = readValueOfManifestJsonEntry(key, rawValue);
+
+        // Fetch a stream of the image, and form a texture atlas entry.
+        try {
+          // Get the file name
+          String zipName = manifests.inverse().get(manifest);
+          VoltsOfDoomCoreSystem.easyDebug("Hooking into file: " + zipName);
+
+          // Get a reader
+          VoltsOfDoomCoreSystem.easyDebug("Getting reader from 'zipFiles': " + zipName);
+          ZipFileReader reader = new ZipFileReader(zipFiles.get(zipName));
+
+          final String finalValue = resolveFinalNameOfEntry(readValue);
+
+          final InputStream stream = finalValue != "default"
+              ? reader.getStream(Reference.getTexturePackInternalTextureDir() + finalValue,
+                  "Unable to get stream for file " + finalValue + " from ZIP file " + zipName)
+              : getDefaultImageAsStream();
+
+          // Bind
+          bindNewITextureAtlasEntry(images, key, finalValue, stream);
+
+          // Terminate and tidy up
+          stream.close();
+
+          // Repeat
+
+        } catch (IOException i) {
+          i.printStackTrace();
+        }
+      });
+
+
+    }
+
+    return images;
+  }
+
+  /**
+   * Makes a binding for a {@link ITextureAtlasEntry} on the {@link TextureAtlas}.
+   * 
+   * @param images
+   * @param key
+   * @param finalValue
+   * @param stream
+   */
+  private void bindNewITextureAtlasEntry(ArrayList<ITextureAtlasEntry> images, String key,
+      final String finalValue, final InputStream stream) {
+    images.add(new ITextureAtlasEntry() {
+
+      @Override
+      public String getName() {
+        return key;
+      }
+
+      @Override
+      public BufferedImage getImage() {
+        try {
+          return ImageIO.read(stream);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+
+        throw new IllegalStateException("Unable to read image file stream " + finalValue
+            + " (assigned and default values failed)");
+      }
+    });
+  }
+
+  /**
+   * Gets the true name of the {@link ZipEntry} to fetch
+   * 
+   * @param readValue
+   * @return
+   */
+  private String resolveFinalNameOfEntry(String readValue) {
+    final String finalValue = readValue.endsWith(".png") ? readValue : readValue + ".png";
+    VoltsOfDoomCoreSystem.easyDebug("Entry's end value has been resolved! (readValue) " + readValue
+        + " >> (finalValue) " + finalValue);
+    return finalValue;
+  }
+
+  /**
+   * Gets the value of the current {@link JsonElement}
+   * 
+   * @param key
+   * @param rawValue
+   * @return
+   */
+  private String readValueOfManifestJsonEntry(String key, JsonElement rawValue) {
+    String readValue = "default";
+
+    VoltsOfDoomCoreSystem.easyDebug("Entry key: " + key);
+    VoltsOfDoomCoreSystem.easyDebug("Entry rawValue: " + rawValue);
+
+    try {
+      readValue = rawValue.getAsString();
+
+      VoltsOfDoomCoreSystem.easyDebug("readValue: default >> " + readValue);
+
+    } catch (Exception e) {
+      ZapByteExceptionFormatter.onError_withMessage_withArgs(e, //
+          VoltsOfDoomCoreSystem.getInstance().getApplicationLogger(), //
+          "Error reading value of manifest file entry", //
+          new String[] {"readValue", //
+              readValue, //
+              "rawValue", //
+              rawValue.toString() //
+          });
+    }
+
+    VoltsOfDoomCoreSystem.easyDebug("Successfully loaded readValue of JSONEntry! : " + readValue);
+    return readValue;
+  }
+
+  /**
+   * Gets the manifest files from each ZIP files
+   * 
+   * @param zipFiles
+   * @return
+   */
+  private BiMap<String, JsonObject> obtainManifestFiles(BiMap<String, ZipFile> zipFiles) {
+
+    BiMap<String, JsonObject> manifests = HashBiMap.create();
+    VoltsOfDoomCoreSystem.easyDebug("Created manifest files list: " + manifests);
+
+    try {
+
+      // For each ZIP file
+      for (ZipFile zip : zipFiles.values()) {
+
+        // Log
+        VoltsOfDoomCoreSystem.easyDebug("Attempting to load ZIP file: " + zip.getName());
+
+        // Make a reader
+        ZipFileReader reader = new ZipFileReader(zip);
+        VoltsOfDoomCoreSystem.easyDebug("Successfully generated ZipFileReader");
+
+        // Read a JSON from it
+        JsonObject obj = new Gson().fromJson(
+            ZipFileReader.asJsonReader(reader.getStream("manifest.json")), JsonObject.class);
+        VoltsOfDoomCoreSystem.easyDebug("Found JSONObject: " + obj);
+
+        // Put the manifest into the array
+        manifests.put(zip.getName(), obj);
+        VoltsOfDoomCoreSystem.easyDebug("Bound! (" + zip.getName() + ") : (" + obj + ")");
+      }
+    } catch (IOException i) {
+      ZapByteExceptionFormatter.onError_withMessage(i, //
+          VoltsOfDoomCoreSystem.getInstance().getApplicationLogger(), //
+          "Error whilst loading texture pack ZIP file manifests" //
+      );
+    }
+
+    // Log success
+    VoltsOfDoomCoreSystem.easyInfo("Successfully loaded texture pack ZIP file manifests!");
+    return manifests;
+  }
+
+  /**
+   * Gets the relevant ZIP files from the texture packs directory.
+   * 
+   * @param parentFile The texture packs directory.
+   * @param images The {@link ArrayList}
+   * @return
+   */
+  private BiMap<String, ZipFile> getRelevantZipFiles(IResource parentFile) {
+
     BiMap<String, ZipFile> zipFiles = HashBiMap.create();
     try {
 
@@ -56,8 +247,8 @@ public class TextureManager {
       File[] listings = ZBSystemResourceHandler.instance.getFile(parentFile).listFiles();
 
       // Log
-      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-          .debug("Found texture ZIP files: " + StringUtils.arrayToString(listings));
+      VoltsOfDoomCoreSystem
+          .easyDebug("Found texture ZIP files: " + StringUtils.arrayToString(listings));
 
       // For each
       for (File file : listings) {
@@ -66,8 +257,8 @@ public class TextureManager {
         if (file.getName().endsWith(".zip")) {
 
           // Log
-          VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-              .debug("Creating new ZipFile binding for file: " + file.getName());
+          VoltsOfDoomCoreSystem
+              .easyDebug("Creating new ZipFile binding for file: " + file.getName());
 
           // Bind file name to a new ZIP file
           zipFiles.put(file.getName(), new ZipFile(file));
@@ -79,153 +270,12 @@ public class TextureManager {
           "An exception has occurred during TexureManger loading, #createAtlasEntries", // Message
           new String[] { // Additional arguments, in pairs
               "parentFile", //
-              parentFile.getPath(), //
-              "images ArrayList", //
-              images != null ? "non-null" : "null", //
-              "endofargs"//
+              parentFile.getPath()//
           });
     }
 
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-        .debug("Using texture ZIPs: " + zipFiles.keySet());
-
-    // Get manifest files
-    /**
-     * String = name of parent ZIP <br>
-     * JsonObject = that ZIP's manifest file
-     */
-    BiMap<String, JsonObject> manifests = HashBiMap.create();
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-        .debug("Created manifest files list: " + manifests);
-
-    try {
-
-      // For each ZIP file
-      for (ZipFile zip : zipFiles.values()) {
-
-        // Log
-        VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-            .debug("Attempting to load ZIP file: " + zip.getName());
-
-        // Make a reader
-        ZipFileReader reader = new ZipFileReader(zip);
-        VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-            .debug("Successfully generated ZipFileReader");
-
-        // Read a JSON from it
-        JsonObject obj = new Gson().fromJson(
-            ZipFileReader.asJsonReader(reader.getStream("manifest.json")), JsonObject.class);
-        VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-            .debug("Found JSONObject: " + obj);
-
-        // Put the manifest into the array
-        manifests.put(zip.getName(), obj);
-        VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-            .debug("Bound! (" + zip.getName() + ") : (" + obj + ")");
-      }
-    } catch (IOException i) {
-      ZapByteExceptionFormatter.onError_withMessage(i, //
-          VoltsOfDoomCoreSystem.getInstance().getApplicationLogger(), //
-          "Error whilst loading texture pack ZIP file manifests" //
-      );
-    }
-
-    // Log success
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-        .info("Successfully loaded texture pack ZIP file manifests!");
-
-    // Log new process
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().debug("Reading manifests...");
-
-    // For each manifest file, read and bind all listed images
-    for (String name : manifests.keySet()) {
-
-      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().debug("Reading manifest: " + name);
-
-      JsonObject manifest = manifests.get(name);
-
-      // For each entry in the manifest
-      manifest.entrySet().forEach((entry) -> {
-
-        VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-            .debug("Reading manifest (JSONObject) JSONEntry: " + entry);
-
-        // Get the key and value
-        String key = entry.getKey();
-        JsonElement rawValue = entry.getValue();
-        String readValue = "default";
-
-        VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().debug("Entry key: " + key);
-        VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-            .debug("Entry rawValue: " + rawValue);
-
-        try {
-          readValue = rawValue.getAsString();
-
-          VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-              .debug("readValue: default >> " + readValue);
-          
-        } catch (Exception e) {
-          ZapByteExceptionFormatter.onError_withMessage_withArgs(e, //
-              VoltsOfDoomCoreSystem.getInstance().getApplicationLogger(), //
-              "Error reading value of manifest file entry", //
-              new String[] {"readValue", //
-                  readValue, //
-                  "rawValue", //
-                  rawValue.toString() //
-          });
-        }
-
-        VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().debug("Successfully loaded readValue of JSONEntry! : " + readValue);
-
-        // Fetch a stream of the image, and form a texture atlas entry.
-        try {
-          // Get a hook into the file
-          String zipName = manifests.inverse().get(manifest);
-          ZipFileReader reader = new ZipFileReader(zipFiles.get(zipName));
-
-          // Read
-          final String finalValue = readValue.endsWith(".png") ? readValue : readValue + ".png";
-          final InputStream stream = finalValue != "default"
-              ? reader.getStream(Reference.getTexturePackInternalTextureDir() + finalValue,
-                  "Unable to get stream for file " + finalValue + " from ZIP file " + zipName)
-              : getDefaultImageAsStream();
-
-          // Bind
-          images.add(new ITextureAtlasEntry() {
-
-            @Override
-            public String getName() {
-              return key;
-            }
-
-            @Override
-            public BufferedImage getImage() {
-              try {
-                return ImageIO.read(stream);
-              } catch (IOException e) {
-                e.printStackTrace();
-              }
-
-              throw new IllegalStateException("Unable to read image file " + finalValue
-                  + " (assigned and default values failed)");
-            }
-          });
-
-          // Terminate and tidy up
-          stream.close();
-
-          // Repeat
-
-        } catch (IOException i) {
-          i.printStackTrace();
-        }
-      }); // <<<< This is the end of forEach
-
-
-    }
-
-    return images;
+    VoltsOfDoomCoreSystem.easyDebug("Using texture ZIPs: " + zipFiles.keySet());
+    return zipFiles;
   }
 
   /**

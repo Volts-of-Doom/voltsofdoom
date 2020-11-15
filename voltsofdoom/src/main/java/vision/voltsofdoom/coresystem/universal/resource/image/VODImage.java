@@ -25,7 +25,7 @@ public class VODImage implements ITextureDimensionsProvider {
 
       URI formattedUri = new URI(f.getAbsolutePath().replace("\\", "/"));
       url = new URL("file://" + formattedUri.getPath());
-      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().debug("URL : " + url.getPath());
+      VoltsOfDoomCoreSystem.easyDebug("URL : " + url.getPath());
 
       image = ImageIO.read(url);
     } catch (Exception e) {

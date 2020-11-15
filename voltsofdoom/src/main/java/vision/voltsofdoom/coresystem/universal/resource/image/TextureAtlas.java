@@ -17,7 +17,7 @@ public class TextureAtlas {
       new HashMap<String, ICoordinateAlignedImageDataProvider>();
 
   public TextureAtlas(List<ITextureAtlasEntry> rawAtlasEntries) {
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().info("Constructing TextureAtlas");
+    VoltsOfDoomCoreSystem.easyInfo("Constructing TextureAtlas");
     this.image = new BufferedImage(32, 32, BufferedImage.TYPE_4BYTE_ABGR);
     stitch(rawAtlasEntries, image);
   }
@@ -39,13 +39,13 @@ public class TextureAtlas {
   }
 
   public BufferedImage stitch(List<ITextureAtlasEntry> rawAtlasEntries, BufferedImage baseImage) {
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().debug("Stitching TextureAtlas");
+    VoltsOfDoomCoreSystem.easyDebug("Stitching TextureAtlas");
 
     // Create the list of nodes
     ArrayList<Node> nodes = new ArrayList<Node>();
     rawAtlasEntries.forEach((entry) -> nodes
         .add(new Node(entry.getName(), entry.getImage().getWidth(), entry.getImage().getHeight())));
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().debug("Node list compiled");
+    VoltsOfDoomCoreSystem.easyDebug("Node list compiled");
 
     // Sort the nodes by size, largest width first
     Collections.sort(nodes, new Comparator<Node>() {
@@ -54,13 +54,13 @@ public class TextureAtlas {
         return (Double.compare(b.width, a.width));
       }
     });
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().debug("Node list sorted");
+    VoltsOfDoomCoreSystem.easyDebug("Node list sorted");
 
     // Pack the blocks
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().debug("Packing images...");
+    VoltsOfDoomCoreSystem.easyDebug("Packing images...");
     Packer packer = new Packer(1, 64, 64);
     packer.fit(nodes);
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().debug("Packed!");
+    VoltsOfDoomCoreSystem.easyDebug("Packed!");
     
     VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("Oops! No image is returned! Passing on...");
 

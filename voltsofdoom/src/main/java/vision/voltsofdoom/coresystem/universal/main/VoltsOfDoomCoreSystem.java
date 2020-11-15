@@ -45,6 +45,14 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
     instance.run();
   }
+  
+  public static void easyDebug(String message) {
+    getInstance().getApplicationLogger().debug(message);
+  }
+  
+  public static void easyInfo(String message) {
+    getInstance().getApplicationLogger().info(message);
+  }
 
   @Override
   public void run() {
