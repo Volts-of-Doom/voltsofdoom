@@ -12,5 +12,3 @@ voltsofdoom:
     -   voltsofdoom/*
 zapbyte:
     -   zapbyte/*
-documentation:
-    -   any: ['docs']
