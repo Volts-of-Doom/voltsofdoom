@@ -3,6 +3,7 @@ package vision.voltsofdoom.zapbyte.loading.reflectory;
 import java.io.File;
 import java.net.URL;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Set;
 import org.reflections.scanners.MethodAnnotationsScanner;
@@ -14,7 +15,6 @@ import vision.voltsofdoom.zapbyte.main.ZapByte;
 import vision.voltsofdoom.zapbyte.resource.JarMapper;
 
 public class Reflectories {
-
   /**
    * A {@link LinkedHashMap} of {@link Reflectory}s -- one for each jar file found by
    * {@link JarMapper#find()}, with their keys being the names of the files which they are bound to.
@@ -22,32 +22,8 @@ public class Reflectories {
   private static LinkedHashMap<String, Reflectory> reflectories =
       new LinkedHashMap<String, Reflectory>();
 
-  /**
-   * Generates the {@link #reflectories} list using .jar files found by {@link JarMapper#find()}
-   */
-  public static void generate() {
-    for (File file : JarMapper.find()) {
-
-      try {
-
-        Reflectory.Builder builder = defaultBuilder();
-        URL[] urls = new URL[] {file.toURI().toURL()};
-        builder.withClassLoader(new VODClassLoader(urls));
-        builder.withVisibleName(file.getName());
-        Reflectory reflectory = builder.build();
-        reflectories.putIfAbsent(file.getName(), reflectory);
-
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-
-    }
-
-    Reflectory vodRefl = defaultBuilder().withClassLoader(ZapByte.class.getClassLoader()).build();
-    reflectories.putIfAbsent("volts_of_doom_core_system", vodRefl);
-
-    ZapByte.LOGGER.info("Generated Reflectories with IDs: " + reflectories.keySet());
-  }
+  private static HashMap<String, Class<?>> additionalClassesToGenerateReflectories =
+      new HashMap<String, Class<?>>();
 
   /**
    * @return A {@link Reflectory.Builder} with default properties. Does not contain a
@@ -87,5 +63,56 @@ public class Reflectories {
 
   public static Collection<Reflectory> values() {
     return reflectories.values();
+  }
+
+  /**
+   * Generates the {@link #reflectories} list using .jar files found by {@link JarMapper#find()}
+   */
+  public static void generate() {
+    for (File file : JarMapper.find()) {
+
+      try {
+
+        Reflectory.Builder builder = defaultBuilder();
+        URL[] urls = new URL[] {file.toURI().toURL()};
+        builder.withClassLoader(new VODClassLoader(urls));
+        builder.withVisibleName(file.getName());
+        Reflectory reflectory = builder.build();
+        reflectories.putIfAbsent(file.getName(), reflectory);
+
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+    }
+
+    // Additional
+    for (String key : additionalClassesToGenerateReflectories.keySet()) {
+      Reflectory.Builder builder = defaultBuilder();
+
+      ClassLoader loader = additionalClassesToGenerateReflectories.get(key).getClassLoader();
+      builder.withVisibleName(key);
+      builder.withClassLoader(loader);
+
+      Reflectory ref = builder.build();
+      reflectories.putIfAbsent(key, ref);
+    }
+
+    // ZapByte
+    Reflectory.Builder builder = defaultBuilder();
+
+    ClassLoader loader = ZapByte.class.getClassLoader();
+    builder.withVisibleName("zapbyte");
+    builder.withClassLoader(loader);
+
+    Reflectory ref = builder.build();
+    reflectories.putIfAbsent("zapbyte", ref);
+
+    // Finish
+    ZapByte.LOGGER.info("Generated Reflectories with IDs: " + reflectories.keySet());
+  }
+
+  public static void addAdditionalClass(String key, Class<?> clazz) {
+    additionalClassesToGenerateReflectories.put(key, clazz);
   }
 }
