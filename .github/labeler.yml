@@ -13,4 +13,4 @@ voltsofdoom:
 zapbyte:
     -   zapbyte/*
 documentation:
-    -   */src/main/docs/*
+    -   all: ['src', 'main', 'docs']
