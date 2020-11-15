@@ -12,3 +12,5 @@ voltsofdoom:
     -   voltsofdoom/*
 zapbyte:
     -   zapbyte/*
+documentation:
+    -   */src/main/docs/*
