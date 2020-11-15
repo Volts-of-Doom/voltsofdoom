@@ -3,6 +3,7 @@ package vision.voltsofdoom.coresystem.universal.main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.coresystem.universal.resource.image.TextureManager;
+import vision.voltsofdoom.coresystem.universal.util.Reference;
 import vision.voltsofdoom.zapbyte.main.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
@@ -27,7 +28,7 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
   public VoltsOfDoomCoreSystem() {
     super(ID);
     instance = this;
-    //textureManager = new TextureManager(() -> Reference.getTexturesDir());
+    textureManager = new TextureManager(() -> Reference.getTexturesDir());
   }
 
   /**

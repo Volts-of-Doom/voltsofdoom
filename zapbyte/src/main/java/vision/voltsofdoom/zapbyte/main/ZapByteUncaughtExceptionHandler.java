@@ -13,12 +13,7 @@ public class ZapByteUncaughtExceptionHandler implements UncaughtExceptionHandler
 
   @Override
   public void uncaughtException(Thread t, Throwable e) {
-    logger.error(
-        "AN UNCAUGHT EXCEPTION HAS OCCURRED! THIS RESPONSE IS FROM THE ZapByteUncaughtExceptionHandler!");
-    logger.error(e.getMessage());
-    for (StackTraceElement elem : e.getStackTrace()) {
-      logger.error(elem.getClassName() + " - " + elem.getMethodName() + " #" + elem.getLineNumber());
-    }
+    ZapByteExceptionFormatter.onError(e, logger);
   }
 
 }
