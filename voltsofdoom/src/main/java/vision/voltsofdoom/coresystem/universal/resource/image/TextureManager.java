@@ -70,7 +70,7 @@ public class TextureManager {
     // For each manifest file, read and bind all listed images
     for (String name : manifests.keySet()) {
 
-      VoltsOfDoomCoreSystem.easyDebug("Reading manifest: " + name);
+      VoltsOfDoomCoreSystem.easyDebug("Reading manifest for file: " + name);
 
       JsonObject manifest = manifests.get(name);
 
@@ -94,7 +94,13 @@ public class TextureManager {
 
           // Get a reader
           VoltsOfDoomCoreSystem.easyDebug("Getting reader from 'zipFiles': " + zipName);
-          ZipFileReader reader = new ZipFileReader(zipFiles.get(zipName));
+          ZipFile zipFileRetrieved = zipFiles.get(zipName);
+          if(zipFileRetrieved == null) {
+            VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("Failed to fetch ZipFile (" + zipName + ") from BiMap " + zipFiles);
+          }
+          
+          VoltsOfDoomCoreSystem.easyDebug("Fetched ZipFile': " + zipFileRetrieved);
+          ZipFileReader reader = new ZipFileReader(zipFileRetrieved);
 
           final String finalValue = resolveFinalNameOfEntry(readValue);
 
@@ -284,7 +290,7 @@ public class TextureManager {
               .easyDebug("Creating new ZipFile binding for file: " + file.getName());
 
           // Bind file name to a new ZIP file
-          zipFiles.put(file.getName(), new ZipFile(file));
+          zipFiles.put(file.getAbsolutePath(), new ZipFile(file));
         }
       }
     } catch (IOException i) {
