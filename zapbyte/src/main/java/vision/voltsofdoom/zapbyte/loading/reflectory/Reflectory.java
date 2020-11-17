@@ -39,6 +39,7 @@ public class Reflectory {
     configBuilder.setUrls(ClasspathHelper.forClassLoader(classLoader));
     configBuilder.addClassLoader(classLoader);
     configBuilder.addScanners(scanners);
+    configBuilder.setInputsFilter(filterBuilder);
 
     setReflections(new Reflections(configBuilder));
     return this;
