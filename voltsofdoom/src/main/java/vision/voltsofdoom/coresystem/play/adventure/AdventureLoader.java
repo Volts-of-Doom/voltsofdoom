@@ -64,11 +64,11 @@ public class AdventureLoader {
   private static void generateAdventures(GenerateAdventuresEvent event)
       throws FileNotFoundException {
     List<ZipFile> adventureZips = new ArrayList<ZipFile>();
-    File adventureFolder = ZBSystemResourceHandler.instance.getFile(() -> Reference.ADVENTURE);
+    File adventureFolder = ZBSystemResourceHandler.instance.getFile(() -> Reference.getAdventuresDir());
     if (!adventureFolder.exists() || !adventureFolder.isDirectory()) {
       adventureFolder.mkdir();
       throw new FileNotFoundException("Adventure folder in the located Volts of Doom directory"
-          + ZapByteReference.getApplicationRoaming() + " cannot be located (" + Reference.ADVENTURE
+          + ZapByteReference.getApplicationRoaming() + " cannot be located (" + Reference.getAdventuresDir()
           + ")! This is an error! Program will terminate.");
     }
 
@@ -201,14 +201,14 @@ public class AdventureLoader {
 
       // Cannot test level generation here as registry not yet loaded.
 
-      VoltsOfDoomCoreSystem.instance.getApplicationLogger().info(
+      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().info(
           "Loaded Adventure by name: " + adventure.getConfiguration().getIdentifier().stringify());
 
     } catch (Exception e) {
       e.printStackTrace();
 
-      VoltsOfDoomCoreSystem.instance.getApplicationLogger().error("EXCEPTION LOADING ADVENTURES!");
-      VoltsOfDoomCoreSystem.instance.getApplicationLogger().error(e.toString());
+      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("EXCEPTION LOADING ADVENTURES!");
+      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error(e.toString());
       System.exit(ExitCodes.ADVENTURE_LOADING_FAILIURE);
     }
   }

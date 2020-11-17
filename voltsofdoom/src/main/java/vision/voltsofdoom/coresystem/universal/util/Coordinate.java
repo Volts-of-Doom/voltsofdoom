@@ -23,10 +23,6 @@ public class Coordinate {
     return y;
   }
 
-  public Coordinate get() {
-    return this;
-  }
-
   @Override
   public String toString() {
     StringBuilder builder = new StringBuilder();

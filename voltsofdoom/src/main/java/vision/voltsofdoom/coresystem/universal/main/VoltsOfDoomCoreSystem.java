@@ -2,6 +2,7 @@ package vision.voltsofdoom.coresystem.universal.main;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vision.voltsofdoom.coresystem.universal.resource.image.TextureManager;
 import vision.voltsofdoom.zapbyte.main.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
@@ -16,18 +17,18 @@ import vision.voltsofdoom.zapbyte.main.ZapByte;
  *
  */
 public class VoltsOfDoomCoreSystem extends ZapByte {
-  
-  public static VoltsOfDoomCoreSystem instance;
+
+  private static VoltsOfDoomCoreSystem instance;
+
+  private static final String ID = "voltsofdoom";
+
+  private TextureManager textureManager;
 
   public VoltsOfDoomCoreSystem() {
     super(ID);
+    instance = this;
+    //textureManager = new TextureManager(() -> Reference.getTexturesDir());
   }
-
-  public static final GameController GAME_CONTROLLER = new GameController();
-
-  public static final String ID = "voltsofdoom";
-
-  public static volatile boolean launched = false;
 
   /**
    * Begins the program.
@@ -53,10 +54,11 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
   @Override
   public void collectZapbits() {
     getApplicationLogger().debug("Collecting ZapBits for Volts of Doom Core System");
-    
-    addZapBit(
-        new ZapBit(0, () -> VoltsOfDoomCoreSystem.instance.getApplicationLogger().info("Starting Volts of Doom!")));
+
+    addZapBit(new ZapBit(0, () -> VoltsOfDoomCoreSystem.instance.getApplicationLogger()
+        .info("Starting Volts of Doom!")));
     addZapBit(DefaultZapBits.CREATE_LOADING_WINDOW_10);
+    addZapBit(VODZapBits.ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19);
     addZapBit(DefaultZapBits.CREATE_REFLECTORIES_20);
     addZapBit(DefaultZapBits.SCAN_FOR_MODS_30);
     addZapBit(DefaultZapBits.CREATE_BANDWAGON_40);
@@ -72,14 +74,27 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
   @Override
   public void continueExecution() {
-    
-    VoltsOfDoomCoreSystem.instance.getApplicationLogger().debug("Volts of Doom Core System continuing execution");
+
+    VoltsOfDoomCoreSystem.instance.getApplicationLogger()
+        .debug("Volts of Doom Core System continuing execution");
 
     /*
      * //Test level creation Registry.getTyped(RegistryTypes.ADVENTURES).getEntries().forEach((k, a)
      * -> ((Adventure) a.get()) .getLevels().forEach((l) ->
      * l.getRawTileMap().generateTwoDimensionalListOfTileObjects()));
      */
+  }
+
+  public static VoltsOfDoomCoreSystem getInstance() {
+    return instance;
+  }
+
+  public TextureManager getTextureManager() {
+    return textureManager;
+  }
+
+  public static String getId() {
+    return ID;
   }
 
   @Override

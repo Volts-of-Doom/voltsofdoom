@@ -1,22 +1,36 @@
 package vision.voltsofdoom.coresystem.universal.util;
 
 import static vision.voltsofdoom.zapbyte.main.ZapByteReference.*;
+import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 
 /**
- * Holds static final variables which must be visible to the rest of the game. This primarily
- * includes directory paths.
+ * Holds variables which must be visible to the rest of the game. This primarily includes directory
+ * paths. Builds off of {@link ZapByteReference}.
  * 
  * @author GenElectrovise
  *
  */
 public class Reference {
 
-  // Roaming
-  public static final String ADVENTURE = getResources() + getSep() + "adventure" + getSep();
-  public static final String MODS_DIRECTORY = getApplicationRoaming() + "mods" + getSep();
+  /**
+   * Gets the location of the textures folder
+   */
+  public static String getTexturesDir() {
+    return getResources() + "textures" + seperator();
+  }
 
-  // Internal
-  public static final String INTERNAL_RESOURCES =
-      "src" + getSep() + "main" + getSep() + "resources" + getSep();
+  /**
+   * Gets the location of the textures folder
+   */
+  public static String getAdventuresDir() {
+    return getResources() + "adventure" + seperator();
+  }
+
+  /**
+   * Gets the location of the internal textures folder in a zipped resource pack.
+   */
+  public static String getTexturePackInternalTextureDir() {
+    return "textures" + seperator();
+  }
 
 }
