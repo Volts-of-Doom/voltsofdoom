@@ -41,9 +41,44 @@ public class Reflectories {
     builder.withScanner(new TypeAnnotationsScanner());
     builder.withScanner(new MethodAnnotationsScanner());
     builder.withScanner(new SubTypesScanner(false));
-    builder.withFilterBuilder(new FilterBuilder().excludePackage("java")
-        .excludePackage("org.reflections").excludePackage("com.google").excludePackage("com.sun"));
+    builder.withFilterBuilder(defaultFilterBuilder());
     return builder;
+  }
+
+  /**
+   * Excludes a ton of stuff. Trust me you don't want this stuff. If you do want this stuff, but
+   * it's excluded here, just use this, and use {@link FilterBuilder#include(String)} or one of the
+   * companion methods to get it back. This way is better trust me... (cuts logs from 2.5MB to 0.1MB,
+   * as of 17/11/20 by excluding jars which give "failed to scan" logs)
+   */
+  public static FilterBuilder defaultFilterBuilder() {
+    return new FilterBuilder()//
+        // Exclude sources
+        .excludePackage("java")//
+        .excludePackage("lib/").exclude("lib/")//
+        .excludePackage("lib.").exclude("lib.")//
+        .excludePackage("resources/").exclude("resources/")//
+        .excludePackage("resources.").exclude("resources.")//
+        .excludePackage("META-INF/").exclude("META-INF/")//
+        .excludePackage("META-INF.").exclude("META-INF.")//
+        .excludePackage("org.reflections").excludePackage("org/reflections")//
+        .excludePackage("com.google").excludePackage("com/google")//
+        .excludePackage("org.lwjgl").excludePackage("org/lwjgl")//
+        .excludePackage("ch.qos").excludePackage("ch/qos")//
+        .excludePackage("edu.umd").excludePackage("edu/umd")//
+        .excludePackage("jdk.nashorn").excludePackage("jdk/nashorn")//
+        .excludePackage("jdk.internal").excludePackage("jdk/internal")//
+        .excludePackage("windows.x64").excludePackage("windows/x64")//
+        .excludePackage("net.jcip").excludePackage("net/jcip")//
+        .excludePackage("com.sun").excludePackage("com/sun")//
+        .excludePackage("sun.text").excludePackage("sun/text")//
+
+        // Exclude resources
+        .excludePackage("image/").exclude("image/")//
+        .excludePackage("image.").exclude("image.")//
+        .excludePackage("font/").exclude("font/")//
+        .excludePackage("font.").exclude("font.")//
+    ;
   }
 
   /**
