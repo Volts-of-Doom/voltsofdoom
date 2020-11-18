@@ -4,19 +4,19 @@ import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT;
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.glfwGetMouseButton;
 import org.lwjgl.glfw.GLFW;
+import vision.voltsofdoom.gamebase.collision.CollidableBoundingBox;
+import vision.voltsofdoom.gamebase.collision.ICollidable;
 import vision.voltsofdoom.gamebase.display.Label;
 import vision.voltsofdoom.silverspark.api.IRenderable;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
 import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import vision.voltsofdoom.silverspark.math.Vector2f;
-import vision.voltsofdoom.gamebase.display.BoundingBox;
-import vision.voltsofdoom.gamebase.display.ICollidable;
 
 public class MenuButton implements ICollidable, IRenderable {
 
   private Vector2f position;
 
-  private BoundingBox boundingBox;
+  private CollidableBoundingBox boundingBox;
 
   protected final SparkTexture texture;
 
@@ -113,7 +113,7 @@ public class MenuButton implements ICollidable, IRenderable {
     return textureY;
   }
 
-  public BoundingBox getBoundingBox() {
+  public CollidableBoundingBox getBoundingBox() {
     return boundingBox;
   }
 
@@ -124,6 +124,6 @@ public class MenuButton implements ICollidable, IRenderable {
   public void setPosition(Vector2f position) {
 
     this.position = position;
-    this.boundingBox = new BoundingBox(this);
+    this.boundingBox = new CollidableBoundingBox(this);
   }
 }

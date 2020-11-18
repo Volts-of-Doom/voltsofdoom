@@ -18,23 +18,17 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package vision.voltsofdoom.gamebase.display;
-
-
-import vision.voltsofdoom.silverspark.math.Vector2f;
+package vision.voltsofdoom.gamebase.collision;
 
 /**
  * This class represents an axis-aligned bounding box.
  *
  * @author Heiko Brumme
  */
-public class BoundingBox {
+public class CollidableBoundingBox extends BoundingBox {
 
-  public Vector2f min, max;
-
-  public BoundingBox(ICollidable owner) {
-    min = new Vector2f(owner.getX(), owner.getY());
-    max = new Vector2f(owner.getX() + owner.getWidth(), owner.getY() + owner.getHeight());
+  public CollidableBoundingBox(ICollidable owner) {
+    super(owner.getX(), owner.getY(), owner.getWidth(), owner.getHeight());
   }
 
   /**
@@ -44,7 +38,7 @@ public class BoundingBox {
    *
    * @return true if a collision was detected.
    */
-  public boolean intersects(BoundingBox other) {
+  public boolean intersects(CollidableBoundingBox other) {
     if (this.max.x < other.min.x) {
       return false;
     }

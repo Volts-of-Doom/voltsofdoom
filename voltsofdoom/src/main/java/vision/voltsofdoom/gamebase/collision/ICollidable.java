@@ -1,7 +1,7 @@
-package vision.voltsofdoom.gamebase.display;
+package vision.voltsofdoom.gamebase.collision;
 
 public interface ICollidable {
-  BoundingBox getBoundingBox();
+  CollidableBoundingBox getBoundingBox();
 
   float getX();
 

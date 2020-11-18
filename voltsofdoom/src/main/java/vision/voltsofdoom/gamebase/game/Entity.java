@@ -21,8 +21,8 @@
 package vision.voltsofdoom.gamebase.game;
 
 
-import vision.voltsofdoom.gamebase.display.BoundingBox;
-import vision.voltsofdoom.gamebase.display.ICollidable;
+import vision.voltsofdoom.gamebase.collision.CollidableBoundingBox;
+import vision.voltsofdoom.gamebase.collision.ICollidable;
 import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.math.Vector2f;
@@ -37,7 +37,7 @@ public abstract class Entity implements ICollidable {
   protected Vector2f previousPosition;
   protected Vector2f position;
 
-  protected final BoundingBox boundingBox;
+  protected final CollidableBoundingBox boundingBox;
 
   protected final float speed;
   protected Vector2f direction;
@@ -60,7 +60,7 @@ public abstract class Entity implements ICollidable {
     previousPosition = new Vector2f(x, y);
     position = new Vector2f(x, y);
 
-    boundingBox = new BoundingBox(this);
+    boundingBox = new CollidableBoundingBox(this);
 
     this.speed = speed;
     direction = new Vector2f();
@@ -144,7 +144,7 @@ public abstract class Entity implements ICollidable {
     return textureY;
   }
 
-  public BoundingBox getBoundingBox() {
+  public CollidableBoundingBox getBoundingBox() {
     return boundingBox;
   }
 
