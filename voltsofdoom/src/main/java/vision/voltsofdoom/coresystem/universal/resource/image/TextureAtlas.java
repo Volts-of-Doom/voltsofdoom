@@ -2,8 +2,6 @@ package vision.voltsofdoom.coresystem.universal.resource.image;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
@@ -48,19 +46,18 @@ public class TextureAtlas {
     VoltsOfDoomCoreSystem.easyDebug("Node list compiled");
 
     // Sort the nodes by size, largest width first
-    Collections.sort(nodes, new Comparator<Node>() {
-      @Override
-      public int compare(Node a, Node b) {
-        return (Double.compare(b.width, a.width));
-      }
-    });
+    Packer.sortNodeListByWidth(nodes);
     VoltsOfDoomCoreSystem.easyDebug("Node list sorted");
 
     // Pack the blocks
     VoltsOfDoomCoreSystem.easyDebug("Packing images...");
-    Packer packer = new Packer(1, 64, 64);
-    packer.fit(nodes);
+    
+    Packer packer = new Packer(nodes);
+    ArrayList<Node> packedNodes = packer.fitBlocks();
+    
     VoltsOfDoomCoreSystem.easyDebug("Packed!");
+
+    VoltsOfDoomCoreSystem.easyDebug("Fitting images...");
 
     VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
         .error("Oops! No image is returned! Passing on...");

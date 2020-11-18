@@ -26,14 +26,17 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 /**
+ * This code is used under the attached licence, which is originally owned by alexbonilla, though
+ * has been heavily modified by GenElectrovise for Volts of Doom.
+ * 
  * @author alexbonilla
+ * @author GenElectrovise
  */
 public final class ExampleJavaBinPacker {
 
   @SuppressWarnings("unused")
   private static void example() {
     // 2 available packets to fill, 600x800 each
-    Packer packer = new Packer(2, 600, 800);
     ArrayList<Node> blocks = new ArrayList<Node>();
 
     blocks.add(new Node("Figure1", 300, 400));
@@ -50,24 +53,26 @@ public final class ExampleJavaBinPacker {
       @Override
       public int compare(Node a, Node b) {
 
-        return (Double.compare(b.width, a.width)); // doing the sort based on the width, you can change it
+        return (Double.compare(b.getWidth(), a.getWidth())); // doing the sort based on the width, you can change it
                                            // accordingly to your needs.
       }
     });
+    
+    Packer packer = new Packer(blocks);
 
-    packer.fit(blocks);
+    packer.fitBlocks();
     Iterator<Node> blocksItr = blocks.iterator();
     while (blocksItr.hasNext()) {
       Node block = blocksItr.next();
-      if (block.fit != null) {
-        if (block.fit.isRoot) {
+      if (block.getFit() != null) {
+        if (block.getFit().isRoot()) {
           System.out.format("%32s", "Pack Starts Here");
           System.out.println("");
           System.out.format("%32s%24s%16s%16s%16s", "Display name", "x", "y", "w", "h");
           System.out.println("");
         }
-        System.out.format("%32s%24s%16s%16s%16s", block.name, block.fit.xPos, block.fit.yPos, block.width,
-            block.height);
+        System.out.format("%32s%24s%16s%16s%16s", block.getName(), block.getFit().getxPos(), block.getFit().getyPos(), block.getWidth(),
+            block.getHeight());
         System.out.println("");
       }
     }

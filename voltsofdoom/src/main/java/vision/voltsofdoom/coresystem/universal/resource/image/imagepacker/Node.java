@@ -22,20 +22,23 @@
 package vision.voltsofdoom.coresystem.universal.resource.image.imagepacker;
 
 /**
- *
+ * This code is used under the attached licence, which is originally owned by alexbonilla, though
+ * has been heavily modified by GenElectrovise for Volts of Doom.
+ * 
  * @author alexbonilla
+ * @author GenElectrovise
  */
 public class Node {
-  public boolean isRoot = false;
-  public String name;
-  public double xPos;
-  public double yPos;
-  public double width;
-  public double height;
-  public boolean used = false;
-  public Node right = null;
-  public Node down = null;
-  public Node fit = null;
+  private boolean root = false;
+  private String name;
+  private double xPos;
+  private double yPos;
+  private double width;
+  private double height;
+  private boolean used = false;
+  private Node rightNode = null;
+  private Node downNode = null;
+  private Node fit = null;
 
   public Node(String name, double width, double height) {
     this.name = name;
@@ -44,14 +47,116 @@ public class Node {
   }
 
   public Node(double xPos, double yPos, double width, double height) {
-    this.xPos = xPos;
-    this.yPos = yPos;
-    this.width = width;
-    this.height = height;
-    if (xPos == 0 && yPos == 0) {
-      this.isRoot = true;// this is only necessary for me to print 'Pack Starts Here' in the example
-                         // code
+    setxPos(xPos);
+    setyPos(yPos);
+    setWidth(width);
+    setHeight(height);
+
+    if (getxPos() == 0 && getyPos() == 0) {
+      setRoot(true);
+      // this is only necessary for me to print 'Pack Starts Here' in the example
+      // code
     }
+  }
+
+  /**
+   * Populates the given {@link Node}s children.
+   * 
+   * @param packer
+   * @param width
+   * @param height
+   */
+  public void activateChildNodes(Packer packer, double width, double height) {
+    this.setUsed(true);
+
+    // Set the nodes below and right in the puzzle
+    this.setRightNode(new Node(this.getxPos(), this.getyPos() + height, this.getWidth(),
+        this.getHeight() - height));
+    this.setRightNode(
+        new Node(this.getxPos() + width, this.getyPos(), this.getWidth() - width, height));
+  }
+
+
+  // Get and set
+
+  public boolean isRoot() {
+    return root;
+  }
+
+  public void setRoot(boolean root) {
+    this.root = root;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public double getxPos() {
+    return xPos;
+  }
+
+  public void setxPos(double xPos) {
+    this.xPos = xPos;
+  }
+
+  public double getyPos() {
+    return yPos;
+  }
+
+  public void setyPos(double yPos) {
+    this.yPos = yPos;
+  }
+
+  public double getWidth() {
+    return width;
+  }
+
+  public void setWidth(double width) {
+    this.width = width;
+  }
+
+  public double getHeight() {
+    return height;
+  }
+
+  public void setHeight(double height) {
+    this.height = height;
+  }
+
+  public boolean isUsed() {
+    return used;
+  }
+
+  public void setUsed(boolean used) {
+    this.used = used;
+  }
+
+  public Node getRightNode() {
+    return rightNode;
+  }
+
+  public void setRightNode(Node rightNode) {
+    this.rightNode = rightNode;
+  }
+
+  public Node getDownNode() {
+    return downNode;
+  }
+
+  public void setDownNode(Node downNode) {
+    this.downNode = downNode;
+  }
+
+  public Node getFit() {
+    return fit;
+  }
+
+  public void setParent(Node fit) {
+    this.fit = fit;
   }
 
 }

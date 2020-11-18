@@ -22,14 +22,19 @@
 package vision.voltsofdoom.coresystem.universal.resource.image.imagepacker;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
+ * This code is used under the attached licence, which is originally owned by alexbonilla, though
+ * has been heavily modified by GenElectrovise for Volts of Doom.
+ * 
  * @author alexbonilla
+ * @author GenElectrovise
  */
 public class Packer {
 
-  private final ArrayList<Node> root = new ArrayList<Node>();
+  private final ArrayList<Node> inputNodes;
 
   /**
    * The basic width and height should be that of the largest node you wish to pack.
@@ -38,40 +43,41 @@ public class Packer {
    * @param width The basic width of the image.
    * @param height The basic height of the image.
    */
-  public Packer(int numofpackets, double width, double height) {
-    for (int i = 0; i < numofpackets; i++) {
-      this.root.add(new Node(0, 0, width, height));
-    }
+  public Packer(ArrayList<Node> inputNodes) {
+    this.inputNodes = inputNodes;
   }
 
   /**
-   * 
-   * @param blocks
+   * @return The fit {@link ArrayList} of {@link Node}s.
    */
-  public void fit(ArrayList<Node> blocks) {
-    Node node;
-    Node block;
-    Iterator<Node> blockItr = blocks.iterator();
-    int n = 0;
+  public ArrayList<Node> fitBlocks() {
+    int nodeSearchDepth = 0;
 
     // For each unfitted block
-    while (blockItr.hasNext()) {
-      block = blockItr.next();
+    for (Node childNode : inputNodes) {
 
-      // Set node to a foundNode of the right size. If node isn't null.
-      if ((node = this.findNode(this.root.get(n), block.width, block.height)) != null) {
+      // Set node to a foundNode of the right size. T
+      Node parentNode = this.findFittingNode(this.inputNodes.get(nodeSearchDepth),
+          childNode.getWidth(), childNode.getHeight());
+
+      // If node isn't null...
+      if (parentNode != null) {
 
         // Fit the block in.
-        block.fit = this.splitNode(node, block.width, block.height);
-        
-        //If node is the root, set this block's isRoot property to true.
-        if (node.isRoot) {
-          block.fit.isRoot = true;
+        parentNode.activateChildNodes(this, childNode.getWidth(), childNode.getHeight());
+
+        childNode.setParent(parentNode);
+
+        // If node is the root, set this block's isRoot property to true.
+        if (parentNode.isRoot()) {
+          childNode.getFit().setRoot(true);
         }
       } else {
-        n++;
+        nodeSearchDepth++;
       }
     }
+
+    return inputNodes;
   }
 
   /**
@@ -82,17 +88,17 @@ public class Packer {
    * @param height
    * @return A vacant child {@link Node}.
    */
-  public Node findNode(Node root, double width, double height) {
+  public Node findFittingNode(Node root, double width, double height) {
 
     // If the root node is taken
-    if (root.used) {
-      Node right = findNode(root.right, width, height);
+    if (root.isUsed()) {
+      Node right = findFittingNode(root.getRightNode(), width, height);
 
       // Return recursively, calling this method to cycle through other nodes.
-      return (right != null ? right : findNode(root.down, width, height));
+      return (right != null ? right : findFittingNode(root.getDownNode(), width, height));
 
       // If the w is bigger than the root's width, or similar with height
-    } else if ((width <= root.width) && (height <= root.height)) {
+    } else if ((width <= root.getWidth()) && (height <= root.getHeight())) {
       return root;
     } else {
 
@@ -102,20 +108,17 @@ public class Packer {
   }
 
   /**
-   * Creates two children {@link Node}s of the given {@link Node}.
-   * 
-   * @param node
-   * @param width
-   * @param height
-   * @return The split {@link Node}.
+   * Sorts the nodes by width, largest first.
    */
-  public Node splitNode(Node node, double width, double height) {
-    node.used = true;
+  public static ArrayList<Node> sortNodeListByWidth(ArrayList<Node> nodes) {
+    Collections.sort(nodes, new Comparator<Node>() {
+      @Override
+      public int compare(Node a, Node b) {
+        return (Double.compare(b.getWidth(), a.getWidth()));
+      }
+    });
 
-    // Set the nodes below and right in the puzzle
-    node.down = new Node(node.xPos, node.yPos + height, node.width, node.height - height);
-    node.right = new Node(node.xPos + width, node.yPos, node.width - width, height);
-    return node;
+    return nodes;
   }
 
 }
