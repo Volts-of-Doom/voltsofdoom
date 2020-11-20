@@ -1,43 +1,86 @@
 package vision.voltsofdoom.coresystem.universal.resource.image.rectangularboxpacker;
 
-import vision.voltsofdoom.gamebase.collision.BoundingBox;
-
 public class Node {
 
-  private final BoundingBox bounds;
+  private String name;
+  private boolean used;
+  private int height;
+  private int width;
   private Node rightNode;
   private Node downNode;
-  private RectangularBoxPacker packer;
 
-  public Node(RectangularBoxPacker packer, BoundingBox bounds) {
-    this.packer = packer;
-    this.bounds = bounds;
+  public Node(String name, boolean used, int height, int width) {
+    this.name = name;
+    this.used = used;
+    this.height = height;
+    this.width = width;
+    this.rightNode = null;
+    this.downNode = null;
   }
 
-  public BoundingBox getBounds() {
-    return bounds;
+  /**
+   * Puts the given {@link Box} into this {@link Node}, and creates surrounding vacant
+   * {@link Node}s.
+   * 
+   * @param box
+   */
+  public void insertBox(Box box) {
+    this.name = box.getName();
+    this.used = true;
+
+    // vacant node, not used, same height, smaller width
+    this.rightNode = this.getWidth() < box.getWidth()
+        ? new Node("vacant", false, this.getHeight(), this.getWidth() - box.getWidth())
+        : null;
+    // vacant node, not used, smaller height, same width
+    this.downNode = this.getHeight() < box.getHeight()
+        ? new Node("vacant", false, this.getHeight() - box.getHeight(), this.getWidth())
+        : null;
+
+    this.height = box.getHeight();
+    this.width = box.getWidth();
   }
 
-  public void resolveChildren() {
-    this.rightNode = new Node(packer, new BoundingBox( //
-        bounds.max.x, // Bottom left corner
-        bounds.min.y, // Bottom left corner
-        packer.getBounds().getWidth() - (bounds.max.x), // Distance between the edge of the packer,
-                                                        // and the closest edge of the node
-        packer.getBounds().getHeight() - ( // Height of the packer
-        (packer.getBounds().max.y - bounds.max.y) // The distance from the node to the top
-            - // Take
-            (bounds.min.y - packer.getBounds().min.y)))); // From the node to the bottom
+  /**
+   * @return The right node if vacant, else the down node.
+   */
+  public Node getBestChild() {
+    return rightNode == null ? rightNode : downNode;
+  }
 
-    this.downNode = new Node(packer, new BoundingBox( //
-        bounds.min.x, //
-        packer.getBounds().min.y, // Bottom of the page
-        bounds.min.y, //
-        bounds.getWidth()) //
-    );
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append("Node{");
+
+    builder.append("name=" + name);
+    builder.append(" used=" + used);
+    builder.append(" height=" + height);
+    builder.append(" width=" + width);
+    builder.append(" rightNode=" + (rightNode != null));
+    builder.append(" downNode=" + (downNode != null));
+
+    builder.append("}");
+    return builder.toString();
   }
 
   // Get and set
+
+  public String getName() {
+    return name;
+  }
+
+  public boolean isUsed() {
+    return used;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  public int getWidth() {
+    return width;
+  }
 
   public Node getDownNode() {
     return downNode;
@@ -53,5 +96,9 @@ public class Node {
 
   public void setRightNode(Node rightNode) {
     this.rightNode = rightNode;
+  }
+
+  public boolean canFit(Box box) {
+    return box.getWidth() >= this.getWidth() && box.getHeight() >= this.getHeight();
   }
 }

@@ -81,6 +81,8 @@ public abstract class ZapByte {
     ZapByte.LOGGER = LoggerFactory.getLogger(ZapByte.class);
 
     Thread.setDefaultUncaughtExceptionHandler(new ZapByteUncaughtExceptionHandler(LOGGER));
+    
+    ZapByte.LOGGER.info("Successfully configured ZapByte logger and uncaught exception handler");
   }
 
   /**
@@ -92,8 +94,10 @@ public abstract class ZapByte {
   public abstract void continueExecution();
 
   public void run() {
+    ZapByte.LOGGER.info("Running ZapByte loading cycle!");
 
     collectZapbits();
+    ZapByte.LOGGER.debug("Collected " + zapBits.size() + " ZapBits");
 
     if (launched) {
       throw new IllegalStateException(
@@ -101,7 +105,10 @@ public abstract class ZapByte {
     }
 
     launched = true;
+    ZapByte.LOGGER.debug("Launching... (launched=true)");
+    
     configHandler.loadIfConfigurationFileBlank();
+    ZapByte.LOGGER.debug("Loaded ZapByte IConfigHandler configHandler");
 
     // Get all into map
     Map<Integer, ZapBit> bits = new HashMap<Integer, ZapBit>();
@@ -113,6 +120,7 @@ public abstract class ZapByte {
 
     // Run
     for (Integer integer : ints) {
+      ZapByte.LOGGER.debug("Running ZapBit of priority " + integer);
       bits.get(integer).run();
     }
 

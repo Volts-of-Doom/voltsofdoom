@@ -1,15 +1,38 @@
 package vision.voltsofdoom.coresystem.universal.resource.image.rectangularboxpacker;
 
-import vision.voltsofdoom.gamebase.collision.BoundingBox;
-
 public class Box {
-  private final BoundingBox bounds;
+  private final String name;
+  private final int width;
+  private final int height;
 
-  public Box(BoundingBox bounds) {
-    this.bounds = bounds;
+  public Box(String name, int width, int height) {
+    this.name = name;
+    this.width = width;
+    this.height = height;
   }
-  
-  public BoundingBox getBounds() {
-    return bounds;
+
+  public String getName() {
+    return name;
+  }
+
+  public int getWidth() {
+    return width;
+  }
+
+  public int getHeight() {
+    return height;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder builder = new StringBuilder();
+    builder.append("Box{");
+
+    builder.append("name=" + name);
+    builder.append(" height=" + height);
+    builder.append(" width=" + width);
+
+    builder.append("}");
+    return builder.toString();
   }
 }
