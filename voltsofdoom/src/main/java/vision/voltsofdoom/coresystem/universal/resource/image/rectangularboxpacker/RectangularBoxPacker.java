@@ -27,6 +27,9 @@ public class RectangularBoxPacker {
     VoltsOfDoomCoreSystem.easyDebug("sortedBoxes=" + boxes);
 
     this.boxes = boxes;
+
+    Box rootBox = this.getBoxes().get(0);
+    this.root = new Node(rootBox.getName(), true, rootBox.getHeight(), rootBox.getWidth());
   }
 
   public void pack() {
@@ -38,19 +41,21 @@ public class RectangularBoxPacker {
 
   private Node findNextUnusedFittingNode(Box box) {
 
-    Box rootBox = this.getBoxes().get(0);
-    this.root = new Node(rootBox.getName(), true, rootBox.getHeight(), rootBox.getWidth());
-
     // Start with the root
     Node nextVacantFittingNode = root;
     VoltsOfDoomCoreSystem.easyDebug(nextVacantFittingNode.toString());
 
     // While the bestChild is a Node
     while (nextVacantFittingNode.getBestChild() != null) {
-      VoltsOfDoomCoreSystem.easyDebug("nextVacantFittingNode=" + nextVacantFittingNode);
-      VoltsOfDoomCoreSystem.easyDebug("bestChild=" + nextVacantFittingNode.getBestChild());
 
-      nextVacantFittingNode = nextVacantFittingNode.getBestChild();
+      // Find the highest up vacant node
+
+      // Find the largest box that will fit
+      // If nothing fits then set it "used"
+
+      // Otherwise populate it
+
+      return nextVacantFittingNode.getHighestUpBestChildResursively();
     }
 
     return nextVacantFittingNode;
