@@ -25,6 +25,6 @@ public class ConfigurationFile implements IConfigurationFile {
 
   @Override
   public String toString() {
-    return super.toString();
+    return "ConfigurationFile{" + arguments.toString() + "}";
   }
 }
