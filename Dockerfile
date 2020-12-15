@@ -1,6 +1,13 @@
 # Docker build
-RUN echo 'Running Docker build. Welcome to the Dockerfile, we got fun and games.'
 
-RUN docker build -t voltsofdoom/voltsofdoom:v1.0 .
+# Container image that runs your code
+FROM openjdk:8
 
-RUN echo 'Docker build complete.'
+# Copies your code file from your action repository to the filesystem path `/` of the container
+COPY . /src/main/docker/voltsofdoom
+
+WORKDIR /src/main/docker/voltsofdoom
+RUN javac VoltsOfDoomCoreSystem.java
+
+# Code file to execute when the docker container starts up (`entrypoint.sh`)
+ENTRYPOINT ["/src/main/docker/voltsofdoom"]
