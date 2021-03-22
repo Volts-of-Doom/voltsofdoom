@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -13,8 +13,9 @@
 	<artifactId>voltsofdoom</artifactId>
 	<packaging>jar</packaging>
 
-	<name>voltsofdoom</name>
-	<url>http://maven.apache.org</url>
+	<name>Volts of Doom</name>
+	<description>The Volts of Doom game.</description>
+	<url>https://github.com/Volts-of-Doom/voltsofdoom</url>
 
 	<dependencies>
 
@@ -35,8 +36,8 @@
 		<!-- JUnit -->
 
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
 			<scope>test</scope>
 		</dependency>
 
