@@ -41,9 +41,9 @@ public abstract class ZapByte {
    * {@link ZapByte}'s loading cycle is driven by {@link ZapBit}s, which are essentially souped-up
    * {@link Runnable}s. They are executed in order of priority, in order to load the application!
    * 
-   * @param applicationNamespace The system-compliant name for your application. This will be used
-   *        to store configuration files in the {@link ZapByteReference#getApplicationRoaming()}
-   *        folder, located on Windows in <code>"{user.home}/App
+   * @param applicationNamespace The system-compliant name for your application. This will be used to
+   *        store configuration files in the {@link ZapByteReference#getApplicationRoaming()} folder,
+   *        located on Windows in <code>"{user.home}/App
    *                             Data/Roaming"</code>, which is normally hidden. The name you put in
    *        here <i><b>MUST</b></i> comply with your OS' path system. For example, on windows, you
    *        must not use the "/" or "\\" character in your name. {@link ZapByte} cannot enforce this
@@ -67,21 +67,19 @@ public abstract class ZapByte {
   }
 
   /**
-   * The loggers WILL NOT work before this method is called, hence it is called before anything
-   * else.
+   * The loggers WILL NOT work before this method is called, hence it is called before anything else.
    */
   private void configureLogger() {
 
     // Set location of config file
     System.setProperty("logback.configurationFile", ZapByteReference.getConfig() + "logback.xml");
     // Set location of output file
-    System.setProperty("vision.voltsofdoom.zapbyte.log.outputFile", ZapByteReference.getLogs()
-        + Calendar.getInstance().getTime().toString().replace(" ", "_").replace(":", "-") + ".log");
+    System.setProperty("vision.voltsofdoom.zapbyte.log.outputFile", ZapByteReference.getLogs() + Calendar.getInstance().getTime().toString().replace(" ", "_").replace(":", "-") + ".log");
 
     ZapByte.LOGGER = LoggerFactory.getLogger(ZapByte.class);
 
     Thread.setDefaultUncaughtExceptionHandler(new ZapByteUncaughtExceptionHandler(LOGGER));
-    
+
     ZapByte.LOGGER.info("Successfully configured ZapByte logger and uncaught exception handler");
   }
 
@@ -100,13 +98,12 @@ public abstract class ZapByte {
     ZapByte.LOGGER.debug("Collected " + zapBits.size() + " ZapBits");
 
     if (launched) {
-      throw new IllegalStateException(
-          "This instance of <? extends ZapByte> has already been launched!");
+      throw new IllegalStateException("This instance of <? extends ZapByte> has already been launched!");
     }
 
     launched = true;
     ZapByte.LOGGER.debug("Launching... (launched=true)");
-    
+
     configHandler.loadIfConfigurationFileBlank();
     ZapByte.LOGGER.debug("Loaded ZapByte IConfigHandler configHandler");
 
@@ -136,7 +133,7 @@ public abstract class ZapByte {
   }
 
   // Get
-  
+
   public static String getZapbyte() {
     return ZAPBYTE;
   }

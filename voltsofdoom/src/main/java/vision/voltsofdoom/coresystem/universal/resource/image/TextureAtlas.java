@@ -1,67 +1,25 @@
 package vision.voltsofdoom.coresystem.universal.resource.image;
 
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import vision.voltsofdoom.coresystem.universal.main.VoltsOfDoomCoreSystem;
-import vision.voltsofdoom.coresystem.universal.resource.image.imagepacker.Node;
-import vision.voltsofdoom.coresystem.universal.resource.image.imagepacker.Packer;
+import java.awt.Image;
+import java.awt.Point;
+import vision.voltsofdoom.silverspark.texture.ITextureAtlas;
 
-public class TextureAtlas {
+public class TextureAtlas implements ITextureAtlas {
 
-  private BufferedImage image;
-  private HashMap<String, ICoordinateAlignedImageDataProvider> bindings =
-      new HashMap<String, ICoordinateAlignedImageDataProvider>();
+  private Image image;
 
-  public TextureAtlas(List<ITextureAtlasEntry> rawAtlasEntries) {
-    VoltsOfDoomCoreSystem.easyInfo("Constructing TextureAtlas");
-    this.image = new BufferedImage(32, 32, BufferedImage.TYPE_4BYTE_ABGR);
-    stitch(rawAtlasEntries, image);
+  public TextureAtlas(Image image) {
+    this.image = image;
   }
 
-  protected BufferedImage getAtlasImage() {
+  @Override
+  public void addEntry(Image image, Point point) {
+
+  }
+
+  @Override
+  public Image getImage() {
     return image;
   }
 
-  public HashMap<String, ICoordinateAlignedImageDataProvider> getBindings() {
-    return bindings;
-  }
-
-  public BufferedImage fetch(String key) {
-    ICoordinateAlignedImageDataProvider provider = bindings.get(key);
-
-    return image.getSubimage((int) Math.round(provider.getCoordinate().getX()),
-        (int) Math.round(provider.getCoordinate().getY()), provider.getWidth(),
-        provider.getHeight());
-  }
-
-  public BufferedImage stitch(List<ITextureAtlasEntry> rawAtlasEntries, BufferedImage baseImage) {
-    VoltsOfDoomCoreSystem.easyDebug("Stitching TextureAtlas");
-
-    // Create the list of nodes
-    ArrayList<Node> nodes = new ArrayList<Node>();
-    rawAtlasEntries.forEach((entry) -> nodes
-        .add(new Node(entry.getName(), entry.getImage().getWidth(), entry.getImage().getHeight())));
-    VoltsOfDoomCoreSystem.easyDebug("Node list compiled");
-
-    // Sort the nodes by size, largest width first
-    Packer.sortNodeListByWidth(nodes);
-    VoltsOfDoomCoreSystem.easyDebug("Node list sorted");
-
-    // Pack the blocks
-    VoltsOfDoomCoreSystem.easyDebug("Packing images...");
-    
-    Packer packer = new Packer(nodes);
-    ArrayList<Node> packedNodes = packer.fitBlocks();
-    
-    VoltsOfDoomCoreSystem.easyDebug("Packed!");
-
-    VoltsOfDoomCoreSystem.easyDebug("Fitting images...");
-
-    VoltsOfDoomCoreSystem.getInstance().getApplicationLogger()
-        .error("Oops! No image is returned! Passing on...");
-
-    return baseImage;
-  }
 }

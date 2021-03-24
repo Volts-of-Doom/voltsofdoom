@@ -13,8 +13,9 @@ import vision.voltsofdoom.zapbyte.main.ZapBit;
 public class VODZapBits {
 
   public static final ZapBit CREATE_TEXTURE_MANAGER_11 = new ZapBit(1, () -> {
-    TextureManager manager = new TextureManager(() -> Reference.getTexturesDir());
+    TextureManager manager = new TextureManager(Reference.getTexturesDir());
     VoltsOfDoomCoreSystem.getInstance().setTextureManager(manager);
+    VoltsOfDoomCoreSystem.getInstance().getTextureManager();
   });
 
   public static final ZapBit ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19 =
