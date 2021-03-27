@@ -20,17 +20,14 @@
  */
 package vision.voltsofdoom.silverspark.core;
 
-import static org.lwjgl.glfw.GLFW.glfwInit;
-import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;
-import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.opengl.GL;
-import vision.voltsofdoom.silverspark.graphic.EntityRenderer;
-import vision.voltsofdoom.silverspark.graphic.TextRenderer;
-import vision.voltsofdoom.silverspark.graphic.Window;
-import vision.voltsofdoom.silverspark.state.LevelState;
+import vision.voltsofdoom.silverspark.Silverspark;
+import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
+import vision.voltsofdoom.silverspark.render.ListRenderer;
+import vision.voltsofdoom.silverspark.render.TextRenderer;
 import vision.voltsofdoom.silverspark.state.StateMachine;
 
 /**
@@ -39,10 +36,12 @@ import vision.voltsofdoom.silverspark.state.StateMachine;
  *
  * @author Heiko Brumme
  */
-public abstract class Game {
+public class Game {
 
   public static final int TARGET_FPS = 75;
   public static final int TARGET_UPS = 30;
+  public static final int WINDOW_WIDTH = 640;
+  public static final int WINDOW_HEIGHT = 380;
 
   /**
    * The error callback for GLFW.
@@ -57,7 +56,7 @@ public abstract class Game {
   /**
    * The GLFW window used by the game.
    */
-  protected Window window;
+  protected Silverspark window;
   /**
    * Used for timing calculations.
    */
@@ -65,11 +64,15 @@ public abstract class Game {
   /**
    * Used for rendering.
    */
-  protected EntityRenderer entityRenderer;
+  private ListRenderer entityRenderer;
   /**
    * Used for rendering text.
    */
-  protected TextRenderer textRenderer;
+  private TextRenderer textRenderer;
+
+  private MouseEventMenuHandler mouseHandler;
+
+  private final String resourceRoot;
   /**
    * Stores the current state.
    */
@@ -78,9 +81,10 @@ public abstract class Game {
   /**
    * Default contructor for the game.
    */
-  public Game() {
+  public Game(String resourceRoot) {
+    this.resourceRoot = resourceRoot;
     timer = new Timer();
-    entityRenderer = new EntityRenderer();
+    entityRenderer = new ListRenderer();
     textRenderer = new TextRenderer();
     state = new StateMachine();
   }
@@ -111,7 +115,7 @@ public abstract class Game {
     window.destroy();
 
     /* Terminate GLFW and release the error callback */
-    glfwTerminate();
+    GLFW.glfwTerminate();
     errorCallback.free();
   }
 
@@ -121,15 +125,17 @@ public abstract class Game {
   public void init() {
     /* Set error callback */
     errorCallback = GLFWErrorCallback.createPrint();
-    glfwSetErrorCallback(errorCallback);
+    GLFW.glfwSetErrorCallback(errorCallback);
 
     /* Initialize GLFW */
-    if (!glfwInit()) {
+    if (!GLFW.glfwInit()) {
       throw new IllegalStateException("Unable to initialize GLFW!");
     }
 
     /* Create GLFW window */
-    window = new Window(640, 380, "Simple Game - Pong", true);
+    window = new Silverspark(WINDOW_WIDTH, WINDOW_HEIGHT, "Vaults of Doom", true);
+
+    mouseHandler = new MouseEventMenuHandler(window.getId());
 
     /* Initialize timer */
     timer.init();
@@ -150,13 +156,7 @@ public abstract class Game {
    * Initializes the states.
    */
   public void initStates() {
-    state.add("game", new LevelState(entityRenderer, textRenderer));
-    state.change("game");
-
-    /*
-     * Adventure adventure = (Adventure) Registry.getTyped(RegistryTypes.ADVENTURES)
-     * .retrieveSupplier(new ResourceLocation("", "")).get();
-     */
+    System.out.println("Game.initStates()");
   }
 
   /**
@@ -164,7 +164,42 @@ public abstract class Game {
    * For implementation take a look at <code>VariableDeltaGame</code> and
    * <code>FixedTimestepGame</code>.
    */
-  public abstract void gameLoop();
+
+  public void gameLoop() {
+    float delta;
+
+    while (running) {
+      /* Check if game should close */
+      if (window.isClosing()) {
+        running = false;
+      }
+
+      /* Get delta time */
+      delta = timer.getDelta();
+
+      /* Handle input */
+      input();
+
+      /* Update game and timer UPS */
+      update(delta);
+      timer.updateUPS();
+
+      /* Render game and update timer FPS */
+      render();
+      timer.updateFPS();
+
+      /* Update timer */
+      timer.update();
+
+      /* Update window to show the new screen */
+      window.update();
+
+      /* Synchronize if v-sync is disabled */
+      if (!window.isVSyncEnabled()) {
+        sync(TARGET_FPS);
+      }
+    }
+  }
 
   /**
    * Handles input.
@@ -219,8 +254,8 @@ public abstract class Game {
       Thread.yield();
 
       /*
-       * This is optional if you want your game to stop consuming too much CPU but you will loose
-       * some accuracy because Thread.sleep(1) could sleep longer than 1 millisecond
+       * This is optional if you want your game to stop consuming too much CPU but you will loose some
+       * accuracy because Thread.sleep(1) could sleep longer than 1 millisecond
        */
       try {
         Thread.sleep(1);
@@ -232,15 +267,13 @@ public abstract class Game {
     }
   }
 
-  /**
-   * Determines if the OpenGL context supports version 3.2.
-   *
-   * @return true, if OpenGL context supports version 3.2, else false
-   */
+  public String getResourceRoot() {
+    return resourceRoot;
+  }
+
   public static boolean isDefaultContext() {
-    boolean isDefault = GL.getCapabilities().OpenGL32;
-    // Logger.getLogger(Game.class.getName()).log(Level.INFO, "Is default context? " + isDefault);
-    return isDefault;
+    System.err.println("default context game #285");
+    return true;
   }
 
 }

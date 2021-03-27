@@ -18,10 +18,9 @@ public class VODZapBits {
     VoltsOfDoomCoreSystem.getInstance().getTextureManager();
   });
 
-  public static final ZapBit ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19 =
-      new ZapBit(19, () -> {
-        Reflectories.addAdditionalClass("voltsofdoom", VoltsOfDoomCoreSystem.class);
-      });
+  public static final ZapBit ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19 = new ZapBit(19, () -> {
+    Reflectories.addAdditionalClass("voltsofdoom", VoltsOfDoomCoreSystem.class);
+  });
 
   public static final ZapBit CREATE_REGISTRY_GENERATE_ADVENTURES_62 = new ZapBit(62, () -> {
     LoadingWindow.loadingWindow.setDetailedStatus(GenerateAdventuresEvent.DETAILED_STATUS);
@@ -29,7 +28,8 @@ public class VODZapBits {
   });
 
   public static final ZapBit CREATE_GAME_100 = new ZapBit(100, () -> {
-    Game game = new VariableTimestepGame();
+    System.out.println("VODZapBits.enclosing_method() #31");
+    Game game = new VariableTimestepGame(null);
     game.start();
   });
 }

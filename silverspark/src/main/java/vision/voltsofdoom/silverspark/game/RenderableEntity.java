@@ -1,7 +1,7 @@
 package vision.voltsofdoom.silverspark.game;
 
 
-import vision.voltsofdoom.silverspark.graphic.Texture;
+import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 
 public interface RenderableEntity {
   float getX();
@@ -12,7 +12,7 @@ public interface RenderableEntity {
 
   float getHeight();
 
-  Texture getTexture();
+  SparkTexture getTexture();
 
   int getTextureX();
 

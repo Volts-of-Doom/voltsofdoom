@@ -1,12 +1,12 @@
 package vision.voltsofdoom.gamebase.display;
 
 import java.util.List;
+import vision.voltsofdoom.gamebase.controls.MenuButton;
 import vision.voltsofdoom.silverspark.api.IRenderable;
 import vision.voltsofdoom.silverspark.api.IRenderableText;
+import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.math.Vector2f;
-import vision.voltsofdoom.gamebase.controls.MenuButton;
-import vision.voltsofdoom.gamebase.core.Game;
 
 public class MenuTemplate {
 
@@ -17,8 +17,7 @@ public class MenuTemplate {
   private final String fontKey;
   private final VODColor color;
 
-  public MenuTemplate(Vector2f menuXY, Vector2f buttonXY, Vector2f textXY, double lineHeight,
-      String fontKey, VODColor color) {
+  public MenuTemplate(Vector2f menuXY, Vector2f buttonXY, Vector2f textXY, double lineHeight, String fontKey, VODColor color) {
     this.menuXY = menuXY;
     this.buttonXY = buttonXY;
     this.textXY = textXY;
@@ -28,7 +27,7 @@ public class MenuTemplate {
   }
 
   public void filterButton(IRenderable item, int i) {
-    if (item instanceof MenuButton) { // todo need setPosition in the interface?
+    if (item instanceof MenuButton) { // TODO need setPosition in the interface?
       float x = menuXY.x + buttonXY.x;
       float y = (float) (Game.WINDOW_HEIGHT - (menuXY.y + i * lineHeight));
       ((MenuButton) item).setPosition(new Vector2f(x, y));
@@ -36,9 +35,8 @@ public class MenuTemplate {
   }
 
 
-  public List<IRenderableText> filterText(IRenderable item, int i,
-      List<IRenderableText> renderList) {
-    if (item instanceof MenuButton) { // todo need setPosition in the interface?
+  public List<IRenderableText> filterText(IRenderable item, int i, List<IRenderableText> renderList) {
+    if (item instanceof MenuButton) { // TODO need setPosition in the interface?
       // MenuButton btn = (MenuButton)item;
       float x = menuXY.x + textXY.x;
       float y = (float) (Game.WINDOW_HEIGHT - (menuXY.y + i * lineHeight));

@@ -22,11 +22,12 @@ package vision.voltsofdoom.silverspark.state;
 
 import vision.voltsofdoom.silverspark.graphic.Shader;
 import vision.voltsofdoom.silverspark.graphic.ShaderProgram;
-import vision.voltsofdoom.silverspark.graphic.Texture;
+import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import vision.voltsofdoom.silverspark.graphic.VertexBufferObject;
 import vision.voltsofdoom.silverspark.math.Matrix4f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryStack;
+import java.io.IOException;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
@@ -47,7 +48,7 @@ public class LegacyTextureState implements State {
 
   private VertexBufferObject vbo;
   private VertexBufferObject ebo;
-  private Texture texture;
+  private SparkTexture texture;
   private Shader vertexShader;
   private Shader fragmentShader;
   private ShaderProgram program;
@@ -89,7 +90,12 @@ public class LegacyTextureState implements State {
     }
 
     /* Create texture */
-    texture = Texture.loadTexture("resources/example.png");
+    try {
+      texture = SparkTexture.loadTexture("resources/example.png");
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     texture.bind();
 
     /* Get coordinates for centering the texture on screen */
