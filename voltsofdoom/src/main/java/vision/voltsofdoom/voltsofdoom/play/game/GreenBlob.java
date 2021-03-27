@@ -1,4 +1,4 @@
-package vision.voltsofdoom.gamebase.game;
+package vision.voltsofdoom.voltsofdoom.play.game;
 
 
 import vision.voltsofdoom.silverspark.game.RenderableEntity;

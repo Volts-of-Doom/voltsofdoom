@@ -1,23 +1,22 @@
-package vision.voltsofdoom.gamebase.display;
+package vision.voltsofdoom.voltsofdoom.play.game;
 
 import vision.voltsofdoom.silverspark.api.IRenderableText;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.math.Vector2f;
 import vision.voltsofdoom.silverspark.text.FontState;
 
-public class DisplayText implements IRenderableText {
+public class RenderableText implements IRenderableText {
 
-  private final FontState displayFont;
-  private final CharSequence text;
-  private final Vector2f posn;
+  private FontState displayFont;
+  private CharSequence text;
+  private Vector2f posn;
   private VODColor color;
 
-
-  public DisplayText(FontState fs, CharSequence text, Vector2f posn, VODColor c) {
-    this.displayFont = fs;
+  public RenderableText(FontState displayFont, CharSequence text, Vector2f posn, VODColor color) {
+    this.displayFont = displayFont;
     this.text = text;
     this.posn = posn;
-    this.color = c;
+    this.color = color;
   }
 
   @Override
@@ -39,4 +38,5 @@ public class DisplayText implements IRenderableText {
   public VODColor getColor() {
     return color;
   }
+
 }

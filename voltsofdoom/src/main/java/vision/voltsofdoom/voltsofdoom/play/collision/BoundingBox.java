@@ -1,4 +1,4 @@
-package vision.voltsofdoom.gamebase.collision;
+package vision.voltsofdoom.voltsofdoom.play.collision;
 
 import vision.voltsofdoom.silverspark.math.Vector2f;
 

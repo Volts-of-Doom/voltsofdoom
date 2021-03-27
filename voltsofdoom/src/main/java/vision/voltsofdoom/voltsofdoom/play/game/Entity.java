@@ -18,14 +18,14 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package vision.voltsofdoom.gamebase.game;
+package vision.voltsofdoom.voltsofdoom.play.game;
 
 
-import vision.voltsofdoom.gamebase.collision.CollidableBoundingBox;
-import vision.voltsofdoom.gamebase.collision.ICollidable;
 import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.math.Vector2f;
+import vision.voltsofdoom.voltsofdoom.play.collision.CollidableBoundingBox;
+import vision.voltsofdoom.voltsofdoom.play.collision.ICollidable;
 
 /**
  * This class represents an game entity.

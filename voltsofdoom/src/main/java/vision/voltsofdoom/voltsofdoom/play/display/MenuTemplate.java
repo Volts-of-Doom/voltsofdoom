@@ -1,12 +1,12 @@
-package vision.voltsofdoom.gamebase.display;
+package vision.voltsofdoom.voltsofdoom.play.display;
 
 import java.util.List;
-import vision.voltsofdoom.gamebase.controls.MenuButton;
 import vision.voltsofdoom.silverspark.api.IRenderable;
 import vision.voltsofdoom.silverspark.api.IRenderableText;
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.math.Vector2f;
+import vision.voltsofdoom.voltsofdoom.play.controls.MenuButton;
 
 public class MenuTemplate {
 

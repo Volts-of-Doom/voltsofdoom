@@ -1,4 +1,4 @@
-package vision.voltsofdoom.gamebase.display;
+package vision.voltsofdoom.voltsofdoom.play.display;
 
 
 import vision.voltsofdoom.silverspark.text.FontState;

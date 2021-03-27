@@ -1,16 +1,16 @@
-package vision.voltsofdoom.gamebase.controls;
+package vision.voltsofdoom.voltsofdoom.play.controls;
 
 import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT;
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.glfwGetMouseButton;
 import org.lwjgl.glfw.GLFW;
-import vision.voltsofdoom.gamebase.collision.CollidableBoundingBox;
-import vision.voltsofdoom.gamebase.collision.ICollidable;
-import vision.voltsofdoom.gamebase.display.Label;
 import vision.voltsofdoom.silverspark.api.IRenderable;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
 import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import vision.voltsofdoom.silverspark.math.Vector2f;
+import vision.voltsofdoom.voltsofdoom.play.collision.CollidableBoundingBox;
+import vision.voltsofdoom.voltsofdoom.play.collision.ICollidable;
+import vision.voltsofdoom.voltsofdoom.play.display.Label;
 
 public class MenuButton implements ICollidable, IRenderable {
 
