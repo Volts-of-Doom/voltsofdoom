@@ -151,9 +151,7 @@ public class LoadingWindow extends JFrame implements Runnable {
   }
 
   public void disableAndDispose() {
-    // EventQueue.invokeLater(() -> {
     setEnabled(false);
     dispose();
-    // });
   }
 }

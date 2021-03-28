@@ -12,13 +12,13 @@ import vision.voltsofdoom.zapbyte.main.ZapBit;
 
 public class VODZapBits {
 
-  public static final ZapBit CREATE_TEXTURE_MANAGER_11 = new ZapBit(1, () -> {
+  public static final ZapBit CREATE_TEXTURE_MANAGER_11 = new ZapBit("create_texture_manager_11", 11, () -> {
     TextureManager manager = new TextureManager(Reference.getTexturesDir());
     VoltsOfDoomCoreSystem.getInstance().setTextureManager(manager);
     VoltsOfDoomCoreSystem.getInstance().getTextureManager();
   });
 
-  public static final ZapBit ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19 = new ZapBit(19, () -> {
+  public static final ZapBit ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19 = new ZapBit("add_volts_of_doom_to_additional_reflectory_classes_19", 19, () -> {
     Reflectories.addAdditionalClass("voltsofdoom", VoltsOfDoomCoreSystem.class);
   });
 
@@ -27,9 +27,10 @@ public class VODZapBits {
     BandWagon.playEvent(new GenerateAdventuresEvent());
   });
 
-  public static final ZapBit CREATE_GAME_100 = new ZapBit(100, () -> {
+  public static final ZapBit CREATE_GAME_100 = new ZapBit("create_game_100", 100, () -> {
     System.out.println("VODZapBits.enclosing_method() #31");
     Game game = new VariableTimestepGame(null);
+    VoltsOfDoomCoreSystem.getInstance().setGame(game);
     game.start();
   });
 }

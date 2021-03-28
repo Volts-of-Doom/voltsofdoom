@@ -1,7 +1,9 @@
 package vision.voltsofdoom.voltsofdoom.universal.main;
 
+import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.voltsofdoom.universal.resource.image.TextureManager;
 import vision.voltsofdoom.zapbyte.main.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
@@ -22,7 +24,11 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
   private static final String ID = "voltsofdoom";
 
+  @Nullable
   private TextureManager textureManager;
+
+  @Nullable
+  private Game game;
 
   public VoltsOfDoomCoreSystem() {
     super(ID);
@@ -62,8 +68,7 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
   public void collectZapbits() {
     getApplicationLogger().debug("Collecting ZapBits for Volts of Doom Core System");
 
-    addZapBit(new ZapBit(0, () -> VoltsOfDoomCoreSystem.instance.getApplicationLogger()
-        .info("Starting Volts of Doom!")));
+    addZapBit(new ZapBit(0, () -> VoltsOfDoomCoreSystem.instance.getApplicationLogger().info("Starting Volts of Doom!")));
     addZapBit(DefaultZapBits.CREATE_LOADING_WINDOW_10);
     addZapBit(VODZapBits.CREATE_TEXTURE_MANAGER_11);
     addZapBit(VODZapBits.ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19);
@@ -78,19 +83,12 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
     addZapBit(DefaultZapBits.CREATE_REGISTRY_POLL_REGISTRY_TYPES_68);
 
     addZapBit(DefaultZapBits.CLOSE_LOADING_WINDOW_70);
+    addZapBit(VODZapBits.CREATE_GAME_100);
   }
 
   @Override
   public void continueExecution() {
-
-    VoltsOfDoomCoreSystem.instance.getApplicationLogger()
-        .debug("Volts of Doom Core System continuing execution");
-
-    /*
-     * //Test level creation Registry.getTyped(RegistryTypes.ADVENTURES).getEntries().forEach((k, a)
-     * -> ((Adventure) a.get()) .getLevels().forEach((l) ->
-     * l.getRawTileMap().generateTwoDimensionalListOfTileObjects()));
-     */
+    VoltsOfDoomCoreSystem.instance.getApplicationLogger().debug("Volts of Doom Core System continuing execution...");
   }
 
   public static VoltsOfDoomCoreSystem getInstance() {
@@ -107,6 +105,14 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
   public static String getId() {
     return ID;
+  }
+
+  public Game getGame() {
+    return game;
+  }
+
+  public void setGame(Game game) {
+    this.game = game;
   }
 
   @Override

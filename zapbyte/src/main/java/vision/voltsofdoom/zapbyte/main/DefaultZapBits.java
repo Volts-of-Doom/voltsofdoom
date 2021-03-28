@@ -104,6 +104,7 @@ public class DefaultZapBits {
     LoadingWindow.loadingWindow.setStatus(ILoadingWindowStatus.DONE);
     BandWagon.playEvent(new RegistryEvent.LoadingDoneEvent());
     LoadingWindow.loadingWindow.setEnabled(false);
+    LoadingWindow.loadingWindow.disableAndDispose();
   });
 
 }
