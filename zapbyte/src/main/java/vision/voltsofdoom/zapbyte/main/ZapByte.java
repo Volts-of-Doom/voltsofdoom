@@ -78,7 +78,7 @@ public abstract class ZapByte {
 
     ZapByte.LOGGER = LoggerFactory.getLogger(ZapByte.class);
 
-    Thread.setDefaultUncaughtExceptionHandler(new ZapByteUncaughtExceptionHandler(LOGGER));
+    Thread.setDefaultUncaughtExceptionHandler(new ZapByteUncaughtExceptionHandler());
 
     ZapByte.LOGGER.info("Successfully configured ZapByte logger and uncaught exception handler");
   }

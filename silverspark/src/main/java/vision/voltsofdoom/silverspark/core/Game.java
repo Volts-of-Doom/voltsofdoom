@@ -272,7 +272,7 @@ public class Game {
   }
 
   public static boolean isDefaultContext() {
-    System.err.println("default context game #285");
+    System.err.println("default context game #285 is hardcode true");
     return true;
   }
 

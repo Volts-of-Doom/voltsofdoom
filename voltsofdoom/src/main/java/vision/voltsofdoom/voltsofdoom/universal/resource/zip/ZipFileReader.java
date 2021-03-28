@@ -7,9 +7,10 @@ import java.util.Enumeration;
 import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.google.gson.stream.JsonReader;
 import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoomCoreSystem;
-import vision.voltsofdoom.zapbyte.main.ZapByteExceptionFormatter;
 
 /**
  * Does some of the "grunt work" for reading from ZIP files.
@@ -19,6 +20,8 @@ import vision.voltsofdoom.zapbyte.main.ZapByteExceptionFormatter;
  */
 public class ZipFileReader {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(ZipFileReader.class);
+  
   private ZipFile zipFile;
 
   public ZipFileReader(ZipFile zipFile) {
@@ -45,11 +48,7 @@ public class ZipFileReader {
 
       // In case of null entry
       if (entry == null) {
-        ZapByteExceptionFormatter.onError_withMessage_withArgs(
-            new NullPointerException(
-                "ZipEntry null from path. This will result in a nulled stream."),
-            VoltsOfDoomCoreSystem.getInstance().getApplicationLogger(), failureMessage,
-            new String[] {"path to entry", pathToEntry});
+        LOGGER.error("ZipEntry null from path. This will result in a nulled stream.");
 
         // Log entries
         Enumeration<? extends ZipEntry> allEntries = zipFile.entries();
@@ -63,11 +62,8 @@ public class ZipFileReader {
       stream = zipFile.getInputStream(entry);
 
     } catch (Exception e) {
-
-      ZapByteExceptionFormatter.onError_withMessage_withArgs(e,
-          VoltsOfDoomCoreSystem.getInstance().getApplicationLogger(),
-          "Error whilst fetching stream from ZipFile!", new String[] {"ZipFile",
-              zipFile != null ? zipFile.getName() : "null", "Path to entry", pathToEntry});
+      LOGGER.error("Exception whilst fetching stream from ZipFile!");
+      e.printStackTrace();
     }
 
     return stream;
