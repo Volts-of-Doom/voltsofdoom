@@ -32,12 +32,12 @@ import vision.voltsofdoom.silverspark.graphic.ShaderProgram;
 import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 
-
-
 /**
  * This class is performing the rendering process.
  *
  * @author Heiko Brumme
+ * @author GenElectrovise
+ * @author Richard Spencer
  */
 public class Renderer {
 
@@ -47,15 +47,18 @@ public class Renderer {
   private boolean drawing;
 
 
-  /** Initializes the renderer. */
+  /**
+   * Initialises the renderer.
+   */
   public void init() {
-    /* Setup shader programs */
+
+    // Set up shader programs
     drawing = false;
     program = new ShaderProgram();
     program.setupShaderProgram();
 
 
-    /* Enable blending */
+    // Enable blending
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -69,7 +72,7 @@ public class Renderer {
   }
 
   /**
-   * Begin rendering.
+   * Begin rendering. (reset vertex count)
    */
   public void begin() {
     if (drawing) {
@@ -80,7 +83,7 @@ public class Renderer {
   }
 
   /**
-   * End rendering.
+   * End rendering. (flush contents)
    */
   public void end() {
     if (!drawing) {
@@ -111,13 +114,13 @@ public class Renderer {
    * @param c The color to use
    */
   public void drawTexture(SparkTexture texture, float x, float y, VODColor c) {
-    /* Vertex positions */
+    // Vertex positions
     float x1 = x;
     float y1 = y;
     float x2 = x1 + texture.getWidth();
     float y2 = y1 + texture.getHeight();
 
-    /* Texture coordinates */
+    // Texture coordinates
     float s1 = 0f;
     float t1 = 0f;
     float s2 = 1f;
@@ -137,8 +140,7 @@ public class Renderer {
    * @param regWidth Width of the texture region
    * @param regHeight Height of the texture region
    */
-  public void drawTextureRegion(SparkTexture texture, float x, float y, float regX, float regY,
-      float regWidth, float regHeight) {
+  public void drawTextureRegion(SparkTexture texture, float x, float y, float regX, float regY, float regWidth, float regHeight) {
     drawTextureRegion(texture, x, y, regX, regY, regWidth, regHeight, VODColor.WHITE);
   }
 
@@ -154,15 +156,14 @@ public class Renderer {
    * @param regHeight Height of the texture region
    * @param c The color to use
    */
-  public void drawTextureRegion(SparkTexture texture, float x, float y, float regX, float regY,
-      float regWidth, float regHeight, VODColor c) {
-    /* Vertex positions */
+  public void drawTextureRegion(SparkTexture texture, float x, float y, float regX, float regY, float regWidth, float regHeight, VODColor c) {
+    // Vertex positions
     float x1 = x;
     float y1 = y;
     float x2 = x + regWidth;
     float y2 = y + regHeight;
 
-    /* Texture coordinates */
+    // Texture coordinates
     float s1 = regX / texture.getWidth();
     float t1 = regY / texture.getHeight();
     float s2 = (regX + regWidth) / texture.getWidth();
@@ -183,8 +184,7 @@ public class Renderer {
    * @param s2 Top right s coordinate
    * @param t2 Top right t coordinate
    */
-  public void drawTextureRegion(float x1, float y1, float x2, float y2, float s1, float t1,
-      float s2, float t2) {
+  public void drawTextureRegion(float x1, float y1, float x2, float y2, float s1, float t1, float s2, float t2) {
     drawTextureRegion(x1, y1, x2, y2, s1, t1, s2, t2, VODColor.WHITE);
   }
 
@@ -199,40 +199,40 @@ public class Renderer {
    * @param t1 Bottom left t coordinate
    * @param s2 Top right s coordinate
    * @param t2 Top right t coordinate
-   * @param c The color to use
+   * @param c The colour to use
    */
-  public void drawTextureRegion(float x1, float y1, float x2, float y2, float s1, float t1,
-      float s2, float t2, VODColor c) {
+  public void drawTextureRegion(float x1, float y1, float x2, float y2, float s1, float t1, float s2, float t2, VODColor c) {
+
+    // If we need more space in the buffer, flush it
     if (program.getVertices().remaining() < 7 * 6) {
-      /* We need more space in the buffer, so flush it */
       program.flush();
     }
 
+    // Get colour intensities.
     float r = c.getRed();
     float g = c.getGreen();
     float b = c.getBlue();
     float a = c.getAlpha();
 
+    // Add vertices for each corner of the first triangle
     program.getVertices().put(x1).put(y1).put(r).put(g).put(b).put(a).put(s1).put(t1);
     program.getVertices().put(x1).put(y2).put(r).put(g).put(b).put(a).put(s1).put(t2);
     program.getVertices().put(x2).put(y2).put(r).put(g).put(b).put(a).put(s2).put(t2);
-
+    // Add vertices for the second half of the triangle.
     program.getVertices().put(x1).put(y1).put(r).put(g).put(b).put(a).put(s1).put(t1);
     program.getVertices().put(x2).put(y2).put(r).put(g).put(b).put(a).put(s2).put(t2);
     program.getVertices().put(x2).put(y1).put(r).put(g).put(b).put(a).put(s2).put(t1);
 
+    // Update the program's vertex count.
     int numVertices = program.getNumVertices();
-
     program.setNumVertices(numVertices + 6);
   }
 
   /**
-   * Dispose renderer and clean up its used data.
+   * Dispose (delete) renderer and clean up its used data.
    */
   public void dispose() {
     program.delete();
   }
-
-
 
 }

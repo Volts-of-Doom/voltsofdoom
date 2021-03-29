@@ -44,9 +44,12 @@ import vision.voltsofdoom.silverspark.state.State;
 import vision.voltsofdoom.silverspark.text.FontState;
 
 /**
- * This class contains a simple game.
+ * The state for a given area or level. These can be created statically or dynamically depending on
+ * use case.
  *
  * @author Heiko Brumme
+ * @author GenElectrovise
+ * @author Richard Spencer
  */
 public class LevelState implements State {
 
@@ -98,14 +101,10 @@ public class LevelState implements State {
 
 
   @Override
-  public void input() {
-
-  }
+  public void input() {}
 
   @Override
-  public void update(float delta) {
-
-  }
+  public void update(float delta) {}
 
   @Override
   public void render(float alpha) {
