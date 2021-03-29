@@ -163,7 +163,7 @@ public class LevelState implements State {
 
   @Override
   public void enter() {
-    /* Get width and height of framebuffer */
+    /* Get width and height of frame buffer */
     int width, height;
     try (MemoryStack stack = MemoryStack.stackPush()) {
       long window = GLFW.glfwGetCurrentContext();
