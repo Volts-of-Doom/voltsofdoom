@@ -20,7 +20,6 @@
  */
 package vision.voltsofdoom.silverspark.core;
 
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -32,7 +31,7 @@ import vision.voltsofdoom.silverspark.render.TextRenderer;
 import vision.voltsofdoom.silverspark.state.StateMachine;
 
 /**
- * The game class just initializes the game and starts the game loop. After ending the loop it will
+ * Initialises the game and starts the game loop. After ending the loop it will
  * get disposed.
  *
  * @author Heiko Brumme
@@ -80,10 +79,9 @@ public class Game {
   protected StateMachine state;
 
   /**
-   * Default contructor for the game.
+   * Default constructor for the game.
    */
-  public Game(String resourceRoot) {
-    
+  public Game(String resourceRoot) {    
     this.resourceRoot = resourceRoot;
     timer = new Timer();
     entityRenderer = new ListRenderer();
@@ -92,7 +90,7 @@ public class Game {
   }
 
   /**
-   * This should be called to initialize and start the game.
+   * This should be called to initialise and start the game.
    */
   public void start() {
     init();
@@ -113,7 +111,7 @@ public class Game {
     /* Set empty state to trigger the exit method in the current state */
     state.change(null);
 
-    /* Release window and its callbacks */
+    /* Release window and its call-backs */
     window.destroy();
 
     /* Terminate GLFW and release the error callback */
@@ -122,14 +120,14 @@ public class Game {
   }
 
   /**
-   * Initializes the game.
+   * Initialises the game.
    */
   public void init() {
     /* Set error callback */
     errorCallback = GLFWErrorCallback.createPrint();
     GLFW.glfwSetErrorCallback(errorCallback);
 
-    /* Initialize GLFW */
+    /* Initialise GLFW */
     if (!GLFW.glfwInit()) {
       throw new IllegalStateException("Unable to initialize GLFW!");
     }
@@ -139,23 +137,23 @@ public class Game {
 
     mouseHandler = new MouseEventMenuHandler(window.getId());
 
-    /* Initialize timer */
+    /* Initialise timer */
     timer.init();
 
-    /* Initialize entity renderer */
+    /* Initialise entity renderer */
     entityRenderer.init();
 
-    /* Initialize text renderer */
+    /* Initialise text renderer */
     textRenderer.init();
-    /* Initialize states */
+    /* Initialise states */
     initStates();
 
-    /* Initializing done, set running to true */
+    /* Initialising done, set running to true */
     running = true;
   }
 
   /**
-   * Initializes the states.
+   * Initialises the states.
    */
   public void initStates() {
     System.out.println("Game.initStates()");
