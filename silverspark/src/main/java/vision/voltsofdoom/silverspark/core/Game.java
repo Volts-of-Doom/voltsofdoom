@@ -20,6 +20,7 @@
  */
 package vision.voltsofdoom.silverspark.core;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -82,6 +83,7 @@ public class Game {
    * Default contructor for the game.
    */
   public Game(String resourceRoot) {
+    
     this.resourceRoot = resourceRoot;
     timer = new Timer();
     entityRenderer = new ListRenderer();
