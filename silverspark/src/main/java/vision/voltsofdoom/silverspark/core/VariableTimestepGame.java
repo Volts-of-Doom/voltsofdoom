@@ -8,8 +8,8 @@ package vision.voltsofdoom.silverspark.core;
  */
 public class VariableTimestepGame extends Game {
 
-  public VariableTimestepGame(String resourceRoot) {
-    super(resourceRoot);
+  public VariableTimestepGame(String name) {
+    super(name);
   }
 
   @Override

@@ -85,7 +85,7 @@ public class LevelState implements State {
         String[] bits = key.split(":");
         FileInputStream fis = new FileInputStream("src/test/resources/" + bits[0] + ".ttf");
         int size = Integer.parseInt(bits[1]);
-        // todo - should get the colour dynamically,from key
+        // TODO - should get the colour dynamically, from key
         FontState thisFS = new FontState(key, fis, size, VODColor.WHITE, true);
         availableFonts.put(key, thisFS);
       } catch (IOException | FontFormatException e) {

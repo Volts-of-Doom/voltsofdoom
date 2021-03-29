@@ -29,7 +29,7 @@ public class VODZapBits {
 
   public static final ZapBit CREATE_GAME_100 = new ZapBit("create_game_100", 100, () -> {
     System.out.println("VODZapBits.enclosing_method() #31");
-    Game game = new VariableTimestepGame(null);
+    Game game = new VariableTimestepGame("Volts of Doom");
     VoltsOfDoomCoreSystem.getInstance().setGame(game);
     game.start();
   });

@@ -28,6 +28,8 @@ import vision.voltsofdoom.silverspark.Silverspark;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
 import vision.voltsofdoom.silverspark.render.ListRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
+import vision.voltsofdoom.silverspark.state.EmptyState;
+import vision.voltsofdoom.silverspark.state.State;
 import vision.voltsofdoom.silverspark.state.StateMachine;
 
 /**
@@ -72,17 +74,19 @@ public class Game {
 
   private MouseEventMenuHandler mouseHandler;
 
-  private final String resourceRoot;
   /**
    * Stores the current state.
    */
   protected StateMachine state;
+  
+  private String name;
 
   /**
    * Default constructor for the game.
    */
-  public Game(String resourceRoot) {    
-    this.resourceRoot = resourceRoot;
+  public Game(String name) { 
+    this.name = name;
+    
     timer = new Timer();
     entityRenderer = new ListRenderer();
     textRenderer = new TextRenderer();
@@ -133,9 +137,9 @@ public class Game {
     }
 
     /* Create GLFW window */
-    window = new Silverspark(WINDOW_WIDTH, WINDOW_HEIGHT, "Vaults of Doom", true);
+    window = new Silverspark(WINDOW_WIDTH, WINDOW_HEIGHT, name, true);
 
-    mouseHandler = new MouseEventMenuHandler(window.getId());
+    setMouseHandler(new MouseEventMenuHandler(window.getId()));
 
     /* Initialise timer */
     timer.init();
@@ -156,7 +160,8 @@ public class Game {
    * Initialises the states.
    */
   public void initStates() {
-    System.out.println("Game.initStates()");
+    state.add("empty", new EmptyState());
+    state.change("empty");
   }
 
   /**
@@ -194,7 +199,7 @@ public class Game {
       /* Update window to show the new screen */
       window.update();
 
-      /* Synchronize if v-sync is disabled */
+      /* Synchronise if v-sync is disabled */
       if (!window.isVSyncEnabled()) {
         sync(TARGET_FPS);
       }
@@ -209,14 +214,14 @@ public class Game {
   }
 
   /**
-   * Updates the game (fixed timestep).
+   * Updates the game (fixed time step).
    */
   public void update() {
     state.update();
   }
 
   /**
-   * Updates the game (variable timestep).
+   * Updates the game (variable time step).
    *
    * @param delta Time difference in seconds
    */
@@ -241,7 +246,7 @@ public class Game {
   }
 
   /**
-   * Synchronizes the game at specified frames per second.
+   * Synchronises the game at specified frames per second.
    *
    * @param fps Frames per second
    */
@@ -254,7 +259,7 @@ public class Game {
       Thread.yield();
 
       /*
-       * This is optional if you want your game to stop consuming too much CPU but you will loose some
+       * This is optional if you want your game to stop consuming too much CPU, but you will loose some
        * accuracy because Thread.sleep(1) could sleep longer than 1 millisecond
        */
       try {
@@ -267,13 +272,23 @@ public class Game {
     }
   }
 
-  public String getResourceRoot() {
-    return resourceRoot;
-  }
-
   public static boolean isDefaultContext() {
     System.err.println("default context game #285 is hardcode true");
     return true;
+  }
+
+  /**
+   * @return the mouseHandler
+   */
+  public MouseEventMenuHandler getMouseHandler() {
+    return mouseHandler;
+  }
+
+  /**
+   * @param mouseHandler the mouseHandler to set
+   */
+  public void setMouseHandler(MouseEventMenuHandler mouseHandler) {
+    this.mouseHandler = mouseHandler;
   }
 
 }

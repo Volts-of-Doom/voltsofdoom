@@ -64,8 +64,12 @@ public class StateMachine implements State {
    * @param name Name of the desired state
    */
   public void change(String name) {
+    State state = states.get(name);
+    if (state == null)
+      throw new NullPointerException("Cannot change to non-existent state " + name);
+    
     currentState.exit();
-    currentState = states.get(name);
+    currentState = state;
     currentState.enter();
   }
 
