@@ -40,7 +40,7 @@ import vision.voltsofdoom.silverspark.math.Vector2f;
 import vision.voltsofdoom.silverspark.render.EntityRenderer;
 import vision.voltsofdoom.silverspark.render.AbstractRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
-import vision.voltsofdoom.silverspark.state.IState;
+import vision.voltsofdoom.silverspark.state.State;
 import vision.voltsofdoom.silverspark.text.FontState;
 
 /**
@@ -51,7 +51,7 @@ import vision.voltsofdoom.silverspark.text.FontState;
  * @author GenElectrovise
  * @author Richard Spencer
  */
-public class LevelState implements IState {
+public class LevelState extends State {
 
   private SparkTexture backgroundTexture;
   private SparkTexture entitiesTexture;
