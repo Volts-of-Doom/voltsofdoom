@@ -28,7 +28,7 @@ import vision.voltsofdoom.silverspark.core.Game;
  *
  * @author Heiko Brumme
  */
-public interface State {
+public interface IState {
 
   /**
    * Handles input of the state.

@@ -2,7 +2,7 @@ package vision.voltsofdoom.silverspark.state;
 
 import vision.voltsofdoom.silverspark.render.EntityRenderer;
 
-public class SilversparkLogoState implements State {
+public class SilversparkLogoState implements IState {
 
   private EntityRenderer renderer;
 

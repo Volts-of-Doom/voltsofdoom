@@ -1,17 +1,17 @@
 package vision.voltsofdoom.silverspark.render;
 
-import vision.voltsofdoom.silverspark.game.RenderableEntity;
+import vision.voltsofdoom.silverspark.game.IRenderableEntity;
 import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import java.util.List;
 
-public class EntityRenderer extends Renderer {
+public class EntityRenderer extends AbstractRenderer {
 
-  public void drawEntities(List<RenderableEntity> entitiesList, SparkTexture entitiesTexture) {
+  public void drawEntities(List<IRenderableEntity> entitiesList, SparkTexture entitiesTexture) {
     /* Draw game objects */
     entitiesTexture.bind();
     begin();
 
-    for (RenderableEntity entity : entitiesList) {
+    for (IRenderableEntity entity : entitiesList) {
       drawEntity(entitiesTexture, entity);
     }
 
@@ -19,7 +19,7 @@ public class EntityRenderer extends Renderer {
   }
 
 
-  public void drawEntity(SparkTexture entityTexture, RenderableEntity entity) {
+  public void drawEntity(SparkTexture entityTexture, IRenderableEntity entity) {
     drawTextureRegion(entityTexture, entity.getX(), entity.getY(), 0, 0, entity.getHeight(), entity.getWidth());
   }
 

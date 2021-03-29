@@ -39,7 +39,7 @@ import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
  *
  * @author Heiko Brumme
  */
-public class LegacyExampleState implements State {
+public class LegacyExampleState implements IState {
 
   private final CharSequence vertexSource =
       "#version 120\n" + "\n" + "attribute vec3 position;\n" + "attribute vec3 color;\n" + "\n"

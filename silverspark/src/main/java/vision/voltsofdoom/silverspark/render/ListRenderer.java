@@ -10,7 +10,7 @@ import vision.voltsofdoom.silverspark.graphic.SparkTexture;
  * @author GenElectrovise
  *
  */
-public class ListRenderer extends Renderer {
+public class ListRenderer extends AbstractRenderer {
 
   /**
    * Draws the contents of the given {@link List} of {@link IRenderable}s.

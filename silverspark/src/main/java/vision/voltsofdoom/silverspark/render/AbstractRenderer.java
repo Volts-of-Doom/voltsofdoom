@@ -39,7 +39,7 @@ import vision.voltsofdoom.silverspark.graphic.VODColor;
  * @author GenElectrovise
  * @author Richard Spencer
  */
-public class Renderer {
+public abstract class AbstractRenderer {
 
   private ShaderProgram program;
 

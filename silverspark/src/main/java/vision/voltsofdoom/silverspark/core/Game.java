@@ -29,7 +29,7 @@ import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
 import vision.voltsofdoom.silverspark.render.ListRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
 import vision.voltsofdoom.silverspark.state.EmptyState;
-import vision.voltsofdoom.silverspark.state.State;
+import vision.voltsofdoom.silverspark.state.IState;
 import vision.voltsofdoom.silverspark.state.StateMachine;
 
 /**

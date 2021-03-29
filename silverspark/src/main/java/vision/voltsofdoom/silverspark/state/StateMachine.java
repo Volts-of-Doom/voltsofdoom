@@ -28,16 +28,16 @@ import java.util.Map;
  *
  * @author Heiko Brumme
  */
-public class StateMachine implements State {
+public class StateMachine implements IState {
 
   /**
    * Contains all states of this state machine.
    */
-  private final Map<String, State> states;
+  private final Map<String, IState> states;
   /**
    * Current active state.
    */
-  private State currentState;
+  private IState currentState;
 
   /**
    * Creates a state machine.
@@ -54,7 +54,7 @@ public class StateMachine implements State {
    * @param name Name of the state
    * @param state The state to add
    */
-  public void add(String name, State state) {
+  public void add(String name, IState state) {
     states.put(name, state);
   }
 
@@ -64,7 +64,7 @@ public class StateMachine implements State {
    * @param name Name of the desired state
    */
   public void change(String name) {
-    State state = states.get(name);
+    IState state = states.get(name);
     if (state == null)
       throw new NullPointerException("Cannot change to non-existent state " + name);
     

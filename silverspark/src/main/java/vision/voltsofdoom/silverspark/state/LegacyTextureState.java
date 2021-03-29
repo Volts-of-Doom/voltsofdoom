@@ -44,7 +44,7 @@ import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
  *
  * @author Heiko Brumme
  */
-public class LegacyTextureState implements State {
+public class LegacyTextureState implements IState {
 
   private VertexBufferObject vbo;
   private VertexBufferObject ebo;

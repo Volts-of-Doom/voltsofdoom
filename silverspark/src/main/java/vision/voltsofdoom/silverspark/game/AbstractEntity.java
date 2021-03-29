@@ -30,7 +30,7 @@ import vision.voltsofdoom.silverspark.math.Vector2f;
  *
  * @author Heiko Brumme
  */
-public abstract class Entity {
+public abstract class AbstractEntity {
 
   protected Vector2f previousPosition;
   protected Vector2f position;
@@ -50,7 +50,7 @@ public abstract class Entity {
   protected final int textureX; // X and Y co-ordinates of entity image on texture
   protected final int textureY;
 
-  public Entity(VODColor color, SparkTexture texture, float x, float y, float speed, int width,
+  public AbstractEntity(VODColor color, SparkTexture texture, float x, float y, float speed, int width,
       int height, int textureX, int textureY) {
     previousPosition = new Vector2f(x, y);
     position = new Vector2f(x, y);
@@ -82,7 +82,7 @@ public abstract class Entity {
    *
    * @param entity Can be used for the AI
    */
-  public abstract void input(Entity entity);
+  public abstract void input(AbstractEntity entity);
 
   /**
    * Updates the entity.

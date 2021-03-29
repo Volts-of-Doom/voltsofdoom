@@ -40,7 +40,7 @@ import java.util.Map;
 import org.lwjgl.system.MemoryUtil;
 import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
-import vision.voltsofdoom.silverspark.render.Renderer;
+import vision.voltsofdoom.silverspark.render.AbstractRenderer;
 
 /**
  * This class contains a font texture for drawing text.
@@ -328,7 +328,7 @@ public class FontState {
    * @param y Y coordinate of the text position
    * @param c Color to use
    */
-  public void drawText(Renderer renderer, CharSequence text, float x, float y, VODColor c) {
+  public void drawText(AbstractRenderer renderer, CharSequence text, float x, float y, VODColor c) {
     int textHeight = getHeight(text);
 
     float drawX = x;
@@ -366,7 +366,7 @@ public class FontState {
    * @param x X coordinate of the text position
    * @param y Y coordinate of the text position
    */
-  public void drawText(Renderer renderer, CharSequence text, float x, float y) {
+  public void drawText(AbstractRenderer renderer, CharSequence text, float x, float y) {
     drawText(renderer, text, x, y, VODColor.WHITE);
   }
 

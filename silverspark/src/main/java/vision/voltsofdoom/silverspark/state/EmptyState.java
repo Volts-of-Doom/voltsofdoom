@@ -25,7 +25,7 @@ package vision.voltsofdoom.silverspark.state;
  *
  * @author Heiko Brumme
  */
-public class EmptyState implements State {
+public class EmptyState implements IState {
 
   @Override
   public void input() {}

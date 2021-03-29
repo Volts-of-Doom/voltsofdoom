@@ -40,7 +40,7 @@ import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
  *
  * @author Heiko Brumme
  */
-public class ExampleState implements State {
+public class ExampleState implements IState {
 
   private final CharSequence vertexSource = "#version 150 core\n" + "\n" + "in vec3 position;\n"
       + "in vec3 color;\n" + "\n" + "out vec3 vertexColor;\n" + "\n" + "uniform mat4 model;\n"

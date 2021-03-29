@@ -4,7 +4,7 @@ import vision.voltsofdoom.silverspark.api.IRenderableText;
 import vision.voltsofdoom.silverspark.text.FontState;
 
 
-public class TextRenderer extends Renderer {
+public class TextRenderer extends AbstractRenderer {
 
 
   /** Initializes the renderer. */

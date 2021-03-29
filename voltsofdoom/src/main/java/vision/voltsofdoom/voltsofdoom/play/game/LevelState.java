@@ -33,14 +33,14 @@ import java.util.logging.Logger;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryStack;
 import vision.voltsofdoom.silverspark.core.Game;
-import vision.voltsofdoom.silverspark.game.RenderableEntity;
+import vision.voltsofdoom.silverspark.game.IRenderableEntity;
 import vision.voltsofdoom.silverspark.graphic.SparkTexture;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.math.Vector2f;
 import vision.voltsofdoom.silverspark.render.EntityRenderer;
-import vision.voltsofdoom.silverspark.render.Renderer;
+import vision.voltsofdoom.silverspark.render.AbstractRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
-import vision.voltsofdoom.silverspark.state.State;
+import vision.voltsofdoom.silverspark.state.IState;
 import vision.voltsofdoom.silverspark.text.FontState;
 
 /**
@@ -51,7 +51,7 @@ import vision.voltsofdoom.silverspark.text.FontState;
  * @author GenElectrovise
  * @author Richard Spencer
  */
-public class LevelState implements State {
+public class LevelState implements IState {
 
   private SparkTexture backgroundTexture;
   private SparkTexture entitiesTexture;
@@ -60,7 +60,7 @@ public class LevelState implements State {
 
   private GreenBlob greenBlob1;
   private GreenBlob greenBlob2;
-  private List<RenderableEntity> entitiesList = new ArrayList<>();
+  private List<IRenderableEntity> entitiesList = new ArrayList<>();
   private Map<String, FontState> availableFonts;
 
   private String[] permittedFonts = {"Inconsolata:16:WHITE", "Inconsolata:20:WHITE", "Inconsolata:50:WHITE"};
@@ -92,7 +92,7 @@ public class LevelState implements State {
         FontState thisFS = new FontState(key, fis, size, VODColor.WHITE, true);
         availableFonts.put(key, thisFS);
       } catch (IOException | FontFormatException e) {
-        Logger.getLogger(Renderer.class.getName()).log(Level.CONFIG, "Font " + key + " not created - will use default", e);
+        Logger.getLogger(AbstractRenderer.class.getName()).log(Level.CONFIG, "Font " + key + " not created - will use default", e);
       }
     }
     return availableFonts;
