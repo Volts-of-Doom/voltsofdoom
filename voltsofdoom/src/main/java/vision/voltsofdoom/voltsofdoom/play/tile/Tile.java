@@ -1,7 +1,7 @@
 package vision.voltsofdoom.voltsofdoom.play.tile;
 
 import vision.voltsofdoom.voltsofdoom.play.data.IPropertyHandler;
-import vision.voltsofdoom.zapbyte.loading.registry.RegistryEntry;
+import vision.voltsofdoom.zapbyte.registry.RegistryEntry;
 
 /**
  * A very important thing.

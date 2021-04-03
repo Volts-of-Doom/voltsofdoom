@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.loading;
+package vision.voltsofdoom.zapbyte.loader;
 
 import java.net.URL;
 import java.net.URLClassLoader;

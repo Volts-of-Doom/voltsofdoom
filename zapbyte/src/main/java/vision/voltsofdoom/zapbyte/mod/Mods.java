@@ -1,9 +1,9 @@
-package vision.voltsofdoom.zapbyte.loading.mod;
+package vision.voltsofdoom.zapbyte.mod;
 
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Set;
-import vision.voltsofdoom.zapbyte.loading.reflectory.Reflectory;
+import vision.voltsofdoom.zapbyte.reflectory.Reflectory;
 
 /**
  * Handles the handling of {@link Mod} annotations.

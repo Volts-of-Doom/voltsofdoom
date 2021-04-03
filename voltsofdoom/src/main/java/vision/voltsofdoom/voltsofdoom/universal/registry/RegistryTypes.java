@@ -7,8 +7,8 @@ import vision.voltsofdoom.voltsofdoom.play.tile.Tile;
 import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.event.Stowaway;
-import vision.voltsofdoom.zapbyte.loading.registry.RegistryType;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
+import vision.voltsofdoom.zapbyte.registry.RegistryType;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 
@@ -34,7 +34,7 @@ public class RegistryTypes {
     ADVENTURES = event.createRegistryType(
         new ResourceLocation(VoltsOfDoomCoreSystem.getId(), "adventures"), Adventure.class);
 
-    vision.voltsofdoom.zapbyte.loading.registry.RegistryTypes.prioritisedTypes =
+    vision.voltsofdoom.zapbyte.registry.RegistryTypes.prioritisedTypes =
         ImmutableList.of(TILES, ENTITIES);
   }
 }

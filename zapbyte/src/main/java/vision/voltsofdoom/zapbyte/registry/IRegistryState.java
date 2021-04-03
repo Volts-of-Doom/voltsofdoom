@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.loading.registry;
+package vision.voltsofdoom.zapbyte.registry;
 
 /**
  * The state of an {@link IRegistry} or {@link IFinalisedRegistry}, or some other kind of

@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.loading.registry;
+package vision.voltsofdoom.zapbyte.registry;
 
 import java.io.PrintStream;
 import java.util.LinkedHashMap;

@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.loading.window;
+package vision.voltsofdoom.zapbyte.window;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;

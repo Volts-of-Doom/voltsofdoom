@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.loading.mod;
+package vision.voltsofdoom.zapbyte.mod;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

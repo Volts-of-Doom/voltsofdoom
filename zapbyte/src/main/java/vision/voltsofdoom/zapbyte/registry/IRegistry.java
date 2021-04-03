@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.loading.registry;
+package vision.voltsofdoom.zapbyte.registry;
 
 import java.util.Map;
 import java.util.function.Supplier;
@@ -6,14 +6,13 @@ import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 /**
- * An {@link IRegistry} which is immutable. This is a required implemented interface for items in
- * the {@link Registry}.
+ * A mutable (non finalised) registry.
  * 
  * @author GenElectrovise
  *
  * @param <T> The type of {@link IRegistryEntry} being registered.
  */
-public interface IFinalisedRegistry<T extends IRegistryEntry<T>> {
+public interface IRegistry<T extends IRegistryEntry<T>> {
 
   /**
    * @return The contents of this {@link IFinalisedRegistry}.
@@ -49,21 +48,16 @@ public interface IFinalisedRegistry<T extends IRegistryEntry<T>> {
   public void setState(IRegistryState state);
 
   /**
-   * Called by the {@link Registry} to inject the contents of another {@link IFinalisedRegistry}
-   * into this one, combining the two.
+   * Registers the {@link Supplier} to this {@link IRegistry}, binding it to the given
+   * {@link ResourceLocation}
    * 
-   * @param finalisedRegistry
+   * @return
    */
-  void inject(IFinalisedRegistry<?> finalisedRegistry);
-
-  @Override
-  String toString();
+  public RegistryMessenger<T> register(IResourceLocation identifier, Supplier<T> item);
 
   /**
-   * Is called by the {@link Registry} to close off this {@link IFinalisedRegistry}. This should
-   * ensure that no edits can be made to the contents of this {@link IFinalisedRegistry} after this
-   * method has been called. No need to (in fact, don't) call this method yourself, as this is dealt
-   * with by the game registry.
+   * 
+   * @return A finalised version of this registry.
    */
-  public void lock();
+  public IFinalisedRegistry<T> genFinalised();
 }

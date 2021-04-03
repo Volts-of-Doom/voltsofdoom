@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.misc.util;
+package vision.voltsofdoom.zapbyte.util;
 
 public class Hash {
 

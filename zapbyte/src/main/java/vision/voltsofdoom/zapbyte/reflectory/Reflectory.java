@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.loading.reflectory;
+package vision.voltsofdoom.zapbyte.reflectory;
 
 import java.util.ArrayList;
 import org.reflections.Reflections;

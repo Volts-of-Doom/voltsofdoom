@@ -8,7 +8,7 @@ import java.util.zip.ZipFile;
 import com.google.common.collect.ImmutableSet;
 import vision.voltsofdoom.voltsofdoom.play.adventure.Sheet.ISheetType;
 import vision.voltsofdoom.voltsofdoom.universal.util.Reference;
-import vision.voltsofdoom.zapbyte.loading.registry.RegistryEntry;
+import vision.voltsofdoom.zapbyte.registry.RegistryEntry;
 import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 

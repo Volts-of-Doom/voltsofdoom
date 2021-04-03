@@ -1,6 +1,6 @@
 package vision.voltsofdoom.zapbyte.event;
 
-import vision.voltsofdoom.zapbyte.loading.window.ILoadingWindowDetailedStatus;
+import vision.voltsofdoom.zapbyte.window.ILoadingWindowDetailedStatus;
 
 /**
  * Contains {@link Event}s called during loading.

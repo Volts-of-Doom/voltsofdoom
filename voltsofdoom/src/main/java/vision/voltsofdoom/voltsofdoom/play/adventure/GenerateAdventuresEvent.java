@@ -1,7 +1,7 @@
 package vision.voltsofdoom.voltsofdoom.play.adventure;
 
 import vision.voltsofdoom.zapbyte.event.Event;
-import vision.voltsofdoom.zapbyte.loading.window.ILoadingWindowDetailedStatus;
+import vision.voltsofdoom.zapbyte.window.ILoadingWindowDetailedStatus;
 
 /**
  * Signifies when adventures should be generated.

@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.loading.registry;
+package vision.voltsofdoom.zapbyte.registry;
 
 import vision.voltsofdoom.zapbyte.main.ZapByte;
 import vision.voltsofdoom.zapbyte.resource.IResourceLocation;

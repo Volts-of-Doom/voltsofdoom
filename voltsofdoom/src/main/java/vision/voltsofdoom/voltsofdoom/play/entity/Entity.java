@@ -2,7 +2,7 @@ package vision.voltsofdoom.voltsofdoom.play.entity;
 
 import vision.voltsofdoom.voltsofdoom.play.data.IPropertyHandler;
 import vision.voltsofdoom.voltsofdoom.play.tile.Tile;
-import vision.voltsofdoom.zapbyte.loading.registry.RegistryEntry;
+import vision.voltsofdoom.zapbyte.registry.RegistryEntry;
 
 /**
  * A thing in a level which isn't a Tile is probably an Entity.

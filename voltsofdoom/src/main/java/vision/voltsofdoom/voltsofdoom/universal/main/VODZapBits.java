@@ -6,9 +6,9 @@ import vision.voltsofdoom.voltsofdoom.play.adventure.GenerateAdventuresEvent;
 import vision.voltsofdoom.voltsofdoom.universal.resource.image.TextureManager;
 import vision.voltsofdoom.voltsofdoom.universal.util.Reference;
 import vision.voltsofdoom.zapbyte.event.BandWagon;
-import vision.voltsofdoom.zapbyte.loading.reflectory.Reflectories;
-import vision.voltsofdoom.zapbyte.loading.window.LoadingWindow;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
+import vision.voltsofdoom.zapbyte.reflectory.Reflectories;
+import vision.voltsofdoom.zapbyte.window.LoadingWindow;
 
 public class VODZapBits {
 

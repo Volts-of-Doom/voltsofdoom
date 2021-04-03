@@ -9,8 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vision.voltsofdoom.zapbyte.loading.reflectory.Reflectory;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
+import vision.voltsofdoom.zapbyte.reflectory.Reflectory;
 
 /**
  * Sick of hearing about event buses? Well Volts of Doom has a {@link BandWagon}!
@@ -35,6 +35,7 @@ public class BandWagon {
   }
 
   /**
+   * CAN BE STREAMLINED BY LOADING METHODS TO A MAP!<br>
    * Play the given {@link Event} for all listeners of the {@link Event}'s type... Like a song!
    * 
    * <br>

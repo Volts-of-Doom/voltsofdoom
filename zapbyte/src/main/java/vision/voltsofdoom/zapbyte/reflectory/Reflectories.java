@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.loading.reflectory;
+package vision.voltsofdoom.zapbyte.reflectory;
 
 import java.io.File;
 import java.net.URL;
@@ -10,7 +10,7 @@ import org.reflections.scanners.MethodAnnotationsScanner;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
 import org.reflections.util.FilterBuilder;
-import vision.voltsofdoom.zapbyte.loading.VODClassLoader;
+import vision.voltsofdoom.zapbyte.loader.VODClassLoader;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
 import vision.voltsofdoom.zapbyte.resource.JarMapper;
 

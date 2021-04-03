@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.loading.window;
+package vision.voltsofdoom.zapbyte.window;
 
 /**
  * The detailed status to be shown on the {@link LoadingWindow} during startup. Updated using

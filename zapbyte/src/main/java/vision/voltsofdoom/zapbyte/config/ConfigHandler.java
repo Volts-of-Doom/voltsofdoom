@@ -12,8 +12,8 @@ import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
 import vision.voltsofdoom.api.zapyte.config.IConfigurationFile;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
 import vision.voltsofdoom.zapbyte.main.ZapByteReference;
-import vision.voltsofdoom.zapbyte.misc.util.StacktraceUtils;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
+import vision.voltsofdoom.zapbyte.util.StacktraceUtils;
 
 public class ConfigHandler implements IConfigHandler {
 

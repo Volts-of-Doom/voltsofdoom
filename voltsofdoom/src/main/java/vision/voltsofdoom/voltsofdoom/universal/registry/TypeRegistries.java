@@ -6,7 +6,7 @@ import vision.voltsofdoom.voltsofdoom.play.tile.Tile;
 import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.event.Stowaway;
-import vision.voltsofdoom.zapbyte.loading.registry.TypeRegistry;
+import vision.voltsofdoom.zapbyte.registry.TypeRegistry;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 public class TypeRegistries {

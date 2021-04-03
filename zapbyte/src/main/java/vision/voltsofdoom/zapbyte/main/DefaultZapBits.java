@@ -3,10 +3,10 @@ package vision.voltsofdoom.zapbyte.main;
 import vision.voltsofdoom.zapbyte.event.BandWagon;
 import vision.voltsofdoom.zapbyte.event.LoadingEvent;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
-import vision.voltsofdoom.zapbyte.loading.mod.Mods;
-import vision.voltsofdoom.zapbyte.loading.reflectory.Reflectories;
-import vision.voltsofdoom.zapbyte.loading.window.ILoadingWindowStatus;
-import vision.voltsofdoom.zapbyte.loading.window.LoadingWindow;
+import vision.voltsofdoom.zapbyte.mod.Mods;
+import vision.voltsofdoom.zapbyte.reflectory.Reflectories;
+import vision.voltsofdoom.zapbyte.window.ILoadingWindowStatus;
+import vision.voltsofdoom.zapbyte.window.LoadingWindow;
 
 /**
  * Holds pre-made {@link ZapBit}s.

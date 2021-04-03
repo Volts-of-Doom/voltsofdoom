@@ -6,8 +6,8 @@ import java.util.function.Supplier;
 import vision.voltsofdoom.voltsofdoom.play.tile.Tile;
 import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoomCoreSystem;
 import vision.voltsofdoom.voltsofdoom.universal.registry.RegistryTypes;
-import vision.voltsofdoom.zapbyte.loading.registry.IFinalisedRegistry;
-import vision.voltsofdoom.zapbyte.loading.registry.Registry;
+import vision.voltsofdoom.zapbyte.registry.IFinalisedRegistry;
+import vision.voltsofdoom.zapbyte.registry.Registry;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 /**

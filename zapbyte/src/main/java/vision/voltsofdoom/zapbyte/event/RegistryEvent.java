@@ -1,13 +1,13 @@
 package vision.voltsofdoom.zapbyte.event;
 
-import vision.voltsofdoom.zapbyte.loading.registry.CollectedRegistries;
-import vision.voltsofdoom.zapbyte.loading.registry.IRegistryEntry;
-import vision.voltsofdoom.zapbyte.loading.registry.RegistryType;
-import vision.voltsofdoom.zapbyte.loading.registry.RegistryTypes;
-import vision.voltsofdoom.zapbyte.loading.registry.TypeRegistry;
-import vision.voltsofdoom.zapbyte.loading.window.ILoadingWindowDetailedStatus;
+import vision.voltsofdoom.zapbyte.registry.CollectedRegistries;
+import vision.voltsofdoom.zapbyte.registry.IRegistryEntry;
+import vision.voltsofdoom.zapbyte.registry.RegistryType;
+import vision.voltsofdoom.zapbyte.registry.RegistryTypes;
+import vision.voltsofdoom.zapbyte.registry.TypeRegistry;
 import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.window.ILoadingWindowDetailedStatus;
 
 /**
  * Nested classes hold the {@link Event}s played during registry loading.
