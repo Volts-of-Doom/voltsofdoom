@@ -146,8 +146,6 @@ public class Silverspark {
 
     // glfwSetInputMode(id, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
 
-
-
   }
 
   /**

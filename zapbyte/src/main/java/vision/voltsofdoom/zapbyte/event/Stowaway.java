@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 
 /**
  * Indicates a type or method that the {@link BandWagon} should be made aware of (i.e. should
- * recieve events). This annotation should only be applied to valid static methods, in order to
+ * receive events). This annotation should only be applied to valid static methods, in order to
  * subscribe only them, or to types, in order to subscribe all valid static methods in them.<br>
  * <br>
  * A method is considered "valid" if it:
@@ -33,5 +33,4 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target({TYPE, METHOD})
 public @interface Stowaway {
-
 }

@@ -50,8 +50,7 @@ public abstract class AbstractEntity {
   protected final int textureX; // X and Y co-ordinates of entity image on texture
   protected final int textureY;
 
-  public AbstractEntity(VODColor color, SparkTexture texture, float x, float y, float speed, int width,
-      int height, int textureX, int textureY) {
+  public AbstractEntity(VODColor color, SparkTexture texture, float x, float y, float speed, int width, int height, int textureX, int textureY) {
     previousPosition = new Vector2f(x, y);
     position = new Vector2f(x, y);
 

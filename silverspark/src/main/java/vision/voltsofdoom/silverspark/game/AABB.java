@@ -30,7 +30,8 @@ import vision.voltsofdoom.silverspark.math.Vector2f;
  */
 public class AABB {
 
-  public Vector2f min, max;
+  public Vector2f min;
+  public Vector2f max;
 
   public AABB(AbstractEntity entity) {
     min = new Vector2f(entity.getX(), entity.getY());
