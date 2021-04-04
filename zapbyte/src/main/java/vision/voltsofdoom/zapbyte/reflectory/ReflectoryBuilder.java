@@ -1,6 +1,5 @@
 package vision.voltsofdoom.zapbyte.reflectory;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.reflections.scanners.MethodAnnotationsScanner;
@@ -20,7 +19,6 @@ import com.google.common.collect.Lists;
 public class ReflectoryBuilder {
 
   private Reflectory reflectory;
-  private ArrayList<Scanner> scanners = new ArrayList<Scanner>();
 
   public ReflectoryBuilder() {
     this.reflectory = new Reflectory();
@@ -28,6 +26,15 @@ public class ReflectoryBuilder {
 
   public static List<Scanner> getDefaultScanners() {
     return Lists.newArrayList(new TypeAnnotationsScanner(), new MethodAnnotationsScanner(), new SubTypesScanner(false));
+  }
+
+  public static ReflectoryBuilder getAllDefaults() {
+    ReflectoryBuilder builder = new ReflectoryBuilder();
+
+    builder.withScanners(getDefaultScanners());
+    builder.withFilterBuilder(getDefaultFilterBuilder());
+
+    return builder;
   }
 
   /**
@@ -73,8 +80,8 @@ public class ReflectoryBuilder {
    * @param classLoader
    * @return This {@link ReflectoryBuilder}
    */
-  public ReflectoryBuilder withClassLoaders(ClassLoader[] classLoaders) {
-    reflectory.setClassLoaders(classLoaders);
+  public ReflectoryBuilder withClassLoaders(List<ClassLoader> classLoaders) {
+    reflectory.getClassLoaders().addAll(classLoaders);
     return this;
   }
 
@@ -84,7 +91,7 @@ public class ReflectoryBuilder {
    * @param loader
    */
   public ReflectoryBuilder withClassLoader(ClassLoader loader) {
-    withClassLoaders(new ClassLoader[] {loader});
+    reflectory.getClassLoaders().add(loader);
     return this;
   }
 
@@ -96,14 +103,12 @@ public class ReflectoryBuilder {
    * @return This {@link ReflectoryBuilder}
    */
   public ReflectoryBuilder withScanners(Collection<Scanner> scanners) {
-    this.scanners.addAll(scanners);
+    reflectory.getScanners().addAll(scanners);
     return this;
   }
 
   public Reflectory build() {
-    reflectory.setScanners(this.scanners.toArray(new Scanner[scanners.size()]));
-    reflectory.index();
-    return reflectory;
+    return reflectory.index();
   }
 
   public ReflectoryBuilder withVisibleName(String name) {
@@ -113,6 +118,11 @@ public class ReflectoryBuilder {
 
   public ReflectoryBuilder withFilterBuilder(FilterBuilder filterBuilder) {
     reflectory.setFilterBuilder(filterBuilder);
+    return this;
+  }
+
+  public ReflectoryBuilder withPackage(String pack) {
+    reflectory.getPackages().add(pack);
     return this;
   }
 }

@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
  * A {@link Runnable} task with associated {@link #priority} used in the {@link ZapByte} class, and
  * run at loading time.
  * 
+ * @see DefaultZapBits
  * @author GenElectrovise
  *
  */

@@ -117,8 +117,9 @@ public abstract class ZapByte {
 
     // Run
     for (Integer integer : ints) {
-      ZapByte.LOGGER.debug("Running ZapBit of priority " + integer);
-      bits.get(integer).run();
+      ZapBit bit = bits.get(integer);
+      ZapByte.LOGGER.debug("Running ZapBit: name=" + bit.getName() + " priority="+ integer);
+      bit.run();
     }
 
     ZapByte.LOGGER.warn("ZapBit execution complete. Continuing external (none-ZapBit) execution.");

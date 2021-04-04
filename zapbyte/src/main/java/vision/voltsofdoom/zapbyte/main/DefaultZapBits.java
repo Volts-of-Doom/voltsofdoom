@@ -27,11 +27,15 @@ public class DefaultZapBits {
   // STAGE 2
 
   public static final ZapBit CREATE_REFLECTORIES_20 = new ZapBit(20, () -> {
+    
+    // Add vision.voltsofdoom to reflected paths
+    Reflectories.addAdditionalPackage("vision.voltsofdoom");
+    
     // 2) Create reflectories
     // a. find jars
     // b. create Reflectory for each
     LoadingWindow.loadingWindow.setStatus(ILoadingWindowStatus.GENERATING_REFLECTORIES);
-    Reflectories.generate();
+    Reflectories.generateReflectories();
   });
 
   // STAGE 3
@@ -44,7 +48,7 @@ public class DefaultZapBits {
 
   // STAGE 4
 
-  public static final ZapBit CREATE_BANDWAGON_40 = new ZapBit(40, () -> {
+  public static final ZapBit CREATE_BANDWAGON_40 = new ZapBit(40, () -> {    
     // 4.1) Scan for BandWagon subscribers (@Stowaway)
     LoadingWindow.loadingWindow.setStatus(ILoadingWindowStatus.LOCATING_BAND_WAGON_SUBSCRIBERS);
     BandWagon.collectSubscribers(Reflectories.values());

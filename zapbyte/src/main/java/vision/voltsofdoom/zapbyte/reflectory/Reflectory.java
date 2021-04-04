@@ -1,5 +1,7 @@
 package vision.voltsofdoom.zapbyte.reflectory;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanner;
 import org.reflections.util.ClasspathHelper;
@@ -14,12 +16,12 @@ import org.reflections.util.FilterBuilder;
  */
 public class Reflectory {
 
-  private ClassLoader[] classLoaders;
-  private Scanner[] scanners;
+  private String visibleName = "blank_reflectory_" + hashCode();
+  private List<ClassLoader> classLoaders = new ArrayList<>();
+  private List<Scanner> scanners = new ArrayList<>();
+  private List<String> packages = new ArrayList<>();
+  private FilterBuilder filterBuilder = new FilterBuilder();
   private Reflections reflections;
-  private String visibleName;
-  private FilterBuilder filterBuilder;
-  private String[] packages;
 
   /**
    * <b>Use {@link ReflectoryBuilder}</b>
@@ -34,26 +36,38 @@ public class Reflectory {
    */
   public Reflectory index() {
     ConfigurationBuilder configBuilder = new ConfigurationBuilder();
-    configBuilder.setUrls(ClasspathHelper.forClassLoader(classLoaders));
+    configBuilder.setUrls(ClasspathHelper.forClassLoader(classLoaders.toArray(new ClassLoader[classLoaders.size()])));
     configBuilder.addClassLoaders(classLoaders);
-    configBuilder.addScanners(scanners);
+    configBuilder.addScanners(scanners.toArray(new Scanner[scanners.size()]));
     configBuilder.setInputsFilter(filterBuilder);
-    configBuilder.forPackages(packages);
+    configBuilder.forPackages(packages.toArray(new String[packages.size()]));
 
     setReflections(new Reflections(configBuilder));
     return this;
   }
 
-  public ClassLoader[] getClassLoaders() {
+  public List<ClassLoader> getClassLoaders() {
     return classLoaders;
   }
 
-  public Scanner[] getScanners() {
+  public void setClassLoaders(List<ClassLoader> classLoaders) {
+    this.classLoaders = classLoaders;
+  }
+
+  public List<Scanner> getScanners() {
     return scanners;
+  }
+
+  public void setScanners(List<Scanner> scanners) {
+    this.scanners = scanners;
   }
 
   public Reflections getReflections() {
     return reflections;
+  }
+
+  public void setReflections(Reflections reflections) {
+    this.reflections = reflections;
   }
 
   public String getVisibleName() {
@@ -64,38 +78,19 @@ public class Reflectory {
     this.visibleName = visibleName;
   }
 
-  /**
-   * @return the filterBuilder
-   */
   public FilterBuilder getFilterBuilder() {
     return filterBuilder;
   }
 
-  /**
-   * @param filterBuilder the filterBuilder to set
-   */
-  void setFilterBuilder(FilterBuilder filterBuilder) {
+  public void setFilterBuilder(FilterBuilder filterBuilder) {
     this.filterBuilder = filterBuilder;
   }
 
-  /**
-   * @param classLoader the classLoader to set
-   */
-  void setClassLoaders(ClassLoader[] classLoaders) {
-    this.classLoaders = classLoaders;
+  public List<String> getPackages() {
+    return packages;
   }
 
-  /**
-   * @param scanners the scanners to set
-   */
-  void setScanners(Scanner[] scanners) {
-    this.scanners = scanners;
-  }
-
-  /**
-   * @param reflections the reflections to set
-   */
-  private void setReflections(Reflections reflections) {
-    this.reflections = reflections;
+  public void setPackages(List<String> packages) {
+    this.packages = packages;
   }
 }

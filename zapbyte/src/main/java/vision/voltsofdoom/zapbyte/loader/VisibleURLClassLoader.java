@@ -4,15 +4,15 @@ import java.net.URL;
 import java.net.URLClassLoader;
 
 /**
- * A storage and utility class for the game's mod ClassLoader to load mod jar files.
+ * A wrapper class for a {@link URLClassLoader}, in which the input URLs are exposed.
  */
-public class VODClassLoader extends URLClassLoader {
-  private URL[] urls;
+public class VisibleURLClassLoader extends URLClassLoader {
+  private final URL[] urls;
 
   /**
    * @param urls An array of {@link URL}s which point to jar files to load.
    */
-  public VODClassLoader(URL[] urls) {
+  public VisibleURLClassLoader(URL[] urls) {
     super(urls);
     this.urls = urls;
   }
@@ -22,5 +22,7 @@ public class VODClassLoader extends URLClassLoader {
   public URL[] getUrls() {
     return urls;
   }
+
+
 
 }

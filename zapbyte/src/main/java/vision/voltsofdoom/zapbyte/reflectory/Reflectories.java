@@ -1,33 +1,27 @@
 package vision.voltsofdoom.zapbyte.reflectory;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import vision.voltsofdoom.zapbyte.loader.VODClassLoader;
-import vision.voltsofdoom.zapbyte.main.ZapByte;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import vision.voltsofdoom.zapbyte.loader.VisibleURLClassLoader;
 import vision.voltsofdoom.zapbyte.resource.JarMapper;
 
 public class Reflectories {
-  /**
-   * A {@link LinkedHashMap} of {@link Reflectory}s -- one for each jar file found by
-   * {@link JarMapper#find()}, with their keys being the names of the files which they are bound to.
-   */
-  private static LinkedHashMap<String, Reflectory> reflectories = new LinkedHashMap<String, Reflectory>();
 
-  private static HashMap<String, Class<?>> additionalClassesToGenerateReflectories = new HashMap<String, Class<?>>();
+  private static final Logger LOGGER = LoggerFactory.getLogger(Reflectories.class);
 
+  private static Map<String, Reflectory> reflectories = new HashMap<String, Reflectory>();
+  private static List<Class<?>> additionalClasses = new ArrayList<>();
+  private static List<String> additionalPackages = new ArrayList<>();
 
-
-  /**
-   * Searches the {@link #reflectories} list, and returns the {@link Reflectory} bound to the given
-   * key.
-   * 
-   * @param key
-   * @return
-   */
   public static Reflectory get(String key) {
     return reflectories.get(key);
   }
@@ -39,66 +33,76 @@ public class Reflectories {
   public static Collection<Reflectory> values() {
     return reflectories.values();
   }
+  
+  public static void generateReflectories() {
+    LOGGER.info("Generating Reflectories...");
 
-  /**
-   * Generates the {@link #reflectories} list using .jar files found by {@link JarMapper#find()}
-   */
-  public static void generate() {
-    for (File file : JarMapper.find()) {
+    generateReflectoriesForFiles(JarMapper.find());
+    generateReflectoriesForClasses(additionalClasses);
+    generateReflectoriesForPackages(additionalPackages);
 
-      try {
-
-        ReflectoryBuilder builder = new ReflectoryBuilder();
-        builder.withScanners(ReflectoryBuilder.getDefaultScanners());
-        builder.withFilterBuilder(ReflectoryBuilder.getDefaultFilterBuilder());
-
-        URL[] urls = new URL[] {file.toURI().toURL()};
-        builder.withClassLoader(new VODClassLoader(urls));
-        builder.withVisibleName(file.getName());
-        Reflectory reflectory = builder.build();
-        reflectories.putIfAbsent(file.getName(), reflectory);
-
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-
-    }
-
-    // TODO FIND ANOTHER WAY TO ADD ADDITIONALS
-
-    // Additional
-    for (String key : additionalClassesToGenerateReflectories.keySet()) {
-      ReflectoryBuilder builder = new ReflectoryBuilder();
-      builder.withScanners(ReflectoryBuilder.getDefaultScanners());
-      builder.withFilterBuilder(ReflectoryBuilder.getDefaultFilterBuilder());
-
-      ClassLoader loader = additionalClassesToGenerateReflectories.get(key).getClassLoader();
-      builder.withVisibleName(key);
-      builder.withClassLoader(loader);
-
-      Reflectory ref = builder.build();
-      reflectories.putIfAbsent(key, ref);
-    }
-
-    // TODO DO ELSEWHERE!!
-
-    // ZapByte
-    ReflectoryBuilder builder = new ReflectoryBuilder();
-    builder.withScanners(ReflectoryBuilder.getDefaultScanners());
-    builder.withFilterBuilder(ReflectoryBuilder.getDefaultFilterBuilder());
-
-    ClassLoader loader = ZapByte.class.getClassLoader();
-    builder.withVisibleName("zapbyte");
-    builder.withClassLoader(loader);
-
-    Reflectory ref = builder.build();
-    reflectories.putIfAbsent("zapbyte", ref);
-
-    // Finish
-    ZapByte.LOGGER.info("Generated Reflectories with IDs: " + reflectories.keySet());
+    LOGGER.info("Reflectories have been generated!");
+    LOGGER.debug("Reflectories are: " + reflectories.toString());
   }
 
-  public static void addAdditionalClass(String key, Class<?> clazz) {
-    additionalClassesToGenerateReflectories.put(key, clazz);
+  private static void generateReflectoriesForFiles(List<File> files) {
+
+    LOGGER.debug("Generating Reflectories for files: " + files);
+
+    for (File file : files) {
+      try {
+        reflectories.putIfAbsent(file.getName(), generateForFile(file));
+      } catch (MalformedURLException m) {
+        LOGGER.error("MalformedURLException generating reflectory for file: " + file);
+        m.printStackTrace();
+      }
+    }
+  }
+
+  private static void generateReflectoriesForClasses(List<Class<?>> classes) {
+
+    LOGGER.debug("Generating Reflectories for classes: " + classes);
+
+    for (Class<?> clazz : classes) {
+      reflectories.putIfAbsent(clazz.getName(), generateForClass(clazz));
+    }
+  }
+
+  private static void generateReflectoriesForPackages(List<String> packs) {
+
+    LOGGER.debug("Generating Reflectories for packages: " + packs);
+
+    for (String pack : packs) {
+      reflectories.putIfAbsent(pack, generateForPackage(pack));
+    }
+  }
+
+  private static Reflectory generateForFile(File file) throws MalformedURLException {
+    ReflectoryBuilder builder = ReflectoryBuilder.getAllDefaults();
+    builder.withClassLoader(new VisibleURLClassLoader(new URL[] {file.toURI().toURL()}));
+    builder.withVisibleName(file.getName());
+    return builder.build();
+  }
+
+  private static Reflectory generateForClass(Class<?> clazz) {
+    ReflectoryBuilder builder = ReflectoryBuilder.getAllDefaults();
+    builder.withClassLoader(clazz.getClassLoader());
+    builder.withVisibleName(clazz.getName());
+    return builder.build();
+  }
+
+  private static Reflectory generateForPackage(String pack) {
+    ReflectoryBuilder builder = ReflectoryBuilder.getAllDefaults();
+    builder.withPackage(pack);
+    builder.withVisibleName(pack);
+    return builder.build();
+  }
+
+  public static void addAdditionalClass(Class<?> clazz) {
+    additionalClasses.add(clazz);
+  }
+
+  public static void addAdditionalPackage(String string) {
+    additionalPackages.add(string);
   }
 }
