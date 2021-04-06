@@ -9,7 +9,7 @@ import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 
 /**
- * A place for the Volts of Doom monks to search through jar files in peace.
+ * A place for the Volts of Doom monks to search through classpath metadata in peace.
  * 
  * @author GenElectrovise
  *

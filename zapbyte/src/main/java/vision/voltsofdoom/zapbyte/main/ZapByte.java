@@ -14,13 +14,14 @@ import vision.voltsofdoom.api.guice.Guicer;
 import vision.voltsofdoom.api.guice.Guicer.GuiceTest;
 import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
 import vision.voltsofdoom.zapbyte.config.ConfigHandler;
+import vision.voltsofdoom.zapbyte.reflectory.Reflectory;
+import vision.voltsofdoom.zapbyte.resource.ISystemResourceHandler;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
 /**
  * The main class of the {@link ZapByte} module. Any application wishing to use {@link ZapByte}
- * should extends this class. Its <code>main</code> method should create a new instance of itself,
- * run the {@link #collectZapbits()} method, adding each found {@link ZapBit} to the
- * {@link #zapBits} {@link Set}, then should call {@link #run()} to start the application.
+ * should extends this class. Its <code>main</code> method should create a new instance of itself
+ * and call {@link #run()} to start the application.
  */
 public abstract class ZapByte {
 
@@ -30,7 +31,8 @@ public abstract class ZapByte {
   private IConfigHandler configHandler;
   private Guicer guicer;
   private static final String ZAPBYTE = "zapbyte";
-  private ZBSystemResourceHandler zbSystemResourceHandler;
+  private ISystemResourceHandler systemResourceHandler;
+  private Reflectory reflectory;
 
   public static Logger LOGGER;
 
@@ -50,37 +52,50 @@ public abstract class ZapByte {
    *        for all possible OSs, so it is partially up to the user to ensure compatibility with
    *        expected systems.
    */
+  @SuppressWarnings("unused")
   public ZapByte(String applicationNamespace) {
     ZapByteReference.APPLICATION_NAMESPACE = applicationNamespace;
 
+    // You can't use logging calls until after this
     configureLogger();
-    // You can now use Logback logging calls
+    ZapByte.LOGGER.info("Configured logging");
 
+    // Configure the uncaught exception handler
+    Thread.setDefaultUncaughtExceptionHandler(new ZapByteUncaughtExceptionHandler());
+    ZapByte.LOGGER.info("Configured ZapByteUncaughtExceptionHandler");
+
+    // Set up dependency injection
     setGuicer(new Guicer(new ZapByteGuiceBindingModule()));
-
-    this.zapBits = new HashSet<ZapBit>();
-    this.configHandler = new ConfigHandler();
-
-    @SuppressWarnings("unused")
+    // Test the Guicer
     GuiceTest guiceTest = guicer.getInjector().getInstance(GuiceTest.class);
-    setZbSystemResourceHandler(guicer.getInjector().getInstance(ZBSystemResourceHandler.class));
+    ZapByte.LOGGER.info("Configured Guicer");
+
+    // Make an empty set for zap bits
+    setZapBits(new HashSet<ZapBit>());
+    ZapByte.LOGGER.info("Configured ZapBit HashSet");
+
+    // Set up configuration handler
+    setConfigHandler(new ConfigHandler());
+    ZapByte.LOGGER.info("Configured ConfigHandler");
+
+    // Set the system resource handler
+    setSystemResourceHandler(guicer.getInjector().getInstance(ZBSystemResourceHandler.class));
+    ZapByte.LOGGER.info("Configured ISystemResourceHandler");
   }
 
   /**
-   * The loggers WILL NOT work before this method is called, hence it is called before anything else.
+   * Logging calls WILL NOT work before this method is called, hence it is called before anything
+   * else.
    */
   private void configureLogger() {
 
     // Set location of config file
     System.setProperty("logback.configurationFile", ZapByteReference.getConfig() + "logback.xml");
+
     // Set location of output file
     System.setProperty("vision.voltsofdoom.zapbyte.log.outputFile", ZapByteReference.getLogs() + Calendar.getInstance().getTime().toString().replace(" ", "_").replace(":", "-") + ".log");
 
     ZapByte.LOGGER = LoggerFactory.getLogger(ZapByte.class);
-
-    Thread.setDefaultUncaughtExceptionHandler(new ZapByteUncaughtExceptionHandler());
-
-    ZapByte.LOGGER.info("Successfully configured ZapByte logger and uncaught exception handler");
   }
 
   /**
@@ -118,7 +133,7 @@ public abstract class ZapByte {
     // Run
     for (Integer integer : ints) {
       ZapBit bit = bits.get(integer);
-      ZapByte.LOGGER.debug("Running ZapBit: name=" + bit.getName() + " priority="+ integer);
+      ZapByte.LOGGER.debug("Running ZapBit: name=" + bit.getName() + " priority=" + integer);
       bit.run();
     }
 
@@ -126,7 +141,7 @@ public abstract class ZapByte {
     continueExecution();
 
     ZapByte.LOGGER.error("ZapByte cycle complete. Exiting.");
-    System.exit(1);
+    System.exit(0);
   }
 
   public void addZapBit(ZapBit bit) {
@@ -151,8 +166,8 @@ public abstract class ZapByte {
     return zapBits;
   }
 
-  public ZBSystemResourceHandler getZbSystemResourceHandler() {
-    return zbSystemResourceHandler;
+  public ISystemResourceHandler getSystemResourceHandler() {
+    return systemResourceHandler;
   }
 
   /**
@@ -181,7 +196,15 @@ public abstract class ZapByte {
     this.zapBits = zapBits;
   }
 
-  public void setZbSystemResourceHandler(ZBSystemResourceHandler zbSystemResourceHandler) {
-    this.zbSystemResourceHandler = zbSystemResourceHandler;
+  public void setSystemResourceHandler(ISystemResourceHandler systemResourceHandler) {
+    this.systemResourceHandler = systemResourceHandler;
+  }
+
+  public Reflectory getReflectory() {
+    return reflectory;
+  }
+
+  public void setReflectory(Reflectory reflectory) {
+    this.reflectory = reflectory;
   }
 }
