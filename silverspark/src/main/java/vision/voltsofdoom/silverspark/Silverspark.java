@@ -48,15 +48,26 @@ import static org.lwjgl.glfw.GLFW.glfwTerminate;
 import static org.lwjgl.glfw.GLFW.glfwWindowHint;
 import static org.lwjgl.glfw.GLFW.glfwWindowShouldClose;
 import static org.lwjgl.system.MemoryUtil.NULL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GLCapabilities;
+import vision.voltsofdoom.silverspark.core.Game;
+import vision.voltsofdoom.silverspark.core.Timer;
+import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
+import vision.voltsofdoom.silverspark.render.ListRenderer;
+import vision.voltsofdoom.silverspark.render.TextRenderer;
+import vision.voltsofdoom.silverspark.state.EmptyState;
+import vision.voltsofdoom.silverspark.state.StateMachine;
 
 /**
- * This class represents a GLFW window.
+ * Top level class of Silverspark window manager/renderer
  *
- * @author Heiko Brumme
+ * @author Richard Spencer (with thanks to Heiko Brumme/SilverTiger)
  */
 public class Silverspark {
 	
@@ -79,6 +90,48 @@ public class Silverspark {
    * Shows if vsync is enabled.
    */
   private boolean vsync;
+  
+  // Stuff imported from Game.class
+  /**
+   * The error callback for GLFW.
+   */
+  private GLFWErrorCallback errorCallback;
+
+  /**
+   * Shows if the game is running.
+   */
+  protected boolean running;
+
+  /**
+   * The GLFW window used by the game.
+   */
+  //protected Silverspark window;
+  /**
+   * Used for timing calculations.
+   */
+  protected Timer timer;
+  /**
+   * Used for rendering.
+   */
+  private ListRenderer entityRenderer;
+  /**
+   * Used for rendering text.
+   */
+  private TextRenderer textRenderer;
+
+  private MouseEventMenuHandler mouseHandler;
+
+  /**
+   * Stores the current state.
+   */
+  protected StateMachine state;
+  
+  private String name;
+  
+  //----- import from Game ends
+
+  
+  
 
   /**
    * Creates a GLFW window and its OpenGL context with the specified width, height and title.
@@ -91,6 +144,13 @@ public class Silverspark {
   public Silverspark(int width, int height, CharSequence title, boolean vsync) {
     this.vsync = vsync;
 
+    errorCallback = GLFWErrorCallback.createPrint();
+    GLFW.glfwSetErrorCallback(errorCallback);
+
+    /* Initialise GLFW */
+    if (!GLFW.glfwInit()) {
+      throw new IllegalStateException("Unable to initialize GLFW!");
+    }
     GLCapabilities caps = createTempWindow();
     setWindowHints(caps);
     id = createActiveWindow(width, height, title);
@@ -98,10 +158,17 @@ public class Silverspark {
     createOpenGlContext();
     enableVsync(vsync);
     keyCallback = createKeyCallback();
-    
-    
 
     // glfwSetInputMode(id, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
+    
+    // Imported from Game class. Should use DI??
+    timer = new Timer();
+    entityRenderer = new ListRenderer();
+    textRenderer = new TextRenderer();
+    state = new StateMachine();
+    
+
+
 
   }
 
@@ -251,5 +318,192 @@ private GLFWKeyCallback createKeyCallback() {
   public long getId() {
     return id;
   }
+  
+  // Imports from Game start here
+  
+  /**
+   * This should be called to initialise and start the game.
+   */
+  public void start() {
+    init();
+    gameLoop();
+    dispose();
+  }
+
+  /**
+   * Releases resources that where used by the game.
+   */
+  public void dispose() {
+    /* Dispose renderer */
+    entityRenderer.dispose();
+
+    /* Dispose renderer */
+    textRenderer.dispose();
+
+    /* Set empty state to trigger the exit method in the current state */
+    state.change(null);
+
+    /* Release window and its call-backs */
+    this.destroy();
+
+    /* Terminate GLFW and release the error callback */
+    GLFW.glfwTerminate();
+    errorCallback.free();
+  }
+
+  /**
+   * Initialises the game.
+   */
+  public void init() {
+    /* Set error callback - moved to init */
+
+    /* Create GLFW window */
+   // window = new Silverspark(WINDOW_WIDTH, WINDOW_HEIGHT, name, true);
+
+    setMouseHandler(new MouseEventMenuHandler(getId()));
+
+    /* Initialise timer */
+    timer.init();
+
+    /* Initialise entity renderer */
+    entityRenderer.init();
+
+    /* Initialise text renderer */
+    textRenderer.init();
+    /* Initialise states */
+    initStates();
+
+    /* Initialising done, set running to true */
+    running = true;
+  }
+
+  /**
+   * Initialises the states.
+   */
+  public void initStates() {
+    state.add("empty", new EmptyState());
+    state.change("empty");
+  }
+
+  /**
+   * The game loop. <br>
+   * For implementation take a look at <code>VariableDeltaGame</code> and
+   * <code>FixedTimestepGame</code>.
+   */
+
+  public void gameLoop() {
+    float delta;
+
+    while (running) {
+      /* Check if game should close */
+      if (this.isClosing()) {
+        running = false;
+      }
+
+      /* Get delta time */
+      delta = timer.getDelta();
+
+      /* Handle input */
+      input();
+
+      /* Update game and timer UPS */
+      update(delta);
+      timer.updateUPS();
+
+      /* Render game and update timer FPS */
+      render();
+      timer.updateFPS();
+
+      /* Update timer */
+      timer.update();
+
+      /* Update window to show the new screen */
+      this.update();
+
+      /* Synchronize if v-sync is disabled */
+      if (!this.isVSyncEnabled()) {
+        sync(TARGET_FPS);
+      }
+    }
+  }
+
+  /**
+   * Handles input.
+   */
+  public void input() {
+    state.input();
+  }
+
+  /**
+   * Updates the game (variable time step).
+   *
+   * @param delta Time difference in seconds
+   */
+  public void update(float delta) {
+    state.update(delta);
+  }
+
+  /**
+   * Renders the game (no interpolation).
+   */
+  public void render() {
+    state.render();
+  }
+
+  /**
+   * Renders the game (with interpolation).
+   *
+   * @param alpha Alpha value, needed for interpolation
+   */
+  public void render(float alpha) {
+    state.render(alpha);
+  }
+
+  /**
+   * Synchronises the game at specified frames per second.
+   *
+   * @param fps Frames per second
+   */
+  public void sync(int fps) {
+    double lastLoopTime = timer.getLastLoopTime();
+    double now = timer.getTime();
+    float targetTime = 1f / fps;
+
+    while (now - lastLoopTime < targetTime) {
+      Thread.yield();
+
+      /*
+       * This is optional if you want your game to stop consuming too much CPU, but you will loose some
+       * accuracy because Thread.sleep(1) could sleep longer than 1 millisecond
+       */
+      try {
+        Thread.sleep(1);
+      } catch (InterruptedException ex) {
+        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+      }
+
+      now = timer.getTime();
+    }
+  }
+
+//  public static boolean isDefaultContext() {
+//    System.err.println("default context game #285 is hardcode true");
+//    return true;
+//  }
+
+  /**
+   * @return the mouseHandler
+   */
+  public MouseEventMenuHandler getMouseHandler() {
+    return mouseHandler;
+  }
+
+  /**
+   * @param mouseHandler the mouseHandler to set
+   */
+  public void setMouseHandler(MouseEventMenuHandler mouseHandler) {
+    this.mouseHandler = mouseHandler;
+  }
+
 
 }

@@ -136,7 +136,7 @@ public class Game {
       throw new IllegalStateException("Unable to initialize GLFW!");
     }
 
-    /* Create GLFW window */
+    /* Create Silverspark to manage the window window */
     window = new Silverspark(WINDOW_WIDTH, WINDOW_HEIGHT, name, true);
 
     setMouseHandler(new MouseEventMenuHandler(window.getId()));
