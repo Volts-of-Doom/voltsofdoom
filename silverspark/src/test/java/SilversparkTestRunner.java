@@ -1,6 +1,4 @@
 import vision.voltsofdoom.silverspark.Silverspark;
-import vision.voltsofdoom.silverspark.core.Game;
-import vision.voltsofdoom.silverspark.core.VariableTimestepGame;
 
 public class SilversparkTestRunner implements Runnable {
 

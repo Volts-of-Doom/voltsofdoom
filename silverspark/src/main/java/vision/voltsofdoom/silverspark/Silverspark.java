@@ -326,7 +326,7 @@ private GLFWKeyCallback createKeyCallback() {
    */
   public void start() {
     init();
-    gameLoop();
+    renderLoop();
     dispose();
   }
 
@@ -386,16 +386,14 @@ private GLFWKeyCallback createKeyCallback() {
   }
 
   /**
-   * The game loop. <br>
-   * For implementation take a look at <code>VariableDeltaGame</code> and
-   * <code>FixedTimestepGame</code>.
+   * The rendering loop. 
    */
 
-  public void gameLoop() {
+  public void renderLoop() {
     float delta;
 
     while (running) {
-      /* Check if game should close */
+      /* Check if window should close */
       if (this.isClosing()) {
         running = false;
       }
@@ -406,11 +404,11 @@ private GLFWKeyCallback createKeyCallback() {
       /* Handle input */
       input();
 
-      /* Update game and timer UPS */
+      /* Update window and timer UPS */
       update(delta);
       timer.updateUPS();
 
-      /* Render game and update timer FPS */
+      /* Render window and update timer FPS */
       render();
       timer.updateFPS();
 
@@ -444,7 +442,7 @@ private GLFWKeyCallback createKeyCallback() {
   }
 
   /**
-   * Renders the game (no interpolation).
+   * Renders the window (no interpolation).
    */
   public void render() {
     state.render();
