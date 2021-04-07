@@ -59,6 +59,11 @@ import org.lwjgl.opengl.GLCapabilities;
  * @author Heiko Brumme
  */
 public class Silverspark {
+	
+  public static final int TARGET_FPS = 75;
+  public static final int TARGET_UPS = 30;
+  public static final int WINDOW_WIDTH = 640;
+  public static final int WINDOW_HEIGHT = 380;
 
   /**
    * Stores the window handle.
@@ -86,16 +91,51 @@ public class Silverspark {
   public Silverspark(int width, int height, CharSequence title, boolean vsync) {
     this.vsync = vsync;
 
-    /* Creating a temporary window for getting the available OpenGL version */
-    glfwDefaultWindowHints();
-    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-    long temp = glfwCreateWindow(1, 1, "", NULL, NULL);
-    glfwMakeContextCurrent(temp);
-    GL.createCapabilities();
-    GLCapabilities caps = GL.getCapabilities();
-    glfwDestroyWindow(temp);
+    GLCapabilities caps = createTempWindow();
+    setWindowHints(caps);
+    id = createActiveWindow(width, height, title);
+    centerWindow(width, height);
+    createOpenGlContext();
+    enableVsync(vsync);
+    keyCallback = createKeyCallback();
+    
+    
 
-    /* Reset and set window hints */
+    // glfwSetInputMode(id, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
+
+  }
+
+private void enableVsync(boolean vsync) {
+	/* Enable v-sync */
+    if (vsync) {
+      glfwSwapInterval(1);
+    }
+}
+
+private void createOpenGlContext() {
+	/* Create OpenGL context */
+    glfwMakeContextCurrent(id);
+    GL.createCapabilities();
+}
+
+private void centerWindow(int width, int height) {
+	/* Center window on screen */
+    GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+    glfwSetWindowPos(id, (vidmode.width() - width) / 2, (vidmode.height() - height) / 2);
+}
+
+private long createActiveWindow(int width, int height, CharSequence title) {
+	/* Create window with specified OpenGL context */
+    long id = glfwCreateWindow(width, height, title, NULL, NULL);
+    if (id == NULL) {
+      glfwTerminate();
+      throw new RuntimeException("Failed to create the GLFW window!");
+    }
+    return id;
+}
+
+private void setWindowHints(GLCapabilities caps) {
+	/* Reset and set window hints */
     glfwDefaultWindowHints();
     if (caps.OpenGL32) {
       /* Hints for OpenGL 3.2 core profile */
@@ -112,29 +152,23 @@ public class Silverspark {
           + "supported, you may want to update your graphics driver.");
     }
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+}
 
-    /* Create window with specified OpenGL context */
-    id = glfwCreateWindow(width, height, title, NULL, NULL);
-    if (id == NULL) {
-      glfwTerminate();
-      throw new RuntimeException("Failed to create the GLFW window!");
-    }
-
-    /* Center window on screen */
-    GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-    glfwSetWindowPos(id, (vidmode.width() - width) / 2, (vidmode.height() - height) / 2);
-
-    /* Create OpenGL context */
-    glfwMakeContextCurrent(id);
+private GLCapabilities createTempWindow() {
+	/* Creating a temporary window for getting the available OpenGL version */
+    glfwDefaultWindowHints();
+    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+    long temp = glfwCreateWindow(1, 1, "", NULL, NULL);
+    glfwMakeContextCurrent(temp);
     GL.createCapabilities();
+    GLCapabilities caps = GL.getCapabilities();
+    glfwDestroyWindow(temp);
+	return caps;
+}
 
-    /* Enable v-sync */
-    if (vsync) {
-      glfwSwapInterval(1);
-    }
-
-    /* Set key callback */
-    keyCallback = new GLFWKeyCallback() {
+private GLFWKeyCallback createKeyCallback() {
+	/* Set key callback */
+	GLFWKeyCallback callback = new GLFWKeyCallback() {
       @Override
       public void invoke(long window, int key, int scancode, int action, int mods) {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
@@ -143,10 +177,8 @@ public class Silverspark {
       }
     };
     glfwSetKeyCallback(id, keyCallback);
-
-    // glfwSetInputMode(id, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
-
-  }
+    return callback;
+}
 
   /**
    * Returns if the window is closing.
