@@ -1,11 +1,11 @@
 package vision.voltsofdoom.silverspark.texture;
 
-import java.awt.Image;
-import java.awt.Point;
-
+/**
+ * A wrapper for a class accessing textures.
+ * 
+ * @author GenElectrovise
+ *
+ */
 public interface ITextureAtlas {
-
-  void addEntry(Image image, Point point);
-
-  Image getImage();
+  ITextureData getData(String name);
 }
