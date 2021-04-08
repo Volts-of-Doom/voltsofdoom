@@ -2,22 +2,31 @@ package vision.voltsofdoom.voltsofdoom.universal.resource.image;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.google.common.io.CharStreams;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import vision.voltsofdoom.silverspark.texture.ITextureAtlas;
+import vision.voltsofdoom.voltsofdoom.universal.resource.json.JsonSerialisation;
 import vision.voltsofdoom.voltsofdoom.universal.resource.zip.ZipFileReader;
 
 public class TextureManager {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TextureManager.class);
+
   private String rootDirectoryPath;
   private ITextureAtlas atlas;
   private boolean built;
-
+  private final Gson GSON = new Gson();
   private File rootDirectoryFile;
 
   public TextureManager(String rootDirectory) {
@@ -92,8 +101,28 @@ public class TextureManager {
 
     // Get a list of files in the directory
     File[] children = rootDirectoryFile.listFiles((file, name) -> name.endsWith(".zip"));
+    
+    Map<String, TexturePackManifest> manifests = new HashMap<>();
 
-    ZipFileReader reader = new ZipFileReader(new ZipFile(rootDirectoryFile));
+    for (File child : children) {
+
+      // Get a new ZIP reader
+      ZipFileReader reader = new ZipFileReader(new ZipFile(child));
+
+      // If there is no manifest, skip this file
+      if (reader.getZipFile().getEntry("manifest.json") == null) {
+        LOGGER.error("manifest.json is null for file " + child + " so it will not be loaded");
+        continue;
+      }
+
+      // Get a stream of the contents
+      InputStream manifestStream = reader.getStream("manifest.json", "Error reading manifest for ZIP file " + child);
+      TexturePackManifest manifest = GSON.fromJson(new InputStreamReader(manifestStream), TexturePackManifest.class);
+      
+      manifest = JsonSerialisation.deserialise(TexturePackManifest::deserialise, GSON.fromJson(new InputStreamReader(manifestStream), JsonObject.class));
+      
+      manifests.put(child.getAbsolutePath(), manifest);
+    }
 
     return;
   }
