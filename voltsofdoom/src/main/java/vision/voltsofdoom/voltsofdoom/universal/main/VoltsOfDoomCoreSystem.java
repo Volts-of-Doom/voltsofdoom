@@ -3,6 +3,7 @@ package vision.voltsofdoom.voltsofdoom.universal.main;
 import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.google.inject.Inject;
 import vision.voltsofdoom.silverspark.Silverspark;
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.voltsofdoom.universal.resource.image.TextureManager;
@@ -31,6 +32,7 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
   @Nullable
   private Game game;
 
+  @Inject
   private Silverspark silverspark;
 
   public VoltsOfDoomCoreSystem() {

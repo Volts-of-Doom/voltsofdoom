@@ -28,9 +28,9 @@ import vision.voltsofdoom.silverspark.Silverspark;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
 import vision.voltsofdoom.silverspark.render.ListRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
-import vision.voltsofdoom.silverspark.state.EmptyState;
-import vision.voltsofdoom.silverspark.state.IState;
-import vision.voltsofdoom.silverspark.state.StateMachine;
+import vision.voltsofdoom.silverspark.xnotsilverspark.state.EmptyState;
+import vision.voltsofdoom.silverspark.xnotsilverspark.state.IState;
+import vision.voltsofdoom.silverspark.xnotsilverspark.state.StateMachine;
 
 /**
  * Initialises the game and starts the game loop. After ending the loop it will

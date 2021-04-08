@@ -18,59 +18,28 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package vision.voltsofdoom.silverspark.state;
-
-
-import vision.voltsofdoom.silverspark.core.Game;
+package vision.voltsofdoom.silverspark.xnotsilverspark.state;
 
 /**
- * States are used for the current game state.
+ * The empty state does nothing. Really.
  *
  * @author Heiko Brumme
  */
-public interface IState {
+public class EmptyState implements IState {
 
-  /**
-   * Handles input of the state.
-   */
-  public void input();
+  @Override
+  public void input() {}
 
-  /**
-   * Updates the state (fixed timestep).
-   */
-  public default void update() {
-    update(1f / Game.TARGET_UPS);
-  }
+  @Override
+  public void update(float delta) {}
 
-  /**
-   * Updates the state (variable timestep)
-   *
-   * @param delta Time difference in seconds
-   */
-  public void update(float delta);
+  @Override
+  public void render(float alpha) {}
 
-  /**
-   * Renders the state (no interpolation).
-   */
-  public default void render() {
-    render(1f);
-  }
+  @Override
+  public void enter() {}
 
-  /**
-   * Renders the state (with interpolation).
-   *
-   * @param alpha Alpha value, needed for interpolation
-   */
-  public void render(float alpha);
-
-  /**
-   * Gets executed when entering the state, useful for initialization.
-   */
-  public void enter();
-
-  /**
-   * Gets executed when leaving the state, useful for disposing.
-   */
-  public void exit();
+  @Override
+  public void exit() {}
 
 }

@@ -57,13 +57,15 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GLCapabilities;
 import com.google.inject.Inject;
+import vision.voltsofdoom.silverspark.api.IRenderState;
+import vision.voltsofdoom.silverspark.api.IRenderable;
+import vision.voltsofdoom.silverspark.api.IRenderableText;
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.core.ITimer;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
 import vision.voltsofdoom.silverspark.render.ListRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
-import vision.voltsofdoom.silverspark.state.EmptyState;
-import vision.voltsofdoom.silverspark.state.StateMachine;
+import vision.voltsofdoom.silverspark.xnotsilverspark.state.StateMachine;
 
 /**
  * Top level class of Silverspark window manager/renderer
@@ -121,6 +123,9 @@ public class Silverspark {
 
   @Inject
   private MouseEventMenuHandler mouseEventMenuHandler;
+  
+  @Inject
+  private IRenderState renderState;
 
   /**
    * Stores the current state.
@@ -139,8 +144,6 @@ public class Silverspark {
   public Silverspark() {
     constructSilverspark(WINDOW_WIDTH, WINDOW_HEIGHT, "Window provided by Silverspark!!", true); 
   }
-  
-  
 
   /**
    * Creates a GLFW window and its OpenGL context with the specified width, height and title.
@@ -153,8 +156,6 @@ public class Silverspark {
   public Silverspark(int width, int height, CharSequence title, boolean vsync) {
     constructSilverspark(width, height, title, vsync);
    }
-
-
 
   private void constructSilverspark (int width, int height, CharSequence title, boolean vsync) {
     this.vsync = vsync;
@@ -176,11 +177,6 @@ public class Silverspark {
 
     // glfwSetInputMode(id, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
     
-    // Imported from Game class. Should use DI??
-    //timer = new Timer();
-    //entityRenderer = new ListRenderer();
-    //textRenderer = new TextRenderer();
-    //state = new StateMachine();
   }
 
 private void enableVsync(boolean vsync) {
@@ -363,15 +359,10 @@ private GLFWKeyCallback createKeyCallback() {
   }
 
   /**
-   * Initialises the game.
+   * Initialises the game window.
    */
   public void init() {
-    /* Set error callback - moved to init */
 
-    /* Create GLFW window */
-   // window = new Silverspark(WINDOW_WIDTH, WINDOW_HEIGHT, name, true);
-
-    //setMouseHandler(new MouseEventMenuHandler(getId()));
     mouseEventMenuHandler.setWindowId(getId());
     mouseEventMenuHandler.init();
 
@@ -383,19 +374,9 @@ private GLFWKeyCallback createKeyCallback() {
 
     /* Initialise text renderer */
     textRenderer.init();
-    /* Initialise states */
-    initStates();
 
     /* Initialising done, set running to true */
     running = true;
-  }
-
-  /**
-   * Initialises the states.
-   */
-  public void initStates() {
-    //state.add("empty", new EmptyState());
-    //state.change("empty");
   }
 
   /**
@@ -458,7 +439,13 @@ private GLFWKeyCallback createKeyCallback() {
    * Renders the window (no interpolation).
    */
   public void render() {
-    stateMachine.render();
+    for (IRenderable renderable: renderState.getRenderables()) {
+      // render the renderable, using texture atlas look-up
+    };
+    for (IRenderableText renderableText: renderState.getRenderableTexts()) {
+      // render the text
+    };
+
   }
 
   /**

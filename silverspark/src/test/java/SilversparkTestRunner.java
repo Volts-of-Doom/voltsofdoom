@@ -18,7 +18,6 @@ public class SilversparkTestRunner implements Runnable {
 
   public static void main(String[] args) {
     Injector injector = Guice.createInjector(new GuiceModule());
-    //Communication comms = injector.getInstance(Communication.class);
     SilversparkTestRunner runner = injector.getInstance(SilversparkTestRunner.class);
     runner.run();
   }
@@ -26,8 +25,7 @@ public class SilversparkTestRunner implements Runnable {
   @Override
   public void run() {
     System.out.println("Running Silverspark manual test application");
-    //Silverspark spark = new Silverspark(WINDOW_WIDTH, WINDOW_HEIGHT, "Silverspark Test Window", true);
-    silverspark.setTitle("Silverspark Test Window");
+    //silverspark.setTitle("Silverspark Test Window");
     silverspark.start();
   }
 

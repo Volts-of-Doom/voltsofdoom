@@ -40,8 +40,8 @@ import vision.voltsofdoom.silverspark.math.Vector2f;
 import vision.voltsofdoom.silverspark.render.EntityRenderer;
 import vision.voltsofdoom.silverspark.render.AbstractRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
-import vision.voltsofdoom.silverspark.state.State;
 import vision.voltsofdoom.silverspark.text.FontState;
+import vision.voltsofdoom.silverspark.xnotsilverspark.state.State;
 
 /**
  * The state for a given area or level. These can be created statically or dynamically depending on

@@ -1,4 +1,4 @@
-package vision.voltsofdoom.silverspark.state;
+package vision.voltsofdoom.silverspark.xnotsilverspark.state;
 
 public class State implements IState {
 

@@ -30,7 +30,8 @@ public class VODZapBits {
 
   public static final ZapBit CREATE_GAME_100 = new ZapBit("create_game_100", 100, () -> {
     System.out.println("VODZapBits.enclosing_method() #31");
-    Silverspark spark = new Silverspark();
+    Silverspark spark = new Silverspark(); // TODO - in Silverspark, SS initialisation is now by Guice. Either 
+                                           // VOD needs to use Guice, or else SS needs to be set up by hand.
     // start up renderer - game loop excluded for now
     VoltsOfDoomCoreSystem.getInstance().setSilverspark(spark);
     spark.start();
