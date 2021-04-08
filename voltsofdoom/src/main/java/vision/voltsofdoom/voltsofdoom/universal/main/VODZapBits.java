@@ -1,5 +1,6 @@
 package vision.voltsofdoom.voltsofdoom.universal.main;
 
+import vision.voltsofdoom.silverspark.Silverspark;
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.core.VariableTimestepGame;
 import vision.voltsofdoom.voltsofdoom.play.adventure.GenerateAdventuresEvent;
@@ -29,8 +30,13 @@ public class VODZapBits {
 
   public static final ZapBit CREATE_GAME_100 = new ZapBit("create_game_100", 100, () -> {
     System.out.println("VODZapBits.enclosing_method() #31");
-    Game game = new VariableTimestepGame("Volts of Doom");
-    VoltsOfDoomCoreSystem.getInstance().setGame(game);
-    game.start();
+    Silverspark spark = new Silverspark("Volts of Doom!!");
+    // start up renderer - game loop excluded for now
+    VoltsOfDoomCoreSystem.getInstance().setSilverspark(spark);
+    spark.start();
+    // TODO Game loop has been excluded for now - just working on renderer
+    //Game game = new VariableTimestepGame("Volts of Doom");
+    //VoltsOfDoomCoreSystem.getInstance().setGame(game);
+    //game.start();
   });
 }

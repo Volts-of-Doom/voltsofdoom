@@ -38,6 +38,8 @@ import vision.voltsofdoom.silverspark.state.StateMachine;
  *
  * @author Heiko Brumme
  */
+
+@Deprecated // Render loop now managed by Silverspark, game loop not implemented yet. This class retained for reference only
 public class Game {
 
   public static final int TARGET_FPS = 75;

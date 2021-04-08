@@ -3,6 +3,7 @@ package vision.voltsofdoom.voltsofdoom.universal.main;
 import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vision.voltsofdoom.silverspark.Silverspark;
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.voltsofdoom.universal.resource.image.TextureManager;
 import vision.voltsofdoom.zapbyte.main.DefaultZapBits;
@@ -29,6 +30,8 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
   @Nullable
   private Game game;
+
+  private Silverspark silverspark;
 
   public VoltsOfDoomCoreSystem() {
     super(ID);
@@ -118,5 +121,10 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
   @Override
   public Logger getApplicationLogger() {
     return LoggerFactory.getLogger(VoltsOfDoomCoreSystem.class);
+  }
+
+  public void setSilverspark(Silverspark silverspark) {
+    this.silverspark = silverspark;
+    
   }
 }

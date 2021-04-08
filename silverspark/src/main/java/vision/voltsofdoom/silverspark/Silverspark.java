@@ -79,12 +79,12 @@ public class Silverspark {
   /**
    * Stores the window handle.
    */
-  private final long id;
+  private long id; // TODO - should be final, but constructor makes that difficult
 
   /**
    * Key callback for the window.
    */
-  private final GLFWKeyCallback keyCallback;
+  private GLFWKeyCallback keyCallback; // TODO - should be final, but constructor makes that difficult
 
   /**
    * Shows if vsync is enabled.
@@ -129,7 +129,14 @@ public class Silverspark {
   private String name;
   
   //----- import from Game ends
-
+  /**
+   * Creates a GLFW window and its OpenGL context with the specified width, height and title.
+   *
+   * @param title Title of the window
+   */
+  public Silverspark(CharSequence title) {
+    constructSilverspark(WINDOW_WIDTH, WINDOW_HEIGHT, title, true); 
+  }
   
   
 
@@ -142,6 +149,12 @@ public class Silverspark {
    * @param vsync Set to true, if you want v-sync
    */
   public Silverspark(int width, int height, CharSequence title, boolean vsync) {
+    constructSilverspark(width, height, title, vsync);
+   }
+
+
+
+  private void constructSilverspark (int width, int height, CharSequence title, boolean vsync) {
     this.vsync = vsync;
 
     errorCallback = GLFWErrorCallback.createPrint();
@@ -166,10 +179,6 @@ public class Silverspark {
     entityRenderer = new ListRenderer();
     textRenderer = new TextRenderer();
     state = new StateMachine();
-    
-
-
-
   }
 
 private void enableVsync(boolean vsync) {
