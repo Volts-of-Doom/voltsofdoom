@@ -101,9 +101,17 @@ public class TextureManager {
 
     // Get a list of files in the directory
     File[] children = rootDirectoryFile.listFiles((file, name) -> name.endsWith(".zip"));
-    
+
+    // Make a map of the manifests
     Map<String, TexturePackManifest> manifests = new HashMap<>();
 
+    // Populate the map
+    getListOfJavaObjectTexturePackManifests(children, manifests);
+
+    return;
+  }
+
+  private void getListOfJavaObjectTexturePackManifests(File[] children, Map<String, TexturePackManifest> manifests) throws ZipException, IOException {
     for (File child : children) {
 
       // Get a new ZIP reader
@@ -118,11 +126,9 @@ public class TextureManager {
       // Get a stream of the contents
       InputStream manifestStream = reader.getStream("manifest.json", "Error reading manifest for ZIP file " + child);
       TexturePackManifest manifest = GSON.fromJson(new InputStreamReader(manifestStream), TexturePackManifest.class);
-      
+
       manifests.put(child.getAbsolutePath(), manifest);
     }
-
-    return;
   }
 
   public boolean isBuilt() {
