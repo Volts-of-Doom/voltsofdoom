@@ -30,7 +30,7 @@ public class VODZapBits {
 
   public static final ZapBit CREATE_GAME_100 = new ZapBit("create_game_100", 100, () -> {
     System.out.println("VODZapBits.enclosing_method() #31");
-    Silverspark spark = new Silverspark("Volts of Doom!!");
+    Silverspark spark = new Silverspark();
     // start up renderer - game loop excluded for now
     VoltsOfDoomCoreSystem.getInstance().setSilverspark(spark);
     spark.start();

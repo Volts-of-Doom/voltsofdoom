@@ -56,8 +56,9 @@ import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GLCapabilities;
+import com.google.inject.Inject;
 import vision.voltsofdoom.silverspark.core.Game;
-import vision.voltsofdoom.silverspark.core.Timer;
+import vision.voltsofdoom.silverspark.core.ITimer;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
 import vision.voltsofdoom.silverspark.render.ListRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
@@ -103,28 +104,29 @@ public class Silverspark {
   protected boolean running;
 
   /**
-   * The GLFW window used by the game.
-   */
-  //protected Silverspark window;
-  /**
    * Used for timing calculations.
    */
-  protected Timer timer;
+  @Inject
+  protected ITimer timer;
   /**
    * Used for rendering.
    */
+  @Inject
   private ListRenderer entityRenderer;
   /**
    * Used for rendering text.
    */
+  @Inject
   private TextRenderer textRenderer;
 
-  private MouseEventMenuHandler mouseHandler;
+  @Inject
+  private MouseEventMenuHandler mouseEventMenuHandler;
 
   /**
    * Stores the current state.
    */
-  protected StateMachine state;
+  @Inject
+  protected StateMachine stateMachine;
   
   private String name;
   
@@ -134,8 +136,8 @@ public class Silverspark {
    *
    * @param title Title of the window
    */
-  public Silverspark(CharSequence title) {
-    constructSilverspark(WINDOW_WIDTH, WINDOW_HEIGHT, title, true); 
+  public Silverspark() {
+    constructSilverspark(WINDOW_WIDTH, WINDOW_HEIGHT, "Window provided by Silverspark!!", true); 
   }
   
   
@@ -175,10 +177,10 @@ public class Silverspark {
     // glfwSetInputMode(id, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
     
     // Imported from Game class. Should use DI??
-    timer = new Timer();
-    entityRenderer = new ListRenderer();
-    textRenderer = new TextRenderer();
-    state = new StateMachine();
+    //timer = new Timer();
+    //entityRenderer = new ListRenderer();
+    //textRenderer = new TextRenderer();
+    //state = new StateMachine();
   }
 
 private void enableVsync(boolean vsync) {
@@ -350,7 +352,7 @@ private GLFWKeyCallback createKeyCallback() {
     textRenderer.dispose();
 
     /* Set empty state to trigger the exit method in the current state */
-    state.change(null);
+    stateMachine.change(null);
 
     /* Release window and its call-backs */
     this.destroy();
@@ -369,7 +371,9 @@ private GLFWKeyCallback createKeyCallback() {
     /* Create GLFW window */
    // window = new Silverspark(WINDOW_WIDTH, WINDOW_HEIGHT, name, true);
 
-    setMouseHandler(new MouseEventMenuHandler(getId()));
+    //setMouseHandler(new MouseEventMenuHandler(getId()));
+    mouseEventMenuHandler.setWindowId(getId());
+    mouseEventMenuHandler.init();
 
     /* Initialise timer */
     timer.init();
@@ -390,8 +394,8 @@ private GLFWKeyCallback createKeyCallback() {
    * Initialises the states.
    */
   public void initStates() {
-    state.add("empty", new EmptyState());
-    state.change("empty");
+    //state.add("empty", new EmptyState());
+    //state.change("empty");
   }
 
   /**
@@ -438,7 +442,7 @@ private GLFWKeyCallback createKeyCallback() {
    * Handles input.
    */
   public void input() {
-    state.input();
+    stateMachine.input();
   }
 
   /**
@@ -447,14 +451,14 @@ private GLFWKeyCallback createKeyCallback() {
    * @param delta Time difference in seconds
    */
   public void update(float delta) {
-    state.update(delta);
+    stateMachine.update(delta);
   }
 
   /**
    * Renders the window (no interpolation).
    */
   public void render() {
-    state.render();
+    stateMachine.render();
   }
 
   /**
@@ -463,7 +467,7 @@ private GLFWKeyCallback createKeyCallback() {
    * @param alpha Alpha value, needed for interpolation
    */
   public void render(float alpha) {
-    state.render(alpha);
+    stateMachine.render(alpha);
   }
 
   /**
@@ -502,14 +506,14 @@ private GLFWKeyCallback createKeyCallback() {
    * @return the mouseHandler
    */
   public MouseEventMenuHandler getMouseHandler() {
-    return mouseHandler;
+    return mouseEventMenuHandler;
   }
 
   /**
    * @param mouseHandler the mouseHandler to set
    */
   public void setMouseHandler(MouseEventMenuHandler mouseHandler) {
-    this.mouseHandler = mouseHandler;
+    this.mouseEventMenuHandler = mouseHandler;
   }
 
 

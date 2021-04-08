@@ -64,7 +64,7 @@ public class Game {
   /**
    * Used for timing calculations.
    */
-  protected Timer timer;
+  protected ITimer timer;
   /**
    * Used for rendering.
    */
@@ -141,7 +141,7 @@ public class Game {
     /* Create Silverspark to manage the window window */
     window = new Silverspark(WINDOW_WIDTH, WINDOW_HEIGHT, name, true);
 
-    setMouseHandler(new MouseEventMenuHandler(window.getId()));
+    //setMouseHandler(new MouseEventMenuHandler(window.getId()));
 
     /* Initialise timer */
     timer.init();

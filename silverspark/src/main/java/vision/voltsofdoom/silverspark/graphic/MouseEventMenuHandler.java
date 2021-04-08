@@ -11,15 +11,16 @@ import vision.voltsofdoom.silverspark.math.Vector2f;
 
 public class MouseEventMenuHandler {
 
-  private final GLFWMouseButtonCallback mouseCallback;
-  private final GLFWCursorPosCallback posCallback;
+  private GLFWMouseButtonCallback mouseCallback;
+  private GLFWCursorPosCallback posCallback;
   private double mouseXPos;
   private double mouseYPos;
+  private long windowId;
 
   private Vector2f windowSize;
 
 
-  public MouseEventMenuHandler(long windowId) {
+  public void init () {
 
     System.out.println("Constructing MouseHandler");
 
@@ -69,6 +70,11 @@ public class MouseEventMenuHandler {
 
   public void setWindowSize(Vector2f windowSize) {
     this.windowSize = windowSize;
+  }
+
+  public void setWindowId(long id) {
+    this.windowId = id;
+    
   }
 
 

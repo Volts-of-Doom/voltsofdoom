@@ -27,7 +27,7 @@ import static org.lwjgl.glfw.GLFW.glfwGetTime;
  *
  * @author Heiko Brumme
  */
-public class Timer {
+public class Timer implements ITimer {
 
   /**
    * System time since last loop.
@@ -57,6 +57,7 @@ public class Timer {
   /**
    * Initializes the timer.
    */
+  @Override
   public void init() {
     lastLoopTime = getTime();
   }
@@ -66,6 +67,7 @@ public class Timer {
    *
    * @return System time in seconds
    */
+  @Override
   public double getTime() {
     return glfwGetTime();
   }
@@ -75,6 +77,7 @@ public class Timer {
    *
    * @return Delta time in seconds
    */
+  @Override
   public float getDelta() {
     double time = getTime();
     float delta = (float) (time - lastLoopTime);
@@ -86,6 +89,7 @@ public class Timer {
   /**
    * Updates the FPS counter.
    */
+  @Override
   public void updateFPS() {
     fpsCount++;
   }
@@ -93,6 +97,7 @@ public class Timer {
   /**
    * Updates the UPS counter.
    */
+  @Override
   public void updateUPS() {
     upsCount++;
   }
@@ -100,6 +105,7 @@ public class Timer {
   /**
    * Updates FPS and UPS if a whole second has passed.
    */
+  @Override
   public void update() {
     if (timeCount > 1f) {
       fps = fpsCount;
@@ -117,6 +123,7 @@ public class Timer {
    *
    * @return Frames per second
    */
+  @Override
   public int getFPS() {
     return fps > 0 ? fps : fpsCount;
   }
@@ -126,6 +133,7 @@ public class Timer {
    *
    * @return Updates per second
    */
+  @Override
   public int getUPS() {
     return ups > 0 ? ups : upsCount;
   }
@@ -135,6 +143,7 @@ public class Timer {
    *
    * @return System time of the last loop
    */
+  @Override
   public double getLastLoopTime() {
     return lastLoopTime;
   }
