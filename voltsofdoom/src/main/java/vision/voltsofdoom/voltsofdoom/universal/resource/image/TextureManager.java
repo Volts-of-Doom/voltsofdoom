@@ -119,8 +119,6 @@ public class TextureManager {
       InputStream manifestStream = reader.getStream("manifest.json", "Error reading manifest for ZIP file " + child);
       TexturePackManifest manifest = GSON.fromJson(new InputStreamReader(manifestStream), TexturePackManifest.class);
       
-      manifest = JsonSerialisation.deserialise(TexturePackManifest::deserialise, GSON.fromJson(new InputStreamReader(manifestStream), JsonObject.class));
-      
       manifests.put(child.getAbsolutePath(), manifest);
     }
 
