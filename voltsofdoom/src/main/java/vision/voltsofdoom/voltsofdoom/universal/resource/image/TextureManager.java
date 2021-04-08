@@ -80,7 +80,7 @@ public class TextureManager {
       throw new IllegalStateException("The TextureManager root file " + rootDirectoryPath + " is not a directory.");
 
     // Get a list of files in the directory
-    rootDirectoryFile.list((file, name) -> name.endsWith(".zip"));
+    File[] children = rootDirectoryFile.listFiles((file, name) -> name.endsWith(".zip"));
 
     return;
   }
