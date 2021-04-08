@@ -2,6 +2,7 @@ package vision.voltsofdoom.voltsofdoom.universal.resource.image;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.silverspark.texture.ITextureAtlas;
@@ -9,14 +10,14 @@ import vision.voltsofdoom.silverspark.texture.ITextureAtlas;
 public class TextureManager {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TextureManager.class);
-  private String rootDirectory;
+  private String rootDirectoryPath;
   private ITextureAtlas atlas;
   private boolean built;
 
   private File rootDirectoryFile;
 
   public TextureManager(String rootDirectory) {
-    this.rootDirectory = rootDirectory;
+    this.rootDirectoryPath = rootDirectory;
     this.built = false;
   }
 
@@ -34,9 +35,15 @@ public class TextureManager {
 
       inner_build(false);
 
-    } catch (FileNotFoundException e) {
+    } catch (FileNotFoundException fi) {
       LOGGER.error("An error has occurred building the TextureManager! (An expected file cannot be found)");
-      e.printStackTrace();
+      fi.printStackTrace();
+    } catch (IllegalStateException il) {
+      LOGGER.error("An error has occurred building the TextureManager! (Something was in the wrong state)");
+      il.printStackTrace();
+    } catch (NullPointerException nu) {
+      LOGGER.error("An error has occurred building the TextureManager! (An object was null)");
+      nu.printStackTrace();
     }
   }
 
@@ -47,7 +54,7 @@ public class TextureManager {
    *        rebuild whether the program likes it or not. <i>"Be wary, adventurer..."</i>
    * @throws FileNotFoundException
    */
-  private void inner_build(boolean forceRebuild) throws FileNotFoundException {
+  private void inner_build(boolean forceRebuild) throws FileNotFoundException, IllegalStateException {
 
     // Messages for the developer
     if (!forceRebuild && built) {
@@ -60,16 +67,20 @@ public class TextureManager {
     if (!built) {
       LOGGER.warn("Building the target TextureManager for the first time.");
     }
-    LOGGER.warn("Building TextureManager for directory " + rootDirectory + " with flags: forceRebuild=" + forceRebuild);
+    LOGGER.warn("Building TextureManager for directory " + rootDirectoryPath + " with flags: forceRebuild=" + forceRebuild);
 
     // Change the built flag
     built = true;
 
-    // TODO Do the building bit
-
-    rootDirectoryFile = new File(rootDirectory);
+    // Get an instance of the root file. Check exists and is a directory.
+    rootDirectoryFile = new File(rootDirectoryPath);
     if (!rootDirectoryFile.exists())
-      throw new FileNotFoundException("Cannot find root directory file for TextureManager " + rootDirectory);
+      throw new FileNotFoundException("Cannot find root directory file for TextureManager " + rootDirectoryPath);
+    if (!rootDirectoryFile.isDirectory())
+      throw new IllegalStateException("The TextureManager root file " + rootDirectoryPath + " is not a directory.");
+
+    // Get a list of files in the directory
+    rootDirectoryFile.list((file, name) -> name.endsWith(".zip"));
 
     return;
   }
@@ -79,7 +90,7 @@ public class TextureManager {
   }
 
   public String getRootDirectory() {
-    return rootDirectory;
+    return rootDirectoryPath;
   }
 
   public ITextureAtlas getAtlas() {
