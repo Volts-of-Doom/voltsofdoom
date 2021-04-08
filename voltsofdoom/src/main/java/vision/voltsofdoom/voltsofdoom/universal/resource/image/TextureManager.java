@@ -3,9 +3,13 @@ package vision.voltsofdoom.voltsofdoom.universal.resource.image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.zip.ZipException;
+import java.util.zip.ZipFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.silverspark.texture.ITextureAtlas;
+import vision.voltsofdoom.voltsofdoom.universal.resource.zip.ZipFileReader;
 
 public class TextureManager {
 
@@ -44,6 +48,12 @@ public class TextureManager {
     } catch (NullPointerException nu) {
       LOGGER.error("An error has occurred building the TextureManager! (An object was null)");
       nu.printStackTrace();
+    } catch (ZipException zi) {
+      LOGGER.error("An error has occurred building the TextureManager! (A ZIP file could not be read)");
+      zi.printStackTrace();
+    } catch (IOException io) {
+      LOGGER.error("An error has occurred building the TextureManager! (An I/O operation failed)");
+      io.printStackTrace();
     }
   }
 
@@ -52,9 +62,10 @@ public class TextureManager {
    * 
    * @param forceRebuild Sometimes a rebuild is not expected or desired. Use this option to force a
    *        rebuild whether the program likes it or not. <i>"Be wary, adventurer..."</i>
-   * @throws FileNotFoundException
+   * @throws IOException
+   * @throws ZipException
    */
-  private void inner_build(boolean forceRebuild) throws FileNotFoundException, IllegalStateException {
+  private void inner_build(boolean forceRebuild) throws FileNotFoundException, IllegalStateException, ZipException, IOException {
 
     // Messages for the developer
     if (!forceRebuild && built) {
@@ -81,6 +92,8 @@ public class TextureManager {
 
     // Get a list of files in the directory
     File[] children = rootDirectoryFile.listFiles((file, name) -> name.endsWith(".zip"));
+
+    ZipFileReader reader = new ZipFileReader(new ZipFile(rootDirectoryFile));
 
     return;
   }
