@@ -12,16 +12,23 @@ import static org.lwjgl.stb.STBImage.stbi_failure_reason;
 import static org.lwjgl.stb.STBImage.stbi_load;
 import static org.lwjgl.stb.STBImage.stbi_set_flip_vertically_on_load;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+import java.nio.charset.StandardCharsets;
 import org.lwjgl.system.MemoryStack;
+import com.google.gson.Gson;
 import vision.voltsofdoom.silverspark.api.IRenderable;
 import vision.voltsofdoom.silverspark.api.ITextureAtlas;
 
 public class SparkAtlas implements ITextureAtlas {
   
   private Spark mainSpark;
+  private Manifest manifest;
 
   public SparkAtlas() {}
   
@@ -87,6 +94,25 @@ public class SparkAtlas implements ITextureAtlas {
 
     return texture;
   }
+  
+
+  public Manifest loadManifest(String fileName) {
+
+    Gson gson = new Gson();
+    try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+      
+      manifest = gson.fromJson(new FileReader(fileName), Manifest.class);
+      System.out.println();
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    
+    System.out.println("Manifest as string: " + gson.toJson(manifest));
+    
+    return manifest;
+  }
+
 
   public Spark getMainSpark() {
     return mainSpark;
@@ -96,5 +122,11 @@ public class SparkAtlas implements ITextureAtlas {
     this.mainSpark = mainSpark;
   }
 
+
+
+  public void setManifest(Manifest manifest) {
+    this.manifest = manifest;
+    
+  }
 
 }
