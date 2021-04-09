@@ -22,7 +22,7 @@ package vision.voltsofdoom.silverspark.xnotsilverspark.state;
 
 import vision.voltsofdoom.silverspark.graphic.Shader;
 import vision.voltsofdoom.silverspark.graphic.ShaderProgram;
-import vision.voltsofdoom.silverspark.graphic.SparkTexture;
+import vision.voltsofdoom.silverspark.graphic.Spark;
 import vision.voltsofdoom.silverspark.graphic.VertexBufferObject;
 import vision.voltsofdoom.silverspark.math.Matrix4f;
 import org.lwjgl.glfw.GLFW;
@@ -48,7 +48,7 @@ public class LegacyTextureState implements IState {
 
   private VertexBufferObject vbo;
   private VertexBufferObject ebo;
-  private SparkTexture texture;
+  private Spark texture;
   private Shader vertexShader;
   private Shader fragmentShader;
   private ShaderProgram program;
@@ -91,7 +91,7 @@ public class LegacyTextureState implements IState {
 
     /* Create texture */
     try {
-      texture = SparkTexture.loadTexture("resources/example.png");
+      texture = Spark.loadTexture("resources/example.png");
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

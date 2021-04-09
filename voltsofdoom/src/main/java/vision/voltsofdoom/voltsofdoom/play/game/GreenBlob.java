@@ -2,13 +2,13 @@ package vision.voltsofdoom.voltsofdoom.play.game;
 
 
 import vision.voltsofdoom.silverspark.game.IRenderableEntity;
-import vision.voltsofdoom.silverspark.graphic.SparkTexture;
+import vision.voltsofdoom.silverspark.graphic.Spark;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 
 public class GreenBlob extends Entity implements IRenderableEntity {
 
 
-  public GreenBlob(VODColor color, SparkTexture texture, float x, float y, float speed, int width,
+  public GreenBlob(VODColor color, Spark texture, float x, float y, float speed, int width,
       int height, int tx, int ty) {
     super(color, texture, x, y, speed, width, height, tx, ty);
   }

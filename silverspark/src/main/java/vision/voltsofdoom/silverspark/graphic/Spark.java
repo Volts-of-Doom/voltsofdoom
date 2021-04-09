@@ -48,7 +48,7 @@ import org.lwjgl.system.MemoryStack;
  *
  * @author Heiko Brumme
  */
-public class SparkTexture {
+public class Spark {
 
   /**
    * Stores the handle of the texture.
@@ -65,7 +65,7 @@ public class SparkTexture {
   private int height;
 
   /** Creates a texture. */
-  public SparkTexture() {
+  public Spark() {
     id = glGenTextures();
   }
 
@@ -167,8 +167,8 @@ public class SparkTexture {
    *
    * @return Texture from the specified data
    */
-  public static SparkTexture createTexture(int width, int height, ByteBuffer data) {
-    SparkTexture texture = new SparkTexture();
+  public static Spark createTexture(int width, int height, ByteBuffer data) {
+    Spark texture = new Spark();
     texture.setWidth(width);
     texture.setHeight(height);
 
@@ -191,7 +191,7 @@ public class SparkTexture {
    *
    * @return Texture from specified file
    */
-  public static SparkTexture loadTexture(String path) throws IOException {
+  public static Spark loadTexture(String path) throws IOException {
     /*
      * SparkLoader loader = new SparkLoader();
      * 
@@ -222,7 +222,5 @@ public class SparkTexture {
 
     return createTexture(width, height, image);
   }
-
-
 
 }

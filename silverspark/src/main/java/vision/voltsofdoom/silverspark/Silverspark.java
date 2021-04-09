@@ -60,9 +60,11 @@ import com.google.inject.Inject;
 import vision.voltsofdoom.silverspark.api.IRenderState;
 import vision.voltsofdoom.silverspark.api.IRenderable;
 import vision.voltsofdoom.silverspark.api.IRenderableText;
+import vision.voltsofdoom.silverspark.api.ITextureAtlas;
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.core.ITimer;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
+import vision.voltsofdoom.silverspark.graphic.SparkAtlas;
 import vision.voltsofdoom.silverspark.render.ListRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
 import vision.voltsofdoom.silverspark.xnotsilverspark.state.StateMachine;
@@ -132,6 +134,9 @@ public class Silverspark {
    */
   @Inject
   protected StateMachine stateMachine;
+  
+  @Inject
+  private ITextureAtlas textureAtlas;
   
   private String name;
   
@@ -501,6 +506,14 @@ private GLFWKeyCallback createKeyCallback() {
    */
   public void setMouseHandler(MouseEventMenuHandler mouseHandler) {
     this.mouseEventMenuHandler = mouseHandler;
+  }
+
+  public ITextureAtlas getTextureAtlas() {
+    return textureAtlas;
+  }
+
+  public void setTextureAtlas(SparkAtlas textureAtlas) {
+    this.textureAtlas = textureAtlas;
   }
 
 

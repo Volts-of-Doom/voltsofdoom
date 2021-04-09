@@ -21,7 +21,7 @@
 package vision.voltsofdoom.silverspark.game;
 
 
-import vision.voltsofdoom.silverspark.graphic.SparkTexture;
+import vision.voltsofdoom.silverspark.graphic.Spark;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.math.Vector2f;
 
@@ -41,7 +41,7 @@ public abstract class AbstractEntity {
   protected Vector2f direction;
 
   protected final VODColor color;
-  protected final SparkTexture texture;
+  protected final Spark texture;
 
   protected final int width;
   protected final int height;
@@ -50,7 +50,7 @@ public abstract class AbstractEntity {
   protected final int textureX; // X and Y co-ordinates of entity image on texture
   protected final int textureY;
 
-  public AbstractEntity(VODColor color, SparkTexture texture, float x, float y, float speed, int width, int height, int textureX, int textureY) {
+  public AbstractEntity(VODColor color, Spark texture, float x, float y, float speed, int width, int height, int textureX, int textureY) {
     previousPosition = new Vector2f(x, y);
     position = new Vector2f(x, y);
 
@@ -119,7 +119,7 @@ public abstract class AbstractEntity {
     return height;
   }
 
-  public SparkTexture getTexture() {
+  public Spark getTexture() {
     return texture;
   }
 

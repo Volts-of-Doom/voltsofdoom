@@ -2,7 +2,7 @@ package vision.voltsofdoom.voltsofdoom.universal.resource.image;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vision.voltsofdoom.silverspark.texture.ITextureAtlas;
+import vision.voltsofdoom.silverspark.api.ITextureAtlas;
 
 public class TextureManager {
 

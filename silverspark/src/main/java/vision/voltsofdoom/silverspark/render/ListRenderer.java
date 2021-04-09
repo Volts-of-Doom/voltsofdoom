@@ -2,7 +2,7 @@ package vision.voltsofdoom.silverspark.render;
 
 import java.util.List;
 import vision.voltsofdoom.silverspark.api.IRenderable;
-import vision.voltsofdoom.silverspark.graphic.SparkTexture;
+import vision.voltsofdoom.silverspark.graphic.Spark;
 
 /**
  * Renders each item from a {@link List} of {@link IRenderable}s.
@@ -18,7 +18,7 @@ public class ListRenderer extends AbstractRenderer {
    * @param renderableList
    * @param texture
    */
-  public void drawContents(List<IRenderable> renderableList, SparkTexture texture) {
+  public void drawContents(List<IRenderable> renderableList, Spark texture) {
     // Bind the texture
     texture.bind();
 
@@ -40,7 +40,7 @@ public class ListRenderer extends AbstractRenderer {
    * @param texture
    * @param renderable
    */
-  private void drawItem(SparkTexture texture, IRenderable renderable) {
+  private void drawItem(Spark texture, IRenderable renderable) {
     drawTextureRegion(texture, renderable.getX(), renderable.getY(), 0, 0, renderable.getHeight(), renderable.getWidth());
   }
 

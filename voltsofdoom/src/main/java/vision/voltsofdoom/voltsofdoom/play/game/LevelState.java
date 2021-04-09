@@ -34,7 +34,7 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryStack;
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.game.IRenderableEntity;
-import vision.voltsofdoom.silverspark.graphic.SparkTexture;
+import vision.voltsofdoom.silverspark.graphic.Spark;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.math.Vector2f;
 import vision.voltsofdoom.silverspark.render.EntityRenderer;
@@ -53,8 +53,8 @@ import vision.voltsofdoom.silverspark.xnotsilverspark.state.State;
  */
 public class LevelState extends State {
 
-  private SparkTexture backgroundTexture;
-  private SparkTexture entitiesTexture;
+  private Spark backgroundTexture;
+  private Spark entitiesTexture;
   private final EntityRenderer entityRenderer;
   private final TextRenderer textRenderer;
 
@@ -176,8 +176,8 @@ public class LevelState extends State {
 
     /* Load backgroundTexture */
     try {
-      backgroundTexture = SparkTexture.loadTexture("src/test/resources/cobbleandwoodlog_stitchedLevel.png");
-      entitiesTexture = SparkTexture.loadTexture("src/test/resources/greenblob.png");
+      backgroundTexture = Spark.loadTexture("src/test/resources/cobbleandwoodlog_stitchedLevel.png");
+      entitiesTexture = Spark.loadTexture("src/test/resources/greenblob.png");
     } catch (IOException e) {
       e.printStackTrace();
     }

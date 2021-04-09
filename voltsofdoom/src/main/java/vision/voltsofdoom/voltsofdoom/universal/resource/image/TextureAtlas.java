@@ -2,7 +2,9 @@ package vision.voltsofdoom.voltsofdoom.universal.resource.image;
 
 import java.awt.Image;
 import java.awt.Point;
-import vision.voltsofdoom.silverspark.texture.ITextureAtlas;
+import java.awt.image.BufferedImage;
+import vision.voltsofdoom.silverspark.api.IRenderable;
+import vision.voltsofdoom.silverspark.api.ITextureAtlas;
 
 public class TextureAtlas implements ITextureAtlas {
 
@@ -13,13 +15,15 @@ public class TextureAtlas implements ITextureAtlas {
   }
 
   @Override
-  public void addEntry(Image image, Point point) {
-
+  public void addEntry(IRenderable renderable) {
+    // TODO Auto-generated method stub
+    
   }
 
   @Override
-  public Image getImage() {
-    return image;
+  public void setImage(BufferedImage image) {
+    // TODO Auto-generated method stub
+    
   }
 
 }
