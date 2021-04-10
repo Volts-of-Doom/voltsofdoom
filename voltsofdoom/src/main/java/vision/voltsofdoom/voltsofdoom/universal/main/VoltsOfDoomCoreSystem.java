@@ -3,9 +3,12 @@ package vision.voltsofdoom.voltsofdoom.universal.main;
 import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.google.inject.Guice;
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 import vision.voltsofdoom.silverspark.Silverspark;
 import vision.voltsofdoom.silverspark.core.Game;
+import vision.voltsofdoom.silverspark.guice.GuiceModule;
 import vision.voltsofdoom.voltsofdoom.universal.resource.image.TextureManager;
 import vision.voltsofdoom.zapbyte.main.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
@@ -22,7 +25,7 @@ import vision.voltsofdoom.zapbyte.main.ZapByte;
  */
 public class VoltsOfDoomCoreSystem extends ZapByte {
 
-  private static VoltsOfDoomCoreSystem instance;
+  private static VoltsOfDoomCoreSystem thisVOD;
 
   private static final String ID = "voltsofdoom";
 
@@ -37,7 +40,6 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
   public VoltsOfDoomCoreSystem() {
     super(ID);
-    instance = this;
   }
 
   /**
@@ -50,9 +52,9 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
   }
 
   public static void mainStepIn() {
-    instance = new VoltsOfDoomCoreSystem();
-
-    instance.run();
+    Injector injector = Guice.createInjector(new GuiceModule());
+    thisVOD = injector.getInstance(VoltsOfDoomCoreSystem.class);
+    thisVOD.run();
   }
 
   public static void easyDebug(String message) {
@@ -73,7 +75,7 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
   public void collectZapbits() {
     getApplicationLogger().debug("Collecting ZapBits for Volts of Doom Core System");
 
-    addZapBit(new ZapBit(0, () -> VoltsOfDoomCoreSystem.instance.getApplicationLogger().info("Starting Volts of Doom!")));
+    addZapBit(new ZapBit(0, () -> thisVOD.getApplicationLogger().info("Starting Volts of Doom!")));
     addZapBit(DefaultZapBits.CREATE_LOADING_WINDOW_10);
     addZapBit(VODZapBits.CREATE_TEXTURE_MANAGER_11);
     addZapBit(VODZapBits.ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19);
@@ -93,11 +95,11 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
   @Override
   public void continueExecution() {
-    VoltsOfDoomCoreSystem.instance.getApplicationLogger().debug("Volts of Doom Core System continuing execution...");
+    thisVOD.getApplicationLogger().debug("Volts of Doom Core System continuing execution...");
   }
 
   public static VoltsOfDoomCoreSystem getInstance() {
-    return instance != null ? instance : new VoltsOfDoomCoreSystem();
+    return thisVOD != null ? thisVOD : new VoltsOfDoomCoreSystem();
   }
 
   public TextureManager getTextureManager() {
@@ -127,7 +129,6 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
   public void setSilverspark(Silverspark silverspark) {
     this.silverspark = silverspark;
-    
   }
 
   public Silverspark getSilverspark() {
