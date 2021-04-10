@@ -1,12 +1,12 @@
 package vision.voltsofdoom.silverspark.xnotsilverspark.state;
 
-import vision.voltsofdoom.silverspark.render.EntityRenderer;
+import vision.voltsofdoom.silverspark.render.SparkRenderer;
 
 public class SilversparkLogoState extends State {
 
-  private EntityRenderer renderer;
+  private SparkRenderer renderer;
 
-  public SilversparkLogoState(EntityRenderer renderer) {
+  public SilversparkLogoState(SparkRenderer renderer) {
     this.renderer = renderer;
   }
 

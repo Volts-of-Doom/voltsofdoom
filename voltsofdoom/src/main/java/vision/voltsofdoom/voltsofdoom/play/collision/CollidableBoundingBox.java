@@ -28,7 +28,7 @@ package vision.voltsofdoom.voltsofdoom.play.collision;
 public class CollidableBoundingBox extends BoundingBox {
 
   public CollidableBoundingBox(ICollidable owner) {
-    super(owner.getX(), owner.getY(), owner.getWidth(), owner.getHeight());
+    super(owner.getX(), owner.getY(), owner.getImageWidth(), owner.getHeight());
   }
 
   /**

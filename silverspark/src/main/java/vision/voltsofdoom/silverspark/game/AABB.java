@@ -35,7 +35,7 @@ public class AABB {
 
   public AABB(AbstractEntity entity) {
     min = new Vector2f(entity.getX(), entity.getY());
-    max = new Vector2f(entity.getX() + entity.getWidth(), entity.getY() + entity.getHeight());
+    max = new Vector2f(entity.getX() + entity.getImageWidth(), entity.getY() + entity.getHeight());
   }
 
   /**

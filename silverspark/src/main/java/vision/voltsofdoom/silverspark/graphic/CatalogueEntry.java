@@ -1,13 +1,13 @@
 package vision.voltsofdoom.silverspark.graphic;
 
-public class ManifestEntry {
+public class CatalogueEntry {
 
   private String name;
   private int[] coords = new int[2];
   private int width;
   private int height;
 
-  public ManifestEntry(String name, int[] coords, int width, int height) {
+  public CatalogueEntry(String name, int[] coords, int width, int height) {
     this.name = name;
     this.coords = coords;
     this.width = width;

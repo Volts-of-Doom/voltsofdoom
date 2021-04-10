@@ -124,7 +124,7 @@ public abstract class Entity implements ICollidable {
     return position.y;
   }
 
-  public float getWidth() {
+  public float getImageWidth() {
     return width;
   }
 

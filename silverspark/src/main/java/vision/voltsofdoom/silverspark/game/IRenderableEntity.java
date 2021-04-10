@@ -8,7 +8,7 @@ public interface IRenderableEntity {
 
   float getY();
 
-  float getWidth();
+  float getImageWidth();
 
   float getHeight();
 

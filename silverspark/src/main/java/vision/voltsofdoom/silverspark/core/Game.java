@@ -26,10 +26,8 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import vision.voltsofdoom.silverspark.Silverspark;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
-import vision.voltsofdoom.silverspark.render.ListRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
 import vision.voltsofdoom.silverspark.xnotsilverspark.state.EmptyState;
-import vision.voltsofdoom.silverspark.xnotsilverspark.state.IState;
 import vision.voltsofdoom.silverspark.xnotsilverspark.state.StateMachine;
 
 /**
@@ -66,10 +64,6 @@ public class Game {
    */
   protected ITimer timer;
   /**
-   * Used for rendering.
-   */
-  private ListRenderer entityRenderer;
-  /**
    * Used for rendering text.
    */
   private TextRenderer textRenderer;
@@ -90,7 +84,6 @@ public class Game {
     this.name = name;
     
     timer = new Timer();
-    entityRenderer = new ListRenderer();
     textRenderer = new TextRenderer();
     state = new StateMachine();
   }
@@ -108,8 +101,7 @@ public class Game {
    * Releases resources that where used by the game.
    */
   public void dispose() {
-    /* Dispose renderer */
-    entityRenderer.dispose();
+
 
     /* Dispose renderer */
     textRenderer.dispose();
@@ -146,10 +138,7 @@ public class Game {
     /* Initialise timer */
     timer.init();
 
-    /* Initialise entity renderer */
-    entityRenderer.init();
-
-    /* Initialise text renderer */
+     /* Initialise text renderer */
     textRenderer.init();
     /* Initialise states */
     initStates();

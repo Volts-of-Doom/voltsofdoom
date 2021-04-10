@@ -15,7 +15,6 @@ public class RenderState implements IRenderState {
   public RenderState()  {
     renderables = new ArrayList<IRenderable>();
     renderableTexts = new ArrayList<IRenderableText>();
-    
   }
 
   @Override

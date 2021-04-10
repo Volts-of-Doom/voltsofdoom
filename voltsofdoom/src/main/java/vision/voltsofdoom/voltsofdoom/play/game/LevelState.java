@@ -37,7 +37,7 @@ import vision.voltsofdoom.silverspark.game.IRenderableEntity;
 import vision.voltsofdoom.silverspark.graphic.Spark;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.math.Vector2f;
-import vision.voltsofdoom.silverspark.render.EntityRenderer;
+import vision.voltsofdoom.silverspark.render.SparkRenderer;
 import vision.voltsofdoom.silverspark.render.AbstractRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
 import vision.voltsofdoom.silverspark.text.FontState;
@@ -55,7 +55,7 @@ public class LevelState extends State {
 
   private Spark backgroundTexture;
   private Spark entitiesTexture;
-  private final EntityRenderer entityRenderer;
+  private final SparkRenderer entityRenderer;
   private final TextRenderer textRenderer;
 
   private GreenBlob greenBlob1;
@@ -70,7 +70,7 @@ public class LevelState extends State {
   private int gameWidth;
   private int gameHeight;
 
-  public LevelState(EntityRenderer entityRenderer, TextRenderer textRenderer) {
+  public LevelState(SparkRenderer entityRenderer, TextRenderer textRenderer) {
     this.entityRenderer = entityRenderer;
     this.textRenderer = textRenderer;
     availableFonts = loadFonts();
@@ -113,7 +113,7 @@ public class LevelState extends State {
 
     drawBackground();
 
-    entityRenderer.drawEntities(entitiesList, entitiesTexture);
+    entityRenderer.drawSparks(entitiesList, entitiesTexture);
 
     drawText();
 

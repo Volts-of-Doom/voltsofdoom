@@ -12,7 +12,7 @@ import vision.voltsofdoom.voltsofdoom.play.collision.CollidableBoundingBox;
 import vision.voltsofdoom.voltsofdoom.play.collision.ICollidable;
 import vision.voltsofdoom.voltsofdoom.play.display.Label;
 
-public class MenuButton implements ICollidable, IRenderable {
+public class MenuButton implements ICollidable {
 
   private Vector2f position;
 
@@ -92,7 +92,7 @@ public class MenuButton implements ICollidable, IRenderable {
     return position.y;
   }
 
-  public float getWidth() {
+  public float getImageWidth() {
     return width;
   }
 
@@ -104,14 +104,14 @@ public class MenuButton implements ICollidable, IRenderable {
     return texture;
   }
 
-  @Override
-  public int getTextureX() {
-    return textureX;
-  }
+  //@Override
+  //public int getTextureX() {
+  //  return textureX;
+  //}
 
-  public int getTextureY() {
-    return textureY;
-  }
+  //public int getTextureY() {
+  //  return textureY;
+  ///}
 
   public CollidableBoundingBox getBoundingBox() {
     return boundingBox;

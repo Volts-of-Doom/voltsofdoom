@@ -15,11 +15,8 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
-import java.nio.charset.StandardCharsets;
 import org.lwjgl.system.MemoryStack;
 import com.google.gson.Gson;
 import vision.voltsofdoom.silverspark.api.IRenderable;
@@ -27,8 +24,10 @@ import vision.voltsofdoom.silverspark.api.ITextureAtlas;
 
 public class SparkAtlas implements ITextureAtlas {
   
+
+
   private Spark mainSpark;
-  private Manifest manifest;
+  private Catalogue catalogue;
 
   public SparkAtlas() {}
   
@@ -46,12 +45,6 @@ public class SparkAtlas implements ITextureAtlas {
   }
   
   public Spark loadTexture(String path) throws IOException {
-    /*
-     * SparkLoader loader = new SparkLoader();
-     * 
-     * InputStream in = loader.loadResourceAsStream(path); ByteBuffer imageBuffer =
-     * loader.inputStreamAsByteBuffer(in);
-     */
 
     ByteBuffer image;
     int width, height;
@@ -96,36 +89,42 @@ public class SparkAtlas implements ITextureAtlas {
   }
   
 
-  public Manifest loadManifest(String fileName) {
+  public Catalogue loadCatalogue(String fileName) {
 
     Gson gson = new Gson();
     try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
       
-      manifest = gson.fromJson(new FileReader(fileName), Manifest.class);
+      catalogue = gson.fromJson(new FileReader(fileName), Catalogue.class);
       System.out.println();
 
     } catch (IOException e) {
         e.printStackTrace();
     }
     
-    System.out.println("Manifest as string: " + gson.toJson(manifest));
+    System.out.println("Manifest as string: " + gson.toJson(catalogue));
     
-    return manifest;
+    return catalogue;
   }
 
 
+  @Override
   public Spark getMainSpark() {
     return mainSpark;
   }
 
+  @Override
   public void setMainSpark(Spark mainSpark) {
     this.mainSpark = mainSpark;
   }
 
+  @Override
+  public Catalogue getCatalogue() {
+    return catalogue;
+  }
 
-
-  public void setManifest(Manifest manifest) {
-    this.manifest = manifest;
+  @Override
+  public void setCatalogue(Catalogue catalogue) {
+    this.catalogue = catalogue;
     
   }
 

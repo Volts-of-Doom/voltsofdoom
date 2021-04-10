@@ -7,7 +7,7 @@ public interface ICollidable {
 
   float getY();
 
-  float getWidth();
+  float getImageWidth();
 
   float getHeight();
 }

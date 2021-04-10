@@ -1,23 +1,3 @@
-/*
- * The MIT License (MIT)
- *
- * Copyright © 2014-2015, Heiko Brumme
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
- * associated documentation files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish, distribute,
- * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all copies or
- * substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
- * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
- * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
 package vision.voltsofdoom.silverspark;
 
 import static org.lwjgl.glfw.GLFW.GLFW_CONTEXT_VERSION_MAJOR;
@@ -61,11 +41,12 @@ import vision.voltsofdoom.silverspark.api.IRenderState;
 import vision.voltsofdoom.silverspark.api.IRenderable;
 import vision.voltsofdoom.silverspark.api.IRenderableText;
 import vision.voltsofdoom.silverspark.api.ITextureAtlas;
-import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.core.ITimer;
+import vision.voltsofdoom.silverspark.graphic.CatalogueEntry;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
+import vision.voltsofdoom.silverspark.graphic.Spark;
 import vision.voltsofdoom.silverspark.graphic.SparkAtlas;
-import vision.voltsofdoom.silverspark.render.ListRenderer;
+import vision.voltsofdoom.silverspark.render.SparkRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
 import vision.voltsofdoom.silverspark.xnotsilverspark.state.StateMachine;
 
@@ -112,11 +93,10 @@ public class Silverspark {
    */
   @Inject
   protected ITimer timer;
-  /**
-   * Used for rendering.
-   */
+  
   @Inject
-  private ListRenderer entityRenderer;
+  private SparkRenderer sparkRenderer;
+    
   /**
    * Used for rendering text.
    */
@@ -346,8 +326,9 @@ private GLFWKeyCallback createKeyCallback() {
    * Releases resources that where used by the game.
    */
   public void dispose() {
+
     /* Dispose renderer */
-    entityRenderer.dispose();
+    sparkRenderer.dispose();
 
     /* Dispose renderer */
     textRenderer.dispose();
@@ -374,11 +355,8 @@ private GLFWKeyCallback createKeyCallback() {
     /* Initialise timer */
     timer.init();
 
-    /* Initialise entity renderer */
-    entityRenderer.init();
-
     /* Initialise text renderer */
-    textRenderer.init();
+    sparkRenderer.init();
 
     /* Initialising done, set running to true */
     running = true;
@@ -444,9 +422,22 @@ private GLFWKeyCallback createKeyCallback() {
    * Renders the window (no interpolation).
    */
   public void render() {
+    
+    // TODO - figure out which need to be floats/ints. Also, renderables will need a velocity vector
+    Spark texture = textureAtlas.getMainSpark();
     for (IRenderable renderable: renderState.getRenderables()) {
-      // render the renderable, using texture atlas look-up
+      
+      float x = renderable.getX();
+      float y = renderable.getY();
+      CatalogueEntry entry = textureAtlas.getCatalogue().getEntry(renderable.getKeyName());
+      float regX = entry.getCoords()[0];
+      float regY = entry.getCoords()[1];
+      float regWidth = entry.getWidth();
+      float regHeight = entry.getHeight();
+      
+      sparkRenderer.drawTextureRegion(texture, x, y, regX, regY, regWidth, regHeight);
     };
+    
     for (IRenderableText renderableText: renderState.getRenderableTexts()) {
       // render the text
     };
@@ -482,17 +473,12 @@ private GLFWKeyCallback createKeyCallback() {
       try {
         Thread.sleep(1);
       } catch (InterruptedException ex) {
-        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(Silverspark.class.getName()).log(Level.SEVERE, null, ex);
       }
 
       now = timer.getTime();
     }
   }
-
-//  public static boolean isDefaultContext() {
-//    System.err.println("default context game #285 is hardcode true");
-//    return true;
-//  }
 
   /**
    * @return the mouseHandler
@@ -515,6 +501,16 @@ private GLFWKeyCallback createKeyCallback() {
   public void setTextureAtlas(SparkAtlas textureAtlas) {
     this.textureAtlas = textureAtlas;
   }
+  
+
+  public IRenderState getRenderState() {
+    return renderState;
+  }
+
+  public void setRenderState(IRenderState renderState) {
+    this.renderState = renderState;
+  }
+
 
 
 }
