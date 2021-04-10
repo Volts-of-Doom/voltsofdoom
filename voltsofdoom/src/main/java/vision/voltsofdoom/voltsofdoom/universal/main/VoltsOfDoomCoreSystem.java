@@ -129,4 +129,8 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
     this.silverspark = silverspark;
     
   }
+
+  public Silverspark getSilverspark() {
+    return silverspark;
+  }
 }
