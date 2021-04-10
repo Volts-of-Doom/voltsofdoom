@@ -23,15 +23,15 @@ import vision.voltsofdoom.silverspark.api.IRenderable;
 import vision.voltsofdoom.silverspark.api.ITextureAtlas;
 
 public class SparkAtlas implements ITextureAtlas {
-  
+
 
 
   private Spark mainSpark;
   private Catalogue catalogue;
 
   public SparkAtlas() {}
-  
-  
+
+
 
   @Override
   public void addEntry(IRenderable renderable) {
@@ -43,7 +43,7 @@ public class SparkAtlas implements ITextureAtlas {
   public void setImage(BufferedImage image) {
     // TODO Auto-generated method stub
   }
-  
+
   public Spark loadTexture(String path) throws IOException {
 
     ByteBuffer image;
@@ -58,19 +58,18 @@ public class SparkAtlas implements ITextureAtlas {
       stbi_set_flip_vertically_on_load(true);
       image = stbi_load(path, w, h, comp, 4);
       if (image == null) {
-        throw new RuntimeException(
-            "Failed to load a texture file!" + System.lineSeparator() + stbi_failure_reason());
+        throw new RuntimeException("Failed to load a texture file!" + System.lineSeparator() + stbi_failure_reason());
       }
 
       /* Get width and height of image */
       width = w.get();
       height = h.get();
     }
-    
+
     this.mainSpark = createTexture(width, height, image);
     return mainSpark;
   }
-  
+
   static Spark createTexture(int width, int height, ByteBuffer data) {
     Spark texture = new Spark();
     texture.setWidth(width);
@@ -87,22 +86,22 @@ public class SparkAtlas implements ITextureAtlas {
 
     return texture;
   }
-  
+
 
   public Catalogue loadCatalogue(String fileName) {
 
     Gson gson = new Gson();
     try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-      
+
       catalogue = gson.fromJson(new FileReader(fileName), Catalogue.class);
       System.out.println();
 
     } catch (IOException e) {
-        e.printStackTrace();
+      e.printStackTrace();
     }
-    
+
     System.out.println("Manifest as string: " + gson.toJson(catalogue));
-    
+
     return catalogue;
   }
 
@@ -125,7 +124,7 @@ public class SparkAtlas implements ITextureAtlas {
   @Override
   public void setCatalogue(Catalogue catalogue) {
     this.catalogue = catalogue;
-    
+
   }
 
 }

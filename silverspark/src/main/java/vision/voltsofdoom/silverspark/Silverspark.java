@@ -56,7 +56,7 @@ import vision.voltsofdoom.silverspark.xnotsilverspark.state.StateMachine;
  * @author Richard Spencer (with thanks to Heiko Brumme/SilverTiger)
  */
 public class Silverspark {
-	
+
   public static final int TARGET_FPS = 75;
   public static final int TARGET_UPS = 30;
   public static final int WINDOW_WIDTH = 640;
@@ -76,7 +76,7 @@ public class Silverspark {
    * Shows if vsync is enabled.
    */
   private boolean vsync;
-  
+
   // Stuff imported from Game.class
   /**
    * The error callback for GLFW.
@@ -93,10 +93,10 @@ public class Silverspark {
    */
   @Inject
   protected ITimer timer;
-  
+
   @Inject
   private SparkRenderer sparkRenderer;
-    
+
   /**
    * Used for rendering text.
    */
@@ -105,7 +105,7 @@ public class Silverspark {
 
   @Inject
   private MouseEventMenuHandler mouseEventMenuHandler;
-  
+
   @Inject
   private IRenderState renderState;
 
@@ -114,20 +114,18 @@ public class Silverspark {
    */
   @Inject
   protected StateMachine stateMachine;
-  
+
   @Inject
   private ITextureAtlas textureAtlas;
-  
-  private String name;
-  
-  //----- import from Game ends
+
+  // ----- import from Game ends
   /**
    * Creates a GLFW window and its OpenGL context with the specified width, height and title.
    *
    * @param title Title of the window
    */
   public Silverspark() {
-    constructSilverspark(WINDOW_WIDTH, WINDOW_HEIGHT, "Window provided by Silverspark!!", true); 
+    constructSilverspark(WINDOW_WIDTH, WINDOW_HEIGHT, "Window provided by Silverspark!!", true);
   }
 
   /**
@@ -140,9 +138,9 @@ public class Silverspark {
    */
   public Silverspark(int width, int height, CharSequence title, boolean vsync) {
     constructSilverspark(width, height, title, vsync);
-   }
+  }
 
-  private void constructSilverspark (int width, int height, CharSequence title, boolean vsync) {
+  private void constructSilverspark(int width, int height, CharSequence title, boolean vsync) {
     this.vsync = vsync;
 
     errorCallback = GLFWErrorCallback.createPrint();
@@ -161,40 +159,40 @@ public class Silverspark {
     keyCallback = createKeyCallback();
 
     // glfwSetInputMode(id, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
-    
+
   }
 
-private void enableVsync(boolean vsync) {
-	/* Enable v-sync */
+  private void enableVsync(boolean vsync) {
+    /* Enable v-sync */
     if (vsync) {
       glfwSwapInterval(1);
     }
-}
+  }
 
-private void createOpenGlContext() {
-	/* Create OpenGL context */
+  private void createOpenGlContext() {
+    /* Create OpenGL context */
     glfwMakeContextCurrent(id);
     GL.createCapabilities();
-}
+  }
 
-private void centerWindow(int width, int height) {
-	/* Center window on screen */
+  private void centerWindow(int width, int height) {
+    /* Center window on screen */
     GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
     glfwSetWindowPos(id, (vidmode.width() - width) / 2, (vidmode.height() - height) / 2);
-}
+  }
 
-private long createActiveWindow(int width, int height, CharSequence title) {
-	/* Create window with specified OpenGL context */
+  private long createActiveWindow(int width, int height, CharSequence title) {
+    /* Create window with specified OpenGL context */
     long id = glfwCreateWindow(width, height, title, NULL, NULL);
     if (id == NULL) {
       glfwTerminate();
       throw new RuntimeException("Failed to create the GLFW window!");
     }
     return id;
-}
+  }
 
-private void setWindowHints(GLCapabilities caps) {
-	/* Reset and set window hints */
+  private void setWindowHints(GLCapabilities caps) {
+    /* Reset and set window hints */
     glfwDefaultWindowHints();
     if (caps.OpenGL32) {
       /* Hints for OpenGL 3.2 core profile */
@@ -207,14 +205,13 @@ private void setWindowHints(GLCapabilities caps) {
       glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
       glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     } else {
-      throw new RuntimeException("Neither OpenGL 3.2 nor OpenGL 2.1 is "
-          + "supported, you may want to update your graphics driver.");
+      throw new RuntimeException("Neither OpenGL 3.2 nor OpenGL 2.1 is " + "supported, you may want to update your graphics driver.");
     }
     glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-}
+  }
 
-private GLCapabilities createTempWindow() {
-	/* Creating a temporary window for getting the available OpenGL version */
+  private GLCapabilities createTempWindow() {
+    /* Creating a temporary window for getting the available OpenGL version */
     glfwDefaultWindowHints();
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     long temp = glfwCreateWindow(1, 1, "", NULL, NULL);
@@ -222,12 +219,12 @@ private GLCapabilities createTempWindow() {
     GL.createCapabilities();
     GLCapabilities caps = GL.getCapabilities();
     glfwDestroyWindow(temp);
-	return caps;
-}
+    return caps;
+  }
 
-private GLFWKeyCallback createKeyCallback() {
-	/* Set key callback */
-	GLFWKeyCallback callback = new GLFWKeyCallback() {
+  private GLFWKeyCallback createKeyCallback() {
+    /* Set key callback */
+    GLFWKeyCallback callback = new GLFWKeyCallback() {
       @Override
       public void invoke(long window, int key, int scancode, int action, int mods) {
         if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
@@ -237,7 +234,7 @@ private GLFWKeyCallback createKeyCallback() {
     };
     glfwSetKeyCallback(id, keyCallback);
     return callback;
-}
+  }
 
   /**
    * Returns if the window is closing.
@@ -310,9 +307,9 @@ private GLFWKeyCallback createKeyCallback() {
   public long getId() {
     return id;
   }
-  
+
   // Imports from Game start here
-  
+
   /**
    * This should be called to initialise and start the game.
    */
@@ -363,7 +360,7 @@ private GLFWKeyCallback createKeyCallback() {
   }
 
   /**
-   * The rendering loop. 
+   * The rendering loop.
    */
 
   public void renderLoop() {
@@ -422,11 +419,11 @@ private GLFWKeyCallback createKeyCallback() {
    * Renders the window (no interpolation).
    */
   public void render() {
-    
+
     // TODO - figure out which need to be floats/ints. Also, renderables will need a velocity vector
     Spark texture = textureAtlas.getMainSpark();
-    for (IRenderable renderable: renderState.getRenderables()) {
-      
+    for (IRenderable renderable : renderState.getRenderables()) {
+
       float x = renderable.getX();
       float y = renderable.getY();
       CatalogueEntry entry = textureAtlas.getCatalogue().getEntry(renderable.getKeyName());
@@ -434,13 +431,13 @@ private GLFWKeyCallback createKeyCallback() {
       float regY = entry.getCoords()[1];
       float regWidth = entry.getWidth();
       float regHeight = entry.getHeight();
-      
+
       sparkRenderer.drawTextureRegion(texture, x, y, regX, regY, regWidth, regHeight);
-    };
-    
-    for (IRenderableText renderableText: renderState.getRenderableTexts()) {
+    } ;
+
+    for (IRenderableText renderableText : renderState.getRenderableTexts()) {
       // render the text
-    };
+    } ;
 
   }
 
@@ -501,7 +498,7 @@ private GLFWKeyCallback createKeyCallback() {
   public void setTextureAtlas(SparkAtlas textureAtlas) {
     this.textureAtlas = textureAtlas;
   }
-  
+
 
   public IRenderState getRenderState() {
     return renderState;

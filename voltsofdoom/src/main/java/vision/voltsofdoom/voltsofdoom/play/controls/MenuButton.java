@@ -4,7 +4,6 @@ import static org.lwjgl.glfw.GLFW.GLFW_MOUSE_BUTTON_LEFT;
 import static org.lwjgl.glfw.GLFW.GLFW_PRESS;
 import static org.lwjgl.glfw.GLFW.glfwGetMouseButton;
 import org.lwjgl.glfw.GLFW;
-import vision.voltsofdoom.silverspark.api.IRenderable;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
 import vision.voltsofdoom.silverspark.graphic.Spark;
 import vision.voltsofdoom.silverspark.math.Vector2f;

@@ -1,11 +1,13 @@
 package vision.voltsofdoom.voltsofdoom.universal.resource.zip;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Enumeration;
 import java.util.Objects;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +23,14 @@ import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoomCoreSystem;
 public class ZipFileReader {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ZipFileReader.class);
-  
+
   private ZipFile zipFile;
 
-  public ZipFileReader(ZipFile zipFile) {
+  public ZipFileReader(File file) throws ZipException, IOException {
+    this(new ZipFile(file));
+  }
+
+  public ZipFileReader(ZipFile zipFile) throws ZipException, IOException {
     Objects.requireNonNull(zipFile, () -> "ZipFile cannot be null for ZipFileReader constructor");
     this.zipFile = zipFile;
   }
