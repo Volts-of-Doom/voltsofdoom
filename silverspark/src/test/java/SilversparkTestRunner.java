@@ -1,6 +1,8 @@
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -73,14 +75,13 @@ public class SilversparkTestRunner implements Runnable {
 
   private void populateAtlas() {
     try {
-      sparkAtlas.loadTexture(DEFAULT_PATH + DEFAULT_IMAGE);
-      Catalogue catalogue = new Catalogue();
-      int[] coords = {0,0};
-      CatalogueEntry entry = new CatalogueEntry("COBBLE_TILE", coords, 16, 16);
-      catalogue.addEntry(entry);
-      sparkAtlas.setCatalogue(catalogue);
       
-      //sparkAtlas.loadCatalogue(DEFAULT_PATH + DEFAULT_CATALOGUE);
+      Gson gson = new Gson();
+       
+      sparkAtlas.loadTexture(DEFAULT_PATH + DEFAULT_IMAGE);
+      
+      sparkAtlas.loadCatalogue(DEFAULT_PATH + DEFAULT_CATALOGUE);
+      
     } catch (IOException e) {
       e.printStackTrace();
     }
