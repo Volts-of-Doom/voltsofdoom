@@ -15,7 +15,7 @@ import java.util.zip.ZipFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import vision.voltsofdoom.voltsofdoom.play.adventure.Sheet.ISheetType;
-import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoomCoreSystem;
+import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.universal.registry.TypeRegistries;
 import vision.voltsofdoom.voltsofdoom.universal.resource.json.GsonHandler;
 import vision.voltsofdoom.voltsofdoom.universal.resource.zip.ZipFileReader;
@@ -201,14 +201,14 @@ public class AdventureLoader {
 
       // Cannot test level generation here as registry not yet loaded.
 
-      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().info(
+      VoltsOfDoom.getInstance().getApplicationLogger().info(
           "Loaded Adventure by name: " + adventure.getConfiguration().getIdentifier().stringify());
 
     } catch (Exception e) {
       e.printStackTrace();
 
-      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("EXCEPTION LOADING ADVENTURES!");
-      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error(e.toString());
+      VoltsOfDoom.getInstance().getApplicationLogger().error("EXCEPTION LOADING ADVENTURES!");
+      VoltsOfDoom.getInstance().getApplicationLogger().error(e.toString());
       System.exit(ExitCodes.ADVENTURE_LOADING_FAILIURE);
     }
   }

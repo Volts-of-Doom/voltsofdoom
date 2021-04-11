@@ -12,7 +12,7 @@ import java.util.zip.ZipFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.stream.JsonReader;
-import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoomCoreSystem;
+import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoom;
 
 /**
  * Does some of the "grunt work" for reading from ZIP files.
@@ -58,10 +58,10 @@ public class ZipFileReader {
 
         // Log entries
         Enumeration<? extends ZipEntry> allEntries = zipFile.entries();
-        VoltsOfDoomCoreSystem.easyDebug("ZipFile entries are as follows:");
+        VoltsOfDoom.easyDebug("ZipFile entries are as follows:");
         while (allEntries.hasMoreElements()) {
           ZipEntry zipEntry = (ZipEntry) allEntries.nextElement();
-          VoltsOfDoomCoreSystem.easyDebug("> " + zipEntry.getName());
+          VoltsOfDoom.easyDebug("> " + zipEntry.getName());
         }
       }
 

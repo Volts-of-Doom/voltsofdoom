@@ -3,7 +3,7 @@ package vision.voltsofdoom.voltsofdoom.universal.registry;
 import vision.voltsofdoom.voltsofdoom.play.adventure.Adventure;
 import vision.voltsofdoom.voltsofdoom.play.entity.Entity;
 import vision.voltsofdoom.voltsofdoom.play.tile.Tile;
-import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoomCoreSystem;
+import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoom;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.event.Stowaway;
 import vision.voltsofdoom.zapbyte.registry.TypeRegistry;
@@ -18,14 +18,14 @@ public class TypeRegistries {
   @Stowaway
   private static void createAndSubmitTypeRegistries(
       RegistryEvent.CreateAndSubmitRegistriesEvent event) {
-    VoltsOfDoomCoreSystem.easyDebug("Creating and submitting default TypeRegistries");
+    VoltsOfDoom.easyDebug("Creating and submitting default TypeRegistries");
 
-    TILES = new TypeRegistry<Tile>(new ResourceLocation(VoltsOfDoomCoreSystem.getId(), "tiles"),
+    TILES = new TypeRegistry<Tile>(new ResourceLocation(VoltsOfDoom.getId(), "tiles"),
         RegistryTypes.TILES);
-    ENTITIES = new TypeRegistry<Entity>(new ResourceLocation(VoltsOfDoomCoreSystem.getId(), "entities"),
+    ENTITIES = new TypeRegistry<Entity>(new ResourceLocation(VoltsOfDoom.getId(), "entities"),
         RegistryTypes.ENTITIES);
     ADVENTURES = new TypeRegistry<Adventure>(
-        new ResourceLocation(VoltsOfDoomCoreSystem.getId(), "adventures"), RegistryTypes.ADVENTURES);
+        new ResourceLocation(VoltsOfDoom.getId(), "adventures"), RegistryTypes.ADVENTURES);
 
     event.submit(TILES);
     event.submit(ENTITIES);

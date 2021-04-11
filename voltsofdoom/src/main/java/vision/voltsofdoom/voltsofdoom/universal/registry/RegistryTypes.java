@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import vision.voltsofdoom.voltsofdoom.play.adventure.Adventure;
 import vision.voltsofdoom.voltsofdoom.play.entity.Entity;
 import vision.voltsofdoom.voltsofdoom.play.tile.Tile;
-import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoomCoreSystem;
+import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoom;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.event.Stowaway;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
@@ -26,13 +26,13 @@ public class RegistryTypes {
 
   @Stowaway
   private static void generateTypes(RegistryEvent.CreateRegistryTypesEvent event) {
-    TILES = event.createRegistryType(new ResourceLocation(VoltsOfDoomCoreSystem.getId(), "tiles"),
+    TILES = event.createRegistryType(new ResourceLocation(VoltsOfDoom.getId(), "tiles"),
         Tile.class);
     ZapByte.LOGGER.info("Creating VOD RegistryTypes");
     ENTITIES = event.createRegistryType(
-        new ResourceLocation(VoltsOfDoomCoreSystem.getId(), "entities"), Entity.class);
+        new ResourceLocation(VoltsOfDoom.getId(), "entities"), Entity.class);
     ADVENTURES = event.createRegistryType(
-        new ResourceLocation(VoltsOfDoomCoreSystem.getId(), "adventures"), Adventure.class);
+        new ResourceLocation(VoltsOfDoom.getId(), "adventures"), Adventure.class);
 
     vision.voltsofdoom.zapbyte.registry.RegistryTypes.prioritisedTypes =
         ImmutableList.of(TILES, ENTITIES);

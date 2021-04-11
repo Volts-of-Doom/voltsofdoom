@@ -1,7 +1,7 @@
 package vision.voltsofdoom.voltsofdoom.universal.util;
 
 import java.util.Iterator;
-import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoomCoreSystem;
+import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoom;
 
 /**
  * An array which can only be added to and cleared.
@@ -15,7 +15,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
 
   public static void main(String[] args) {
 
-    VoltsOfDoomCoreSystem.easyInfo("Starting");
+    VoltsOfDoom.easyInfo("Starting");
 
     SemiMutableArray<String> smarr = new SemiMutableArray<String>();
 
@@ -34,7 +34,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
     for (String str : smarr) {
       builder.append(str + " ");
     }
-    VoltsOfDoomCoreSystem.easyInfo(builder.toString());
+    VoltsOfDoom.easyInfo(builder.toString());
   }
 
   @SuppressWarnings("unchecked")
@@ -42,7 +42,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
     try {
       contents = (T[]) new Object[1];
     } catch (ClassCastException c) {
-      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("Illegal cast from Object[] to T[] in contents: " + contents);
+      VoltsOfDoom.getInstance().getApplicationLogger().error("Illegal cast from Object[] to T[] in contents: " + contents);
     }
   }
 
@@ -89,7 +89,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
       contents = copy.clone();
 
     } catch (ClassCastException c) {
-      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("Illegal cast from Object[] to T[] in contents: " + contents);
+      VoltsOfDoom.getInstance().getApplicationLogger().error("Illegal cast from Object[] to T[] in contents: " + contents);
     }
 
     return this;
@@ -100,7 +100,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
     try {
       contents = (T[]) new Object[] {};
     } catch (ClassCastException c) {
-      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("Illegal cast from Object[] to T[] in contents: " + contents);
+      VoltsOfDoom.getInstance().getApplicationLogger().error("Illegal cast from Object[] to T[] in contents: " + contents);
     }
     return this;
   }

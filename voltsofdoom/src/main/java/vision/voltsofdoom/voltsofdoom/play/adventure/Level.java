@@ -7,7 +7,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoomCoreSystem;
+import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.universal.resource.json.GsonHandler;
 import vision.voltsofdoom.voltsofdoom.universal.resource.zip.ZipFileReader;
 
@@ -116,10 +116,10 @@ public class Level {
       }
 
     } catch (IOException e) {
-      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("System IO error loading Level : " + config.getIdentifier());
+      VoltsOfDoom.getInstance().getApplicationLogger().error("System IO error loading Level : " + config.getIdentifier());
       e.printStackTrace();
     } catch (NullPointerException n) {
-      VoltsOfDoomCoreSystem.getInstance().getApplicationLogger().error("NullPointerException thrown during Level loading.");
+      VoltsOfDoom.getInstance().getApplicationLogger().error("NullPointerException thrown during Level loading.");
       n.printStackTrace();
     }
 

@@ -15,12 +15,12 @@ public class VODZapBits {
 
   public static final ZapBit CREATE_TEXTURE_MANAGER_11 = new ZapBit("create_texture_manager_11", 11, () -> {
     TextureManager manager = new TextureManager(Reference.getTexturesDir());
-    VoltsOfDoomCoreSystem.getInstance().setTextureManager(manager);
-    VoltsOfDoomCoreSystem.getInstance().getTextureManager();
+    VoltsOfDoom.getInstance().setTextureManager(manager);
+    VoltsOfDoom.getInstance().getTextureManager();
   });
 
   public static final ZapBit ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19 = new ZapBit("add_volts_of_doom_to_additional_reflectory_classes_19", 19, () -> {
-    Reflectories.addAdditionalClass(VoltsOfDoomCoreSystem.class);
+    Reflectories.addAdditionalClass(VoltsOfDoom.class);
   });
 
   public static final ZapBit CREATE_REGISTRY_GENERATE_ADVENTURES_62 = new ZapBit(62, () -> {
@@ -33,7 +33,7 @@ public class VODZapBits {
     //Silverspark spark = new Silverspark(); // TODO - in Silverspark, SS initialisation is now by Guice. Either 
                                            // VOD needs to use Guice, or else SS needs to be set up by hand.
     // start up renderer - game loop excluded for now
-    Silverspark spark = VoltsOfDoomCoreSystem.getInstance().getSilverspark(); 
+    Silverspark spark = VoltsOfDoom.getInstance().getSilverspark(); 
     spark.start();
     // TODO Game loop has been excluded for now - just working on renderer
     //Game game = new VariableTimestepGame("Volts of Doom");

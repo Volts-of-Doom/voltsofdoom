@@ -23,9 +23,9 @@ import vision.voltsofdoom.zapbyte.main.ZapByte;
  * @author GenElectrovise
  *
  */
-public class VoltsOfDoomCoreSystem extends ZapByte {
+public class VoltsOfDoom extends ZapByte {
 
-  private static VoltsOfDoomCoreSystem instance;
+  private static VoltsOfDoom instance;
 
   private static final String ID = "voltsofdoom";
 
@@ -38,7 +38,7 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
   @Inject
   private Silverspark silverspark;
 
-  public VoltsOfDoomCoreSystem() {
+  public VoltsOfDoom() {
     super(ID);
   }
 
@@ -53,7 +53,7 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
   public static void mainStepIn() {
     Injector injector = Guice.createInjector(new GuiceModule());
-    instance = injector.getInstance(VoltsOfDoomCoreSystem.class);
+    instance = injector.getInstance(VoltsOfDoom.class);
     instance.run();
   }
 
@@ -90,8 +90,8 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
     instance.getApplicationLogger().debug("Volts of Doom Core System continuing execution...");
   }
 
-  public static VoltsOfDoomCoreSystem getInstance() {
-    return instance != null ? instance : new VoltsOfDoomCoreSystem();
+  public static VoltsOfDoom getInstance() {
+    return instance != null ? instance : new VoltsOfDoom();
   }
 
   public TextureManager getTextureManager() {
@@ -116,7 +116,7 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
   @Override
   public Logger getApplicationLogger() {
-    return LoggerFactory.getLogger(VoltsOfDoomCoreSystem.class);
+    return LoggerFactory.getLogger(VoltsOfDoom.class);
   }
 
   public void setSilverspark(Silverspark silverspark) {

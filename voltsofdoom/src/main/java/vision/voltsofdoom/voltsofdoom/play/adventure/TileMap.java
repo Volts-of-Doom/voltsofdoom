@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 import vision.voltsofdoom.voltsofdoom.play.tile.Tile;
-import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoomCoreSystem;
+import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.universal.registry.RegistryTypes;
 import vision.voltsofdoom.zapbyte.registry.IFinalisedRegistry;
 import vision.voltsofdoom.zapbyte.registry.Registry;
@@ -49,7 +49,7 @@ public class TileMap {
       tiles.add(tilesToAdd);
     }
 
-    VoltsOfDoomCoreSystem
+    VoltsOfDoom
         .easyInfo("Finished loading " + this.getClass().getSimpleName() + " for latest Level");
   }
 
