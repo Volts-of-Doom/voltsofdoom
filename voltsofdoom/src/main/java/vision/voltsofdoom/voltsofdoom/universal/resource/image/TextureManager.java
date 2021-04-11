@@ -5,13 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import vision.voltsofdoom.silverspark.api.ITextureAtlas;
 import vision.voltsofdoom.voltsofdoom.universal.resource.zip.ZipFileReader;
 
@@ -22,7 +23,7 @@ public class TextureManager {
   private String rootDirectoryPath;
   private ITextureAtlas atlas;
   private boolean built;
-  private final Gson GSON = new Gson();
+  private final Gson GSON = new GsonBuilder().registerTypeAdapter(TexturePackManifest.class, new TexturePackManifest.Serializer()).setPrettyPrinting().create();
   private File rootDirectoryFile;
 
   public TextureManager(String rootDirectory) {
@@ -99,7 +100,7 @@ public class TextureManager {
     File[] children = rootDirectoryFile.listFiles((file, name) -> name.endsWith(".zip"));
 
     // Make a map of the manifests
-    Map<String, TexturePackManifest> manifests = new HashMap<>();
+    List<TexturePackManifest> manifests = new ArrayList<>();
 
     // Populate the map
     getListOfJavaObjectTexturePackManifests(children, manifests);
@@ -107,7 +108,7 @@ public class TextureManager {
     return;
   }
 
-  private void getListOfJavaObjectTexturePackManifests(File[] children, Map<String, TexturePackManifest> manifests) throws ZipException, IOException {
+  private void getListOfJavaObjectTexturePackManifests(File[] children, List<TexturePackManifest> manifests) throws ZipException, IOException {
     for (File child : children) {
 
       // Get a new ZIP reader
@@ -123,7 +124,7 @@ public class TextureManager {
       InputStream manifestStream = reader.getStream("manifest.json", "Error reading manifest for ZIP file " + child);
       TexturePackManifest manifest = GSON.fromJson(new InputStreamReader(manifestStream), TexturePackManifest.class);
 
-      manifests.put(child.getAbsolutePath(), manifest);
+      manifests.add(manifest);
     }
   }
 
