@@ -91,14 +91,14 @@ public class VoltsOfDoom extends ZapByte {
     // Create texture manager
     TextureManager manager = new TextureManager(Reference.getTexturesDir());
     VoltsOfDoom.getInstance().setTextureManager(manager);
-    VoltsOfDoom.getInstance().getTextureManager();
+    manager.build(true);
 
     // Create game
-    System.out.println("VODZapBits.enclosing_method() #31");
-    // Silverspark spark = new Silverspark(); // TODO - in Silverspark, SS initialisation is now by
-    // Guice. Either
-    // VOD needs to use Guice, or else SS needs to be set up by hand.
+    // Silverspark spark = new Silverspark();
+    // TODO - in Silverspark, SS initialisation is now by Guice. Either VOD needs to use Guice, or else
+    // SS needs to be set up by hand.
     // start up renderer - game loop excluded for now
+
     Silverspark spark = VoltsOfDoom.getInstance().getSilverspark();
     spark.start();
     // TODO Game loop has been excluded for now - just working on renderer

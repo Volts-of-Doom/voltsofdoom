@@ -18,7 +18,7 @@ public class DefaultZapBits {
 
   // STAGE 1
 
-  public static final ZapBit CREATE_LOADING_WINDOW_10 = new ZapBit(10, () -> {
+  public static final ZapBit CREATE_LOADING_WINDOW_10 = new ZapBit("create_loading_window_10", 10, () -> {
     // 1) Create loading window in new thread.
     LoadingWindow.loadingWindow.run();
     LoadingWindow.loadingWindow.setStatus(ILoadingWindowStatus.OPENING_WINDOW);
@@ -26,11 +26,11 @@ public class DefaultZapBits {
 
   // STAGE 2
 
-  public static final ZapBit CREATE_REFLECTORIES_20 = new ZapBit(20, () -> {
-    
+  public static final ZapBit CREATE_REFLECTORIES_20 = new ZapBit("create_reflectories_20", 20, () -> {
+
     // Add vision.voltsofdoom to reflected paths
     Reflectories.addAdditionalPackage("vision.voltsofdoom");
-    
+
     // 2) Create reflectories
     // a. find jars
     // b. create Reflectory for each
@@ -40,7 +40,7 @@ public class DefaultZapBits {
 
   // STAGE 3
 
-  public static final ZapBit SCAN_FOR_MODS_30 = new ZapBit(30, () -> {
+  public static final ZapBit SCAN_FOR_MODS_30 = new ZapBit("scan_for_mods_30", 30, () -> {
     // 3) Scan for @Mods
     LoadingWindow.loadingWindow.setStatus(ILoadingWindowStatus.LOCATING_MODS);
     Mods.generate(Reflectories.values());
@@ -48,7 +48,7 @@ public class DefaultZapBits {
 
   // STAGE 4
 
-  public static final ZapBit CREATE_BANDWAGON_40 = new ZapBit(40, () -> {    
+  public static final ZapBit CREATE_BANDWAGON_40 = new ZapBit("create_bandwagon_40", 40, () -> {
     // 4.1) Scan for BandWagon subscribers (@Stowaway)
     LoadingWindow.loadingWindow.setStatus(ILoadingWindowStatus.LOCATING_BAND_WAGON_SUBSCRIBERS);
     BandWagon.collectSubscribers(Reflectories.values());
@@ -66,44 +66,38 @@ public class DefaultZapBits {
 
   // STAGE 5
 
-  public static final ZapBit CREATE_REGISTRY_CREATE_REGISTRY_TYPES_50 = new ZapBit(50, () -> {
+  public static final ZapBit CREATE_REGISTRY_CREATE_REGISTRY_TYPES_50 = new ZapBit("create_registry_create_registry_types_50", 50, () -> {
 
     // 5) Begin Registry creation by firing registry events
-    BandWagon
-        .playEvent(new LoadingWindow.UpdateStatusEvent(ILoadingWindowStatus.CREATING_REGISTRY));
+    BandWagon.playEvent(new LoadingWindow.UpdateStatusEvent(ILoadingWindowStatus.CREATING_REGISTRY));
     LoadingWindow.loadingWindow.setStatus(ILoadingWindowStatus.CREATING_REGISTRY);
 
     // CreateRegistryTypesEvent
-    LoadingWindow.loadingWindow
-        .setDetailedStatus(RegistryEvent.CreateRegistryTypesEvent.DETAILED_STATUS);
+    LoadingWindow.loadingWindow.setDetailedStatus(RegistryEvent.CreateRegistryTypesEvent.DETAILED_STATUS);
     BandWagon.playEvent(new RegistryEvent.CreateRegistryTypesEvent());
   });
 
-  public static final ZapBit CREATE_REGISTRY_CREATE_AND_SUBMIT_TYPE_REGISTRIES_54 =
-      new ZapBit(54, () -> {
-        // CreateAndSubmitRegistriesEvent
-        LoadingWindow.loadingWindow
-            .setDetailedStatus(RegistryEvent.CreateAndSubmitRegistriesEvent.DETAILED_STATUS);
-        BandWagon.playEvent(new RegistryEvent.CreateAndSubmitRegistriesEvent());
-      });
+  public static final ZapBit CREATE_REGISTRY_CREATE_AND_SUBMIT_TYPE_REGISTRIES_54 = new ZapBit("create_registry_create_and_submit_type_registries_54", 54, () -> {
+    // CreateAndSubmitRegistriesEvent
+    LoadingWindow.loadingWindow.setDetailedStatus(RegistryEvent.CreateAndSubmitRegistriesEvent.DETAILED_STATUS);
+    BandWagon.playEvent(new RegistryEvent.CreateAndSubmitRegistriesEvent());
+  });
 
-  public static final ZapBit CREATE_REGISTRY_POPULATE_TYPE_REGISTRIES_58 = new ZapBit(58, () -> {
+  public static final ZapBit CREATE_REGISTRY_POPULATE_TYPE_REGISTRIES_58 = new ZapBit("create_registry_populate_type_registries_58", 58, () -> {
     // PopulateTypeRegistriesEvent
-    LoadingWindow.loadingWindow
-        .setDetailedStatus(RegistryEvent.PopulateTypeRegistriesEvent.DETAILED_STATUS);
+    LoadingWindow.loadingWindow.setDetailedStatus(RegistryEvent.PopulateTypeRegistriesEvent.DETAILED_STATUS);
     BandWagon.playEvent(new RegistryEvent.PopulateTypeRegistriesEvent());
   });
 
-  public static final ZapBit CREATE_REGISTRY_POLL_REGISTRY_TYPES_68 = new ZapBit(68, () -> {
+  public static final ZapBit CREATE_REGISTRY_POLL_REGISTRY_TYPES_68 = new ZapBit("create_registry_poll_registry_types_68", 68, () -> {
     // PollRegistryTypeEventsEvent
-    LoadingWindow.loadingWindow
-        .setDetailedStatus(RegistryEvent.PollRegistryTypeEventsEvent.DETAILED_STATUS);
+    LoadingWindow.loadingWindow.setDetailedStatus(RegistryEvent.PollRegistryTypeEventsEvent.DETAILED_STATUS);
     BandWagon.playEvent(new RegistryEvent.PollRegistryTypeEventsEvent());
   });
 
   // STAGE 6
 
-  public static final ZapBit CLOSE_LOADING_WINDOW_70 = new ZapBit(70, () -> {
+  public static final ZapBit CLOSE_LOADING_WINDOW_70 = new ZapBit("clost_loading_window", 70, () -> {
     // 6) Finally terminate the loading window
     LoadingWindow.loadingWindow.setStatus(ILoadingWindowStatus.DONE);
     BandWagon.playEvent(new RegistryEvent.LoadingDoneEvent());

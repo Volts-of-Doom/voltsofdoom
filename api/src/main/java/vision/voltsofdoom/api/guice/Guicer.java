@@ -22,7 +22,7 @@ import com.google.inject.name.Named;
  */
 @Singleton
 public class Guicer {
-
+  
   private static final Guicer GUICER = new Guicer();
   private List<AbstractModule> modules;
   private Injector injector;

@@ -12,7 +12,7 @@ public class VODZapBits {
     Reflectories.addAdditionalClass(VoltsOfDoom.class);
   });
 
-  public static final ZapBit CREATE_REGISTRY_GENERATE_ADVENTURES_62 = new ZapBit(62, () -> {
+  public static final ZapBit CREATE_REGISTRY_GENERATE_ADVENTURES_62 = new ZapBit("create_registry_generate_adventures_62", 62, () -> {
     LoadingWindow.loadingWindow.setDetailedStatus(GenerateAdventuresEvent.DETAILED_STATUS);
     BandWagon.playEvent(new GenerateAdventuresEvent());
   });
