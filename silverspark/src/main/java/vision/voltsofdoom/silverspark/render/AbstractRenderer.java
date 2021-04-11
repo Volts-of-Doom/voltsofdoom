@@ -93,42 +93,6 @@ public abstract class AbstractRenderer {
     program.flush();
   }
 
-
-  /**
-   * Draws the currently bound texture on specified coordinates.
-   *
-   * @param texture Used for getting width and height of the texture
-   * @param x X position of the texture
-   * @param y Y position of the texture
-   */
-  public void drawTexture(Spark texture, float x, float y) {
-    drawTexture(texture, x, y, VODColor.WHITE);
-  }
-
-  /**
-   * Draws the currently bound texture on specified coordinates and with specified color.
-   *
-   * @param texture Used for getting width and height of the texture
-   * @param x X position of the texture
-   * @param y Y position of the texture
-   * @param c The color to use
-   */
-  public void drawTexture(Spark texture, float x, float y, VODColor c) {
-    // Vertex positions
-    float x1 = x;
-    float y1 = y;
-    float x2 = x1 + texture.getWidth();
-    float y2 = y1 + texture.getHeight();
-
-    // Texture coordinates
-    float s1 = 0f;
-    float t1 = 0f;
-    float s2 = 1f;
-    float t2 = 1f;
-
-    drawTextureRegion(x1, y1, x2, y2, s1, t1, s2, t2, c);
-  }
-
   /**
    * Draws a texture region with the currently bound texture on specified coordinates.
    *
