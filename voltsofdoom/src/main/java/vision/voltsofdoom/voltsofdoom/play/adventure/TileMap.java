@@ -3,8 +3,9 @@ package vision.voltsofdoom.voltsofdoom.play.adventure;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.voltsofdoom.play.tile.Tile;
-import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.universal.registry.RegistryTypes;
 import vision.voltsofdoom.zapbyte.registry.IFinalisedRegistry;
 import vision.voltsofdoom.zapbyte.registry.Registry;
@@ -17,6 +18,9 @@ import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
  *
  */
 public class TileMap {
+  
+  public static final Logger LOGGER = LoggerFactory.getLogger(TileMap.class);
+  
   private List<List<Tile>> tiles = new ArrayList<List<Tile>>();
 
   public TileMap(RawTileMap raw) {
@@ -49,8 +53,7 @@ public class TileMap {
       tiles.add(tilesToAdd);
     }
 
-    VoltsOfDoom
-        .easyInfo("Finished loading " + this.getClass().getSimpleName() + " for latest Level");
+    LOGGER.info("Finished loading " + this.getClass().getSimpleName() + " for latest Level");
   }
 
   public List<List<Tile>> getTiles() {

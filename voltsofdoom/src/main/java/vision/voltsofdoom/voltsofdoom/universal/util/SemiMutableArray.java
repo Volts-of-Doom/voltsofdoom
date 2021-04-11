@@ -1,6 +1,8 @@
 package vision.voltsofdoom.voltsofdoom.universal.util;
 
 import java.util.Iterator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoom;
 
 /**
@@ -11,11 +13,14 @@ import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoom;
  * @param <T>
  */
 public class SemiMutableArray<T> implements Iterable<T> {
+  
+  public static final Logger LOGGER = LoggerFactory.getLogger(SemiMutableArray.class);
+  
   private T[] contents;
 
   public static void main(String[] args) {
 
-    VoltsOfDoom.easyInfo("Starting");
+    LOGGER.info("Starting");
 
     SemiMutableArray<String> smarr = new SemiMutableArray<String>();
 
@@ -34,7 +39,7 @@ public class SemiMutableArray<T> implements Iterable<T> {
     for (String str : smarr) {
       builder.append(str + " ");
     }
-    VoltsOfDoom.easyInfo(builder.toString());
+    LOGGER.info(builder.toString());
   }
 
   @SuppressWarnings("unchecked")

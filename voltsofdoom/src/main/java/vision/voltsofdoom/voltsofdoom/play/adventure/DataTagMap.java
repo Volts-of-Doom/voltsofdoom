@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -21,6 +23,9 @@ import vision.voltsofdoom.voltsofdoom.universal.main.VoltsOfDoom;
  *
  */
 public class DataTagMap {
+
+  public static final Logger LOGGER = LoggerFactory.getLogger(DataTagMap.class);
+
   public static final DataTagMapDeserializer DESERIALIZER = new DataTagMapDeserializer();
 
   /**
@@ -58,23 +63,21 @@ public class DataTagMap {
   public static class DataTagMapDeserializer implements JsonDeserializer<DataTagMap> {
 
     @Override
-    public DataTagMap deserialize(JsonElement element, Type type,
-        JsonDeserializationContext context) throws JsonParseException {
+    public DataTagMap deserialize(JsonElement element, Type type, JsonDeserializationContext context) throws JsonParseException {
 
       if (!type.equals(DataTagMap.class)) {
-        VoltsOfDoom.
-            easyInfo("Illegal type for DataTagMapDeserializer: " + type.getTypeName());
+        LOGGER.error("Illegal type for DataTagMapDeserializer: " + type.getTypeName());
         return null;
       }
 
       Map<String, DataTag> map = new HashMap<String, DataTag>();
       JsonObject object = element.getAsJsonObject();
-      
-      if(!object.has("tags")) {
+
+      if (!object.has("tags")) {
         VoltsOfDoom.getInstance().getApplicationLogger().warn("DataMapDeserializer found a member named 'tags' from an unknown JSON file to not exist. A basic DataTagMap(HashMap) will be injected in its place.");
         return new DataTagMap(new HashMap<String, DataTag>());
       }
-      
+
       JsonArray array = object.get("tags").getAsJsonArray();
 
       // Each {tag} object (members of the "tags" array)

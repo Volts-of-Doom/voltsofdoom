@@ -58,10 +58,10 @@ public class ZipFileReader {
 
         // Log entries
         Enumeration<? extends ZipEntry> allEntries = zipFile.entries();
-        VoltsOfDoom.easyDebug("ZipFile entries are as follows:");
+        LOGGER.debug("ZipFile entries are as follows:");
         while (allEntries.hasMoreElements()) {
           ZipEntry zipEntry = (ZipEntry) allEntries.nextElement();
-          VoltsOfDoom.easyDebug("> " + zipEntry.getName());
+          LOGGER.debug("> " + zipEntry.getName());
         }
       }
 
