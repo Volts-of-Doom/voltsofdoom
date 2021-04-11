@@ -1,5 +1,9 @@
 package vision.voltsofdoom.zapbyte.main;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -54,6 +58,9 @@ public abstract class ZapByte {
    */
   @SuppressWarnings("unused")
   public ZapByte(String applicationNamespace) {
+
+    System.out.println(" >>> WELCOME TO THE ZAPBYTE LOADER. ZAPBYTE IS NOW CONSTRUCTING. LOGGING WILL BE CONFIGURED FIRST. <<< ");
+
     ZapByteReference.APPLICATION_NAMESPACE = applicationNamespace;
 
     // You can't use logging calls until after this
@@ -61,26 +68,33 @@ public abstract class ZapByte {
     LOGGER.info("Configured logging");
 
     // Configure the uncaught exception handler
+    LOGGER.info("Configuring ZapByteUncaughtExceptionHandler");
     Thread.setDefaultUncaughtExceptionHandler(new ZapByteUncaughtExceptionHandler());
-    LOGGER.info("Configured ZapByteUncaughtExceptionHandler");
+    LOGGER.debug("Done");
 
     // Set up dependency injection
+    LOGGER.info("Configuring Guicer");
     setGuicer(new Guicer(new ZapByteGuiceBindingModule()));
-    // Test the Guicer
+    LOGGER.info("Testing Guicer");
     GuiceTest guiceTest = guicer.getInjector().getInstance(GuiceTest.class);
-    LOGGER.info("Configured Guicer");
+    LOGGER.debug("Done");
 
     // Make an empty set for zap bits
+    LOGGER.info("Configuring ZapBit HashSet");
     setZapBits(new HashSet<ZapBit>());
-    LOGGER.info("Configured ZapBit HashSet");
+    LOGGER.debug("Done");
 
     // Set up configuration handler
+    LOGGER.info("Configuring ConfigHandler");
     setConfigHandler(new ConfigHandler());
-    LOGGER.info("Configured ConfigHandler");
+    LOGGER.debug("Done");
 
     // Set the system resource handler
+    LOGGER.info("Configuring ISystemResourceHandler");
     setSystemResourceHandler(guicer.getInjector().getInstance(ZBSystemResourceHandler.class));
-    LOGGER.info("Configured ISystemResourceHandler");
+    LOGGER.debug("Done");
+
+    LOGGER.info("ZapByte is now constructed.");
   }
 
   /**
@@ -89,8 +103,26 @@ public abstract class ZapByte {
    */
   private void configureLogger() {
 
+    String logbackXMLPath = ZapByteReference.getConfig() + "logback.xml";
+
     // Set location of config file
-    System.setProperty("logback.configurationFile", ZapByteReference.getConfig() + "logback.xml");
+    System.setProperty("logback.configurationFile", logbackXMLPath);
+    File logbackXML = new File(logbackXMLPath);
+
+    if (!logbackXML.exists()) {
+      System.err.println("LOGBACK CONFIGURATION DOES NOT EXIST! WILL WRITE A NEW CONFIGURATION FILE!");
+      try (BufferedWriter writer = new BufferedWriter(new FileWriter(logbackXML))) {
+
+        // Default logging configuration
+        writer.write(
+            "<configuration scan=\"true\" debug=\"true\"><appender name=\"Console-STDOUT\" class=\"ch.qos.logback.core.ConsoleAppender\"><encoder><pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern></encoder></appender><appender name=\"File\" class=\"ch.qos.logback.core.FileAppender\"><file>${vision.voltsofdoom.zapbyte.log.outputFile}</file><encoder><pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern></encoder></appender><root level=\"trace\"><appender-ref ref=\"Console-STDOUT\" /><appender-ref ref=\"File\" /></root><contextListener class=\"ch.qos.logback.classic.jul.LevelChangePropagator\"><resetJUL>true</resetJUL></contextListener></configuration>");
+
+      } catch (IOException e) {
+        System.err.println("An IOException has occured whilst configuring logging.");
+        e.printStackTrace();
+        System.exit(-1);
+      }
+    }
 
     // Set location of output file
     System.setProperty("vision.voltsofdoom.zapbyte.log.outputFile", ZapByteReference.getLogs() + Calendar.getInstance().getTime().toString().replace(" ", "_").replace(":", "-") + ".log");
@@ -107,8 +139,9 @@ public abstract class ZapByte {
   public abstract void continueExecution();
 
   public void run() {
-    LOGGER.info("Running ZapByte loading cycle!");
+    LOGGER.info("Running the ZapByte loading cycle!");
 
+    LOGGER.debug("Collecting ZapBits");
     collectZapbits();
     LOGGER.debug("Collected " + zapBits.size() + " ZapBits");
 
@@ -119,25 +152,32 @@ public abstract class ZapByte {
     launched = true;
     LOGGER.debug("Launching... (launched=true)");
 
+    LOGGER.debug("Loading configuration file");
     configHandler.loadIfConfigurationFileBlank();
     LOGGER.debug("Loaded ZapByte IConfigHandler configHandler");
 
     // Get all into map
+    LOGGER.debug("Mapping ZapBits");
     Map<Integer, ZapBit> bits = new HashMap<Integer, ZapBit>();
     zapBits.forEach((bit) -> bits.put(bit.getPriority(), bit));
+    LOGGER.debug("Done");
 
     // Sort
+    LOGGER.debug("Sorting ZapBits");
     List<Integer> ints = new ArrayList<Integer>(bits.keySet());
     Collections.sort(ints);
+    LOGGER.debug("Done");
 
     // Run
+    LOGGER.warn("Running ZapBits");
     for (Integer integer : ints) {
       ZapBit bit = bits.get(integer);
       LOGGER.debug("Running ZapBit: name=" + bit.getName() + " priority=" + integer);
       bit.run();
     }
+    LOGGER.warn("All ZapBits have been run");
 
-    LOGGER.warn("ZapBit execution complete. Continuing external (none-ZapBit) execution.");
+    LOGGER.warn("ZapBit execution complete. Continuing external (non-ZapBit) execution.");
     continueExecution();
 
     LOGGER.error("ZapByte cycle complete. Exiting.");

@@ -25,6 +25,8 @@ import vision.voltsofdoom.zapbyte.main.ZapByte;
  *
  */
 public class VoltsOfDoom extends ZapByte {
+  
+  private static final Logger LOGGER = LoggerFactory.getLogger(VoltsOfDoom.class);
 
   private static VoltsOfDoom instance;
 
