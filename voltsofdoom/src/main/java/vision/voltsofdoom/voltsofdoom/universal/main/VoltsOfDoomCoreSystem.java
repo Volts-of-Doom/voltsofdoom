@@ -25,7 +25,7 @@ import vision.voltsofdoom.zapbyte.main.ZapByte;
  */
 public class VoltsOfDoomCoreSystem extends ZapByte {
 
-  private static VoltsOfDoomCoreSystem thisVOD;
+  private static VoltsOfDoomCoreSystem instance;
 
   private static final String ID = "voltsofdoom";
 
@@ -53,16 +53,8 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
   public static void mainStepIn() {
     Injector injector = Guice.createInjector(new GuiceModule());
-    thisVOD = injector.getInstance(VoltsOfDoomCoreSystem.class);
-    thisVOD.run();
-  }
-
-  public static void easyDebug(String message) {
-    getInstance().getApplicationLogger().debug(message);
-  }
-
-  public static void easyInfo(String message) {
-    getInstance().getApplicationLogger().info(message);
+    instance = injector.getInstance(VoltsOfDoomCoreSystem.class);
+    instance.run();
   }
 
   @Override
@@ -75,7 +67,7 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
   public void collectZapbits() {
     getApplicationLogger().debug("Collecting ZapBits for Volts of Doom Core System");
 
-    addZapBit(new ZapBit(0, () -> thisVOD.getApplicationLogger().info("Starting Volts of Doom!")));
+    addZapBit(new ZapBit(0, () -> instance.getApplicationLogger().info("Starting Volts of Doom!")));
     addZapBit(DefaultZapBits.CREATE_LOADING_WINDOW_10);
     addZapBit(VODZapBits.CREATE_TEXTURE_MANAGER_11);
     addZapBit(VODZapBits.ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19);
@@ -95,11 +87,11 @@ public class VoltsOfDoomCoreSystem extends ZapByte {
 
   @Override
   public void continueExecution() {
-    thisVOD.getApplicationLogger().debug("Volts of Doom Core System continuing execution...");
+    instance.getApplicationLogger().debug("Volts of Doom Core System continuing execution...");
   }
 
   public static VoltsOfDoomCoreSystem getInstance() {
-    return thisVOD != null ? thisVOD : new VoltsOfDoomCoreSystem();
+    return instance != null ? instance : new VoltsOfDoomCoreSystem();
   }
 
   public TextureManager getTextureManager() {
