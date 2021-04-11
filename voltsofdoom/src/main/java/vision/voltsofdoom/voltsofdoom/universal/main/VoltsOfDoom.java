@@ -10,6 +10,7 @@ import vision.voltsofdoom.silverspark.Silverspark;
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.guice.GuiceModule;
 import vision.voltsofdoom.voltsofdoom.universal.resource.image.TextureManager;
+import vision.voltsofdoom.voltsofdoom.universal.util.Reference;
 import vision.voltsofdoom.zapbyte.main.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
@@ -69,7 +70,6 @@ public class VoltsOfDoom extends ZapByte {
 
     addZapBit(new ZapBit(0, () -> instance.getApplicationLogger().info("Starting Volts of Doom!")));
     addZapBit(DefaultZapBits.CREATE_LOADING_WINDOW_10);
-    addZapBit(VODZapBits.CREATE_TEXTURE_MANAGER_11);
     addZapBit(VODZapBits.ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19);
     addZapBit(DefaultZapBits.CREATE_REFLECTORIES_20);
     addZapBit(DefaultZapBits.SCAN_FOR_MODS_30);
@@ -82,12 +82,29 @@ public class VoltsOfDoom extends ZapByte {
     addZapBit(DefaultZapBits.CREATE_REGISTRY_POLL_REGISTRY_TYPES_68);
 
     addZapBit(DefaultZapBits.CLOSE_LOADING_WINDOW_70);
-    addZapBit(VODZapBits.CREATE_GAME_100);
   }
 
   @Override
   public void continueExecution() {
-    instance.getApplicationLogger().debug("Volts of Doom Core System continuing execution...");
+    LOGGER.info("Volts of Doom continuing execution...");
+
+    // Create texture manager
+    TextureManager manager = new TextureManager(Reference.getTexturesDir());
+    VoltsOfDoom.getInstance().setTextureManager(manager);
+    VoltsOfDoom.getInstance().getTextureManager();
+
+    // Create game
+    System.out.println("VODZapBits.enclosing_method() #31");
+    // Silverspark spark = new Silverspark(); // TODO - in Silverspark, SS initialisation is now by
+    // Guice. Either
+    // VOD needs to use Guice, or else SS needs to be set up by hand.
+    // start up renderer - game loop excluded for now
+    Silverspark spark = VoltsOfDoom.getInstance().getSilverspark();
+    spark.start();
+    // TODO Game loop has been excluded for now - just working on renderer
+    // Game game = new VariableTimestepGame("Volts of Doom");
+    // VoltsOfDoomCoreSystem.getInstance().setGame(game);
+    // game.start();
   }
 
   public static VoltsOfDoom getInstance() {

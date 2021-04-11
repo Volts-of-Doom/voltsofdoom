@@ -1,23 +1,12 @@
 package vision.voltsofdoom.voltsofdoom.universal.main;
 
-import vision.voltsofdoom.silverspark.Silverspark;
-import vision.voltsofdoom.silverspark.core.Game;
-import vision.voltsofdoom.silverspark.core.VariableTimestepGame;
 import vision.voltsofdoom.voltsofdoom.play.adventure.GenerateAdventuresEvent;
-import vision.voltsofdoom.voltsofdoom.universal.resource.image.TextureManager;
-import vision.voltsofdoom.voltsofdoom.universal.util.Reference;
 import vision.voltsofdoom.zapbyte.event.BandWagon;
 import vision.voltsofdoom.zapbyte.main.ZapBit;
 import vision.voltsofdoom.zapbyte.reflectory.Reflectories;
 import vision.voltsofdoom.zapbyte.window.LoadingWindow;
 
 public class VODZapBits {
-
-  public static final ZapBit CREATE_TEXTURE_MANAGER_11 = new ZapBit("create_texture_manager_11", 11, () -> {
-    TextureManager manager = new TextureManager(Reference.getTexturesDir());
-    VoltsOfDoom.getInstance().setTextureManager(manager);
-    VoltsOfDoom.getInstance().getTextureManager();
-  });
 
   public static final ZapBit ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19 = new ZapBit("add_volts_of_doom_to_additional_reflectory_classes_19", 19, () -> {
     Reflectories.addAdditionalClass(VoltsOfDoom.class);
@@ -28,16 +17,4 @@ public class VODZapBits {
     BandWagon.playEvent(new GenerateAdventuresEvent());
   });
 
-  public static final ZapBit CREATE_GAME_100 = new ZapBit("create_game_100", 100, () -> {
-    System.out.println("VODZapBits.enclosing_method() #31");
-    //Silverspark spark = new Silverspark(); // TODO - in Silverspark, SS initialisation is now by Guice. Either 
-                                           // VOD needs to use Guice, or else SS needs to be set up by hand.
-    // start up renderer - game loop excluded for now
-    Silverspark spark = VoltsOfDoom.getInstance().getSilverspark(); 
-    spark.start();
-    // TODO Game loop has been excluded for now - just working on renderer
-    //Game game = new VariableTimestepGame("Volts of Doom");
-    //VoltsOfDoomCoreSystem.getInstance().setGame(game);
-    //game.start();
-  });
 }
