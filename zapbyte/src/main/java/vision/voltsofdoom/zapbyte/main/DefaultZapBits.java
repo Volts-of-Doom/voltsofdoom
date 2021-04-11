@@ -97,7 +97,7 @@ public class DefaultZapBits {
 
   // STAGE 6
 
-  public static final ZapBit CLOSE_LOADING_WINDOW_70 = new ZapBit("clost_loading_window", 70, () -> {
+  public static final ZapBit CLOSE_LOADING_WINDOW_70 = new ZapBit("close_loading_window", 70, () -> {
     // 6) Finally terminate the loading window
     LoadingWindow.loadingWindow.setStatus(ILoadingWindowStatus.DONE);
     BandWagon.playEvent(new RegistryEvent.LoadingDoneEvent());
