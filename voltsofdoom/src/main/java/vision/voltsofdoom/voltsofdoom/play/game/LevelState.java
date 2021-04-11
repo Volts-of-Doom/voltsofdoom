@@ -32,7 +32,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryStack;
-import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.game.IRenderableEntity;
 import vision.voltsofdoom.silverspark.graphic.Spark;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
@@ -41,6 +40,7 @@ import vision.voltsofdoom.silverspark.render.SparkRenderer;
 import vision.voltsofdoom.silverspark.render.AbstractRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
 import vision.voltsofdoom.silverspark.text.FontState;
+import vision.voltsofdoom.silverspark.xnotsilverspark.core.Game;
 import vision.voltsofdoom.silverspark.xnotsilverspark.state.State;
 
 /**

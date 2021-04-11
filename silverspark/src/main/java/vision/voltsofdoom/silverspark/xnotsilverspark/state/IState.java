@@ -21,7 +21,7 @@
 package vision.voltsofdoom.silverspark.xnotsilverspark.state;
 
 
-import vision.voltsofdoom.silverspark.core.Game;
+import vision.voltsofdoom.silverspark.xnotsilverspark.core.Game;
 
 /**
  * States are used for the current game state.

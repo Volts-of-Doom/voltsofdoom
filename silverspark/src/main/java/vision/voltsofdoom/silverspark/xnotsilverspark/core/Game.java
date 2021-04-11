@@ -18,13 +18,15 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package vision.voltsofdoom.silverspark.core;
+package vision.voltsofdoom.silverspark.xnotsilverspark.core;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import vision.voltsofdoom.silverspark.Silverspark;
+import vision.voltsofdoom.silverspark.core.ITimer;
+import vision.voltsofdoom.silverspark.core.Timer;
 import vision.voltsofdoom.silverspark.graphic.MouseEventMenuHandler;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
 import vision.voltsofdoom.silverspark.xnotsilverspark.state.EmptyState;

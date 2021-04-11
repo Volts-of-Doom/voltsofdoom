@@ -1,5 +1,5 @@
 
-package vision.voltsofdoom.silverspark.core;
+package vision.voltsofdoom.silverspark.xnotsilverspark.core;
 
 /**
  * This class contains the implementation for a variable timestep game loop.

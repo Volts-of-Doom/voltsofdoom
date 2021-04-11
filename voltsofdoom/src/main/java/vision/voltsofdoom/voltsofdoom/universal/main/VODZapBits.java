@@ -1,8 +1,8 @@
 package vision.voltsofdoom.voltsofdoom.universal.main;
 
 import vision.voltsofdoom.silverspark.Silverspark;
-import vision.voltsofdoom.silverspark.core.Game;
-import vision.voltsofdoom.silverspark.core.VariableTimestepGame;
+import vision.voltsofdoom.silverspark.xnotsilverspark.core.Game;
+import vision.voltsofdoom.silverspark.xnotsilverspark.core.VariableTimestepGame;
 import vision.voltsofdoom.voltsofdoom.play.adventure.GenerateAdventuresEvent;
 import vision.voltsofdoom.voltsofdoom.universal.resource.image.TextureManager;
 import vision.voltsofdoom.voltsofdoom.universal.util.Reference;

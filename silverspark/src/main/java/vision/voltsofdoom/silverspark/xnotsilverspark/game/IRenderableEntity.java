@@ -1,4 +1,4 @@
-package vision.voltsofdoom.silverspark.game;
+package vision.voltsofdoom.silverspark.xnotsilverspark.game;
 
 
 import vision.voltsofdoom.silverspark.graphic.Spark;
