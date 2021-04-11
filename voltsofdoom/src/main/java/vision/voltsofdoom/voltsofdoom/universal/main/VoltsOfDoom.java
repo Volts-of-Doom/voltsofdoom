@@ -60,15 +60,15 @@ public class VoltsOfDoom extends ZapByte {
 
   @Override
   public void run() {
-    getApplicationLogger().debug("Running Volts of Doom Core System");
+    LOGGER.debug("Running Volts of Doom Core System");
     super.run();
   }
 
   @Override
   public void collectZapbits() {
-    getApplicationLogger().debug("Collecting ZapBits for Volts of Doom Core System");
+    LOGGER.debug("Collecting ZapBits for Volts of Doom Core System");
 
-    addZapBit(new ZapBit(0, () -> instance.getApplicationLogger().info("Starting Volts of Doom!")));
+    addZapBit(new ZapBit(0, () -> LOGGER.info("Starting Volts of Doom!")));
     addZapBit(DefaultZapBits.CREATE_LOADING_WINDOW_10);
     addZapBit(VODZapBits.ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19);
     addZapBit(DefaultZapBits.CREATE_REFLECTORIES_20);
