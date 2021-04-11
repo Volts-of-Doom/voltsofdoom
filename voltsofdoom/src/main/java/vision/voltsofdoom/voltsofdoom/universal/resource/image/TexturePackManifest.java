@@ -65,10 +65,17 @@ public class TexturePackManifest {
     }
 
     @Override
-    public TexturePackManifest deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-      TexturePackManifest manifest = context.deserialize(json, TexturePackManifest.class);
+    public TexturePackManifest deserialize(JsonElement element, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+
+      if (!(element instanceof JsonObject)) {
+        throw new JsonParseException("TexturePackManifests (from manifest.json in a texture pack) must be JsonObjects.");
+      }
+      JsonObject object = (JsonObject) element;
+
+      String dTexturePackName = context.deserialize(object.get("texturePackName"), String.class);
+      Map<String, String> dMappings = context.deserialize(object.get("mappings"), Map.class);
       
-      manifest.pathToZip = "";
+      TexturePackManifest manifest = new TexturePackManifest(dTexturePackName, "unknown_texture_pack_name", dMappings);
 
       return manifest;
     }

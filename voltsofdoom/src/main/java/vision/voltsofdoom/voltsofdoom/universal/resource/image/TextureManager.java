@@ -74,7 +74,7 @@ public class TextureManager {
   private void inner_build(boolean forceRebuild) throws FileNotFoundException, IllegalStateException, ZipException, IOException {
 
     // Messages for the developer
-    if (!forceRebuild && built) {
+    if ((!forceRebuild) && built) {
       LOGGER.warn("An attempt to call the TextureManager#build(..) was made when the target TextureManager is already built. The attempt was denied because the forceRebuild flag was not set to true.");
       return;
     }
@@ -123,6 +123,7 @@ public class TextureManager {
       // Get a stream of the contents
       InputStream manifestStream = reader.getStream("manifest.json", "Error reading manifest for ZIP file " + child);
       TexturePackManifest manifest = GSON.fromJson(new InputStreamReader(manifestStream), TexturePackManifest.class);
+      manifest.setPathToZip(child.getAbsolutePath());
 
       manifests.add(manifest);
     }
