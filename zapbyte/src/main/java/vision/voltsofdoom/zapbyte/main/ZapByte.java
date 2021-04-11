@@ -58,29 +58,29 @@ public abstract class ZapByte {
 
     // You can't use logging calls until after this
     configureLogger();
-    ZapByte.LOGGER.info("Configured logging");
+    LOGGER.info("Configured logging");
 
     // Configure the uncaught exception handler
     Thread.setDefaultUncaughtExceptionHandler(new ZapByteUncaughtExceptionHandler());
-    ZapByte.LOGGER.info("Configured ZapByteUncaughtExceptionHandler");
+    LOGGER.info("Configured ZapByteUncaughtExceptionHandler");
 
     // Set up dependency injection
     setGuicer(new Guicer(new ZapByteGuiceBindingModule()));
     // Test the Guicer
     GuiceTest guiceTest = guicer.getInjector().getInstance(GuiceTest.class);
-    ZapByte.LOGGER.info("Configured Guicer");
+    LOGGER.info("Configured Guicer");
 
     // Make an empty set for zap bits
     setZapBits(new HashSet<ZapBit>());
-    ZapByte.LOGGER.info("Configured ZapBit HashSet");
+    LOGGER.info("Configured ZapBit HashSet");
 
     // Set up configuration handler
     setConfigHandler(new ConfigHandler());
-    ZapByte.LOGGER.info("Configured ConfigHandler");
+    LOGGER.info("Configured ConfigHandler");
 
     // Set the system resource handler
     setSystemResourceHandler(guicer.getInjector().getInstance(ZBSystemResourceHandler.class));
-    ZapByte.LOGGER.info("Configured ISystemResourceHandler");
+    LOGGER.info("Configured ISystemResourceHandler");
   }
 
   /**
@@ -95,7 +95,7 @@ public abstract class ZapByte {
     // Set location of output file
     System.setProperty("vision.voltsofdoom.zapbyte.log.outputFile", ZapByteReference.getLogs() + Calendar.getInstance().getTime().toString().replace(" ", "_").replace(":", "-") + ".log");
 
-    ZapByte.LOGGER = LoggerFactory.getLogger(ZapByte.class);
+    LOGGER = LoggerFactory.getLogger(ZapByte.class);
   }
 
   /**
@@ -107,20 +107,20 @@ public abstract class ZapByte {
   public abstract void continueExecution();
 
   public void run() {
-    ZapByte.LOGGER.info("Running ZapByte loading cycle!");
+    LOGGER.info("Running ZapByte loading cycle!");
 
     collectZapbits();
-    ZapByte.LOGGER.debug("Collected " + zapBits.size() + " ZapBits");
+    LOGGER.debug("Collected " + zapBits.size() + " ZapBits");
 
     if (launched) {
       throw new IllegalStateException("This instance of <? extends ZapByte> has already been launched!");
     }
 
     launched = true;
-    ZapByte.LOGGER.debug("Launching... (launched=true)");
+    LOGGER.debug("Launching... (launched=true)");
 
     configHandler.loadIfConfigurationFileBlank();
-    ZapByte.LOGGER.debug("Loaded ZapByte IConfigHandler configHandler");
+    LOGGER.debug("Loaded ZapByte IConfigHandler configHandler");
 
     // Get all into map
     Map<Integer, ZapBit> bits = new HashMap<Integer, ZapBit>();
@@ -133,14 +133,14 @@ public abstract class ZapByte {
     // Run
     for (Integer integer : ints) {
       ZapBit bit = bits.get(integer);
-      ZapByte.LOGGER.debug("Running ZapBit: name=" + bit.getName() + " priority=" + integer);
+      LOGGER.debug("Running ZapBit: name=" + bit.getName() + " priority=" + integer);
       bit.run();
     }
 
-    ZapByte.LOGGER.warn("ZapBit execution complete. Continuing external (none-ZapBit) execution.");
+    LOGGER.warn("ZapBit execution complete. Continuing external (none-ZapBit) execution.");
     continueExecution();
 
-    ZapByte.LOGGER.error("ZapByte cycle complete. Exiting.");
+    LOGGER.error("ZapByte cycle complete. Exiting.");
     System.exit(0);
   }
 
@@ -181,7 +181,7 @@ public abstract class ZapByte {
 
   protected void setGuicer(Guicer guicer) {
     this.guicer = guicer;
-    ZapByte.LOGGER.info("Guicer has been reset!");
+    LOGGER.info("Guicer has been reset!");
   }
 
   protected void setConfigHandler(IConfigHandler configHandler) {

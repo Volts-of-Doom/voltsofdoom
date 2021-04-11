@@ -1,5 +1,7 @@
 package vision.voltsofdoom.zapbyte.main;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.zapbyte.event.BandWagon;
 import vision.voltsofdoom.zapbyte.event.LoadingEvent;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
@@ -15,7 +17,7 @@ import vision.voltsofdoom.zapbyte.window.LoadingWindow;
  *
  */
 public class DefaultZapBits {
-
+  
   // STAGE 1
 
   public static final ZapBit CREATE_LOADING_WINDOW_10 = new ZapBit("create_loading_window_10", 10, () -> {
