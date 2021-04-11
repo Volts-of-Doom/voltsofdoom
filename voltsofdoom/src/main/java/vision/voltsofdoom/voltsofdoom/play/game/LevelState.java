@@ -32,12 +32,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.MemoryStack;
-import vision.voltsofdoom.silverspark.game.IRenderableEntity;
+import vision.voltsofdoom.silverspark.api.IRenderable;
 import vision.voltsofdoom.silverspark.graphic.Spark;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.math.Vector2f;
-import vision.voltsofdoom.silverspark.render.SparkRenderer;
 import vision.voltsofdoom.silverspark.render.AbstractRenderer;
+import vision.voltsofdoom.silverspark.render.SparkRenderer;
 import vision.voltsofdoom.silverspark.render.TextRenderer;
 import vision.voltsofdoom.silverspark.text.FontState;
 import vision.voltsofdoom.silverspark.xnotsilverspark.core.Game;
@@ -58,9 +58,7 @@ public class LevelState extends State {
   private final SparkRenderer entityRenderer;
   private final TextRenderer textRenderer;
 
-  private GreenBlob greenBlob1;
-  private GreenBlob greenBlob2;
-  private List<IRenderableEntity> entitiesList = new ArrayList<>();
+  private List<IRenderable> entitiesList = new ArrayList<>();
   private Map<String, FontState> availableFonts;
 
   private String[] permittedFonts = {"Inconsolata:16:WHITE", "Inconsolata:20:WHITE", "Inconsolata:50:WHITE"};
@@ -113,7 +111,7 @@ public class LevelState extends State {
 
     drawBackground();
 
-    entityRenderer.drawSparks(entitiesList, entitiesTexture);
+//    entityRenderer.drawSparks(entitiesList, entitiesTexture);
 
     drawText();
 
@@ -184,10 +182,11 @@ public class LevelState extends State {
 
     /* Initialize game objects */
     // float speed = 250f;
-    greenBlob1 = new GreenBlob(null, entitiesTexture, 100, 100, 0, 50, 50, 0, 00);
-    greenBlob2 = new GreenBlob(null, entitiesTexture, 200, 200, 0, 50, 50, 0, 00);
-    entitiesList.add(greenBlob1);
-    entitiesList.add(greenBlob2);
+    /*
+     * greenBlob1 = new GreenBlob(null, entitiesTexture, 100, 100, 0, 50, 50, 0, 00); greenBlob2 = new
+     * GreenBlob(null, entitiesTexture, 200, 200, 0, 50, 50, 0, 00); entitiesList.add(greenBlob1);
+     * entitiesList.add(greenBlob2);
+     */
 
     /* Initialize variables */
     playerScore = 0;
