@@ -99,11 +99,11 @@ public class TextureManager {
     // Get a list of files in the directory
     File[] children = rootDirectoryFile.listFiles((file, name) -> name.endsWith(".zip"));
 
-    // Make a map of the manifests
+    // Make a list of the manifests
     List<TexturePackManifest> manifests = new ArrayList<>();
-
-    // Populate the map
     getListOfJavaObjectTexturePackManifests(children, manifests);
+    
+    
 
     return;
   }
