@@ -7,9 +7,6 @@ package vision.voltsofdoom.zapbyte.event;
  * @author GenElectrovise
  *
  */
-public abstract class Event {
-
-  public Event() {
-
-  }
+public interface IEvent {
+  
 }

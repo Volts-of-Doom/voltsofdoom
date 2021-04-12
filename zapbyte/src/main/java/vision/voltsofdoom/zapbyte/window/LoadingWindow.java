@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
-import vision.voltsofdoom.zapbyte.event.Event;
+import vision.voltsofdoom.zapbyte.event.IEvent;
 import vision.voltsofdoom.zapbyte.event.Stowaway;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -26,7 +26,7 @@ public class LoadingWindow extends JFrame implements Runnable {
    * @author GenElectrovise
    *
    */
-  public static class UpdateStatusEvent extends Event {
+  public static class UpdateStatusEvent implements IEvent {
     private ILoadingWindowStatus status;
 
     public UpdateStatusEvent(ILoadingWindowStatus status) {
@@ -44,7 +44,7 @@ public class LoadingWindow extends JFrame implements Runnable {
    * @author GenElectrovise
    *
    */
-  public static class UpdateDetailedStatusEvent extends Event {
+  public static class UpdateDetailedStatusEvent implements IEvent {
     private ILoadingWindowDetailedStatus detatiledStatus;
 
     public UpdateDetailedStatusEvent(ILoadingWindowDetailedStatus status) {

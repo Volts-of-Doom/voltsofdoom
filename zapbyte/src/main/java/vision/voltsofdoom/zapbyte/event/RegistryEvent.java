@@ -10,7 +10,7 @@ import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 import vision.voltsofdoom.zapbyte.window.ILoadingWindowDetailedStatus;
 
 /**
- * Nested classes hold the {@link Event}s played during registry loading.
+ * Nested classes hold the {@link IEvent}s played during registry loading.
  * 
  * @see LoadingManager
  * @author GenElectrovise
@@ -28,7 +28,7 @@ public class RegistryEvent {
    * @author GenElectrovise
    *
    */
-  public static class CreateRegistryTypesEvent extends Event {
+  public static class CreateRegistryTypesEvent implements IEvent {
 
     public static final ILoadingWindowDetailedStatus DETAILED_STATUS =
         new ILoadingWindowDetailedStatus() {
@@ -52,7 +52,7 @@ public class RegistryEvent {
    * @author GenElectrovise
    *
    */
-  public static class CreateAndSubmitRegistriesEvent extends Event {
+  public static class CreateAndSubmitRegistriesEvent implements IEvent {
     public static final ILoadingWindowDetailedStatus DETAILED_STATUS =
         new ILoadingWindowDetailedStatus() {
           @Override
@@ -77,7 +77,7 @@ public class RegistryEvent {
    * @author GenElectrovise
    *
    */
-  public static class PopulateTypeRegistriesEvent extends Event {
+  public static class PopulateTypeRegistriesEvent implements IEvent {
     public static final ILoadingWindowDetailedStatus DETAILED_STATUS =
         new ILoadingWindowDetailedStatus() {
           @Override
@@ -94,7 +94,7 @@ public class RegistryEvent {
    * @author GenElectrovise
    *
    */
-  public static class PollRegistryTypeEventsEvent extends Event {
+  public static class PollRegistryTypeEventsEvent implements IEvent {
     public static final ILoadingWindowDetailedStatus DETAILED_STATUS =
         new ILoadingWindowDetailedStatus() {
           @Override
@@ -104,7 +104,7 @@ public class RegistryEvent {
         };
   }
 
-  public static class LoadingDoneEvent extends Event {
+  public static class LoadingDoneEvent implements IEvent {
 
   }
 

@@ -3,14 +3,14 @@ package vision.voltsofdoom.zapbyte.event;
 import vision.voltsofdoom.zapbyte.window.ILoadingWindowDetailedStatus;
 
 /**
- * Contains {@link Event}s called during loading.
+ * Contains {@link IEvent}s called during loading.
  * 
  * @author GenElectrovise
  *
  */
 public class LoadingEvent {
 
-  public static class TestEvent extends Event {
+  public static class TestEvent implements IEvent {
 
     public static final ILoadingWindowDetailedStatus DETAILED_STATUS =
         new ILoadingWindowDetailedStatus() {
@@ -29,7 +29,7 @@ public class LoadingEvent {
    * @author GenElectrovise
    *
    */
-  public static class BandWagonCreation extends Event {
+  public static class BandWagonCreation implements IEvent {
 
     public static final ILoadingWindowDetailedStatus DETAILED_STATUS =
         new ILoadingWindowDetailedStatus() {

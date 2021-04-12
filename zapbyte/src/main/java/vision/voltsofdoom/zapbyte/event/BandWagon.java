@@ -5,7 +5,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,20 +25,28 @@ public class BandWagon {
   private static Logger LOGGER = LoggerFactory.getLogger(BandWagon.class);
 
   /** The methods found to be annotated with {@link Stowaway} */
-  public static ArrayList<Method> stowawayMethods = new ArrayList<Method>();
+  public static Map<Class<? extends IEvent>, List<Method>> stowawayMethods = new HashMap<Class<? extends IEvent>, List<Method>>();
 
   /**
    * Adds a method to the list of methods that can be invoked.
    * 
    * @param method
    */
-  public static void stowawayMethod(Method method) {
-    stowawayMethods.add(method);
+  public static void stowawayMethod(Class<? extends IEvent> type, Method method) {
+    
+    List<Method> methodsListToAddTo = stowawayMethods.get(type);
+    
+    if (methodsListToAddTo == null) {
+      methodsListToAddTo = new ArrayList<Method>();
+      stowawayMethods.put(type, methodsListToAddTo);
+    }
+    
+    methodsListToAddTo.add(method);
   }
 
   /**
    * CAN BE STREAMLINED BY LOADING METHODS TO A MAP!<br>
-   * Play the given {@link Event} for all listeners of the {@link Event}'s type... Like a song!
+   * Play the given {@link IEvent} for all listeners of the {@link IEvent}'s type... Like a song!
    * 
    * <br>
    * <br>
@@ -46,35 +56,32 @@ public class BandWagon {
    * 
    * @param event
    */
-  public static void playEvent(Event event) {
+  public static void playEvent(IEvent event) {
 
-    LOGGER.info("Playing Event: " + event);
+    LOGGER.debug("Playing Event: " + event);
 
-    stowawayMethods.forEach((method) -> {
-      try {
-
-        Class<?> parameterType = method.getParameters()[0].getType();
-        if (event.getClass().isAssignableFrom(parameterType)) {
-          invokeMethod(event, method);
-        }
-
-        // IllegalArgumentException
-      } catch (InvocationTargetException inv) {
-        LOGGER.error("The BandWagon failed to invoke the method " + method);
-        inv.printStackTrace();
-      } catch (IllegalAccessException acc) {
-        LOGGER.error("The BandWagon was unable to access the method " + method);
-        acc.printStackTrace();
-      } catch (IllegalArgumentException arg) {
-        LOGGER.error("The BandWagon attempted to invoke the method " + method + " with incorrect arguments");
-        arg.printStackTrace();
-      }
-    });
+    List<Method> methodsToRun = stowawayMethods.get(event.getClass());
+    methodsToRun.forEach((method) -> invokeMethod(event, method));
   }
 
-  private static void invokeMethod(Event event, Method method) throws IllegalAccessException, InvocationTargetException {
-    method.setAccessible(true);
-    method.invoke(method, event);
+  private static void invokeMethod(IEvent event, Method method) {
+
+    try {
+
+      method.setAccessible(true);
+      method.invoke(method, event);
+
+      // IllegalArgumentException
+    } catch (InvocationTargetException inv) {
+      LOGGER.error("The BandWagon failed to invoke the method " + method);
+      inv.printStackTrace();
+    } catch (IllegalAccessException acc) {
+      LOGGER.error("The BandWagon was unable to access the method " + method);
+      acc.printStackTrace();
+    } catch (IllegalArgumentException arg) {
+      LOGGER.error("The BandWagon attempted to invoke the method " + method + " with incorrect arguments");
+      arg.printStackTrace();
+    }
   }
 
   /**
@@ -85,7 +92,7 @@ public class BandWagon {
   public static void collectSubscribers(Collection<Reflectory> reflectories) {
 
     /** All of the potential subscribed methods */
-    HashSet<Method> allMethods = new HashSet<Method>();
+    Map<Class<? extends IEvent>, List<Method>> allMethods = new HashMap<Class<? extends IEvent>, List<Method>>();
 
     // Collect all available methods
     for (Reflectory reflectory : reflectories) {
@@ -102,11 +109,29 @@ public class BandWagon {
    * @param allMethods
    * @param reflectory
    */
-  private static void addMethodsAnnotatedWithStowaway(HashSet<Method> allMethods, Reflectory reflectory) {
+  @SuppressWarnings("unchecked")
+  private static void addMethodsAnnotatedWithStowaway(Map<Class<? extends IEvent>, List<Method>> allMethods, Reflectory reflectory) {
 
     Set<Method> annotatedMethods = reflectory.getReflections().getMethodsAnnotatedWith(Stowaway.class);
+
     for (Method method : annotatedMethods) {
-      allMethods.add(method);
+
+      if (!validateMethod(method)) {
+        LOGGER.error("Did not validate method " + method);
+        return;
+      }
+
+      Class<?> rawType = method.getParameterTypes()[0];
+
+      Class<? extends IEvent> castType = (Class<? extends IEvent>) rawType;
+
+      List<Method> methodsListToAddTo = allMethods.get(castType);
+      if (methodsListToAddTo == null) {
+        methodsListToAddTo = new ArrayList<Method>();
+        allMethods.put(castType, methodsListToAddTo);
+      }
+
+      methodsListToAddTo.add(method);
     }
   }
 
@@ -116,27 +141,61 @@ public class BandWagon {
    * @param allMethods
    * @param reflectory
    */
-  private static void addMethodsFromTypesAnnotatedWithStowaway(HashSet<Method> allMethods, Reflectory reflectory) {
+  @SuppressWarnings("unchecked")
+  private static void addMethodsFromTypesAnnotatedWithStowaway(Map<Class<? extends IEvent>, List<Method>> allMethods, Reflectory reflectory) {
     Set<Class<?>> types = reflectory.getReflections().getTypesAnnotatedWith(Stowaway.class);
     for (Class<?> type : types) {
       Method[] declaredTypeMethods = type.getDeclaredMethods();
 
       for (int i = 0; i < declaredTypeMethods.length; i++) {
-        allMethods.add(declaredTypeMethods[i]);
+
+        Method method = declaredTypeMethods[i];
+
+        if (!validateMethod(method)) {
+          LOGGER.error("Did not validate method " + method);
+          return;
+        }
+
+        Class<?> rawType = method.getParameterTypes()[0];
+
+        Class<? extends IEvent> castType = (Class<? extends IEvent>) rawType;
+
+        List<Method> methodsListToAddTo = allMethods.get(castType);
+        if (methodsListToAddTo == null) {
+          methodsListToAddTo = new ArrayList<Method>();
+          allMethods.put(castType, methodsListToAddTo);
+        }
+
+        methodsListToAddTo.add(method);
       }
+
     }
   }
 
+
   /**
-   * Validate methods and add to the stowaway list
+   * Validate methods and adds valid ones to the stowaway list. Validation here may be a duplicate but
+   * I think that's ok.
    * 
    * @param allMethods
    */
-  private static void validateAndStowawayProposedMethods(HashSet<Method> allMethods) {
-    for (Method method : allMethods) {
-      if (validateMethod(method)) {
-        stowawayMethod(method);
-      }
+  private static void validateAndStowawayProposedMethods(Map<Class<? extends IEvent>, List<Method>> allMethods) {
+    allMethods.forEach((type, methods) -> {
+      methods.forEach((method) -> {
+        ifValidThenStowaway(type, method);
+      });
+    });
+  }
+
+  /**
+   * Performs {@link #validateMethod(Method)}, and if true stows the method away.
+   * 
+   * @param type
+   * @param method
+   */
+  private static void ifValidThenStowaway(Class<? extends IEvent> type, Method method) {
+    if (validateMethod(method)) {
+      stowawayMethod(type, method);
     }
   }
 
@@ -161,7 +220,7 @@ public class BandWagon {
 
     // If the superclass is not Event
     Class<?> parameterType = method.getParameters()[0].getType();
-    if (!Event.class.isAssignableFrom(parameterType)) {
+    if (!IEvent.class.isAssignableFrom(parameterType)) {
       ZapByte.LOGGER.info("Could not validate Method : " + method.getName() + " : to the BandWagon because it does not extend the Volts of Doom Event directly.");
       return false;
     }

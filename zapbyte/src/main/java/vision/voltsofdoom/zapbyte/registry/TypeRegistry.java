@@ -21,8 +21,7 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
 
   private final IResourceLocation identifier;
   private final RegistryType<T> type;
-  private final LinkedHashMap<String, Supplier<T>> entries =
-      new LinkedHashMap<String, Supplier<T>>();
+  private final LinkedHashMap<String, Supplier<T>> entries = new LinkedHashMap<String, Supplier<T>>();
   private IRegistryState state;
 
   public TypeRegistry(IResourceLocation identifier, RegistryType<T> type) {
@@ -43,8 +42,7 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
   }
 
   @Override
-  public RegistryMessenger<T> register(IResourceLocation iResourceLocation,
-      Supplier<T> instanceSupplier) {
+  public RegistryMessenger<T> register(IResourceLocation iResourceLocation, Supplier<T> instanceSupplier) {
 
     if (this.state == IRegistryState.UNPOPULATED) {
       this.setState(IRegistryState.ACTIVE);
@@ -62,15 +60,12 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
   public Supplier<T> retrieveSupplier(IResourceLocation identifier) {
 
     if (this.getState() == IRegistryState.UNPOPULATED) {
-      throw new IllegalStateException(
-          "Steady on there! This TypeRegistry hasn't even been populated yet!");
+      throw new IllegalStateException("Steady on there! This TypeRegistry hasn't even been populated yet!");
     }
 
-    Objects.requireNonNull(identifier,
-        () -> "If the identifier is null, how do you expect to retrieve anything!? The identifier cannot be null!");
+    Objects.requireNonNull(identifier, () -> "If the identifier is null, how do you expect to retrieve anything!? The identifier cannot be null!");
     Supplier<T> supp = entries.get(identifier.stringify());
-    Objects.requireNonNull(supp, "IResourceLocation '" + identifier.stringify()
-        + "' has no bound Supplier<T> (Value was null when queried)");
+    Objects.requireNonNull(supp, "IResourceLocation '" + identifier.stringify() + "' has no bound Supplier<T> (Value was null when queried)");
     return supp;
   }
 
@@ -100,8 +95,7 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
 
       // Prioritised types first
       for (int i = 0; i < RegistryTypes.prioritisedTypes.size(); i++) {
-        Iterator<IRegistry<? extends IRegistryEntry<?>>> registryI =
-            CollectedRegistries.getIterator();
+        Iterator<IRegistry<? extends IRegistryEntry<?>>> registryI = CollectedRegistries.getIterator();
         while (registryI.hasNext()) {
           IRegistry<? extends IRegistryEntry<?>> registry = registryI.next();
 
@@ -109,18 +103,16 @@ public class TypeRegistry<T extends IRegistryEntry<T>> implements IRegistry<T> {
           RegistryType<?> comparedType = RegistryTypes.prioritisedTypes.get(i);
 
           if (type.equals(comparedType)) {
-            IFinalisedRegistry<? extends IRegistryEntry<?>> finalisedRegistry =
-                registry.genFinalised();
+            IFinalisedRegistry<? extends IRegistryEntry<?>> finalisedRegistry = registry.genFinalised();
             Registry.register(registry.getRegistryIdentifier(), finalisedRegistry);
-            
+
             ZapByte.LOGGER.debug("Registered " + registry.getRegistryIdentifier());
           }
         }
       }
 
       // Then do all of the others
-      Iterator<IRegistry<? extends IRegistryEntry<?>>> registryI =
-          CollectedRegistries.getIterator();
+      Iterator<IRegistry<? extends IRegistryEntry<?>>> registryI = CollectedRegistries.getIterator();
       while (registryI.hasNext()) {
         IRegistry<?> registry = registryI.next();
         IFinalisedRegistry<? extends IRegistryEntry<?>> finalisedRegistry = registry.genFinalised();

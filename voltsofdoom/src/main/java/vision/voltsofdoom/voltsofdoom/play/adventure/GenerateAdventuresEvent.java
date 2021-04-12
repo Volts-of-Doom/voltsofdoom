@@ -1,6 +1,6 @@
 package vision.voltsofdoom.voltsofdoom.play.adventure;
 
-import vision.voltsofdoom.zapbyte.event.Event;
+import vision.voltsofdoom.zapbyte.event.IEvent;
 import vision.voltsofdoom.zapbyte.window.ILoadingWindowDetailedStatus;
 
 /**
@@ -9,7 +9,7 @@ import vision.voltsofdoom.zapbyte.window.ILoadingWindowDetailedStatus;
  * @author GenElectrovise
  *
  */
-public class GenerateAdventuresEvent extends Event {
+public class GenerateAdventuresEvent implements IEvent {
   public static final ILoadingWindowDetailedStatus DETAILED_STATUS =
       new ILoadingWindowDetailedStatus() {
         @Override
