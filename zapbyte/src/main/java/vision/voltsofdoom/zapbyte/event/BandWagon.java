@@ -32,16 +32,32 @@ public class BandWagon {
    * 
    * @param method
    */
-  public static void stowawayMethod(Class<? extends IEvent> type, Method method) {
-    
+  public static void stowawayMethodIfNotADuplicate(Class<? extends IEvent> type, Method method) {
+
     List<Method> methodsListToAddTo = stowawayMethods.get(type);
     
+    if(isADuplicate(stowawayMethods, type, method)) {
+      LOGGER.warn("Duplicate instance of method " + method + " will not be stowed away again");
+      return;
+    }
+
     if (methodsListToAddTo == null) {
       methodsListToAddTo = new ArrayList<Method>();
       stowawayMethods.put(type, methodsListToAddTo);
     }
-    
+
     methodsListToAddTo.add(method);
+  }
+
+  private static boolean isADuplicate(Map<Class<? extends IEvent>, List<Method>> methodsMap, Class<? extends IEvent> type, Method method) {
+    
+    List<Method> methodsList = methodsMap.get(type);
+    
+    if(methodsList == null) {
+      return false;
+    }
+    
+    return methodsList.contains(method);
   }
 
   /**
@@ -195,7 +211,7 @@ public class BandWagon {
    */
   private static void ifValidThenStowaway(Class<? extends IEvent> type, Method method) {
     if (validateMethod(method)) {
-      stowawayMethod(type, method);
+      stowawayMethodIfNotADuplicate(type, method);
     }
   }
 
