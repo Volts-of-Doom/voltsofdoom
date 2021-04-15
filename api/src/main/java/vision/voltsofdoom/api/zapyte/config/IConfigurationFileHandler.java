@@ -1,5 +1,12 @@
 package vision.voltsofdoom.api.zapyte.config;
 
+/**
+ * NOTE: SHOULD BUILD A MASTER CONFIGURATION FILE OUT OF ALL OF THE INPUT FILES. I.E. MAKE ONE BIG
+ * JSON, WHICH CAN THEN BE QUERIED! THIS SEEMS LIKE A FAR MORE LOGICAL APPROACH!
+ * 
+ * @author GenElectrovise
+ *
+ */
 public interface IConfigurationFileHandler {
 
   /**
