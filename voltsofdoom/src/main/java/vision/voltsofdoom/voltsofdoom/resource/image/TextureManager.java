@@ -103,7 +103,17 @@ public class TextureManager {
     List<TexturePackManifest> manifests = new ArrayList<>();
     getListOfJavaObjectTexturePackManifests(children, manifests);
     
+    // Combine and override textures
     
+    // Read each image. Make a list of nodes with their dimensions.
+    
+    // Order nodes by width
+    
+    // Fit into layout
+    
+    // For each closed node: get name -> get PNG -> add to atlas image -> add coordinate reference
+    
+    // Write atlas image to system
 
     return;
   }
