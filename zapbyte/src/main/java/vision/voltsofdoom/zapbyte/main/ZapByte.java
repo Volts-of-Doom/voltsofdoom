@@ -16,8 +16,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.api.guice.Guicer;
 import vision.voltsofdoom.api.guice.Guicer.GuiceTest;
-import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
-import vision.voltsofdoom.zapbyte.config.ConfigHandler;
+import vision.voltsofdoom.api.zapyte.config.IConfigurationFileHandler;
+import vision.voltsofdoom.zapbyte.config.ConfigurationHandler;
 import vision.voltsofdoom.zapbyte.reflectory.Reflectory;
 import vision.voltsofdoom.zapbyte.resource.ISystemResourceHandler;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
@@ -32,7 +32,7 @@ public abstract class ZapByte {
   private boolean launched = false;
 
   private Set<ZapBit> zapBits;
-  private IConfigHandler configHandler;
+  private IConfigurationFileHandler configHandler;
   private Guicer guicer;
   private static final String ZAPBYTE = "zapbyte";
   private ISystemResourceHandler systemResourceHandler;
@@ -86,7 +86,7 @@ public abstract class ZapByte {
 
     // Set up configuration handler
     LOGGER.info("Configuring ConfigHandler");
-    setConfigHandler(new ConfigHandler());
+    setConfigHandler(new ConfigurationHandler());
     LOGGER.debug("Done");
 
     // Set the system resource handler
@@ -153,7 +153,9 @@ public abstract class ZapByte {
     LOGGER.debug("Launching... (launched=true)");
 
     LOGGER.debug("Loading configuration file");
-    configHandler.loadIfConfigurationFileBlank();
+    if (configHandler.isBlank()) {
+      configHandler.loadConfigurationFile();
+    }
     LOGGER.debug("Loaded ZapByte IConfigHandler configHandler");
 
     // Get all into map
@@ -198,7 +200,7 @@ public abstract class ZapByte {
     return guicer;
   }
 
-  public IConfigHandler getConfigHandler() {
+  public IConfigurationFileHandler getConfigHandler() {
     return configHandler;
   }
 
@@ -224,7 +226,7 @@ public abstract class ZapByte {
     LOGGER.info("Guicer has been reset!");
   }
 
-  protected void setConfigHandler(IConfigHandler configHandler) {
+  protected void setConfigHandler(IConfigurationFileHandler configHandler) {
     this.configHandler = configHandler;
   }
 

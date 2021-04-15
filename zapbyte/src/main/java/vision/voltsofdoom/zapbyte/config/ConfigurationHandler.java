@@ -8,33 +8,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import vision.voltsofdoom.api.zapyte.config.IConfigHandler;
+import vision.voltsofdoom.api.zapyte.config.IConfigurationFileHandler;
 import vision.voltsofdoom.api.zapyte.config.IConfigurationFile;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
 import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 import vision.voltsofdoom.zapbyte.util.StacktraceUtils;
 
-public class ConfigHandler implements IConfigHandler {
+public class ConfigurationHandler implements IConfigurationFileHandler {
 
   private static final String CONFIG_FILE = "config.json";
   private static String[] defaultArgs = {"argument"};
   private IConfigurationFile configurationFile;
 
-  public ConfigHandler() {
+  public ConfigurationHandler() {
     this.configurationFile = IConfigurationFile.BLANK;
     loadConfigurationFile();
-  }
-
-  @Override
-  public IConfigurationFile loadIfConfigurationFileBlank() {
-    if (configurationFile == IConfigurationFile.BLANK) {
-      ZapByte.LOGGER.warn("ConfigHandler IConfigurationFile found to be blank! Reloading...");
-      loadConfigurationFile();
-    }
-
-    ZapByte.LOGGER.debug("ConfigHandler IConfigurationFile populated (was not blank)");
-    return configurationFile;
   }
 
   @Override
@@ -73,8 +62,7 @@ public class ConfigHandler implements IConfigHandler {
       // Read config file
       ZapByte.LOGGER.debug("Reading configuration file: " + configFile);
 
-      configurationFile = ConfigurationFile
-          .fromJson(new Gson().fromJson(new FileReader(configFile), JsonObject.class));
+      configurationFile = ConfigurationFile.fromJson(new Gson().fromJson(new FileReader(configFile), JsonObject.class));
 
       ZapByte.LOGGER.debug("Read configuration: " + configurationFile.toString());
 
@@ -93,5 +81,10 @@ public class ConfigHandler implements IConfigHandler {
   @Override
   public IConfigurationFile getConfigurationFile() {
     return configurationFile;
+  }
+
+  @Override
+  public boolean isBlank() {
+    return configurationFile == IConfigurationFile.BLANK || configurationFile == null;
   }
 }
