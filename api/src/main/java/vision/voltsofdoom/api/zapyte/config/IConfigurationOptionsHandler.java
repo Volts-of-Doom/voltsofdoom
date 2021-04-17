@@ -11,7 +11,7 @@ import com.google.gson.JsonObject;
  * @author GenElectrovise
  *
  */
-public interface IConfigurationHandler {
+public interface IConfigurationOptionsHandler {
 
   /**
    * @param key
