@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import vision.voltsofdoom.api.guice.Guicer;
 import vision.voltsofdoom.api.guice.Guicer.GuiceTest;
@@ -157,6 +156,7 @@ public abstract class ZapByte {
 
     LOGGER.debug("Loading configuration file");
     configHandler.add("__other_configuration_files__", new ConfigurationFileSerializer(new GsonBuilder().setPrettyPrinting().create(), new File(ZapByteReference.getConfig())).objectifyFiles());
+    configHandler.standardize();
     LOGGER.debug("Loaded ZapByte IConfigHandler configHandler");
 
     // Get all into map

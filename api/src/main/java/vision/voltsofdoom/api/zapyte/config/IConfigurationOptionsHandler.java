@@ -18,10 +18,10 @@ public interface IConfigurationOptionsHandler {
    * <code>
    * {<br>
    * "config" : {<br>
-   * "option_one" : {<br>
-   * "option_two" : "result_one"<br>
-   * --}<br>
-   * -}<br>
+   * ~   "option_one" : {<br>
+   * ~   ~   "option_two" : "result_one"<br>
+   * ~   ~   }<br>
+   * ~   }<br>
    * }<br>
    * </code> ... will be compressed to: <br>
    * <code>

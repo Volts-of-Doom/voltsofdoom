@@ -2,12 +2,16 @@ package vision.voltsofdoom.zapbyte.config;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import vision.voltsofdoom.api.zapyte.config.IConfigurationOptionsHandler;
 
 public class StreamedConfigurationOptionsHandler implements IConfigurationOptionsHandler {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(StreamedConfigurationOptionsHandler.class);
 
   private JsonObject master;
   private Gson gson;
@@ -49,7 +53,7 @@ public class StreamedConfigurationOptionsHandler implements IConfigurationOption
 
   @Override
   public void standardize() {
-    
+    LOGGER.error("Standardizing (non impl) StreanedConfOpHandler #56");
   }
 
 }
