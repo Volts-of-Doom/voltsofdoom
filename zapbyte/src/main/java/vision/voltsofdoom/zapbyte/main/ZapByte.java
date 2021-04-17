@@ -16,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.api.guice.Guicer;
 import vision.voltsofdoom.api.guice.Guicer.GuiceTest;
-import vision.voltsofdoom.api.zapyte.config.IConfigurationFileHandler;
+import vision.voltsofdoom.api.zapyte.config.IConfigurationHandler;
 import vision.voltsofdoom.zapbyte.config.ConfigurationHandler;
 import vision.voltsofdoom.zapbyte.reflectory.Reflectory;
 import vision.voltsofdoom.zapbyte.resource.ISystemResourceHandler;
@@ -32,7 +32,7 @@ public abstract class ZapByte {
   private boolean launched = false;
 
   private Set<ZapBit> zapBits;
-  private IConfigurationFileHandler configHandler;
+  private IConfigurationHandler configHandler;
   private Guicer guicer;
   private static final String ZAPBYTE = "zapbyte";
   private ISystemResourceHandler systemResourceHandler;
@@ -200,7 +200,7 @@ public abstract class ZapByte {
     return guicer;
   }
 
-  public IConfigurationFileHandler getConfigHandler() {
+  public IConfigurationHandler getConfigHandler() {
     return configHandler;
   }
 
@@ -226,7 +226,7 @@ public abstract class ZapByte {
     LOGGER.info("Guicer has been reset!");
   }
 
-  protected void setConfigHandler(IConfigurationFileHandler configHandler) {
+  protected void setConfigHandler(IConfigurationHandler configHandler) {
     this.configHandler = configHandler;
   }
 

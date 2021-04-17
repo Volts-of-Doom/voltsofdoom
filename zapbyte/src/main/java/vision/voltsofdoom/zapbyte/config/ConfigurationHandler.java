@@ -8,21 +8,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import vision.voltsofdoom.api.zapyte.config.IConfigurationFileHandler;
-import vision.voltsofdoom.api.zapyte.config.IConfigurationFile;
+import vision.voltsofdoom.api.zapyte.config.IConfigurationHandler;
+import vision.voltsofdoom.api.zapyte.config.IConfigurationOptionProvider;
 import vision.voltsofdoom.zapbyte.main.ZapByte;
 import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 import vision.voltsofdoom.zapbyte.util.StacktraceUtils;
 
-public class ConfigurationHandler implements IConfigurationFileHandler {
+public class ConfigurationHandler implements IConfigurationHandler {
 
   private static final String CONFIG_FILE = "config.json";
   private static String[] defaultArgs = {"argument"};
-  private IConfigurationFile configurationFile;
+  private IConfigurationOptionProvider configurationFile;
 
   public ConfigurationHandler() {
-    this.configurationFile = IConfigurationFile.BLANK;
+    this.configurationFile = IConfigurationOptionProvider.BLANK;
     loadConfigurationFile();
   }
 
@@ -74,17 +74,17 @@ public class ConfigurationHandler implements IConfigurationFileHandler {
   }
 
   @Override
-  public void setConfigurationFile(IConfigurationFile configurationFile2) {
+  public void setConfigurationFile(IConfigurationOptionProvider configurationFile2) {
     this.configurationFile = configurationFile2;
   }
 
   @Override
-  public IConfigurationFile getConfigurationFile() {
+  public IConfigurationOptionProvider getConfigurationFile() {
     return configurationFile;
   }
 
   @Override
   public boolean isBlank() {
-    return configurationFile == IConfigurationFile.BLANK || configurationFile == null;
+    return configurationFile == IConfigurationOptionProvider.BLANK || configurationFile == null;
   }
 }
