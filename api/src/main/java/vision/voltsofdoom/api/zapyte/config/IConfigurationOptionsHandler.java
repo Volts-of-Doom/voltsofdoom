@@ -14,6 +14,22 @@ import com.google.gson.JsonObject;
 public interface IConfigurationOptionsHandler {
 
   /**
+   * Standardises the format of the contents. For example, the following tree: <br>
+   * <code>
+   * {<br>
+   * "config" : {<br>
+   * "option_one" : {<br>
+   * "option_two" : "result_one"<br>
+   * --}<br>
+   * -}<br>
+   * }<br>
+   * </code> ... will be compressed to: <br>
+   * <code>
+   * "config.option_one.option_two" : "result_one"</code>
+   */
+  void standardize();
+
+  /**
    * @param key
    * @return The option specified by the given key.
    */
@@ -22,12 +38,12 @@ public interface IConfigurationOptionsHandler {
   /**
    * {@link #add(JsonElement)}
    */
-  void add(InputStream source);
+  void add(String key, InputStream source);
 
   /**
    * Adds the given {@link JsonElement} as a tracked option.
    */
-  void add(JsonElement source);
+  void add(String key, JsonElement source);
 
   /**
    * @param key

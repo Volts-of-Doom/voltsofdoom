@@ -14,10 +14,13 @@ import java.util.Map;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import vision.voltsofdoom.api.guice.Guicer;
 import vision.voltsofdoom.api.guice.Guicer.GuiceTest;
 import vision.voltsofdoom.api.zapyte.config.IConfigurationOptionsHandler;
-import vision.voltsofdoom.zapbyte.config.ConfigurationOptionsHandlerImpl;
+import vision.voltsofdoom.zapbyte.config.ConfigurationFileSerializer;
+import vision.voltsofdoom.zapbyte.config.StreamedConfigurationOptionsHandler;
 import vision.voltsofdoom.zapbyte.reflectory.Reflectory;
 import vision.voltsofdoom.zapbyte.resource.ISystemResourceHandler;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
@@ -86,7 +89,7 @@ public abstract class ZapByte {
 
     // Set up configuration handler
     LOGGER.info("Configuring ConfigHandler");
-    setConfigHandler(new ConfigurationOptionsHandlerImpl());
+    setConfigHandler(new StreamedConfigurationOptionsHandler(new GsonBuilder().setPrettyPrinting().create()));
     LOGGER.debug("Done");
 
     // Set the system resource handler
@@ -153,9 +156,7 @@ public abstract class ZapByte {
     LOGGER.debug("Launching... (launched=true)");
 
     LOGGER.debug("Loading configuration file");
-    if (configHandler.isBlank()) {
-      configHandler.loadConfigurationFile();
-    }
+    configHandler.add("__other_configuration_files__", new ConfigurationFileSerializer(new GsonBuilder().setPrettyPrinting().create(), new File(ZapByteReference.getConfig())).objectifyFiles());
     LOGGER.debug("Loaded ZapByte IConfigHandler configHandler");
 
     // Get all into map
