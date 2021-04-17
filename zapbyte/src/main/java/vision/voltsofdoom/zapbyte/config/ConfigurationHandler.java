@@ -62,7 +62,7 @@ public class ConfigurationHandler implements IConfigurationHandler {
       // Read config file
       ZapByte.LOGGER.debug("Reading configuration file: " + configFile);
 
-      configurationFile = ConfigurationFile.fromJson(new Gson().fromJson(new FileReader(configFile), JsonObject.class));
+      configurationFile = StreamedConfigurationFile.fromJson(new Gson().fromJson(new FileReader(configFile), JsonObject.class));
 
       ZapByte.LOGGER.debug("Read configuration: " + configurationFile.toString());
 
