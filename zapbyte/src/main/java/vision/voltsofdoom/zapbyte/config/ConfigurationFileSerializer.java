@@ -17,6 +17,7 @@ import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 public class ConfigurationFileSerializer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationFileSerializer.class);
+  public static final String OTHER_FILES_DEFAULT_KEY = "__other_configuration_files__";
 
   private List<File> files;
   private Gson gson;
@@ -55,7 +56,7 @@ public class ConfigurationFileSerializer {
       }
 
       JsonElement element = gson.fromJson(reader, JsonElement.class);
-      String name = file.getName().split(".")[0];
+      String name = file.getName().split("[.]")[0];
       object.add(name, element);
     }
 

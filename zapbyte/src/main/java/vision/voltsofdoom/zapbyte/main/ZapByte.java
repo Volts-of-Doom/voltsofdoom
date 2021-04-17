@@ -155,7 +155,7 @@ public abstract class ZapByte {
     LOGGER.debug("Launching... (launched=true)");
 
     LOGGER.debug("Loading configuration file");
-    configHandler.add("__other_configuration_files__", new ConfigurationFileSerializer(new GsonBuilder().setPrettyPrinting().create(), new File(ZapByteReference.getConfig())).objectifyFiles());
+    configHandler.add(ConfigurationFileSerializer.OTHER_FILES_DEFAULT_KEY, new ConfigurationFileSerializer(new GsonBuilder().setPrettyPrinting().create(), new File(ZapByteReference.getConfig())).objectifyFiles());
     configHandler.standardize();
     LOGGER.debug("Loaded ZapByte IConfigHandler configHandler");
 

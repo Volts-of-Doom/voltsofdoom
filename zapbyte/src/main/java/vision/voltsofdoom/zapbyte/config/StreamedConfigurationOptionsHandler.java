@@ -54,6 +54,9 @@ public class StreamedConfigurationOptionsHandler implements IConfigurationOption
   @Override
   public void standardize() {
     LOGGER.error("Standardizing (non impl) StreanedConfOpHandler #56");
+    
+    JsonObject standardized = new JsonObject();
+    master.entrySet();
   }
 
 }
