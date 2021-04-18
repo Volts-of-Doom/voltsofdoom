@@ -57,7 +57,7 @@ public class StreamedConfigurationOptionsHandler implements IConfigurationOption
 
   @Override
   public void flatten() {
-    JsonObject flattened = flatten0(master);
+    JsonObject flattened = inner_flatten0(master);
     LOGGER.debug("Flattened configs to: " + flattened.toString());
 
     JsonObject cleaned = cleanUp(flattened);
@@ -68,13 +68,13 @@ public class StreamedConfigurationOptionsHandler implements IConfigurationOption
     master = cleaned;
   }
 
-  private JsonObject flatten0(JsonObject toFlatten) {
+  private JsonObject inner_flatten0(JsonObject toFlatten) {
     JsonObject flattened = new JsonObject();
-    flatten1("", toFlatten, flattened);
+    inner_flatten1("", toFlatten, flattened);
     return flattened;
   }
 
-  private void flatten1(String prefix, JsonObject toFlatten, JsonObject toMutate) {
+  private void inner_flatten1(String prefix, JsonObject toFlatten, JsonObject toMutate) {
     for (Entry<String, JsonElement> entry : toFlatten.entrySet()) {
       String keyWithPrefix = prefix + entry.getKey();
 
@@ -84,7 +84,7 @@ public class StreamedConfigurationOptionsHandler implements IConfigurationOption
        */
 
       if (entry.getValue() instanceof JsonObject) {
-        flatten1(keyWithPrefix + ".", (JsonObject) entry.getValue(), toMutate);
+        inner_flatten1(keyWithPrefix + ".", (JsonObject) entry.getValue(), toMutate);
       } else {
         toMutate.add(keyWithPrefix, entry.getValue());
       }
