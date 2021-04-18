@@ -154,10 +154,10 @@ public abstract class ZapByte {
     launched = true;
     LOGGER.debug("Launching... (launched=true)");
 
-    LOGGER.debug("Loading configuration file");
+    LOGGER.debug("Loading configuration options");
     configHandler.add(ConfigurationFileSerializer.OTHER_FILES_DEFAULT_KEY, new ConfigurationFileSerializer(new GsonBuilder().setPrettyPrinting().create(), new File(ZapByteReference.getConfig())).objectifyFiles());
     configHandler.flatten();
-    LOGGER.debug("Loaded ZapByte IConfigHandler configHandler");
+    LOGGER.debug("Loaded ZapByte IConfigurationOptionsHandler configHandler");
 
     // Get all into map
     LOGGER.debug("Mapping ZapBits");

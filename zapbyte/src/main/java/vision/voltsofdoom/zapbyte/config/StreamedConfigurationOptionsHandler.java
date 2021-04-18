@@ -2,15 +2,12 @@ package vision.voltsofdoom.zapbyte.config;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 import vision.voltsofdoom.api.zapyte.config.IConfigurationOptionsHandler;
 
 public class StreamedConfigurationOptionsHandler implements IConfigurationOptionsHandler {
@@ -62,8 +59,6 @@ public class StreamedConfigurationOptionsHandler implements IConfigurationOption
 
     JsonObject cleaned = cleanUp(flattened);
     LOGGER.debug("Cleaned configs to: " + cleaned.toString());
-
-    System.exit(0);
 
     master = cleaned;
   }
