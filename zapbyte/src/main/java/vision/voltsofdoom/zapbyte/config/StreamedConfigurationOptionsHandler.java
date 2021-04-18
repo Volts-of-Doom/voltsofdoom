@@ -2,6 +2,8 @@ package vision.voltsofdoom.zapbyte.config;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
@@ -52,11 +54,48 @@ public class StreamedConfigurationOptionsHandler implements IConfigurationOption
   }
 
   @Override
-  public void standardize() {
-    LOGGER.error("Standardizing (non impl) StreanedConfOpHandler #56");
+  public void flatten() {
+    JsonObject flattened = flatten0(master);
+    LOGGER.debug("Flattened configs to: " + flattened.toString());
+
+    JsonObject cleaned = cleanUp(flattened);
+    LOGGER.debug("Cleaned configs to: " + cleaned.toString());
+
+    System.exit(0);
+
+    master = cleaned;
+  }
+
+  private JsonObject flatten0(JsonObject toFlatten) {
+    JsonObject flattened = new JsonObject();
+    flatten1("", toFlatten, flattened);
+    return flattened;
+  }
+
+  private void flatten1(String prefix, JsonObject toFlatten, JsonObject toMutate) {
+    for (Entry<String, JsonElement> entry : toFlatten.entrySet()) {
+      String keyWithPrefix = prefix + entry.getKey();
+
+      if (entry.getValue() instanceof JsonObject) {
+        flatten1(keyWithPrefix + ".", (JsonObject) entry.getValue(), toMutate);
+      } else {
+        toMutate.add(keyWithPrefix, entry.getValue());
+      }
+    }
+  }
+
+  private JsonObject cleanUp(JsonObject flattened) {
     
-    JsonObject standardized = new JsonObject();
-    master.entrySet();
+    JsonObject newObject = new JsonObject();
+    
+    flattened.entrySet().forEach((entry) -> {
+      if (entry.getKey().startsWith(ConfigurationFileSerializer.OTHER_FILES_DEFAULT_KEY)) {
+        String newKey = entry.getKey().replaceFirst(ConfigurationFileSerializer.OTHER_FILES_DEFAULT_KEY + ".", "");
+        newObject.add(newKey, entry.getValue());
+      }
+    });
+    
+    return newObject;
   }
 
 }

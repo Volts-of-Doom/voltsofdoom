@@ -27,7 +27,7 @@ public interface IConfigurationOptionsHandler {
    * <code>
    * "config.option_one.option_two" : "result_one"</code>
    */
-  void standardize();
+  void flatten();
 
   /**
    * @param key

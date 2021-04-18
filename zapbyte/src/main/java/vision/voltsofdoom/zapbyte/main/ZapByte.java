@@ -156,7 +156,7 @@ public abstract class ZapByte {
 
     LOGGER.debug("Loading configuration file");
     configHandler.add(ConfigurationFileSerializer.OTHER_FILES_DEFAULT_KEY, new ConfigurationFileSerializer(new GsonBuilder().setPrettyPrinting().create(), new File(ZapByteReference.getConfig())).objectifyFiles());
-    configHandler.standardize();
+    configHandler.flatten();
     LOGGER.debug("Loaded ZapByte IConfigHandler configHandler");
 
     // Get all into map
