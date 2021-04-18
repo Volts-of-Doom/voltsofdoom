@@ -157,8 +157,9 @@ public abstract class ZapByte {
     LOGGER.debug("Loading configuration options");
     configHandler.add(ConfigurationFileSerializer.OTHER_FILES_DEFAULT_KEY, new ConfigurationFileSerializer(new GsonBuilder().setPrettyPrinting().create(), new File(ZapByteReference.getConfig())).objectifyFiles());
     configHandler.flatten();
+    LOGGER.debug(configHandler.getOption("zapbyte.custom_configuration_test_success_message").getAsString());
     LOGGER.debug("Loaded ZapByte IConfigurationOptionsHandler configHandler");
-
+    
     // Get all into map
     LOGGER.debug("Mapping ZapBits");
     Map<Integer, ZapBit> bits = new HashMap<Integer, ZapBit>();
