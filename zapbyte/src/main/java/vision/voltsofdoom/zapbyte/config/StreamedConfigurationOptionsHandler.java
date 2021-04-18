@@ -7,8 +7,10 @@ import java.util.Map.Entry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import vision.voltsofdoom.api.zapyte.config.IConfigurationOptionsHandler;
 
 public class StreamedConfigurationOptionsHandler implements IConfigurationOptionsHandler {
@@ -76,6 +78,11 @@ public class StreamedConfigurationOptionsHandler implements IConfigurationOption
     for (Entry<String, JsonElement> entry : toFlatten.entrySet()) {
       String keyWithPrefix = prefix + entry.getKey();
 
+      if (entry.getValue() instanceof JsonArray) {
+        LOGGER.warn("Ignoring the configuration option " + entry.getKey() + " because its value is a JsonArray");
+        continue;
+      }
+
       if (entry.getValue() instanceof JsonObject) {
         flatten1(keyWithPrefix + ".", (JsonObject) entry.getValue(), toMutate);
       } else {
@@ -85,16 +92,16 @@ public class StreamedConfigurationOptionsHandler implements IConfigurationOption
   }
 
   private JsonObject cleanUp(JsonObject flattened) {
-    
+
     JsonObject newObject = new JsonObject();
-    
+
     flattened.entrySet().forEach((entry) -> {
       if (entry.getKey().startsWith(ConfigurationFileSerializer.OTHER_FILES_DEFAULT_KEY)) {
         String newKey = entry.getKey().replaceFirst(ConfigurationFileSerializer.OTHER_FILES_DEFAULT_KEY + ".", "");
         newObject.add(newKey, entry.getValue());
       }
     });
-    
+
     return newObject;
   }
 
