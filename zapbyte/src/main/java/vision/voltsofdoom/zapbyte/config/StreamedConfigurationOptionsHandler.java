@@ -78,10 +78,10 @@ public class StreamedConfigurationOptionsHandler implements IConfigurationOption
     for (Entry<String, JsonElement> entry : toFlatten.entrySet()) {
       String keyWithPrefix = prefix + entry.getKey();
 
-      if (entry.getValue() instanceof JsonArray) {
-        LOGGER.warn("Ignoring the configuration option " + entry.getKey() + " because its value is a JsonArray");
-        continue;
-      }
+      /*
+       * if (entry.getValue() instanceof JsonArray) { LOGGER.warn("Ignoring the configuration option " +
+       * entry.getKey() + " because its value is a JsonArray"); continue; }
+       */
 
       if (entry.getValue() instanceof JsonObject) {
         flatten1(keyWithPrefix + ".", (JsonObject) entry.getValue(), toMutate);
