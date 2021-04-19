@@ -43,7 +43,7 @@ public class TextureManager {
   public void build(boolean forceRebuild) {
     try {
 
-      inner_build(false);
+      inner_build(forceRebuild);
 
     } catch (FileNotFoundException fi) {
       LOGGER.error("An error has occurred building the TextureManager! (An expected file cannot be found)");
