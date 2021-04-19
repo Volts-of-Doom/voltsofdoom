@@ -202,7 +202,7 @@ public abstract class ZapByte {
     return guicer;
   }
 
-  public IConfigurationOptionsHandler getConfigHandler() {
+  public IConfigurationOptionsHandler getConfigurationHandler() {
     return configHandler;
   }
 

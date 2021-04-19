@@ -13,7 +13,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
 import vision.voltsofdoom.silverspark.api.ITextureAtlas;
+import vision.voltsofdoom.voltsofdoom.main.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.resource.zip.ZipFileReader;
 
 public class TextureManager {
@@ -102,20 +106,56 @@ public class TextureManager {
     // Make a list of the manifests
     List<TexturePackManifest> manifests = new ArrayList<>();
     getListOfJavaObjectTexturePackManifests(children, manifests);
-    
+
     // Combine and override textures
-    
+    // a) Get priorities
+    JsonArray texturePackPriorityJsonArray = VoltsOfDoom.getInstance().getConfigurationHandler().getOption("texture_manager.texture_pack_priority").getAsJsonArray();
+    getArrayOfPrioritisedTexturePacks(texturePackPriorityJsonArray);
+    // b) Load <String textureName, String packName> in order of last -> first priority
+    // (so that higher priorities overwrite lower ones)
+
     // Read each image. Make a list of nodes with their dimensions.
-    
+
     // Order nodes by width
-    
+
     // Fit into layout
-    
+
     // For each closed node: get name -> get PNG -> add to atlas image -> add coordinate reference
-    
+
     // Write atlas image to system
 
     return;
+  }
+
+  /**
+   * Given a {@link JsonArray}, gets a list of all strings in the {@link JsonArray} and converts them
+   * into a String[].
+   * 
+   * @param texturePackPriorityJsonArray
+   */
+  private void getArrayOfPrioritisedTexturePacks(JsonArray texturePackPriorityJsonArray) {
+    String[] texturePackPriorityStrings = new String[texturePackPriorityJsonArray.size()];
+    int i = 0;
+
+    for (JsonElement element : texturePackPriorityJsonArray) {
+
+      // Ensure is primitive
+      if (!element.isJsonPrimitive()) {
+        LOGGER.warn("JsonElement is not a primitive: " + element);
+        return;
+      }
+      JsonPrimitive primitive = (JsonPrimitive) element;
+
+      // Ensure is string
+      if (!primitive.isString()) {
+        LOGGER.warn("JsonPrimitive is not a string: " + primitive);
+        return;
+      }
+      String content = primitive.getAsString();
+
+      texturePackPriorityStrings[i] = content;
+      i++;
+    }
   }
 
   private void getListOfJavaObjectTexturePackManifests(File[] children, List<TexturePackManifest> manifests) throws ZipException, IOException {
