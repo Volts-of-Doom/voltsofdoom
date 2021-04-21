@@ -2,7 +2,7 @@ package vision.voltsofdoom.zapbyte.resource;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import vision.voltsofdoom.zapbyte.main.ZapByte;
+import vision.voltsofdoom.zapbyte.ZapByte;
 
 public class ZBSystemResourceHandler implements ISystemResourceHandler {
 

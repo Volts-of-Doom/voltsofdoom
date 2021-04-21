@@ -17,7 +17,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import vision.voltsofdoom.silverspark.api.ITextureAtlas;
-import vision.voltsofdoom.voltsofdoom.main.VoltsOfDoom;
+import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.resource.zip.ZipFileReader;
 
 public class TextureManager {

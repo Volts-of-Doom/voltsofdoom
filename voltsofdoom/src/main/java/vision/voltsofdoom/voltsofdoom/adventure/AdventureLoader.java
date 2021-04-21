@@ -14,16 +14,16 @@ import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.adventure.Sheet.ISheetType;
-import vision.voltsofdoom.voltsofdoom.main.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.registry.TypeRegistries;
 import vision.voltsofdoom.voltsofdoom.resource.json.GsonHandler;
 import vision.voltsofdoom.voltsofdoom.resource.zip.ZipFileReader;
 import vision.voltsofdoom.voltsofdoom.util.ExitCodes;
 import vision.voltsofdoom.voltsofdoom.util.Reference;
+import vision.voltsofdoom.zapbyte.ZapByteReference;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.event.Stowaway;
-import vision.voltsofdoom.zapbyte.main.ZapByteReference;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
 /**

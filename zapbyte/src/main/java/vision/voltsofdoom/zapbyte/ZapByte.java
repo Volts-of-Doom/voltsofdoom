@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.main;
+package vision.voltsofdoom.zapbyte;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,6 +21,8 @@ import vision.voltsofdoom.api.zapyte.config.IConfigurationOptionsHandler;
 import vision.voltsofdoom.zapbyte.config.ConfigurationFileSerializer;
 import vision.voltsofdoom.zapbyte.config.StreamedConfigurationOptionsHandler;
 import vision.voltsofdoom.zapbyte.reflectory.Reflectory;
+import vision.voltsofdoom.zapbyte.registry2.IRegistry2;
+import vision.voltsofdoom.zapbyte.registry2.Registry2;
 import vision.voltsofdoom.zapbyte.resource.ISystemResourceHandler;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
@@ -39,6 +41,7 @@ public abstract class ZapByte {
   private static final String ZAPBYTE = "zapbyte";
   private ISystemResourceHandler systemResourceHandler;
   private Reflectory reflectory;
+  private IRegistry2 registry;
 
   public static Logger LOGGER;
 
@@ -94,6 +97,11 @@ public abstract class ZapByte {
     // Set the system resource handler
     LOGGER.info("Configuring ISystemResourceHandler");
     setSystemResourceHandler(guicer.getInjector().getInstance(ZBSystemResourceHandler.class));
+    LOGGER.debug("Done");
+
+    // Make a registry (which is currently blank)
+    LOGGER.info("Constructing blank registry");
+    registry = new Registry2();
     LOGGER.debug("Done");
 
     LOGGER.info("ZapByte is now constructed.");
@@ -212,6 +220,10 @@ public abstract class ZapByte {
 
   public ISystemResourceHandler getSystemResourceHandler() {
     return systemResourceHandler;
+  }
+  
+  public IRegistry2 getRegistry() {
+    return registry;
   }
 
   /**

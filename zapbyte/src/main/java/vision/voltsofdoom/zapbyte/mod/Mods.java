@@ -12,7 +12,8 @@ import vision.voltsofdoom.zapbyte.reflectory.Reflectory;
  *
  */
 public class Mods {
-  public static LinkedHashMap<String, Mod> mods = new LinkedHashMap<String, Mod>();
+  public static LinkedHashMap<String, Mod> mods = new LinkedHashMap<>();
+  public static LinkedHashMap<Class<?>, Object> instances = new LinkedHashMap<>();
 
   public static void generate(Collection<Reflectory> collection) {
     for (Reflectory reflectory : collection) {
@@ -34,5 +35,23 @@ public class Mods {
 
   public static Collection<Mod> values() {
     return mods.values();
+  }
+
+  public static void instances(Collection<Reflectory> values) {
+    for (Reflectory reflectory : values) {
+      Set<Class<?>> set = reflectory.getReflections().getTypesAnnotatedWith(Mod.class);
+      for (Class<?> clazz : set) {
+        try {
+          
+          Object modInstance = clazz.newInstance();
+          instances.put(clazz, modInstance);
+          
+        } catch (InstantiationException in) {
+          in.printStackTrace();
+        } catch (IllegalAccessException ia) {
+          ia.printStackTrace();
+        }
+      }
+    }
   }
 }

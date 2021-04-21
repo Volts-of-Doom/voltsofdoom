@@ -1,13 +1,13 @@
 package vision.voltsofdoom.voltsofdoom.registry;
 
 import com.google.common.collect.ImmutableList;
+import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.adventure.Adventure;
 import vision.voltsofdoom.voltsofdoom.entity.Entity;
-import vision.voltsofdoom.voltsofdoom.main.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.tile.Tile;
+import vision.voltsofdoom.zapbyte.ZapByte;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.event.Stowaway;
-import vision.voltsofdoom.zapbyte.main.ZapByte;
 import vision.voltsofdoom.zapbyte.registry.RegistryType;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 

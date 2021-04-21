@@ -1,7 +1,5 @@
-package vision.voltsofdoom.zapbyte.main;
+package vision.voltsofdoom.zapbyte;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.zapbyte.event.BandWagon;
 import vision.voltsofdoom.zapbyte.event.LoadingEvent;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
@@ -46,6 +44,12 @@ public class DefaultZapBits {
     // 3) Scan for @Mods
     LoadingWindow.loadingWindow.setStatus(ILoadingWindowStatus.LOCATING_MODS);
     Mods.generate(Reflectories.values());
+  });
+  
+  public static final ZapBit MAKE_MOD_INSTANCES_31 = new ZapBit("make_mod_instances_31", 31, () -> {
+    // 3) Scan for @Mods
+    LoadingWindow.loadingWindow.setStatus(ILoadingWindowStatus.LOCATING_MODS);
+    Mods.instances(Reflectories.values());
   });
 
   // STAGE 4

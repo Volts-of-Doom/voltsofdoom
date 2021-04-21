@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.main;
+package vision.voltsofdoom.zapbyte;
 
 import java.io.File;
 

@@ -1,4 +1,4 @@
-package vision.voltsofdoom.voltsofdoom.main;
+package vision.voltsofdoom.voltsofdoom;
 
 import javax.annotation.Nullable;
 import org.slf4j.Logger;
@@ -11,9 +11,9 @@ import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.guice.GuiceModule;
 import vision.voltsofdoom.voltsofdoom.resource.image.TextureManager;
 import vision.voltsofdoom.voltsofdoom.util.Reference;
-import vision.voltsofdoom.zapbyte.main.DefaultZapBits;
-import vision.voltsofdoom.zapbyte.main.ZapBit;
-import vision.voltsofdoom.zapbyte.main.ZapByte;
+import vision.voltsofdoom.zapbyte.DefaultZapBits;
+import vision.voltsofdoom.zapbyte.ZapBit;
+import vision.voltsofdoom.zapbyte.ZapByte;
 
 /**
  * The main class for Volts of Doom's Core System. The game starts running here. In the case that
@@ -75,6 +75,7 @@ public class VoltsOfDoom extends ZapByte {
     addZapBit(VODZapBits.ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19);
     addZapBit(DefaultZapBits.CREATE_REFLECTORIES_20);
     addZapBit(DefaultZapBits.SCAN_FOR_MODS_30);
+    addZapBit(DefaultZapBits.MAKE_MOD_INSTANCES_31);
     addZapBit(DefaultZapBits.CREATE_BANDWAGON_40);
 
     addZapBit(DefaultZapBits.CREATE_REGISTRY_CREATE_REGISTRY_TYPES_50);

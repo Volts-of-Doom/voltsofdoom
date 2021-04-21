@@ -1,4 +1,4 @@
-package vision.voltsofdoom.voltsofdoom.main;
+package vision.voltsofdoom.voltsofdoom;
 
 import vision.voltsofdoom.zapbyte.registry.RegistryEntry;
 

@@ -2,7 +2,7 @@ package vision.voltsofdoom.zapbyte.resource;
 
 import java.io.File;
 import java.util.ArrayList;
-import vision.voltsofdoom.zapbyte.main.ZapByteReference;
+import vision.voltsofdoom.zapbyte.ZapByteReference;
 
 /**
  * Maps out the locations of jar files in the mods directory.

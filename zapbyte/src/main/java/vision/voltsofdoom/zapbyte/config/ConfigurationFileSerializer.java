@@ -12,7 +12,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import vision.voltsofdoom.zapbyte.main.ZapByteReference;
+import vision.voltsofdoom.zapbyte.ZapByteReference;
 
 public class ConfigurationFileSerializer {
 

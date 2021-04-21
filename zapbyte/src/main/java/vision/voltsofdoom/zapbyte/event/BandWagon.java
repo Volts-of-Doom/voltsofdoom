@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vision.voltsofdoom.zapbyte.main.ZapByte;
+import vision.voltsofdoom.zapbyte.ZapByte;
 import vision.voltsofdoom.zapbyte.reflectory.Reflectory;
 
 /**

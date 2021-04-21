@@ -2,9 +2,9 @@ package vision.voltsofdoom.voltsofdoom.registry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.adventure.Adventure;
 import vision.voltsofdoom.voltsofdoom.entity.Entity;
-import vision.voltsofdoom.voltsofdoom.main.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.tile.Tile;
 import vision.voltsofdoom.zapbyte.event.RegistryEvent;
 import vision.voltsofdoom.zapbyte.event.Stowaway;

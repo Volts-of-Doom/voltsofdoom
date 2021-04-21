@@ -1,8 +1,8 @@
-package vision.voltsofdoom.voltsofdoom.main;
+package vision.voltsofdoom.voltsofdoom;
 
 import vision.voltsofdoom.voltsofdoom.adventure.GenerateAdventuresEvent;
+import vision.voltsofdoom.zapbyte.ZapBit;
 import vision.voltsofdoom.zapbyte.event.BandWagon;
-import vision.voltsofdoom.zapbyte.main.ZapBit;
 import vision.voltsofdoom.zapbyte.reflectory.Reflectories;
 import vision.voltsofdoom.zapbyte.window.LoadingWindow;
 

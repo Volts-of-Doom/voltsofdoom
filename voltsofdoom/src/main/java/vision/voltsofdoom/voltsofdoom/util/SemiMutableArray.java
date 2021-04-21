@@ -3,7 +3,7 @@ package vision.voltsofdoom.voltsofdoom.util;
 import java.util.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vision.voltsofdoom.voltsofdoom.main.VoltsOfDoom;
+import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
 
 /**
  * An array which can only be added to and cleared.

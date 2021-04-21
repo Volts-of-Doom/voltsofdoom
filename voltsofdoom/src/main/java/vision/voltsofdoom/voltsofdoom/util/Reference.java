@@ -1,7 +1,7 @@
 package vision.voltsofdoom.voltsofdoom.util;
 
-import static vision.voltsofdoom.zapbyte.main.ZapByteReference.*;
-import vision.voltsofdoom.zapbyte.main.ZapByteReference;
+import static vision.voltsofdoom.zapbyte.ZapByteReference.*;
+import vision.voltsofdoom.zapbyte.ZapByteReference;
 
 /**
  * Holds variables which must be visible to the rest of the game. This primarily includes directory
