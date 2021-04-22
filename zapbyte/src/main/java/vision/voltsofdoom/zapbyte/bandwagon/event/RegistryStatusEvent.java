@@ -13,15 +13,15 @@ import vision.voltsofdoom.zapbyte.window.ILoadingWindowDetailedStatus;
  */
 public class RegistryStatusEvent implements IEvent {
 
-  private ZapByte zapbyte;
+  private ZapByte<?> zapbyte;
   private IRegistryStatus status;
 
-  public RegistryStatusEvent(ZapByte zapbyte, IRegistryStatus status) {
+  public RegistryStatusEvent(ZapByte<?> zapbyte, IRegistryStatus status) {
     this.zapbyte = zapbyte;
     this.status = status;
   }
   
-  public ZapByte getZapbyte() {
+  public ZapByte<?> getZapbyte() {
     return zapbyte;
   }
 
