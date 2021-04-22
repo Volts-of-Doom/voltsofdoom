@@ -2,7 +2,7 @@ package vision.voltsofdoom.zapbyte.bandwagon.event;
 
 import vision.voltsofdoom.zapbyte.ZapByte;
 import vision.voltsofdoom.zapbyte.bandwagon.BandWagon;
-import vision.voltsofdoom.zapbyte.registry2.IRegistryStatus;
+import vision.voltsofdoom.zapbyte.registry.IRegistryStatus;
 import vision.voltsofdoom.zapbyte.window.ILoadingWindowDetailedStatus;
 
 /**

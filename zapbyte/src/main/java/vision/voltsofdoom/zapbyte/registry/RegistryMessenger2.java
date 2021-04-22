@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.registry2;
+package vision.voltsofdoom.zapbyte.registry;
 
 import java.util.function.Supplier;
 import vision.voltsofdoom.zapbyte.resource.IResourceLocation;

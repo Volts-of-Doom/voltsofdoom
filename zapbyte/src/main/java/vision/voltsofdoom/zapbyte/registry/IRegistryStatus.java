@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.registry2;
+package vision.voltsofdoom.zapbyte.registry;
 
 public interface IRegistryStatus {
 

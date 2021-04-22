@@ -6,7 +6,7 @@ import vision.voltsofdoom.zapbyte.bandwagon.event.LoadingEvent;
 import vision.voltsofdoom.zapbyte.bandwagon.event.RegistryStatusEvent;
 import vision.voltsofdoom.zapbyte.mod.Mods;
 import vision.voltsofdoom.zapbyte.reflectory.Reflectories;
-import vision.voltsofdoom.zapbyte.registry2.IRegistryStatus;
+import vision.voltsofdoom.zapbyte.registry.IRegistryStatus;
 import vision.voltsofdoom.zapbyte.window.ILoadingWindowStatus;
 import vision.voltsofdoom.zapbyte.window.LoadingWindow;
 

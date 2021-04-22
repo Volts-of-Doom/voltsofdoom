@@ -1,6 +1,6 @@
 package vision.voltsofdoom.voltsofdoom;
 
-import vision.voltsofdoom.zapbyte.registry2.RegistryEntry;
+import vision.voltsofdoom.zapbyte.registry.RegistryEntry;
 
 /**
  * A concrete extension of {@link RegistryEntry} used for testing registries in a safe and contained

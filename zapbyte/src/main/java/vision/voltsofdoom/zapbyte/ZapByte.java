@@ -21,8 +21,8 @@ import vision.voltsofdoom.api.zapyte.config.IConfigurationOptionsHandler;
 import vision.voltsofdoom.zapbyte.config.ConfigurationFileSerializer;
 import vision.voltsofdoom.zapbyte.config.StreamedConfigurationOptionsHandler;
 import vision.voltsofdoom.zapbyte.reflectory.Reflectory;
-import vision.voltsofdoom.zapbyte.registry2.IRegistry2;
-import vision.voltsofdoom.zapbyte.registry2.Registry2;
+import vision.voltsofdoom.zapbyte.registry.IRegistry2;
+import vision.voltsofdoom.zapbyte.registry.Registry2;
 import vision.voltsofdoom.zapbyte.resource.ISystemResourceHandler;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
