@@ -2,7 +2,7 @@ package vision.voltsofdoom.voltsofdoom;
 
 import vision.voltsofdoom.voltsofdoom.adventure.GenerateAdventuresEvent;
 import vision.voltsofdoom.zapbyte.ZapBit;
-import vision.voltsofdoom.zapbyte.event.BandWagon;
+import vision.voltsofdoom.zapbyte.bandwagon.BandWagon;
 import vision.voltsofdoom.zapbyte.reflectory.Reflectories;
 import vision.voltsofdoom.zapbyte.window.LoadingWindow;
 
@@ -12,7 +12,7 @@ public class VODZapBits {
     Reflectories.addAdditionalClass(VoltsOfDoom.class);
   });
 
-  public static final ZapBit CREATE_REGISTRY_GENERATE_ADVENTURES_62 = new ZapBit("create_registry_generate_adventures_62", 62, () -> {
+  public static final ZapBit GENERATE_ADVENTURES_62 = new ZapBit("create_registry_generate_adventures_62", 62, () -> {
     LoadingWindow.loadingWindow.setDetailedStatus(GenerateAdventuresEvent.DETAILED_STATUS);
     BandWagon.playEvent(new GenerateAdventuresEvent());
   });

@@ -24,11 +24,9 @@ import vision.voltsofdoom.zapbyte.ZapByte;
  * @author GenElectrovise
  *
  */
-public class VoltsOfDoom extends ZapByte {
+public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
   
   private static final Logger LOGGER = LoggerFactory.getLogger(VoltsOfDoom.class);
-
-  private static VoltsOfDoom instance;
 
   private static final String ID = "voltsofdoom";
 
@@ -75,14 +73,11 @@ public class VoltsOfDoom extends ZapByte {
     addZapBit(VODZapBits.ADD_VOLTS_OF_DOOM_TO_ADDITIONAL_REFLECTORY_CLASSES_19);
     addZapBit(DefaultZapBits.CREATE_REFLECTORIES_20);
     addZapBit(DefaultZapBits.SCAN_FOR_MODS_30);
-    addZapBit(DefaultZapBits.MAKE_MOD_INSTANCES_31);
     addZapBit(DefaultZapBits.CREATE_BANDWAGON_40);
+    addZapBit(DefaultZapBits.MAKE_MOD_INSTANCES_50);
+    addZapBit(DefaultZapBits.FREEZE_REGISTRY_65);
 
-    addZapBit(DefaultZapBits.CREATE_REGISTRY_CREATE_REGISTRY_TYPES_50);
-    addZapBit(DefaultZapBits.CREATE_REGISTRY_CREATE_AND_SUBMIT_TYPE_REGISTRIES_54);
-    addZapBit(DefaultZapBits.CREATE_REGISTRY_POPULATE_TYPE_REGISTRIES_58);
-    addZapBit(VODZapBits.CREATE_REGISTRY_GENERATE_ADVENTURES_62);
-    addZapBit(DefaultZapBits.CREATE_REGISTRY_POLL_REGISTRY_TYPES_68);
+    addZapBit(VODZapBits.GENERATE_ADVENTURES_62);
 
     addZapBit(DefaultZapBits.CLOSE_LOADING_WINDOW_70);
   }
@@ -111,7 +106,7 @@ public class VoltsOfDoom extends ZapByte {
   }
 
   public static VoltsOfDoom getInstance() {
-    return instance != null ? instance : new VoltsOfDoom();
+    return instance != null ? (VoltsOfDoom) instance : new VoltsOfDoom();
   }
 
   public TextureManager getTextureManager() {

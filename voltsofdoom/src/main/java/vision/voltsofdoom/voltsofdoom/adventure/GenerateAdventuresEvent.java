@@ -1,6 +1,6 @@
 package vision.voltsofdoom.voltsofdoom.adventure;
 
-import vision.voltsofdoom.zapbyte.event.IEvent;
+import vision.voltsofdoom.zapbyte.bandwagon.event.IEvent;
 import vision.voltsofdoom.zapbyte.window.ILoadingWindowDetailedStatus;
 
 /**

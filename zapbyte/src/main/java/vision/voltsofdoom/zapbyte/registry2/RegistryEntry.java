@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.registry;
+package vision.voltsofdoom.zapbyte.registry2;
 
 import vision.voltsofdoom.zapbyte.ZapByte;
 import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
@@ -12,7 +12,7 @@ import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
  *
  * @param <T>
  */
-public abstract class RegistryEntry<T extends IRegistryEntry<T>> implements IRegistryEntry<T> {
+public abstract class RegistryEntry<T extends IRegistryEntry2<T>> implements IRegistryEntry2<T> {
 
   public IResourceLocation identifier;
 

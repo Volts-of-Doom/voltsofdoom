@@ -1,4 +1,4 @@
-package vision.voltsofdoom.zapbyte.event;
+package vision.voltsofdoom.zapbyte.bandwagon;
 
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.ElementType.TYPE;

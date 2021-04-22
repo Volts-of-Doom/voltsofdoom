@@ -31,10 +31,11 @@ import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
  * should extends this class. Its <code>main</code> method should create a new instance of itself
  * and call {@link #run()} to start the application.
  */
-public abstract class ZapByte {
+public abstract class ZapByte<Z extends ZapByte<Z>> {
+
+  protected static ZapByte<? extends ZapByte<?>> instance;
 
   private boolean launched = false;
-
   private Set<ZapBit> zapBits;
   private IConfigurationOptionsHandler configHandler;
   private Guicer guicer;
@@ -63,6 +64,8 @@ public abstract class ZapByte {
    */
   @SuppressWarnings("unused")
   public ZapByte(String applicationNamespace) {
+    
+    instance = this;
 
     System.out.println(" >>> WELCOME TO THE ZAPBYTE LOADER. ZAPBYTE IS NOW CONSTRUCTING. LOGGING WILL BE CONFIGURED FIRST. <<< ");
 
@@ -167,7 +170,7 @@ public abstract class ZapByte {
     configHandler.flatten();
     LOGGER.debug(configHandler.getOption("zapbyte.custom_configuration_test_success_message").getAsString());
     LOGGER.debug("Loaded ZapByte IConfigurationOptionsHandler configHandler");
-    
+
     // Get all into map
     LOGGER.debug("Mapping ZapBits");
     Map<Integer, ZapBit> bits = new HashMap<Integer, ZapBit>();
@@ -201,6 +204,10 @@ public abstract class ZapByte {
   }
 
   // Get
+  
+  public static ZapByte<? extends ZapByte<?>> getInstance() {
+    return instance;
+  }
 
   public static String getZapbyte() {
     return ZAPBYTE;
@@ -221,7 +228,7 @@ public abstract class ZapByte {
   public ISystemResourceHandler getSystemResourceHandler() {
     return systemResourceHandler;
   }
-  
+
   public IRegistry2 getRegistry() {
     return registry;
   }
