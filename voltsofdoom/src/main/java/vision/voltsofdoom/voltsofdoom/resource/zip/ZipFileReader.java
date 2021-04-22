@@ -12,7 +12,6 @@ import java.util.zip.ZipFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.stream.JsonReader;
-import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
 
 /**
  * Does some of the "grunt work" for reading from ZIP files.
