@@ -1,6 +1,5 @@
 package vision.voltsofdoom.zapbyte.registry2;
 
-import vision.voltsofdoom.zapbyte.registry.IRegistryEntry;
 import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
