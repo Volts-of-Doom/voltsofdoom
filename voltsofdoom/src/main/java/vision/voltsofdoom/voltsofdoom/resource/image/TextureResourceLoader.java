@@ -1,32 +1,19 @@
 package vision.voltsofdoom.voltsofdoom.resource.image;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Streams;
-import com.google.common.collect.UnmodifiableIterator;
-import com.google.common.collect.UnmodifiableListIterator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -121,7 +108,7 @@ public class TextureResourceLoader {
       throw new IllegalStateException("The TextureManager root file " + rootDirectoryPath + " is not a directory.");
 
     // Get a list of files in the directory
-    File[] children = findAndMapTexturePackZipFileObjectsToFileNames();
+    //File[] children = findAndMapTexturePackZipFileObjectsToFileNames();
 
     // Make a list of the manifests
     // List<TexturePackManifest> manifests = new ArrayList<>();
