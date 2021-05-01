@@ -20,6 +20,9 @@ public class TexturePackManifest {
 
   private String texturePackName;
   private String pathToZip;
+  /**
+   * Internal name -> texture
+   */
   private Map<String, String> mappings;
 
   public TexturePackManifest(String texturePackName, String pathToZip, Map<String, String> mappings) {
@@ -74,7 +77,7 @@ public class TexturePackManifest {
 
       String dTexturePackName = context.deserialize(object.get("texturePackName"), String.class);
       Map<String, String> dMappings = context.deserialize(object.get("mappings"), Map.class);
-      
+
       TexturePackManifest manifest = new TexturePackManifest(dTexturePackName, "unknown_texture_pack_name", dMappings);
 
       return manifest;

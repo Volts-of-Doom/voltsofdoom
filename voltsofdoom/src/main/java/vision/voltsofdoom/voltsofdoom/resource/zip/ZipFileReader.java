@@ -39,10 +39,10 @@ public class ZipFileReader {
   }
 
   public InputStream getStream(String pathToEntry) throws IOException, NullPointerException {
-    return getStream(pathToEntry, "Unable to reach file " + pathToEntry);
+    return getStream(pathToEntry, "Unable to reach file " + pathToEntry, false);
   }
 
-  public InputStream getStream(String pathToEntry, String failureMessage) {
+  public InputStream getStream(String pathToEntry, String failureMessage, boolean failVerbose) {
 
     pathToEntry.replace("\\", "/");
 
@@ -52,7 +52,7 @@ public class ZipFileReader {
       ZipEntry entry = zipFile.getEntry(pathToEntry);
 
       // In case of null entry
-      if (entry == null) {
+      if (entry == null && failVerbose) {
         LOGGER.error("ZipEntry null from path. This will result in a nulled stream.");
 
         // Log entries
@@ -67,8 +67,12 @@ public class ZipFileReader {
       stream = zipFile.getInputStream(entry);
 
     } catch (Exception e) {
-      LOGGER.error("Exception whilst fetching stream from ZipFile!");
-      e.printStackTrace();
+
+      if (failVerbose) {
+        LOGGER.error("Exception whilst fetching stream from ZipFile!");
+        e.printStackTrace();
+      }
+      
     }
 
     return stream;

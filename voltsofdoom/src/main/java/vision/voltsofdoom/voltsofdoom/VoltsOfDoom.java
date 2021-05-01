@@ -9,7 +9,7 @@ import com.google.inject.Injector;
 import vision.voltsofdoom.silverspark.Silverspark;
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.guice.GuiceModule;
-import vision.voltsofdoom.voltsofdoom.resource.image.TextureManager;
+import vision.voltsofdoom.voltsofdoom.resource.image.TextureResourceLoader;
 import vision.voltsofdoom.voltsofdoom.util.Reference;
 import vision.voltsofdoom.zapbyte.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.ZapBit;
@@ -31,7 +31,7 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
   private static final String ID = "voltsofdoom";
 
   @Nullable
-  private TextureManager textureManager;
+  private TextureResourceLoader textureManager;
 
   @Nullable
   private Game game;
@@ -87,7 +87,7 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
     LOGGER.info("Volts of Doom continuing execution...");
 
     // Create texture manager
-    TextureManager manager = new TextureManager(Reference.getTexturesDir());
+    TextureResourceLoader manager = new TextureResourceLoader(Reference.getTexturesDir());
     VoltsOfDoom.getInstance().setTextureManager(manager);
     manager.build(true);
 
@@ -109,11 +109,11 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
     return instance != null ? (VoltsOfDoom) instance : new VoltsOfDoom();
   }
 
-  public TextureManager getTextureManager() {
+  public TextureResourceLoader getTextureManager() {
     return textureManager;
   }
 
-  public void setTextureManager(TextureManager textureManager) {
+  public void setTextureManager(TextureResourceLoader textureManager) {
     this.textureManager = textureManager;
   }
 
