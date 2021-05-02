@@ -19,7 +19,7 @@ import com.google.gson.JsonSerializer;
  * @author GenElectrovise
  *
  */
-public class ResourceManifestFileResource implements IResource {
+public class ResourceManifestFileResource extends JsonObjectResource {
 
   private String texturePackName;
   private String pathToZip;
@@ -29,6 +29,7 @@ public class ResourceManifestFileResource implements IResource {
   private Map<String, String> mappings;
 
   public ResourceManifestFileResource(String texturePackName, String pathToZip, Map<String, String> mappings) {
+    super((String) null);
     this.texturePackName = texturePackName;
     this.pathToZip = pathToZip;
     this.mappings = mappings;
