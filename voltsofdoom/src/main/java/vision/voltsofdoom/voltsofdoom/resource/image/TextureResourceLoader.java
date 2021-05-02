@@ -21,6 +21,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import vision.voltsofdoom.silverspark.api.ITextureAtlas;
 import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
+import vision.voltsofdoom.voltsofdoom.resource.IResourcePack;
 import vision.voltsofdoom.voltsofdoom.resource.ResourceMapping;
 import vision.voltsofdoom.voltsofdoom.resource.ResourcePackManifestFileResource;
 import vision.voltsofdoom.voltsofdoom.resource.zip.ZipFileReader;
@@ -156,6 +157,8 @@ public class TextureResourceLoader {
         prioritisedRawTexturePackNames[i] = null;
         continue;
       }
+      
+      IResourcePack resourcePack = 
 
       // Make a ZIP file of the resource pack, and make it close automatically on exiting ZIP logic.
       try (ZipFile zipFile = new ZipFile(packFile)) {

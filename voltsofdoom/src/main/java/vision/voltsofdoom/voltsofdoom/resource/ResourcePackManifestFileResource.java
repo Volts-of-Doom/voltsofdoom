@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.Map;
+import java.util.Optional;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -21,17 +22,20 @@ import com.google.gson.JsonSerializer;
  */
 public class ResourcePackManifestFileResource extends JsonObjectResource {
 
-  private String texturePackName;
-  private String pathToZip;
   /**
-   * Internal name -> texture
+   * Internal name -> resource name. i.e. "cobble_tile"="cobble_tile.png"
    */
   private Map<String, String> mappings;
 
-  public ResourcePackManifestFileResource(String texturePackName, String pathToZip, Map<String, String> mappings) {
-    super((String) null);
-    this.texturePackName = texturePackName;
-    this.pathToZip = pathToZip;
+  private Optional<IResourcePack> parentPack = Optional.of(null);
+
+  public ResourcePackManifestFileResource(String json, Map<String, String> mappings) {
+    super(json);
+    this.mappings = mappings;
+  }
+
+  public ResourcePackManifestFileResource(JsonObject json, Map<String, String> mappings) {
+    super(json);
     this.mappings = mappings;
   }
 
@@ -41,37 +45,26 @@ public class ResourcePackManifestFileResource extends JsonObjectResource {
     return new ByteArrayInputStream(contents.getBytes());
   }
 
-  public String getTexturePackName() {
-    return texturePackName;
-  }
-
-  public void setTexturePackName(String texturePackName) {
-    this.texturePackName = texturePackName;
-  }
-
-  public String getPathToZip() {
-    return pathToZip;
-  }
-
-  public void setPathToZip(String pathToZip) {
-    this.pathToZip = pathToZip;
-  }
-
   public Map<String, String> getMappings() {
     return mappings;
   }
 
-  public void setMappings(Map<String, String> mappings) {
-    this.mappings = mappings;
+  public Optional<IResourcePack> getParentPack() {
+    return parentPack;
   }
 
+  /**
+   * JSON de/serialisation for {@link ResourcePackManifestFileResource}.
+   * 
+   * @author GenElectrovise
+   *
+   */
   public static class Serializer implements JsonSerializer<ResourcePackManifestFileResource>, JsonDeserializer<ResourcePackManifestFileResource> {
 
     @Override
     public JsonElement serialize(ResourcePackManifestFileResource manifest, Type manifestTypeToken, JsonSerializationContext context) {
       JsonObject object = new JsonObject();
 
-      object.addProperty("texturePackName", manifest.texturePackName);
       object.add("mappings", context.serialize(manifest.mappings));
 
       return object;
@@ -85,10 +78,9 @@ public class ResourcePackManifestFileResource extends JsonObjectResource {
       }
       JsonObject object = (JsonObject) element;
 
-      String dTexturePackName = context.deserialize(object.get("texturePackName"), String.class);
       Map<String, String> dMappings = context.deserialize(object.get("mappings"), Map.class);
 
-      ResourcePackManifestFileResource manifest = new ResourcePackManifestFileResource(dTexturePackName, "unknown_texture_pack_name", dMappings);
+      ResourcePackManifestFileResource manifest = new ResourcePackManifestFileResource(object, dMappings);
 
       return manifest;
     }

@@ -7,8 +7,8 @@ package vision.voltsofdoom.voltsofdoom.resource;
  * @author GenElectrovise
  *
  */
-public interface IResourcePack {
-
+public interface IResourcePack extends IResource {
+  
   ResourcePackInfoFileResource getPackInfo();
 
   IResource getResource();
