@@ -1,4 +1,4 @@
-package vision.voltsofdoom.voltsofdoom.resource.image;
+package vision.voltsofdoom.voltsofdoom.resource;
 
 public class ResourceMapping {
 

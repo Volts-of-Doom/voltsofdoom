@@ -1,7 +1,10 @@
-package vision.voltsofdoom.voltsofdoom.resource.image;
+package vision.voltsofdoom.voltsofdoom.resource;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.Map;
+import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -16,7 +19,7 @@ import com.google.gson.JsonSerializer;
  * @author GenElectrovise
  *
  */
-public class TexturePackManifest {
+public class ResourceManifestFileResource implements IResource {
 
   private String texturePackName;
   private String pathToZip;
@@ -25,10 +28,16 @@ public class TexturePackManifest {
    */
   private Map<String, String> mappings;
 
-  public TexturePackManifest(String texturePackName, String pathToZip, Map<String, String> mappings) {
+  public ResourceManifestFileResource(String texturePackName, String pathToZip, Map<String, String> mappings) {
     this.texturePackName = texturePackName;
     this.pathToZip = pathToZip;
     this.mappings = mappings;
+  }
+
+  @Override
+  public InputStream getInputStream() {
+    String contents = new Gson().toJson(mappings, Map.class);
+    return new ByteArrayInputStream(contents.getBytes());
   }
 
   public String getTexturePackName() {
@@ -55,10 +64,10 @@ public class TexturePackManifest {
     this.mappings = mappings;
   }
 
-  public static class Serializer implements JsonSerializer<TexturePackManifest>, JsonDeserializer<TexturePackManifest> {
+  public static class Serializer implements JsonSerializer<ResourceManifestFileResource>, JsonDeserializer<ResourceManifestFileResource> {
 
     @Override
-    public JsonElement serialize(TexturePackManifest manifest, Type manifestTypeToken, JsonSerializationContext context) {
+    public JsonElement serialize(ResourceManifestFileResource manifest, Type manifestTypeToken, JsonSerializationContext context) {
       JsonObject object = new JsonObject();
 
       object.addProperty("texturePackName", manifest.texturePackName);
@@ -68,7 +77,7 @@ public class TexturePackManifest {
     }
 
     @Override
-    public TexturePackManifest deserialize(JsonElement element, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    public ResourceManifestFileResource deserialize(JsonElement element, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
       if (!(element instanceof JsonObject)) {
         throw new JsonParseException("TexturePackManifests (from manifest.json in a texture pack) must be JsonObjects.");
@@ -78,7 +87,7 @@ public class TexturePackManifest {
       String dTexturePackName = context.deserialize(object.get("texturePackName"), String.class);
       Map<String, String> dMappings = context.deserialize(object.get("mappings"), Map.class);
 
-      TexturePackManifest manifest = new TexturePackManifest(dTexturePackName, "unknown_texture_pack_name", dMappings);
+      ResourceManifestFileResource manifest = new ResourceManifestFileResource(dTexturePackName, "unknown_texture_pack_name", dMappings);
 
       return manifest;
     }

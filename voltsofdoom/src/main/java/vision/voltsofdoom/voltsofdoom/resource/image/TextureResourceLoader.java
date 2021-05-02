@@ -21,6 +21,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import vision.voltsofdoom.silverspark.api.ITextureAtlas;
 import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
+import vision.voltsofdoom.voltsofdoom.resource.ResourceMapping;
+import vision.voltsofdoom.voltsofdoom.resource.ResourceManifestFileResource;
 import vision.voltsofdoom.voltsofdoom.resource.zip.ZipFileReader;
 import vision.voltsofdoom.voltsofdoom.util.Reference;
 
@@ -34,7 +36,7 @@ public class TextureResourceLoader {
   private String rootDirectoryPath;
   private ITextureAtlas atlas;
   private boolean built;
-  private final Gson GSON = new GsonBuilder().registerTypeAdapter(TexturePackManifest.class, new TexturePackManifest.Serializer()).setPrettyPrinting().create();
+  private final Gson GSON = new GsonBuilder().registerTypeAdapter(ResourceManifestFileResource.class, new ResourceManifestFileResource.Serializer()).setPrettyPrinting().create();
   private File rootDirectoryFile;
 
   public TextureResourceLoader(String rootDirectory) {
@@ -160,7 +162,7 @@ public class TextureResourceLoader {
 
         // Get the manifest
         ZipFileReader reader = new ZipFileReader(zipFile);
-        TexturePackManifest manifest = GSON.fromJson(new InputStreamReader(reader.getStream(TEXTURE_MANIFEST_LOCATION)), TexturePackManifest.class);
+        ResourceManifestFileResource manifest = GSON.fromJson(new InputStreamReader(reader.getStream(TEXTURE_MANIFEST_LOCATION)), ResourceManifestFileResource.class);
         manifest.setTexturePackName(packFile.getName());
 
         // For each mapping in the manifest
@@ -242,7 +244,7 @@ public class TextureResourceLoader {
     return texturePackPriorityStrings;
   }
 
-  private void getListOfJavaObjectTexturePackManifests(File[] children, List<TexturePackManifest> manifests) throws ZipException, IOException {
+  private void getListOfJavaObjectTexturePackManifests(File[] children, List<ResourceManifestFileResource> manifests) throws ZipException, IOException {
     for (File child : children) {
 
       // Get a new ZIP reader
@@ -256,7 +258,7 @@ public class TextureResourceLoader {
 
       // Get a stream of the contents
       InputStream manifestStream = reader.getStream("manifest.json", "Error reading manifest for ZIP file " + child, true);
-      TexturePackManifest manifest = GSON.fromJson(new InputStreamReader(manifestStream), TexturePackManifest.class);
+      ResourceManifestFileResource manifest = GSON.fromJson(new InputStreamReader(manifestStream), ResourceManifestFileResource.class);
       manifest.setPathToZip(child.getAbsolutePath());
 
       manifests.add(manifest);
