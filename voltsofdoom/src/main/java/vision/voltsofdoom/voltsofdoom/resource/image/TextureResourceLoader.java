@@ -3,17 +3,16 @@ package vision.voltsofdoom.voltsofdoom.resource.image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipException;
-import java.util.zip.ZipFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -24,8 +23,6 @@ import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.resource.IResourcePack;
 import vision.voltsofdoom.voltsofdoom.resource.ResourceMapping;
 import vision.voltsofdoom.voltsofdoom.resource.ResourcePackManifestFileResource;
-import vision.voltsofdoom.voltsofdoom.resource.zip.ZipFileReader;
-import vision.voltsofdoom.voltsofdoom.util.Reference;
 
 public class TextureResourceLoader {
 
@@ -111,7 +108,7 @@ public class TextureResourceLoader {
       throw new IllegalStateException("The TextureManager root file " + rootDirectoryPath + " is not a directory.");
 
     // Get a list of files in the directory
-    //File[] children = findAndMapTexturePackZipFileObjectsToFileNames();
+    // File[] children = findAndMapTexturePackZipFileObjectsToFileNames();
 
     // Make a list of the manifests
     // List<TexturePackManifest> manifests = new ArrayList<>();
@@ -121,10 +118,11 @@ public class TextureResourceLoader {
     // a) Get priorities
     JsonArray texturePackPriorityJsonArray = VoltsOfDoom.getInstance().getConfigurationHandler().getOption("texture_manager.texture_pack_priority").getAsJsonArray();
     String[] prioritisedRawTexturePackNames = getArrayOfPrioritisedTexturePacks(texturePackPriorityJsonArray);
+    List<IResourcePack> packs = findResourcePacks();
     // b) Load <String textureName, String packName> in order of last -> first priority
     // (so that higher priorities overwrite lower ones)
     Map<String, ResourceMapping> textureNameToPackName = new HashMap<String, ResourceMapping>();
-    loadTextureNameMapPackNameInLastToFirstPriority(prioritisedRawTexturePackNames, textureNameToPackName);
+    loadTextureNameMapPackNameInLastToFirstPriority(packs, textureNameToPackName);
     writePrioritiesBackToConfiguration(prioritisedRawTexturePackNames);
 
     // Read each image. Make a list of nodes with their dimensions.
@@ -145,73 +143,47 @@ public class TextureResourceLoader {
     return;
   }
 
-  private void loadTextureNameMapPackNameInLastToFirstPriority(String[] prioritisedRawTexturePackNames, Map<String, ResourceMapping> textureNameToPackName) {
-
-    // Start at last index, iterate through 0
-    for (int i = prioritisedRawTexturePackNames.length - 1; i > -1; i--) {
-      File packFile = new File(Reference.getTexturesDir() + prioritisedRawTexturePackNames[i]);
-
-      // Make sure the file exists. If not ignore it forever.
-      if (!packFile.exists()) {
-        LOGGER.warn("Texture pack " + packFile + " does not exist. References will be nulled internally, and will be removed from configuration.");
-        prioritisedRawTexturePackNames[i] = null;
-        continue;
-      }
-      
-      IResourcePack resourcePack = 
-
-      // Make a ZIP file of the resource pack, and make it close automatically on exiting ZIP logic.
-      try (ZipFile zipFile = new ZipFile(packFile)) {
-
-        // Get the manifest
-        ZipFileReader reader = new ZipFileReader(zipFile);
-        ResourcePackManifestFileResource manifest = GSON.fromJson(new InputStreamReader(reader.getStream(TEXTURE_MANIFEST_LOCATION)), ResourcePackManifestFileResource.class);
-        manifest.setTexturePackName(packFile.getName());
-
-        // For each mapping in the manifest
-        for (String texturePath : manifest.getMappings().values()) {
-
-          String workingWith = texturePath;
-
-          if (texturePath.startsWith("textures/")) {
-            workingWith = workingWith.replaceFirst("textures/", "");
-          }
-
-          // Does the specified texture exist?
-          if (reader.getStream(TEXTURE_INTERNAL_PATH_PREFIX + workingWith) != null) {
-
-            // Create an inverted view of the mappings
-            BiMap<String, String> invertedManifestMappings = HashBiMap.create(manifest.getMappings()).inverse();
-
-            // Put the newly generated mapping into the map
-            String mappedName = invertedManifestMappings.get(texturePath);
-            String texturePackName = manifest.getTexturePackName();
-            String internalGameMapping = invertedManifestMappings.get(texturePath);
-            ResourceMapping mappedResource = new ResourceMapping(texturePath, texturePackName, internalGameMapping);
-            textureNameToPackName.put(mappedName, mappedResource);
-          }
-        }
-
-      } catch (ZipException zi) {
-        LOGGER.error("ZipException occured while reading the ZIP of resource pack file " + packFile + ". It will be ignored.");
-        zi.printStackTrace();
-        continue;
-      } catch (IOException io) {
-        LOGGER.error("IOException occured while reading the ZIP of resource pack file " + packFile + ". It will be ignored.");
-        io.printStackTrace();
-        continue;
-      }
-      
-      LOGGER.debug("Done creating texture mappings for " + packFile);
-
-    }
-    
-    LOGGER.debug("Done creating all texture mappings.");
-
+  private List<IResourcePack> findResourcePacks() {
+    return Lists.newArrayList();
   }
 
-  private File[] findAndMapTexturePackZipFileObjectsToFileNames() {
-    return rootDirectoryFile.listFiles((file, name) -> name.endsWith(".zip"));
+  private void loadTextureNameMapPackNameInLastToFirstPriority(List<IResourcePack> packs, Map<String, ResourceMapping> textureNameToPackName) {
+
+    // Start at last index, iterate through 0
+    for (IResourcePack pack : packs) {
+
+      // Get the manifest
+      ResourcePackManifestFileResource manifest = GSON.fromJson(new InputStreamReader(pack.getResource(TEXTURE_MANIFEST_LOCATION).getInputStream()), ResourcePackManifestFileResource.class);
+
+      // For each mapping in the manifest
+      for (String texturePath : manifest.getMappings().values()) {
+
+        String workingWith = texturePath;
+
+        if (texturePath.startsWith("textures/")) {
+          workingWith = workingWith.replaceFirst("textures/", "");
+        }
+
+        // Does the specified texture exist?
+        if (pack.getResource(TEXTURE_INTERNAL_PATH_PREFIX + workingWith) != null) {
+
+          // Create an inverted view of the mappings
+          BiMap<String, String> invertedManifestMappings = HashBiMap.create(manifest.getMappings()).inverse();
+
+          // Put the newly generated mapping into the map
+          String mappedName = invertedManifestMappings.get(texturePath);
+          String internalGameMapping = invertedManifestMappings.get(texturePath);
+          ResourceMapping mappedResource = new ResourceMapping(texturePath, pack.getIdentifier().toString(), internalGameMapping);
+          textureNameToPackName.put(mappedName, mappedResource);
+        }
+      }
+
+      LOGGER.debug("Done creating texture mappings for " + pack.getDisplayName());
+
+    }
+
+    LOGGER.debug("Done creating all texture mappings.");
+
   }
 
   /**
@@ -245,27 +217,6 @@ public class TextureResourceLoader {
     }
 
     return texturePackPriorityStrings;
-  }
-
-  private void getListOfJavaObjectTexturePackManifests(File[] children, List<ResourcePackManifestFileResource> manifests) throws ZipException, IOException {
-    for (File child : children) {
-
-      // Get a new ZIP reader
-      ZipFileReader reader = new ZipFileReader(new ZipFile(child));
-
-      // If there is no manifest, skip this file
-      if (reader.getZipFile().getEntry("manifest.json") == null) {
-        LOGGER.error("manifest.json is null for file " + child + " so it will not be loaded");
-        continue;
-      }
-
-      // Get a stream of the contents
-      InputStream manifestStream = reader.getStream("manifest.json", "Error reading manifest for ZIP file " + child, true);
-      ResourcePackManifestFileResource manifest = GSON.fromJson(new InputStreamReader(manifestStream), ResourcePackManifestFileResource.class);
-      manifest.setPathToZip(child.getAbsolutePath());
-
-      manifests.add(manifest);
-    }
   }
 
   public boolean isBuilt() {
