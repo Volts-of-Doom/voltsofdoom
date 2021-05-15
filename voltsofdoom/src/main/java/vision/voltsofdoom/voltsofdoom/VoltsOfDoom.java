@@ -9,11 +9,16 @@ import com.google.inject.Injector;
 import vision.voltsofdoom.silverspark.Silverspark;
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.guice.GuiceModule;
+import vision.voltsofdoom.voltsofdoom.resource.RegisterableResourceLoader;
 import vision.voltsofdoom.voltsofdoom.resource.image.TextureResourceLoader;
 import vision.voltsofdoom.voltsofdoom.util.Reference;
 import vision.voltsofdoom.zapbyte.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.ZapBit;
 import vision.voltsofdoom.zapbyte.ZapByte;
+import vision.voltsofdoom.zapbyte.ZapByteReference;
+import vision.voltsofdoom.zapbyte.registry.IRegistryMessenger2;
+import vision.voltsofdoom.zapbyte.registry.RegistryMessenger2;
+import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
 
 /**
  * The main class for Volts of Doom's Core System. The game starts running here. In the case that
@@ -25,7 +30,7 @@ import vision.voltsofdoom.zapbyte.ZapByte;
  *
  */
 public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
-  
+
   private static final Logger LOGGER = LoggerFactory.getLogger(VoltsOfDoom.class);
 
   private static final String ID = "voltsofdoom";
@@ -89,7 +94,7 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
     // Create texture manager
     TextureResourceLoader manager = new TextureResourceLoader(Reference.getTexturesDir());
     VoltsOfDoom.getInstance().setTextureManager(manager);
-    manager.build(true);
+    manager.load(true);
 
     // Create game
     // Silverspark spark = new Silverspark();
@@ -140,5 +145,25 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
 
   public Silverspark getSilverspark() {
     return silverspark;
+  }
+
+  /**
+   * A mod 'owned' by the Volts of Doom game itself which is used for adding to game registries etc
+   * like a normal mod would.
+   * 
+   * @author GenElectrovise
+   *
+   */
+  @vision.voltsofdoom.zapbyte.mod.Mod(modid = VoltsOfDoom.CoreMod.MODID)
+  public static class CoreMod {
+    public static final String MODID = "voltsofdoom";
+    private static final Logger LOGGER = LoggerFactory.getLogger(VoltsOfDoom.CoreMod.class);
+
+    public CoreMod() {
+      LOGGER.info("Constructing " + this.getClass().getTypeName());
+    }
+
+    public static final IRegistryMessenger2<RegisterableResourceLoader> TEXTURES =
+        VoltsOfDoom.getInstance().getRegistry().register(new ResourceLocation(MODID, "textures"), () -> new TextureResourceLoader(ZapByteReference.getResources()), RegisterableResourceLoader.class);
   }
 }

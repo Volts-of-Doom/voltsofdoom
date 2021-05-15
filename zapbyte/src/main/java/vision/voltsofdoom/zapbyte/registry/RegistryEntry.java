@@ -1,6 +1,7 @@
 package vision.voltsofdoom.zapbyte.registry;
 
-import vision.voltsofdoom.zapbyte.ZapByte;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
 
 /**
@@ -15,13 +16,13 @@ import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
 public abstract class RegistryEntry<T extends IRegistryEntry2<T>> implements IRegistryEntry2<T> {
 
   public IResourceLocation identifier;
+  private static final Logger LOGGER = LoggerFactory.getLogger(RegistryEntry.class);
 
   @Override
   public IResourceLocation getIdentifier() {
 
     if (identifier == null) {
-      ZapByte.LOGGER.warn(
-          "Registry entry returning a null identifier! Going on with it, but this may cause issues later!");
+      LOGGER.warn("Registry entry returning a null identifier! Going on with it, but this may cause issues later!");
     }
 
     return identifier;
@@ -30,8 +31,7 @@ public abstract class RegistryEntry<T extends IRegistryEntry2<T>> implements IRe
   @Override
   public void setIdentifier(IResourceLocation identifier) {
     if (getIdentifier() != null) {
-      throw new IllegalStateException("Cannot assign new identifier ('" + identifier
-          + "') to a RegistryEntry which already has an identifier ('" + getIdentifier() + "')!");
+      throw new IllegalStateException("Cannot assign new identifier ('" + identifier + "') to a RegistryEntry which already has an identifier ('" + getIdentifier() + "')!");
     }
 
     this.identifier = identifier;

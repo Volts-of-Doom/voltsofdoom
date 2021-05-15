@@ -21,40 +21,38 @@ import com.google.gson.JsonPrimitive;
 import vision.voltsofdoom.silverspark.api.ITextureAtlas;
 import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.resource.IResourcePack;
+import vision.voltsofdoom.voltsofdoom.resource.RegisterableResourceLoader;
 import vision.voltsofdoom.voltsofdoom.resource.ResourceMapping;
 import vision.voltsofdoom.voltsofdoom.resource.ResourcePackManifestFileResource;
 
-public class TextureResourceLoader {
+public class TextureResourceLoader extends RegisterableResourceLoader {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TextureResourceLoader.class);
 
   private static final String TEXTURE_MANIFEST_LOCATION = "manifest.json";
   private static final String TEXTURE_INTERNAL_PATH_PREFIX = "textures/";
 
-  private String rootDirectoryPath;
   private ITextureAtlas atlas;
-  private boolean built;
   private final Gson GSON = new GsonBuilder().registerTypeAdapter(ResourcePackManifestFileResource.class, new ResourcePackManifestFileResource.Serializer()).setPrettyPrinting().create();
   private File rootDirectoryFile;
 
   public TextureResourceLoader(String rootDirectory) {
-    this.rootDirectoryPath = rootDirectory;
-    this.built = false;
+    super(rootDirectory, false);
   }
 
-  public void build() {
-    build(false);
+  public void load() {
+    load(false);
   }
 
   /**
-   * Conceals a call to {@link #inner_build(boolean)} and handles errors for that call.
+   * Conceals a call to {@link #inner_load(boolean)} and handles errors for that call.
    * 
-   * @param forceRebuild
+   * @param forceReload
    */
-  public void build(boolean forceRebuild) {
+  public void load(boolean forceReload) {
     try {
 
-      inner_build(forceRebuild);
+      inner_load(forceReload);
 
     } catch (FileNotFoundException fi) {
       LOGGER.error("An error has occurred building the TextureManager! (An expected file cannot be found)");
@@ -77,35 +75,35 @@ public class TextureResourceLoader {
   /**
    * Builds the {@link TextureResourceLoader}. Private so that it can handle its own errors.
    * 
-   * @param forceRebuild Sometimes a rebuild is not expected or desired. Use this option to force a
+   * @param forceReload Sometimes a rebuild is not expected or desired. Use this option to force a
    *        rebuild whether the program likes it or not. <i>"Be wary, adventurer..."</i>
    * @throws IOException
    * @throws ZipException
    */
-  private void inner_build(boolean forceRebuild) throws FileNotFoundException, IllegalStateException, ZipException, IOException {
+  private void inner_load(boolean forceReload) throws FileNotFoundException, IllegalStateException, ZipException, IOException {
 
     // Messages for the developer
-    if ((!forceRebuild) && built) {
-      LOGGER.warn("An attempt to call the TextureManager#build(..) was made when the target TextureManager is already built. The attempt was denied because the forceRebuild flag was not set to true.");
+    if ((!forceReload) && loaded) {
+      LOGGER.warn("An attempt to call the TextureManager#build(..) was made when the target TextureManager is already built. The attempt was denied because the forceReload flag was not set to true.");
       return;
     }
-    if (forceRebuild && built) {
-      LOGGER.warn("TextureManager#build(..) has been called with the forceRebuild flag when the target TextureManager is already built. A TextureManager rebuild will start.");
+    if (forceReload && loaded) {
+      LOGGER.warn("TextureManager#build(..) has been called with the forceReload flag when the target TextureManager is already built. A TextureManager rebuild will start.");
     }
-    if (!built) {
+    if (!loaded) {
       LOGGER.warn("Building the target TextureManager for the first time.");
     }
-    LOGGER.warn("Building TextureManager for directory " + rootDirectoryPath + " with flags: forceRebuild=" + forceRebuild);
+    LOGGER.warn("Building TextureManager for directory " + rootDirectory + " with flags: forceReload=" + forceReload);
 
     // Change the built flag
-    built = true;
+    loaded = true;
 
     // Get an instance of the root file. Check exists and is a directory.
-    rootDirectoryFile = new File(rootDirectoryPath);
+    rootDirectoryFile = new File(rootDirectory);
     if (!rootDirectoryFile.exists())
-      throw new FileNotFoundException("Cannot find root directory file for TextureManager " + rootDirectoryPath);
+      throw new FileNotFoundException("Cannot find root directory file for TextureManager " + rootDirectory);
     if (!rootDirectoryFile.isDirectory())
-      throw new IllegalStateException("The TextureManager root file " + rootDirectoryPath + " is not a directory.");
+      throw new IllegalStateException("The TextureManager root file " + rootDirectory + " is not a directory.");
 
     // Get a list of files in the directory
     // File[] children = findAndMapTexturePackZipFileObjectsToFileNames();
@@ -220,11 +218,11 @@ public class TextureResourceLoader {
   }
 
   public boolean isBuilt() {
-    return built;
+    return loaded;
   }
 
   public String getRootDirectory() {
-    return rootDirectoryPath;
+    return rootDirectory;
   }
 
   public ITextureAtlas getAtlas() {
