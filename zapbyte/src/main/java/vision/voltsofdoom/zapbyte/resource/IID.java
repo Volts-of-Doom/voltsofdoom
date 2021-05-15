@@ -1,5 +1,11 @@
 package vision.voltsofdoom.zapbyte.resource;
 
+/**
+ * Interface for {@link ID}
+ * 
+ * @author GenElectrovise
+ *
+ */
 public interface IID {
 
   /**
