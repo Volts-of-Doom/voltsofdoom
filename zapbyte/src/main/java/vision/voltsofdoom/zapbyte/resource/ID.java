@@ -6,18 +6,17 @@ import java.util.PrimitiveIterator.OfInt;
 import com.google.common.collect.ImmutableList;
 
 /**
- * Identifies the location of *something*. This could be a resource or an object in a registry, for
- * example.
+ * Identifies something. This could be something such as a resource on the file system or an object in a registry.
  * 
  * @author GenElectrovise
  *
  */
-public class ResourceLocation implements IResourceLocation {
+public class ID implements IID {
 
   private String domain;
   private String entry;
 
-  public ResourceLocation(String domain, String entry) {
+  public ID(String domain, String entry) {
     this.domain = domain;
     this.entry = entry;
 
@@ -25,18 +24,15 @@ public class ResourceLocation implements IResourceLocation {
       try {
 
         if (str.length() > 32) {
-          throw new ResourceLocationInvalidException(
-              "ResourceLocation section " + str + " too long: " + str.length());
+          throw new ResourceLocationInvalidException("ResourceLocation section " + str + " too long: " + str.length());
         }
 
         if (str.length() < 4) {
-          throw new ResourceLocationInvalidException(
-              "ResourceLocation section " + str + " too short: " + str.length());
+          throw new ResourceLocationInvalidException("ResourceLocation section " + str + " too short: " + str.length());
         }
 
         if (str.contains(":")) {
-          throw new ResourceLocationInvalidException(
-              "ResourceLocation section " + str + " contains an invalid colon!");
+          throw new ResourceLocationInvalidException("ResourceLocation section " + str + " contains an invalid colon!");
         }
 
       } catch (ResourceLocationInvalidException r) {
@@ -49,12 +45,11 @@ public class ResourceLocation implements IResourceLocation {
    * The logic of this is that if the two aren't null they should be valid, as the constructor (the
    * only entry point) validates the incoming strings.
    * 
-   * @return Whether this {@link ResourceLocation} is valid.
+   * @return Whether this {@link ID} is valid.
    */
   @Override
   public ResourceLocationValidityState validate() {
-    return (domain != null && entry != null) ? ResourceLocationValidityState.VALID
-        : ResourceLocationValidityState.GENERIC_INVALID;
+    return (domain != null && entry != null) ? ResourceLocationValidityState.VALID : ResourceLocationValidityState.GENERIC_INVALID;
   }
 
   public static ResourceLocationValidityState validate(String string) {
@@ -116,14 +111,12 @@ public class ResourceLocation implements IResourceLocation {
     return ResourceLocationValidityState.VALID;
   }
 
-  public static IResourceLocation fromString(String str) {
-    Objects.requireNonNull(str,
-        () -> "Constructing ResourceLocation fromString() >> Input string cannot be null!");
+  public static IID fromString(String str) {
+    Objects.requireNonNull(str, () -> "Constructing ResourceLocation fromString() >> Input string cannot be null!");
 
     ResourceLocationValidityState validityState = validate(str);
     if (!validityState.isValid()) {
-      throw new IllegalStateException("Invalid string '" + str
-          + "' given to construct a ResourceLocation! >> " + validityState.getMessage());
+      throw new IllegalStateException("Invalid string '" + str + "' given to construct a ResourceLocation! >> " + validityState.getMessage());
     }
 
     // Validated!
@@ -158,7 +151,7 @@ public class ResourceLocation implements IResourceLocation {
       pathBuilder.append(character);
     }
 
-    return new ResourceLocation(domainBuilder.toString(), pathBuilder.toString());
+    return new ID(domainBuilder.toString(), pathBuilder.toString());
   }
 
   @Override
@@ -184,17 +177,17 @@ public class ResourceLocation implements IResourceLocation {
   @Override
   public boolean equals(Object obj) {
 
-    if (!(obj instanceof ResourceLocation)) {
+    if (!(obj instanceof ID)) {
       return false;
     }
 
-    obj = (IResourceLocation) obj;
+    obj = (IID) obj;
 
-    if (!((IResourceLocation) obj).getDomain().equals(domain)) {
+    if (!((IID) obj).getDomain().equals(domain)) {
       return false;
     }
 
-    if (!((IResourceLocation) obj).getEntry().equals(entry)) {
+    if (!((IID) obj).getEntry().equals(entry)) {
       return false;
     }
 
@@ -203,7 +196,7 @@ public class ResourceLocation implements IResourceLocation {
 
   @SuppressWarnings("unused")
   public static void main(String[] args) {
-    IResourceLocation r2 = ResourceLocation.fromString("domain:entry");
+    IID r2 = ID.fromString("domain:entry");
     System.out.println(validate("domain::entry"));
   }
 

@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.tile.Tile;
-import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ID;
 
 /**
  * The in-game map of {@link Tile}s.
@@ -35,7 +35,7 @@ public class TileMap {
       for (String id : subList) {
 
         KeyNode node = KeyMaps.getNodeByKey(key, id);
-        ResourceLocation resourceLocation = node.getIdentifier();
+        ID resourceLocation = node.getIdentifier();
 
         Supplier<Tile> tileSupp = VoltsOfDoom.getInstance().getRegistry().getSupplier(resourceLocation, Tile.class);
 

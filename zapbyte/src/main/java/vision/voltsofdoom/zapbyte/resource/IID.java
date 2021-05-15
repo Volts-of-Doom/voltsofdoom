@@ -1,12 +1,12 @@
 package vision.voltsofdoom.zapbyte.resource;
 
-public interface IResourceLocation {
+public interface IID {
 
   /**
    * The logic of this is that if the two aren't null they should be valid, as the constructor (the
    * only entry point) validates the incoming strings.
    * 
-   * @return Whether this {@link ResourceLocation} is valid.
+   * @return Whether this {@link ID} is valid.
    */
   ResourceLocationValidityState validate();
 

@@ -9,7 +9,7 @@ import com.google.common.collect.ImmutableSet;
 import vision.voltsofdoom.voltsofdoom.adventure.Sheet.ISheetType;
 import vision.voltsofdoom.voltsofdoom.util.Reference;
 import vision.voltsofdoom.zapbyte.registry.RegistryEntry;
-import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.IID;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
 /**
@@ -43,7 +43,7 @@ public class Adventure extends RegistryEntry<Adventure> {
   }
 
   @Override
-  public IResourceLocation getIdentifier() {
+  public IID getIdentifier() {
     return configuration.getIdentifier();
   }
 

@@ -1,10 +1,10 @@
 package vision.voltsofdoom.voltsofdoom.adventure;
 
-import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ID;
 
 public class KeyNode {
   private String key;
-  private ResourceLocation identifier;
+  private ID identifier;
   private DataTagMap data;
   private Sheet sheet;
 
@@ -12,7 +12,7 @@ public class KeyNode {
     return key;
   }
 
-  public ResourceLocation getIdentifier() {
+  public ID getIdentifier() {
     return identifier == null ? sheet.getIdentifier() : identifier;
   }
 

@@ -6,21 +6,21 @@ import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.annotation.Nullable;
-import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ID;
 
 public class ZipFileResourcePack implements IResourcePack {
 
   private ZipInputStream zipInputStream;
   private int loadingPriority;
   private String displayName;
-  private ResourceLocation identifier;
+  private ID identifier;
 
   /**
    * 
    * @param fileInputStream A stream of the ZIP file. You can use
    *        <code>new FileInputStream(File)</code> or similar to obtain a stream.
    */
-  public ZipFileResourcePack(InputStream inputStream, int loadingPriority, String displayName, ResourceLocation identifier) {
+  public ZipFileResourcePack(InputStream inputStream, int loadingPriority, String displayName, ID identifier) {
     this.zipInputStream = new ZipInputStream(inputStream);
     this.loadingPriority = loadingPriority;
     this.displayName = displayName;
@@ -95,7 +95,7 @@ public class ZipFileResourcePack implements IResourcePack {
   }
 
   @Override
-  public ResourceLocation getIdentifier() {
+  public ID getIdentifier() {
     return identifier;
   }
 

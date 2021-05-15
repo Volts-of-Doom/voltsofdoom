@@ -6,7 +6,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import vision.voltsofdoom.voltsofdoom.resource.json.GsonHandler;
-import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ID;
 
 /**
  * The configuration for an {@link Adventure}, in order to abstract away the basic setting-of-things
@@ -16,7 +16,7 @@ import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
  *
  */
 public class AdventureConfiguration {
-  private ResourceLocation identifier;
+  private ID identifier;
   private String displayName;
   private String description;
   private List<String> levelNames;
@@ -47,7 +47,7 @@ public class AdventureConfiguration {
   }
 
   // With
-  public AdventureConfiguration withIdentifier(ResourceLocation identifier) {
+  public AdventureConfiguration withIdentifier(ID identifier) {
     this.identifier = identifier;
     return this;
   }
@@ -75,7 +75,7 @@ public class AdventureConfiguration {
   }
 
   // Get
-  public ResourceLocation getIdentifier() {
+  public ID getIdentifier() {
     return identifier;
   }
 

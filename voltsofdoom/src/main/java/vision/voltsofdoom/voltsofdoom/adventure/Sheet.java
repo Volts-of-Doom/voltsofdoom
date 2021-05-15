@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.JsonObject;
 import vision.voltsofdoom.voltsofdoom.resource.json.GsonHandler;
-import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ID;
 
 /**
  * Represents a <code>sheet</code> file from an {@link Adventure}.
@@ -13,10 +13,10 @@ import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
  *
  */
 public class Sheet {
-  private ResourceLocation identifier;
+  private ID identifier;
   private DataTagMap data;
 
-  public ResourceLocation getIdentifier() {
+  public ID getIdentifier() {
     return identifier;
   }
 

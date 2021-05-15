@@ -1,15 +1,15 @@
 package vision.voltsofdoom.zapbyte.registry;
 
 import java.util.function.Supplier;
-import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.IID;
 
 public class RegistryMessenger2<T extends IRegistryEntry2<T>> implements IRegistryMessenger2<T> {
 
   private Class<T> type;
-  private IResourceLocation identifier;
+  private IID identifier;
   private IRegistry2 registry;
 
-  public RegistryMessenger2(IResourceLocation identifier, Class<T> type, IRegistry2 registry) {
+  public RegistryMessenger2(IID identifier, Class<T> type, IRegistry2 registry) {
     this.type = type;
     this.identifier = identifier;
     this.registry = registry;
@@ -30,7 +30,7 @@ public class RegistryMessenger2<T extends IRegistryEntry2<T>> implements IRegist
   }
 
   @Override
-  public IResourceLocation getIdentifier() {
+  public IID getIdentifier() {
     return identifier;
   }
 

@@ -1,14 +1,14 @@
 package vision.voltsofdoom.zapbyte.registry;
 
-import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
-import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.IID;
+import vision.voltsofdoom.zapbyte.resource.ID;
 
 public interface IRegistryEntry2<T> {
 
   /**
-   * @return The {@link ResourceLocation} identifier of this {@link IRegistryEntry}.
+   * @return The {@link ID} identifier of this {@link IRegistryEntry}.
    */
-  public IResourceLocation getIdentifier();
+  public IID getIdentifier();
 
   /**
    * Sets the identifier of this {@link IRegistryEntry}. If called more than once, should throw an
@@ -19,6 +19,6 @@ public interface IRegistryEntry2<T> {
    * exception to this is if you are writing your own registry system <i>completely disregarding the
    * built in system</i>.
    */
-  public void setIdentifier(IResourceLocation identifier);
+  public void setIdentifier(IID identifier);
 
 }

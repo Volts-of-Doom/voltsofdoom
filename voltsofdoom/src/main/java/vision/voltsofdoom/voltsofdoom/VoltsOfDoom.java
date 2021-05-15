@@ -18,7 +18,7 @@ import vision.voltsofdoom.zapbyte.ZapByte;
 import vision.voltsofdoom.zapbyte.ZapByteReference;
 import vision.voltsofdoom.zapbyte.registry.IRegistryMessenger2;
 import vision.voltsofdoom.zapbyte.registry.RegistryMessenger2;
-import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.ID;
 
 /**
  * The main class for Volts of Doom's Core System. The game starts running here. In the case that
@@ -164,6 +164,6 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
     }
 
     public static final IRegistryMessenger2<RegisterableResourceLoader> TEXTURES =
-        VoltsOfDoom.getInstance().getRegistry().register(new ResourceLocation(MODID, "textures"), () -> new TextureResourceLoader(ZapByteReference.getResources()), RegisterableResourceLoader.class);
+        VoltsOfDoom.getInstance().getRegistry().register(new ID(MODID, "textures"), () -> new TextureResourceLoader(ZapByteReference.getResources()), RegisterableResourceLoader.class);
   }
 }

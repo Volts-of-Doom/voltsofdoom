@@ -7,15 +7,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.zapbyte.bandwagon.Stowaway;
 import vision.voltsofdoom.zapbyte.bandwagon.event.RegistryStatusEvent;
-import vision.voltsofdoom.zapbyte.resource.IResourceLocation;
-import vision.voltsofdoom.zapbyte.resource.ResourceLocation;
+import vision.voltsofdoom.zapbyte.resource.IID;
+import vision.voltsofdoom.zapbyte.resource.ID;
 
 public class Registry2 implements IRegistry2 {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Registry2.class);
 
   private IRegistryStatus status;
-  private Map<Class<IRegistryEntry2<?>>, Map<IResourceLocation, Supplier<? extends IRegistryEntry2<?>>>> map;
+  private Map<Class<IRegistryEntry2<?>>, Map<IID, Supplier<? extends IRegistryEntry2<?>>>> map;
 
   public Registry2() {
     this.status = IRegistryStatus.MUTABLE;
@@ -37,14 +37,14 @@ public class Registry2 implements IRegistry2 {
 
   @SuppressWarnings("unchecked")
   @Override
-  public <E extends IRegistryEntry2<E>> IRegistryMessenger2<E> register(IResourceLocation location, Supplier<E> supplier, Class<E> type) {
+  public <E extends IRegistryEntry2<E>> IRegistryMessenger2<E> register(IID location, Supplier<E> supplier, Class<E> type) {
 
     if (!status.isMutable()) {
       throw new IllegalStateException("The current registry status " + status.getName() + " is not mutable.");
     }
 
     RegistryMessenger2<E> messenger = new RegistryMessenger2<E>(location, type, this);
-    Map<IResourceLocation, Supplier<? extends IRegistryEntry2<?>>> registry = map.get(type);
+    Map<IID, Supplier<? extends IRegistryEntry2<?>>> registry = map.get(type);
 
     if (registry == null) {
       registry = new HashMap<>();
@@ -57,18 +57,18 @@ public class Registry2 implements IRegistry2 {
   }
 
   @SuppressWarnings("unchecked")
-  public <T extends IRegistryEntry2<T>> Map<IResourceLocation, T> getRegistry(Class<T> type) {
-    return (Map<IResourceLocation, T>) map.get(type);
+  public <T extends IRegistryEntry2<T>> Map<IID, T> getRegistry(Class<T> type) {
+    return (Map<IID, T>) map.get(type);
   }
 
   @SuppressWarnings("unchecked")
-  public <E extends IRegistryEntry2<E>> Map<IResourceLocation, E> getEntry(ResourceLocation location, Class<E> type) {
-    return (Map<IResourceLocation, E>) map.get(type).get(location);
+  public <E extends IRegistryEntry2<E>> Map<IID, E> getEntry(ID location, Class<E> type) {
+    return (Map<IID, E>) map.get(type).get(location);
   }
 
   @SuppressWarnings("unchecked")
   @Override
-  public <E extends IRegistryEntry2<E>> Supplier<E> getSupplier(IResourceLocation identifier, Class<E> type) {
+  public <E extends IRegistryEntry2<E>> Supplier<E> getSupplier(IID identifier, Class<E> type) {
     return (Supplier<E>) map.get(type).get(identifier);
   }
 
