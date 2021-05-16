@@ -146,24 +146,4 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
   public Silverspark getSilverspark() {
     return silverspark;
   }
-
-  /**
-   * A mod 'owned' by the Volts of Doom game itself which is used for adding to game registries etc
-   * like a normal mod would.
-   * 
-   * @author GenElectrovise
-   *
-   */
-  @vision.voltsofdoom.zapbyte.mod.Mod(modid = VoltsOfDoom.CoreMod.MODID)
-  public static class CoreMod {
-    public static final String MODID = "voltsofdoom";
-    private static final Logger LOGGER = LoggerFactory.getLogger(VoltsOfDoom.CoreMod.class);
-
-    public CoreMod() {
-      LOGGER.info("Constructing " + this.getClass().getTypeName());
-    }
-
-    public static final IRegistryMessenger2<RegisterableResourceLoader> TEXTURES =
-        VoltsOfDoom.getInstance().getRegistry().register(new ID(MODID, "textures"), () -> new TextureResourceLoader(ZapByteReference.getResources()), RegisterableResourceLoader.class);
-  }
 }
