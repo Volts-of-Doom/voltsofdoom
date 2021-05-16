@@ -1,4 +1,4 @@
-package vision.voltsofdoom.voltsofdoom.data;
+package vision.voltsofdoom.voltsofdoom.property;
 
 import java.util.Collection;
 import java.util.HashMap;

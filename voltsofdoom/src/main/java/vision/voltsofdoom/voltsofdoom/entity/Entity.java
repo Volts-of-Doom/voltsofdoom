@@ -1,6 +1,6 @@
 package vision.voltsofdoom.voltsofdoom.entity;
 
-import vision.voltsofdoom.voltsofdoom.data.IPropertyHandler;
+import vision.voltsofdoom.voltsofdoom.property.IPropertyHandler;
 import vision.voltsofdoom.voltsofdoom.tile.Tile;
 import vision.voltsofdoom.zapbyte.registry.RegistryEntry;
 

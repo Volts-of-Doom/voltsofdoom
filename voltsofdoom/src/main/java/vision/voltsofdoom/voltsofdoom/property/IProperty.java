@@ -1,4 +1,4 @@
-package vision.voltsofdoom.voltsofdoom.data;
+package vision.voltsofdoom.voltsofdoom.property;
 
 import java.util.function.Consumer;
 import vision.voltsofdoom.voltsofdoom.tile.Tile;
