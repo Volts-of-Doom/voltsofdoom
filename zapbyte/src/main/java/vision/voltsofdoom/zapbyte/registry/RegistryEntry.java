@@ -13,7 +13,7 @@ import vision.voltsofdoom.zapbyte.resource.IID;
  *
  * @param <T>
  */
-public abstract class RegistryEntry<T extends IRegistryEntry2<T>> implements IRegistryEntry2<T> {
+public abstract class RegistryEntry<T extends IRegistryEntry<T>> implements IRegistryEntry<T> {
 
   public IID identifier;
   private static final Logger LOGGER = LoggerFactory.getLogger(RegistryEntry.class);

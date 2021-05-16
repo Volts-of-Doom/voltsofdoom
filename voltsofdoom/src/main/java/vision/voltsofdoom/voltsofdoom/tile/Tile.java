@@ -1,7 +1,7 @@
 package vision.voltsofdoom.voltsofdoom.tile;
 
 import vision.voltsofdoom.voltsofdoom.property.IPropertyHandler;
-import vision.voltsofdoom.zapbyte.registry.IRegistryEntry2;
+import vision.voltsofdoom.zapbyte.registry.IRegistryEntry;
 import vision.voltsofdoom.zapbyte.registry.RegistryEntry;
 
 /**
@@ -10,7 +10,7 @@ import vision.voltsofdoom.zapbyte.registry.RegistryEntry;
  * @author GenElectrovise
  *
  */
-public class Tile extends RegistryEntry<Tile> implements IRegistryEntry2<Tile> {
+public class Tile extends RegistryEntry<Tile> implements IRegistryEntry<Tile> {
   private IPropertyHandler<Tile> propertyHandler;
   
   public IPropertyHandler<Tile> getPropertyHandler() {

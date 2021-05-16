@@ -3,13 +3,13 @@ package vision.voltsofdoom.zapbyte.registry;
 import java.util.function.Supplier;
 import vision.voltsofdoom.zapbyte.resource.IID;
 
-public class RegistryMessenger2<T extends IRegistryEntry2<T>> implements IRegistryMessenger2<T> {
+public class RegistryMessenger<T extends IRegistryEntry<T>> implements IRegistryMessenger<T> {
 
   private Class<T> type;
   private IID identifier;
-  private IRegistry2 registry;
+  private IRegistry registry;
 
-  public RegistryMessenger2(IID identifier, Class<T> type, IRegistry2 registry) {
+  public RegistryMessenger(IID identifier, Class<T> type, IRegistry registry) {
     this.type = type;
     this.identifier = identifier;
     this.registry = registry;

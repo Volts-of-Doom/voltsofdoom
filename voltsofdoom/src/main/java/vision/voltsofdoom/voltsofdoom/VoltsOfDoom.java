@@ -16,8 +16,8 @@ import vision.voltsofdoom.zapbyte.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.ZapBit;
 import vision.voltsofdoom.zapbyte.ZapByte;
 import vision.voltsofdoom.zapbyte.ZapByteReference;
-import vision.voltsofdoom.zapbyte.registry.IRegistryMessenger2;
-import vision.voltsofdoom.zapbyte.registry.RegistryMessenger2;
+import vision.voltsofdoom.zapbyte.registry.IRegistryMessenger;
+import vision.voltsofdoom.zapbyte.registry.RegistryMessenger;
 import vision.voltsofdoom.zapbyte.resource.ID;
 
 /**

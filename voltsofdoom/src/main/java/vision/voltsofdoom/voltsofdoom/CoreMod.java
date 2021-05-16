@@ -6,7 +6,7 @@ import vision.voltsofdoom.voltsofdoom.resource.RegisterableResourceLoader;
 import vision.voltsofdoom.voltsofdoom.resource.TextureResourceLoader;
 import vision.voltsofdoom.zapbyte.ZapByteReference;
 import vision.voltsofdoom.zapbyte.mod.Mod;
-import vision.voltsofdoom.zapbyte.registry.IRegistryMessenger2;
+import vision.voltsofdoom.zapbyte.registry.IRegistryMessenger;
 import vision.voltsofdoom.zapbyte.resource.ID;
 
 /**
@@ -26,6 +26,6 @@ public class CoreMod {
 
   }
 
-  public static final IRegistryMessenger2<RegisterableResourceLoader> TEXTURES =
+  public static final IRegistryMessenger<RegisterableResourceLoader> TEXTURES =
       VoltsOfDoom.getInstance().getRegistry().register(new ID(MODID, "textures"), () -> new TextureResourceLoader(ZapByteReference.getResources()), RegisterableResourceLoader.class);
 }

@@ -21,8 +21,8 @@ import vision.voltsofdoom.api.zapyte.config.IConfigurationOptionsHandler;
 import vision.voltsofdoom.zapbyte.config.ConfigurationFileSerializer;
 import vision.voltsofdoom.zapbyte.config.StreamedConfigurationOptionsHandler;
 import vision.voltsofdoom.zapbyte.reflectory.Reflectory;
-import vision.voltsofdoom.zapbyte.registry.IRegistry2;
-import vision.voltsofdoom.zapbyte.registry.Registry2;
+import vision.voltsofdoom.zapbyte.registry.IRegistry;
+import vision.voltsofdoom.zapbyte.registry.Registry;
 import vision.voltsofdoom.zapbyte.resource.ISystemResourceHandler;
 import vision.voltsofdoom.zapbyte.resource.ZBSystemResourceHandler;
 
@@ -42,7 +42,7 @@ public abstract class ZapByte<Z extends ZapByte<Z>> {
   private static final String ZAPBYTE = "zapbyte";
   private ISystemResourceHandler systemResourceHandler;
   private Reflectory reflectory;
-  private IRegistry2 registry;
+  private IRegistry registry;
 
   public static Logger LOGGER;
 
@@ -104,7 +104,7 @@ public abstract class ZapByte<Z extends ZapByte<Z>> {
 
     // Make a registry (which is currently blank)
     LOGGER.info("Constructing blank registry");
-    registry = new Registry2();
+    registry = new Registry();
     LOGGER.debug("Done");
 
     LOGGER.info("ZapByte is now constructed.");
@@ -229,7 +229,7 @@ public abstract class ZapByte<Z extends ZapByte<Z>> {
     return systemResourceHandler;
   }
 
-  public IRegistry2 getRegistry() {
+  public IRegistry getRegistry() {
     return registry;
   }
 

@@ -10,14 +10,14 @@ import vision.voltsofdoom.zapbyte.bandwagon.event.RegistryStatusEvent;
 import vision.voltsofdoom.zapbyte.resource.IID;
 import vision.voltsofdoom.zapbyte.resource.ID;
 
-public class Registry2 implements IRegistry2 {
+public class Registry implements IRegistry {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(Registry2.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(Registry.class);
 
   private IRegistryStatus status;
-  private Map<Class<IRegistryEntry2<?>>, Map<IID, Supplier<? extends IRegistryEntry2<?>>>> map;
+  private Map<Class<IRegistryEntry<?>>, Map<IID, Supplier<? extends IRegistryEntry<?>>>> map;
 
-  public Registry2() {
+  public Registry() {
     this.status = IRegistryStatus.MUTABLE;
     this.map = new HashMap<>();
   }
@@ -25,7 +25,7 @@ public class Registry2 implements IRegistry2 {
   @Stowaway
   private static void onRegistryStatusEvent(RegistryStatusEvent event) {
 
-    IRegistry2 registry = event.getZapbyte().getRegistry();
+    IRegistry registry = event.getZapbyte().getRegistry();
 
     IRegistryStatus oldStatus = registry.getStatus();
 
@@ -37,18 +37,18 @@ public class Registry2 implements IRegistry2 {
 
   @SuppressWarnings("unchecked")
   @Override
-  public <E extends IRegistryEntry2<E>> IRegistryMessenger2<E> register(IID location, Supplier<E> supplier, Class<E> type) {
+  public <E extends IRegistryEntry<E>> IRegistryMessenger<E> register(IID location, Supplier<E> supplier, Class<E> type) {
 
     if (!status.isMutable()) {
       throw new IllegalStateException("The current registry status " + status.getName() + " is not mutable.");
     }
 
-    RegistryMessenger2<E> messenger = new RegistryMessenger2<E>(location, type, this);
-    Map<IID, Supplier<? extends IRegistryEntry2<?>>> registry = map.get(type);
+    RegistryMessenger<E> messenger = new RegistryMessenger<E>(location, type, this);
+    Map<IID, Supplier<? extends IRegistryEntry<?>>> registry = map.get(type);
 
     if (registry == null) {
       registry = new HashMap<>();
-      map.put((Class<IRegistryEntry2<?>>) type, registry);
+      map.put((Class<IRegistryEntry<?>>) type, registry);
     }
 
     registry.put(location, supplier);
@@ -57,18 +57,18 @@ public class Registry2 implements IRegistry2 {
   }
 
   @SuppressWarnings("unchecked")
-  public <T extends IRegistryEntry2<T>> Map<IID, T> getRegistry(Class<T> type) {
+  public <T extends IRegistryEntry<T>> Map<IID, T> getRegistry(Class<T> type) {
     return (Map<IID, T>) map.get(type);
   }
 
   @SuppressWarnings("unchecked")
-  public <E extends IRegistryEntry2<E>> Map<IID, E> getEntry(ID location, Class<E> type) {
+  public <E extends IRegistryEntry<E>> Map<IID, E> getEntry(ID location, Class<E> type) {
     return (Map<IID, E>) map.get(type).get(location);
   }
 
   @SuppressWarnings("unchecked")
   @Override
-  public <E extends IRegistryEntry2<E>> Supplier<E> getSupplier(IID identifier, Class<E> type) {
+  public <E extends IRegistryEntry<E>> Supplier<E> getSupplier(IID identifier, Class<E> type) {
     return (Supplier<E>) map.get(type).get(identifier);
   }
 

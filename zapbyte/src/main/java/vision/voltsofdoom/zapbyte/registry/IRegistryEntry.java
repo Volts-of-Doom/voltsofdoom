@@ -3,7 +3,7 @@ package vision.voltsofdoom.zapbyte.registry;
 import vision.voltsofdoom.zapbyte.resource.IID;
 import vision.voltsofdoom.zapbyte.resource.ID;
 
-public interface IRegistryEntry2<T> {
+public interface IRegistryEntry<T> {
 
   /**
    * @return The {@link ID} identifier of this {@link IRegistryEntry}.
