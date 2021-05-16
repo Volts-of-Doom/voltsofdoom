@@ -19,10 +19,11 @@ import vision.voltsofdoom.zapbyte.resource.ID;
 @Mod(modid = CoreMod.MODID)
 public class CoreMod {
   public static final String MODID = "voltsofdoom";
+  @SuppressWarnings("unused")
   private static final Logger LOGGER = LoggerFactory.getLogger(CoreMod.class);
 
   public CoreMod() {
-    LOGGER.info("Constructing " + this.getClass().getTypeName());
+
   }
 
   public static final IRegistryMessenger2<RegisterableResourceLoader> TEXTURES =
