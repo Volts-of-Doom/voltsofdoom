@@ -32,9 +32,7 @@ public class Sheet {
     public static final List<ISheetType> types = new ArrayList<Sheet.ISheetType>();
 
     public static final ISheetType EMPTY = create("");
-
     public static final ISheetType ENTITIES = create("entities");
-
     public static final ISheetType TILES = create("tiles");
 
     public static ISheetType create(String folderName) {
