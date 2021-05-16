@@ -45,25 +45,26 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
    * 
    * @param forceReload
    */
+  @Override
   public void load(boolean forceReload) {
     try {
 
       inner_load(forceReload);
 
     } catch (FileNotFoundException fi) {
-      LOGGER.error("An error has occurred building the TextureManager! (An expected file cannot be found)");
+      LOGGER.error("An error has occurred building the TextureResourceLoader! (An expected file cannot be found)");
       fi.printStackTrace();
     } catch (IllegalStateException il) {
-      LOGGER.error("An error has occurred building the TextureManager! (Something was in the wrong state)");
+      LOGGER.error("An error has occurred building the TextureResourceLoader! (Something was in the wrong state)");
       il.printStackTrace();
     } catch (NullPointerException nu) {
-      LOGGER.error("An error has occurred building the TextureManager! (An object was null)");
+      LOGGER.error("An error has occurred building the TextureResourceLoader! (An object was null)");
       nu.printStackTrace();
     } catch (ZipException zi) {
-      LOGGER.error("An error has occurred building the TextureManager! (A ZIP file could not be read)");
+      LOGGER.error("An error has occurred building the TextureResourceLoader! (A ZIP file could not be read)");
       zi.printStackTrace();
     } catch (IOException io) {
-      LOGGER.error("An error has occurred building the TextureManager! (An I/O operation failed)");
+      LOGGER.error("An error has occurred building the TextureResourceLoader! (An I/O operation failed)");
       io.printStackTrace();
     }
   }
@@ -80,16 +81,16 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
 
     // Messages for the developer
     if ((!forceReload) && loaded) {
-      LOGGER.warn("An attempt to call the TextureManager#build(..) was made when the target TextureManager is already built. The attempt was denied because the forceReload flag was not set to true.");
+      LOGGER.warn("An attempt to call the TextureResourceLoader#build(..) was made when the target TextureResourceLoader is already built. The attempt was denied because the forceReload flag was not set to true.");
       return;
     }
     if (forceReload && loaded) {
-      LOGGER.warn("TextureManager#build(..) has been called with the forceReload flag when the target TextureManager is already built. A TextureManager rebuild will start.");
+      LOGGER.warn("TextureResourceLoader#build(..) has been called with the forceReload flag when the target TextureResourceLoader is already built. A TextureResourceLoader rebuild will start.");
     }
     if (!loaded) {
-      LOGGER.warn("Building the target TextureManager for the first time.");
+      LOGGER.warn("Building the target TextureResourceLoader for the first time.");
     }
-    LOGGER.warn("Building TextureManager for directory " + rootDirectory + " with flags: forceReload=" + forceReload);
+    LOGGER.warn("Building TextureResourceLoader for directory " + rootDirectory + " with flags: forceReload=" + forceReload);
 
     // Change the built flag
     loaded = true;
@@ -97,9 +98,9 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
     // Get an instance of the root file. Check exists and is a directory.
     rootDirectoryFile = new File(rootDirectory);
     if (!rootDirectoryFile.exists())
-      throw new FileNotFoundException("Cannot find root directory file for TextureManager " + rootDirectory);
+      throw new FileNotFoundException("Cannot find root directory file for TextureResourceLoader " + rootDirectory);
     if (!rootDirectoryFile.isDirectory())
-      throw new IllegalStateException("The TextureManager root file " + rootDirectory + " is not a directory.");
+      throw new IllegalStateException("The TextureResourceLoader root file " + rootDirectory + " is not a directory.");
 
     // Get a list of files in the directory
     // File[] children = findAndMapTexturePackZipFileObjectsToFileNames();
@@ -110,7 +111,7 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
 
     // Combine and override textures
     // a) Get priorities
-    JsonArray texturePackPriorityJsonArray = VoltsOfDoom.getInstance().getConfigurationHandler().getOption("texture_manager.texture_pack_priority").getAsJsonArray();
+    JsonArray texturePackPriorityJsonArray = VoltsOfDoom.getInstance().getConfigurationHandler().getOption("textures.texture_pack_priority").getAsJsonArray();
     String[] prioritisedRawTexturePackNames = getArrayOfPrioritisedTexturePacks(texturePackPriorityJsonArray);
     List<IResourcePack> packs = findResourcePacks();
     // b) Load <String textureName, String packName> in order of last -> first priority

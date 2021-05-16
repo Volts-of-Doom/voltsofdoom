@@ -84,13 +84,21 @@ public class Registry2 implements IRegistry2 {
 
   @Override
   public void dump() {
+    LOGGER.debug("");
     LOGGER.debug("Registry dump!");
+    LOGGER.debug("");
 
     map.forEach((clazz, mappings) -> {
-      LOGGER.debug(clazz.getName());
+      LOGGER.debug(clazz.getSimpleName() + " (" + clazz.getName() + ")");
+
+      mappings.forEach((iid, sup) -> {
+        LOGGER.debug(iid.stringify() + " >> " + sup.get().getClass().getName());
+      });
       
-      LOGGER.debug(mappings.toString());
+      LOGGER.debug("");
     });
+    
+    LOGGER.debug("");
   }
 
 }
