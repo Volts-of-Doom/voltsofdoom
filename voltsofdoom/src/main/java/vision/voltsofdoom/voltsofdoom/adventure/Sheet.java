@@ -3,7 +3,6 @@ package vision.voltsofdoom.voltsofdoom.adventure;
 import java.util.ArrayList;
 import java.util.List;
 import com.google.gson.JsonObject;
-import vision.voltsofdoom.voltsofdoom.resource.json.GsonHandler;
 import vision.voltsofdoom.zapbyte.resource.ID;
 
 /**

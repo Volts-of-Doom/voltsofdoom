@@ -5,7 +5,6 @@ import java.util.Objects;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import vision.voltsofdoom.voltsofdoom.resource.json.GsonHandler;
 import vision.voltsofdoom.zapbyte.resource.ID;
 
 /**

@@ -1,4 +1,4 @@
-package vision.voltsofdoom.voltsofdoom.resource.image;
+package vision.voltsofdoom.voltsofdoom.resource;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,10 +20,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import vision.voltsofdoom.silverspark.api.ITextureAtlas;
 import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
-import vision.voltsofdoom.voltsofdoom.resource.IResourcePack;
-import vision.voltsofdoom.voltsofdoom.resource.RegisterableResourceLoader;
-import vision.voltsofdoom.voltsofdoom.resource.ResourceMapping;
-import vision.voltsofdoom.voltsofdoom.resource.ResourcePackManifestFileResource;
 
 public class TextureResourceLoader extends RegisterableResourceLoader {
 

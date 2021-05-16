@@ -8,8 +8,7 @@ import java.util.zip.ZipFile;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
-import vision.voltsofdoom.voltsofdoom.resource.json.GsonHandler;
-import vision.voltsofdoom.voltsofdoom.resource.zip.ZipFileReader;
+import vision.voltsofdoom.voltsofdoom.resource.ZipFileReader;
 
 /**
  * A {@link Level} in an {@link Adventure}... <br>

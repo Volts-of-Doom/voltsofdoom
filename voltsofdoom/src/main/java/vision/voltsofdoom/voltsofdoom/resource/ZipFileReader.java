@@ -1,4 +1,4 @@
-package vision.voltsofdoom.voltsofdoom.resource.zip;
+package vision.voltsofdoom.voltsofdoom.resource;
 
 import java.io.File;
 import java.io.IOException;

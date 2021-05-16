@@ -1,9 +1,7 @@
-package vision.voltsofdoom.voltsofdoom.resource.json;
+package vision.voltsofdoom.voltsofdoom.adventure;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import vision.voltsofdoom.voltsofdoom.adventure.DataTag;
-import vision.voltsofdoom.voltsofdoom.adventure.DataTagMap;
 
 public class GsonHandler {
   public static final Gson GSON = fromOptions();

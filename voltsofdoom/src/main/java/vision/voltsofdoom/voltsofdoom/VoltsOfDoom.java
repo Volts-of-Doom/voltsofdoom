@@ -10,7 +10,7 @@ import vision.voltsofdoom.silverspark.Silverspark;
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.guice.GuiceModule;
 import vision.voltsofdoom.voltsofdoom.resource.RegisterableResourceLoader;
-import vision.voltsofdoom.voltsofdoom.resource.image.TextureResourceLoader;
+import vision.voltsofdoom.voltsofdoom.resource.TextureResourceLoader;
 import vision.voltsofdoom.voltsofdoom.util.Reference;
 import vision.voltsofdoom.zapbyte.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.ZapBit;

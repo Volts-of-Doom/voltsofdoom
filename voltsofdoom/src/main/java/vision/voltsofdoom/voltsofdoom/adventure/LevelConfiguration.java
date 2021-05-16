@@ -2,7 +2,6 @@ package vision.voltsofdoom.voltsofdoom.adventure;
 
 import java.util.Objects;
 import com.google.gson.JsonObject;
-import vision.voltsofdoom.voltsofdoom.resource.json.GsonHandler;
 import vision.voltsofdoom.zapbyte.resource.ID;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocationInvalidException;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocationValidityState;
