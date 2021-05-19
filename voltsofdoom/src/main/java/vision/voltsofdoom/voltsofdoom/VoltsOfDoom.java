@@ -1,5 +1,8 @@
 package vision.voltsofdoom.voltsofdoom;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
 import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,14 +14,11 @@ import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.guice.GuiceModule;
 import vision.voltsofdoom.voltsofdoom.resource.RegisterableResourceLoader;
 import vision.voltsofdoom.voltsofdoom.resource.TextureResourceLoader;
-import vision.voltsofdoom.voltsofdoom.util.Reference;
 import vision.voltsofdoom.zapbyte.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.ZapBit;
 import vision.voltsofdoom.zapbyte.ZapByte;
-import vision.voltsofdoom.zapbyte.ZapByteReference;
-import vision.voltsofdoom.zapbyte.registry.IRegistryMessenger;
-import vision.voltsofdoom.zapbyte.registry.RegistryMessenger;
-import vision.voltsofdoom.zapbyte.resource.ID;
+import vision.voltsofdoom.zapbyte.registry.IRegistryEntry;
+import vision.voltsofdoom.zapbyte.resource.IID;
 
 /**
  * The main class for Volts of Doom's Core System. The game starts running here. In the case that
@@ -36,7 +36,7 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
   private static final String ID = "voltsofdoom";
 
   @Nullable
-  private TextureResourceLoader textureManager;
+  private Map<IID, RegisterableResourceLoader> resourceLoaders;
 
   @Nullable
   private Game game;
@@ -92,9 +92,12 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
     LOGGER.info("Volts of Doom continuing execution...");
 
     // Create texture manager
-    TextureResourceLoader manager = new TextureResourceLoader(Reference.getTexturesDir());
-    VoltsOfDoom.getInstance().setTextureManager(manager);
-    manager.load(true);
+    // TextureResourceLoader manager = new TextureResourceLoader(Reference.getTexturesDir());
+    // VoltsOfDoom.getInstance().setTextureManager(manager);
+    // manager.load(true);
+
+    resourceLoaders = new HashMap<IID, RegisterableResourceLoader>();
+    initialiseResourceLoaders();
 
     // Create game
     // Silverspark spark = new Silverspark();
@@ -110,16 +113,22 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
     // game.start();
   }
 
+  private void initialiseResourceLoaders() {
+    LOGGER.info("Initialising resource loaders");
+    Map<IID, Supplier<? extends IRegistryEntry<?>>> registry = getRegistry().getMapOfType(RegisterableResourceLoader.class);
+
+    registry.forEach((iid, sup) -> {
+      LOGGER.debug("Initialising resource loader: " + iid.stringify());
+      RegisterableResourceLoader loader = (RegisterableResourceLoader) sup.get();
+      resourceLoaders.put(iid, loader);
+      loader.load(true);
+    });
+    LOGGER.debug("Resource loaders initialised");
+
+  }
+
   public static VoltsOfDoom getInstance() {
     return instance != null ? (VoltsOfDoom) instance : new VoltsOfDoom();
-  }
-
-  public TextureResourceLoader getTextureManager() {
-    return textureManager;
-  }
-
-  public void setTextureManager(TextureResourceLoader textureManager) {
-    this.textureManager = textureManager;
   }
 
   public static String getId() {

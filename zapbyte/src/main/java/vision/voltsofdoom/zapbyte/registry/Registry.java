@@ -69,7 +69,15 @@ public class Registry implements IRegistry {
   @SuppressWarnings("unchecked")
   @Override
   public <E extends IRegistryEntry<E>> Supplier<E> getSupplier(IID identifier, Class<E> type) {
+    
+    map.get(type);
+    
     return (Supplier<E>) map.get(type).get(identifier);
+  }
+
+  @Override
+  public Map<IID, Supplier<? extends IRegistryEntry<?>>> getMapOfType(Class<?> type) {
+    return map.get(type);
   }
 
   @Override
