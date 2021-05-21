@@ -1,30 +1,34 @@
 package vision.voltsofdoom.voltsofdoom.resource;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.annotation.Nullable;
-import vision.voltsofdoom.zapbyte.resource.ID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.google.common.primitives.Bytes;
+import com.google.gson.Gson;
 
 public class ZipFileResourcePack implements IResourcePack {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(ZipFileResourcePack.class);
   private ZipInputStream zipInputStream;
-  private int loadingPriority;
-  private String displayName;
-  private ID identifier;
+
+  @Nullable
+  private ResourcePackInfoFileResource packInfo;
 
   /**
    * 
    * @param fileInputStream A stream of the ZIP file. You can use
    *        <code>new FileInputStream(File)</code> or similar to obtain a stream.
    */
-  public ZipFileResourcePack(InputStream inputStream, int loadingPriority, String displayName, ID identifier) {
+  public ZipFileResourcePack(InputStream inputStream) {
     this.zipInputStream = new ZipInputStream(inputStream);
-    this.loadingPriority = loadingPriority;
-    this.displayName = displayName;
-    this.identifier = identifier;
   }
 
   @Override
@@ -35,29 +39,34 @@ public class ZipFileResourcePack implements IResourcePack {
   @Override
   public ResourcePackInfoFileResource getPackInfo() {
 
-    ZipEntry entry;
-    try {
-
-      // For every zip entry
-      // getNextEntry positions the pointer at the start of the next entry
-      while ((entry = zipInputStream.getNextEntry()) != null) {
-
-        // If the entry is the one that we want
-        if (entry.getName().equals(ResourcePackInfoFileResource.PACK_INFO_JSON)) {
-
-          // Get all lines of the file
-          try (Scanner scanner = new Scanner(zipInputStream)) {
-            while (scanner.hasNextLine()) {
-              System.err.println("READ LINES NOT IMPL ZipFResourPack #43");
-              System.out.println(scanner.nextLine());
-            }
-          }
-        }
-      }
-    } catch (IOException io) {
-      io.printStackTrace();
+    if (packInfo != null) {
+      return packInfo;
     }
+    
+    IResource infoResource = getResource(ResourcePackInfoFileResource.PACK_INFO_JSON);
+    this.packInfo = new Gson().fromJson(new InputStreamReader(infoResource.getInputStream()), ResourcePackInfoFileResource.class);
 
+    /*
+     * ZipEntry entry; try {
+     * 
+     * // For every zip entry // getNextEntry positions the pointer at the start of the next entry while
+     * ((entry = zipInputStream.getNextEntry()) != null) {
+     * 
+     * // If the entry is the one that we want if
+     * (entry.getName().equals(ResourcePackInfoFileResource.PACK_INFO_JSON)) {
+     * 
+     * // Get all lines of the file try (Scanner scanner = new Scanner(zipInputStream)) {
+     * 
+     * byte[] bytes = new byte[0];
+     * 
+     * while (scanner.hasNextLine()) { Bytes.concat(bytes, scanner.nextLine().getBytes()); }
+     * 
+     * this.packInfo = new Gson().fromJson(new InputStreamReader(new ByteArrayInputStream(bytes)),
+     * ResourcePackInfoFileResource.class); return packInfo; } } } } catch (IOException io) {
+     * io.printStackTrace(); }
+     */
+
+    LOGGER.warn("Unable to get additional information for a ZipFileResourcePack (cannot provide additional information)");
     return null;
   }
 
@@ -85,18 +94,8 @@ public class ZipFileResourcePack implements IResourcePack {
   }
 
   @Override
-  public int getLoadingPriority() {
-    return loadingPriority;
-  }
-
-  @Override
-  public String getDisplayName() {
-    return displayName;
-  }
-
-  @Override
-  public ID getIdentifier() {
-    return identifier;
+  public String toString() {
+    return "ZipFileResourcePack[" + getPackInfo().toString() + "]";
   }
 
 }

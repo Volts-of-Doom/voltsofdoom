@@ -27,5 +27,5 @@ public class CoreMod {
   }
 
   public static final IRegistryMessenger<RegisterableResourceLoader> TEXTURES =
-      VoltsOfDoom.getInstance().getRegistry().register(new ID(MODID, "textures"), () -> new TextureResourceLoader(ZapByteReference.getResources()), RegisterableResourceLoader.class);
+      VoltsOfDoom.getInstance().getRegistry().register(new ID(MODID, "textures"), () -> new TextureResourceLoader(ZapByteReference.getResourcePacks()), RegisterableResourceLoader.class);
 }

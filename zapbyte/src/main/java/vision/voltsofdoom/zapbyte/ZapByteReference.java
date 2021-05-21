@@ -59,6 +59,13 @@ public class ZapByteReference {
   public static String getResources() {
     return getApplicationRoaming() + "resources" + seperator();
   }
+  
+  /**
+   * The resources directory within the roaming folder.
+   */
+  public static String getResourcePacks() {
+    return getResources() + "resourcepacks" + seperator();
+  }
 
   /**
    * Gets the mods directory's location.

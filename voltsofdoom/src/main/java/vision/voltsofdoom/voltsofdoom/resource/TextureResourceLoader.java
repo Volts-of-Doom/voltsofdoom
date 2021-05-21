@@ -1,6 +1,7 @@
 package vision.voltsofdoom.voltsofdoom.resource;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,6 +21,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import vision.voltsofdoom.silverspark.api.ITextureAtlas;
 import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
+import vision.voltsofdoom.zapbyte.resource.ID;
 
 public class TextureResourceLoader extends RegisterableResourceLoader {
 
@@ -28,7 +30,7 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
   private static final String TEXTURE_INTERNAL_PATH_PREFIX = "textures/";
 
   private final Gson GSON = new GsonBuilder().registerTypeAdapter(ResourcePackManifestFileResource.class, new ResourcePackManifestFileResource.Serializer()).setPrettyPrinting().create();
-   
+
   private ITextureAtlas atlas;
   private File rootDirectoryFile;
 
@@ -116,11 +118,12 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
     List<IResourcePack> packs = findResourcePacks();
     // b) Load <String textureName, String packName> in order of last -> first priority
     // (so that higher priorities overwrite lower ones)
-    Map<String, ResourceMapping> textureNameToPackName = new HashMap<String, ResourceMapping>();
-    loadTextureNameMapPackNameInLastToFirstPriority(packs, textureNameToPackName);
+    Map<String, ResourceMapping> textureNameToPackName = new HashMap<String, ResourceMapping>(); // Map the name of the texture to the pack it should be read from
+    load_textureNameToPackNameMap_inLastToFirstPriority(packs, textureNameToPackName);
     writePrioritiesBackToConfiguration(prioritisedRawTexturePackNames);
 
     // Read each image. Make a list of nodes with their dimensions.
+    System.out.println("");
 
     // Order nodes by width
 
@@ -133,16 +136,55 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
     return;
   }
 
+  /**
+   * Writes an array of texture pack names back onto the file system.
+   * 
+   * @param prioritisedRawTexturePackNames
+   */
   private void writePrioritiesBackToConfiguration(String[] prioritisedRawTexturePackNames) {
     LOGGER.error("Not writing the pack names back to configuration. This isn't an issue because this hasn't been implemented yet.");
     return;
   }
 
+  /**
+   * Lists the resource packs which are available.
+   * 
+   * @return
+   */
   private List<IResourcePack> findResourcePacks() {
-    return Lists.newArrayList();
+
+    File rootDirFile = new File(rootDirectory);
+    List<File> zipPacks = Lists.newArrayList(rootDirFile.listFiles((file) -> file.getName().endsWith(".zip")));
+
+    LOGGER.error("TextureResourceLoader will not search for resource packs other than ZIPs!");
+    
+    List<IResourcePack> zipRPList = Lists.newArrayList();
+
+    zipPacks.forEach((zip) -> {
+      try {
+        
+        ZipFileResourcePack zipRP = new ZipFileResourcePack(new FileInputStream(zip));
+        zipRPList.add(zipRP);
+        return;
+        
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
+      
+      LOGGER.error("Unable to load a ZipFileResourcePack for the file: " + zip.getAbsolutePath());
+    });
+
+    return zipRPList;
   }
 
-  private void loadTextureNameMapPackNameInLastToFirstPriority(List<IResourcePack> packs, Map<String, ResourceMapping> textureNameToPackName) {
+  /**
+   * Loads each texture from every manifest, starting with the lowest priority so that higher priority
+   * instances will override them.
+   * 
+   * @param packs
+   * @param textureNameToPackName
+   */
+  private void load_textureNameToPackNameMap_inLastToFirstPriority(List<IResourcePack> packs, Map<String, ResourceMapping> textureNameToPackName) {
 
     // Start at last index, iterate through 0
     for (IResourcePack pack : packs) {
@@ -168,12 +210,12 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
           // Put the newly generated mapping into the map
           String mappedName = invertedManifestMappings.get(texturePath);
           String internalGameMapping = invertedManifestMappings.get(texturePath);
-          ResourceMapping mappedResource = new ResourceMapping(texturePath, pack.getIdentifier().toString(), internalGameMapping);
+          ResourceMapping mappedResource = new ResourceMapping(texturePath, new ID(pack.getPackInfo().getModid(), pack.getPackInfo().getPackInternalName()).stringify(), internalGameMapping);
           textureNameToPackName.put(mappedName, mappedResource);
         }
       }
 
-      LOGGER.debug("Done creating texture mappings for " + pack.getDisplayName());
+      LOGGER.debug("Done creating texture mappings for " + pack.getPackInfo().getPackDisplayName());
 
     }
 

@@ -1,31 +1,31 @@
 package vision.voltsofdoom.voltsofdoom.resource;
 
+import vision.voltsofdoom.zapbyte.resource.ID;
+
 public class ResourceMapping {
 
   private String resourcePath;
-  private String packName;
-  private String internalGameMapping;
+  private ID id;
 
   public ResourceMapping(String resourcePath, String packName, String internalGameMapping) {
+    this(resourcePath, new ID(packName, internalGameMapping));
+  }
+
+  public ResourceMapping(String resourcePath, ID id) {
     this.resourcePath = resourcePath;
-    this.packName = packName;
-    this.internalGameMapping = internalGameMapping;
+    this.id = id;
   }
 
   public String getResourcePath() {
     return resourcePath;
   }
 
-  public String getPackName() {
-    return packName;
+  public ID getId() {
+    return id;
   }
 
-  public String getInternalGameMapping() {
-    return internalGameMapping;
-  }
-  
   @Override
   public String toString() {
-    return "ResourceMapping[" + "resourcePath=" + resourcePath + " packName=" + packName + " internalGameMapping=" + internalGameMapping + "]";
+    return "ResourceMapping[" + "resourcePath=" + resourcePath + " id=" + id.stringify() + "]";
   }
 }

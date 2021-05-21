@@ -11,12 +11,6 @@ import vision.voltsofdoom.zapbyte.resource.ID;
  */
 public interface IResourcePack extends IResource {
 
-  String getDisplayName();
-  
-  ID getIdentifier();
-  
-  int getLoadingPriority();
-  
   ResourcePackInfoFileResource getPackInfo();
 
   IResource getResource(String path);

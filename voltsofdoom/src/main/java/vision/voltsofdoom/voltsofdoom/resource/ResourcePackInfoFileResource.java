@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 import com.google.gson.JsonObject;
 
 public class ResourcePackInfoFileResource extends JsonObjectResource {
-  
+
   public static final String PACK_INFO_JSON = "pack.json";
 
   private String fileName;
@@ -53,6 +53,11 @@ public class ResourcePackInfoFileResource extends JsonObjectResource {
 
   public String getPackInternalName() {
     return packInternalName;
+  }
+
+  @Override
+  public String toString() {
+    return "ResourcePackInfoFileResource[" + "modid=" + modid + " packInternalName=" + packInternalName + "]";
   }
 
 }

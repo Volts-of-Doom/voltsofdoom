@@ -119,6 +119,7 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
     registry.forEach((iid, sup) -> {
       LOGGER.debug("Loading using RegisterableResourceLoader: " + iid.stringify());
       RegisterableResourceLoader loader = (RegisterableResourceLoader) sup.get();
+      loader.setIdentifier(iid);
       resourceLoaders.put(iid, loader);
       loader.load(true);
     });
