@@ -114,17 +114,14 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
   }
 
   private void initialiseResourceLoaders() {
-    LOGGER.info("Initialising resource loaders");
     Map<IID, Supplier<? extends IRegistryEntry<?>>> registry = getRegistry().getMapOfType(RegisterableResourceLoader.class);
 
     registry.forEach((iid, sup) -> {
-      LOGGER.debug("Initialising resource loader: " + iid.stringify());
+      LOGGER.debug("Loading using RegisterableResourceLoader: " + iid.stringify());
       RegisterableResourceLoader loader = (RegisterableResourceLoader) sup.get();
       resourceLoaders.put(iid, loader);
       loader.load(true);
     });
-    LOGGER.debug("Resource loaders initialised");
-
   }
 
   public static VoltsOfDoom getInstance() {

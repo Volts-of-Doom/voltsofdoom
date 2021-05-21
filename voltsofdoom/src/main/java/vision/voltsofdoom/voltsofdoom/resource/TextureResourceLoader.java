@@ -24,12 +24,12 @@ import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
 public class TextureResourceLoader extends RegisterableResourceLoader {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TextureResourceLoader.class);
-
   private static final String TEXTURE_MANIFEST_LOCATION = "manifest.json";
   private static final String TEXTURE_INTERNAL_PATH_PREFIX = "textures/";
 
-  private ITextureAtlas atlas;
   private final Gson GSON = new GsonBuilder().registerTypeAdapter(ResourcePackManifestFileResource.class, new ResourcePackManifestFileResource.Serializer()).setPrettyPrinting().create();
+   
+  private ITextureAtlas atlas;
   private File rootDirectoryFile;
 
   public TextureResourceLoader(String rootDirectory) {
@@ -70,7 +70,7 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
   }
 
   /**
-   * Builds the {@link TextureResourceLoader}. Private so that it can handle its own errors.
+   * Builds the {@link TextureResourceLoader}. Private so that it can handle exceptions more easily.
    * 
    * @param forceReload Sometimes a rebuild is not expected or desired. Use this option to force a
    *        rebuild whether the program likes it or not. <i>"Be wary, adventurer..."</i>

@@ -1,7 +1,8 @@
 package vision.voltsofdoom.zapbyte.resource;
 
 /**
- * Interface for {@link ID}
+ * Interface for {@link ID}. {@link #equals(Object)} should return
+ * <code>domain.equals && entry.equals</code>
  * 
  * @author GenElectrovise
  *

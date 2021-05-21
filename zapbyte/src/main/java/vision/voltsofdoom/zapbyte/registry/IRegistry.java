@@ -11,10 +11,10 @@ public interface IRegistry {
   <E extends IRegistryEntry<E>> Supplier<E> getSupplier(IID identifier, Class<E> type);
 
   Map<IID, Supplier<? extends IRegistryEntry<?>>> getMapOfType(Class<?> type);
-  
+
   void setStatus(IRegistryStatus status);
-  
+
   IRegistryStatus getStatus();
-  
+
   void dump();
 }

@@ -6,7 +6,8 @@ import java.util.PrimitiveIterator.OfInt;
 import com.google.common.collect.ImmutableList;
 
 /**
- * Identifies something. This could be something such as a resource on the file system or an object in a registry.
+ * Identifies something. This could be something such as a resource on the file system or an object
+ * in a registry.
  * 
  * @author GenElectrovise
  *
@@ -181,13 +182,13 @@ public class ID implements IID {
       return false;
     }
 
-    obj = (IID) obj;
+    ID id = (ID) obj;
 
-    if (!((IID) obj).getDomain().equals(domain)) {
+    if (!id.getDomain().equals(domain)) {
       return false;
     }
 
-    if (!((IID) obj).getEntry().equals(entry)) {
+    if (!id.getEntry().equals(entry)) {
       return false;
     }
 
