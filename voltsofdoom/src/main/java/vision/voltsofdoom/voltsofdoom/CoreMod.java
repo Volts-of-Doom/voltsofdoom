@@ -2,6 +2,7 @@ package vision.voltsofdoom.voltsofdoom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vision.voltsofdoom.voltsofdoom.resource.AdventureResourceLoader;
 import vision.voltsofdoom.voltsofdoom.resource.RegisterableResourceLoader;
 import vision.voltsofdoom.voltsofdoom.resource.TextureResourceLoader;
 import vision.voltsofdoom.zapbyte.ZapByteReference;
@@ -28,4 +29,6 @@ public class CoreMod {
 
   public static final IRegistryMessenger<RegisterableResourceLoader> TEXTURES =
       VoltsOfDoom.getInstance().getRegistry().register(new ID(MODID, "textures"), () -> new TextureResourceLoader(ZapByteReference.getResourcePacks()), RegisterableResourceLoader.class);
+  public static final IRegistryMessenger<RegisterableResourceLoader> ADVENTURES =
+      VoltsOfDoom.getInstance().getRegistry().register(new ID(MODID, "adventures"), () -> new AdventureResourceLoader(ZapByteReference.getResourcePacks()), RegisterableResourceLoader.class);
 }

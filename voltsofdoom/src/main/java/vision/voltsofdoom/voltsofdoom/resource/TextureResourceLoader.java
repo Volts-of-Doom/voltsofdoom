@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,7 @@ import vision.voltsofdoom.zapbyte.resource.ID;
 public class TextureResourceLoader extends RegisterableResourceLoader {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TextureResourceLoader.class);
-  private static final String TEXTURE_MANIFEST_LOCATION = "manifest.json";
+  private static final String TEXTURE_MANIFEST_LOCATION = "textures/textures.json";
   private static final String TEXTURE_INTERNAL_PATH_PREFIX = "textures/";
 
   private final Gson GSON = new GsonBuilder().registerTypeAdapter(ResourcePackManifestFileResource.class, new ResourcePackManifestFileResource.Serializer()).setPrettyPrinting().create();
@@ -163,7 +164,7 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
     zipPacks.forEach((zip) -> {
       try {
         
-        ZipFileResourcePack zipRP = new ZipFileResourcePack(new FileInputStream(zip));
+        ZippedResourcePack zipRP = new ZippedResourcePack(new FileInputStream(zip));
         zipRPList.add(zipRP);
         return;
         
@@ -190,7 +191,10 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
     for (IResourcePack pack : packs) {
 
       // Get the manifest
-      ResourcePackManifestFileResource manifest = GSON.fromJson(new InputStreamReader(pack.getResource(TEXTURE_MANIFEST_LOCATION).getInputStream()), ResourcePackManifestFileResource.class);
+      IResource resource = pack.getResource(TEXTURE_MANIFEST_LOCATION);
+      InputStream is = resource.getInputStream();
+      InputStreamReader isreader = new InputStreamReader(is);
+      ResourcePackManifestFileResource manifest = GSON.fromJson(isreader, ResourcePackManifestFileResource.class);
 
       // For each mapping in the manifest
       for (String texturePath : manifest.getMappings().values()) {

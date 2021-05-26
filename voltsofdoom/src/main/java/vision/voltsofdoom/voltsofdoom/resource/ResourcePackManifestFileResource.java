@@ -27,7 +27,7 @@ public class ResourcePackManifestFileResource extends JsonObjectResource {
    */
   private Map<String, String> mappings;
 
-  private Optional<IResourcePack> parentPack = Optional.of(null);
+  private Optional<IResourcePack> parentPack = Optional.empty();
 
   public ResourcePackManifestFileResource(String json, Map<String, String> mappings) {
     super(json);

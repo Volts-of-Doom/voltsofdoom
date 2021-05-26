@@ -63,12 +63,16 @@ public class DefaultZapBits {
     LoadingWindow.loadingWindow.setStatus(ILoadingWindowStatus.LOCATING_MODS);
     Mods.instances(Reflectories.values());
   });
-
-  public static final ZapBit FREEZE_REGISTRY_65 = new ZapBit("freeze_registry_65", 65, () -> {
-    BandWagon.playEvent(new RegistryStatusEvent(ZapByte.getInstance(), IRegistryStatus.IMMUTABLE));
+  public static final ZapBit REGISTRY_DUMP_55 = new ZapBit("registry_dump_55", 55, () -> {
+    ZapByte.getInstance().getRegistry().dump();
   });
 
-  public static final ZapBit CLOSE_LOADING_WINDOW_70 = new ZapBit("close_loading_window", 70, () -> {
+  public static final ZapBit FREEZE_REGISTRY_90 = new ZapBit("freeze_registry_90", 90, () -> {
+    BandWagon.playEvent(new RegistryStatusEvent(ZapByte.getInstance(), IRegistryStatus.IMMUTABLE));
+    ZapByte.getInstance().getRegistry().dump();
+  });
+
+  public static final ZapBit CLOSE_LOADING_WINDOW_100 = new ZapBit("close_loading_window_100", 100, () -> {
     // 6) Finally terminate the loading window
     LoadingWindow.loadingWindow.setStatus(ILoadingWindowStatus.DONE);
     BandWagon.playEvent(new LoadingDoneEvent());

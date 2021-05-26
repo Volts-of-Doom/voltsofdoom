@@ -36,7 +36,7 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
   private static final String ID = "voltsofdoom";
 
   @Nullable
-  private Map<IID, RegisterableResourceLoader> resourceLoaders;
+  private Map<IID, RegisterableResourceLoader> resourceLoaders = new HashMap<IID, RegisterableResourceLoader>();;
 
   @Nullable
   private Game game;
@@ -80,11 +80,13 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
     addZapBit(DefaultZapBits.SCAN_FOR_MODS_30);
     addZapBit(DefaultZapBits.CREATE_BANDWAGON_40);
     addZapBit(DefaultZapBits.MAKE_MOD_INSTANCES_50);
-    addZapBit(DefaultZapBits.FREEZE_REGISTRY_65);
+    addZapBit(DefaultZapBits.REGISTRY_DUMP_55);
 
     addZapBit(VODZapBits.GENERATE_ADVENTURES_62);
+    addZapBit(VODZapBits.INITIALISE_RESOURCE_LOADERS_75);
 
-    addZapBit(DefaultZapBits.CLOSE_LOADING_WINDOW_70);
+    addZapBit(DefaultZapBits.FREEZE_REGISTRY_90);
+    addZapBit(DefaultZapBits.CLOSE_LOADING_WINDOW_100);
   }
 
   @Override
@@ -96,8 +98,9 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
     // VoltsOfDoom.getInstance().setTextureManager(manager);
     // manager.load(true);
 
-    resourceLoaders = new HashMap<IID, RegisterableResourceLoader>();
-    initialiseResourceLoaders();
+    /*
+     * resourceLoaders = new HashMap<IID, RegisterableResourceLoader>(); initialiseResourceLoaders();
+     */
 
     // Create game
     // Silverspark spark = new Silverspark();
@@ -113,17 +116,14 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
     // game.start();
   }
 
-  private void initialiseResourceLoaders() {
-    Map<IID, Supplier<? extends IRegistryEntry<?>>> registry = getRegistry().getMapOfType(RegisterableResourceLoader.class);
-
-    registry.forEach((iid, sup) -> {
-      LOGGER.debug("Loading using RegisterableResourceLoader: " + iid.stringify());
-      RegisterableResourceLoader loader = (RegisterableResourceLoader) sup.get();
-      loader.setIdentifier(iid);
-      resourceLoaders.put(iid, loader);
-      loader.load(true);
-    });
-  }
+  /*
+   * private void initialiseResourceLoaders() { Map<IID, Supplier<? extends IRegistryEntry<?>>>
+   * registry = getRegistry().getMapOfType(RegisterableResourceLoader.class);
+   * 
+   * registry.forEach((iid, sup) -> { LOGGER.debug("Loading using RegisterableResourceLoader: " +
+   * iid.stringify()); RegisterableResourceLoader loader = (RegisterableResourceLoader) sup.get();
+   * loader.setIdentifier(iid); resourceLoaders.put(iid, loader); loader.load(true); }); }
+   */
 
   public static VoltsOfDoom getInstance() {
     return instance != null ? (VoltsOfDoom) instance : new VoltsOfDoom();
@@ -152,5 +152,13 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
 
   public Silverspark getSilverspark() {
     return silverspark;
+  }
+
+  /**
+   * The registry contains passive (supplier) versions. This map is a collection of the active
+   * instances.
+   */
+  public Map<IID, RegisterableResourceLoader> getResourceLoaders() {
+    return resourceLoaders;
   }
 }
