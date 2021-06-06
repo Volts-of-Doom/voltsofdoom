@@ -1,4 +1,4 @@
-package vision.voltsofdoom.voltsofdoom.resource;
+package vision.voltsofdoom.voltsofdoom.resourcepack.structure;
 
 import java.nio.ByteBuffer;
 import java.util.Map;

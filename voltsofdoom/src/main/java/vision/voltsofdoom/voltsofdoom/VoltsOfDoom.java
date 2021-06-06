@@ -1,8 +1,5 @@
 package vision.voltsofdoom.voltsofdoom;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
 import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,13 +9,11 @@ import com.google.inject.Injector;
 import vision.voltsofdoom.silverspark.Silverspark;
 import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.guice.GuiceModule;
-import vision.voltsofdoom.voltsofdoom.resource.RegisterableResourceLoader;
-import vision.voltsofdoom.voltsofdoom.resource.TextureResourceLoader;
+import vision.voltsofdoom.voltsofdoom.resourcepack.loading.ResourcePackManager;
 import vision.voltsofdoom.zapbyte.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.ZapBit;
 import vision.voltsofdoom.zapbyte.ZapByte;
-import vision.voltsofdoom.zapbyte.registry.IRegistryEntry;
-import vision.voltsofdoom.zapbyte.resource.IID;
+import vision.voltsofdoom.zapbyte.ZapByteReference;
 
 /**
  * The main class for Volts of Doom's Core System. The game starts running here. In the case that
@@ -32,15 +27,13 @@ import vision.voltsofdoom.zapbyte.resource.IID;
 public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(VoltsOfDoom.class);
-
   private static final String ID = "voltsofdoom";
 
-  @Nullable
-  private Map<IID, RegisterableResourceLoader> resourceLoaders = new HashMap<IID, RegisterableResourceLoader>();;
+  private ResourcePackManager resourceManager = new ResourcePackManager();
 
   @Nullable
   private Game game;
-
+  
   @Inject
   private Silverspark silverspark;
 
@@ -154,11 +147,7 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
     return silverspark;
   }
 
-  /**
-   * The registry contains passive (supplier) versions. This map is a collection of the active
-   * instances.
-   */
-  public Map<IID, RegisterableResourceLoader> getResourceLoaders() {
-    return resourceLoaders;
+  public ResourcePackManager getResourceManager() {
+    return resourceManager;
   }
 }

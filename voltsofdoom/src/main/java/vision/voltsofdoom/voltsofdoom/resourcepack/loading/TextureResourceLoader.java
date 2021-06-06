@@ -1,4 +1,4 @@
-package vision.voltsofdoom.voltsofdoom.resource;
+package vision.voltsofdoom.voltsofdoom.resourcepack.loading;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,6 +21,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import vision.voltsofdoom.silverspark.api.ITextureAtlas;
 import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
+import vision.voltsofdoom.voltsofdoom.resourcepack.ResourceMapping;
+import vision.voltsofdoom.voltsofdoom.resourcepack.structure.IResource;
+import vision.voltsofdoom.voltsofdoom.resourcepack.structure.IResourcePack;
+import vision.voltsofdoom.voltsofdoom.resourcepack.structure.ResourcePackManifestFileResource;
+import vision.voltsofdoom.voltsofdoom.resourcepack.structure.ZippedResourcePack;
 import vision.voltsofdoom.zapbyte.resource.ID;
 
 public class TextureResourceLoader extends RegisterableResourceLoader {
@@ -83,16 +88,16 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
 
     // Messages for the developer
     if ((!forceReload) && loaded) {
-      LOGGER.warn("An attempt to call the TextureResourceLoader#build(..) was made when the target TextureResourceLoader is already built. The attempt was denied because the forceReload flag was not set to true.");
+      LOGGER.warn("An attempt to call the TextureResourceLoader#load(..) was made when the target TextureResourceLoader is already loaded. The attempt was denied because the forceReload flag was not set to true.");
       return;
     }
     if (forceReload && loaded) {
-      LOGGER.warn("TextureResourceLoader#build(..) has been called with the forceReload flag when the target TextureResourceLoader is already built. A TextureResourceLoader rebuild will start.");
+      LOGGER.warn("TextureResourceLoader#load(..) has been called with the forceReload flag when the target TextureResourceLoader is already loaded. A TextureResourceLoader rebuild will start.");
     }
     if (!loaded) {
-      LOGGER.warn("Building the target TextureResourceLoader for the first time.");
+      LOGGER.warn("Loading the target TextureResourceLoader for the first time.");
     }
-    LOGGER.warn("Building TextureResourceLoader for directory " + rootDirectory + " with flags: forceReload=" + forceReload);
+    LOGGER.warn("Loading TextureResourceLoader for directory " + rootDirectory + " with flags: forceReload=" + forceReload);
 
     // Change the built flag
     loaded = true;

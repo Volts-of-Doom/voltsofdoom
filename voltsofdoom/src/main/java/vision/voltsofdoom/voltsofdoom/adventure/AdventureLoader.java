@@ -16,7 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import vision.voltsofdoom.voltsofdoom.VoltsOfDoom;
 import vision.voltsofdoom.voltsofdoom.adventure.Sheet.ISheetType;
-import vision.voltsofdoom.voltsofdoom.resource.ZipFileReader;
+import vision.voltsofdoom.voltsofdoom.io.ZipFileReader;
 import vision.voltsofdoom.voltsofdoom.util.ExitCodes;
 import vision.voltsofdoom.voltsofdoom.util.Reference;
 import vision.voltsofdoom.zapbyte.ZapByteReference;

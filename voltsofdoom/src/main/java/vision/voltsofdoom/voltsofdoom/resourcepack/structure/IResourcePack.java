@@ -1,4 +1,4 @@
-package vision.voltsofdoom.voltsofdoom.resource;
+package vision.voltsofdoom.voltsofdoom.resourcepack.structure;
 
 /**
  * A resource pack of any kind. This could be loaded from a mod file, or through the file system:

@@ -1,4 +1,4 @@
-package vision.voltsofdoom.voltsofdoom.resource;
+package vision.voltsofdoom.voltsofdoom.resourcepack.loading;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

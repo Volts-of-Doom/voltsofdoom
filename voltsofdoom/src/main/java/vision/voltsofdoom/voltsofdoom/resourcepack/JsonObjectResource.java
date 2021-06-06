@@ -1,9 +1,10 @@
-package vision.voltsofdoom.voltsofdoom.resource;
+package vision.voltsofdoom.voltsofdoom.resourcepack;
 
 import java.nio.ByteBuffer;
 import org.lwjgl.BufferUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import vision.voltsofdoom.voltsofdoom.resourcepack.structure.IResource;
 
 public class JsonObjectResource implements IResource {
 

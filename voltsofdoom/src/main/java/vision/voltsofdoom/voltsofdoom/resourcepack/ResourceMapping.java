@@ -1,4 +1,4 @@
-package vision.voltsofdoom.voltsofdoom.resource;
+package vision.voltsofdoom.voltsofdoom.resourcepack;
 
 import vision.voltsofdoom.zapbyte.resource.ID;
 

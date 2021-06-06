@@ -2,9 +2,9 @@ package vision.voltsofdoom.voltsofdoom;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import vision.voltsofdoom.voltsofdoom.resource.AdventureResourceLoader;
-import vision.voltsofdoom.voltsofdoom.resource.RegisterableResourceLoader;
-import vision.voltsofdoom.voltsofdoom.resource.TextureResourceLoader;
+import vision.voltsofdoom.voltsofdoom.resourcepack.loading.AdventureResourceLoader;
+import vision.voltsofdoom.voltsofdoom.resourcepack.loading.RegisterableResourceLoader;
+import vision.voltsofdoom.voltsofdoom.resourcepack.loading.TextureResourceLoader;
 import vision.voltsofdoom.zapbyte.ZapByteReference;
 import vision.voltsofdoom.zapbyte.mod.Mod;
 import vision.voltsofdoom.zapbyte.registry.IRegistryMessenger;

@@ -1,7 +1,8 @@
-package vision.voltsofdoom.voltsofdoom.resource;
+package vision.voltsofdoom.voltsofdoom.resourcepack.structure;
 
 import javax.annotation.Nullable;
 import com.google.gson.JsonObject;
+import vision.voltsofdoom.voltsofdoom.resourcepack.JsonObjectResource;
 
 public class ResourcePackInfoFileResource extends JsonObjectResource {
 

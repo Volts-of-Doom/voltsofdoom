@@ -1,4 +1,4 @@
-package vision.voltsofdoom.voltsofdoom.resource;
+package vision.voltsofdoom.voltsofdoom.resourcepack.structure;
 
 import java.lang.reflect.Type;
 import java.nio.ByteBuffer;
@@ -13,6 +13,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import vision.voltsofdoom.voltsofdoom.resourcepack.JsonObjectResource;
 
 /**
  * Codematic representation of the manifest.json file in a texture pack.
