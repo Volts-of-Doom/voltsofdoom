@@ -4,8 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -158,21 +157,21 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
     List<File> zipPacks = Lists.newArrayList(rootDirFile.listFiles((file) -> file.getName().endsWith(".zip")));
 
     LOGGER.error("TextureResourceLoader will not search for resource packs other than ZIPs!");
-    
+
     List<IResourcePack> zipRPList = Lists.newArrayList();
 
-    zipPacks.forEach((zip) -> {
+    zipPacks.forEach((file) -> {
       try {
-        
-        ZippedResourcePack zipRP = new ZippedResourcePack(new FileInputStream(zip));
+
+        ZippedResourcePack zipRP = new ZippedResourcePack(new FileInputStream(file));
         zipRPList.add(zipRP);
         return;
-        
+
       } catch (FileNotFoundException e) {
         e.printStackTrace();
       }
-      
-      LOGGER.error("Unable to load a ZipFileResourcePack for the file: " + zip.getAbsolutePath());
+
+      LOGGER.error("Unable to load a ZipFileResourcePack for the file: " + file.getAbsolutePath());
     });
 
     return zipRPList;
@@ -192,9 +191,8 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
 
       // Get the manifest
       IResource resource = pack.getResource(TEXTURE_MANIFEST_LOCATION);
-      InputStream is = resource.getInputStream();
-      InputStreamReader isreader = new InputStreamReader(is);
-      ResourcePackManifestFileResource manifest = GSON.fromJson(isreader, ResourcePackManifestFileResource.class);
+      ByteBuffer bytes = resource.getBytes();
+      ResourcePackManifestFileResource manifest = GSON.fromJson(new String(bytes.array()), ResourcePackManifestFileResource.class);
 
       // For each mapping in the manifest
       for (String texturePath : manifest.getMappings().values()) {

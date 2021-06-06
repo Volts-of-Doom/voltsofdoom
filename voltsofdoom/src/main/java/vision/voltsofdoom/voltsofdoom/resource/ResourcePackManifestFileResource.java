@@ -1,10 +1,10 @@
 package vision.voltsofdoom.voltsofdoom.resource;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.nio.ByteBuffer;
 import java.util.Map;
 import java.util.Optional;
+import org.lwjgl.BufferUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -40,9 +40,9 @@ public class ResourcePackManifestFileResource extends JsonObjectResource {
   }
 
   @Override
-  public InputStream getInputStream() {
-    String contents = new Gson().toJson(mappings, Map.class);
-    return new ByteArrayInputStream(contents.getBytes());
+  public ByteBuffer getBytes() {
+    byte[] contents = new Gson().toJson(mappings, Map.class).getBytes(); 
+    return BufferUtils.createByteBuffer(contents.length).put(contents);
   }
 
   public Map<String, String> getMappings() {

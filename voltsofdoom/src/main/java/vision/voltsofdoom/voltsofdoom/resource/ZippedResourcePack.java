@@ -1,44 +1,42 @@
 package vision.voltsofdoom.voltsofdoom.resource;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.lwjgl.BufferUtils;
 import com.google.common.collect.Maps;
 
 /**
- * A {@link SerialMappedStreamResourcePack} with additional functionality to allow loading from a
+ * A {@link DeserialByteBufferResourcePack} with additional functionality to allow loading from a
  * {@link ZipFile} or {@link ZipInputStream}.
  * 
  * @author GenElectrovise
  *
  */
-public class ZippedResourcePack extends SerialMappedStreamResourcePack {
+public class ZippedResourcePack extends DeserialByteBufferResourcePack {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ZippedResourcePack.class);
+  // private static final Logger LOGGER = LoggerFactory.getLogger(ZippedResourcePack.class);
 
   public ZippedResourcePack(ZipFile zip) {
-    this(deriveStreams(zip));
+    this(deriveBuffers(zip));
   }
 
   public ZippedResourcePack(InputStream stream) {
-    this(deriveStreams(new ZipInputStream(stream)));
+    this(deriveBuffers(new ZipInputStream(stream)));
   }
 
-  public ZippedResourcePack(Map<String, InputStream> streamMap) {
+  public ZippedResourcePack(Map<String, ByteBuffer> streamMap) {
     super(streamMap);
   }
 
-  public static Map<String, InputStream> deriveStreams(ZipInputStream zis) {
+  public static Map<String, ByteBuffer> deriveBuffers(ZipInputStream zis) {
 
-    Map<String, InputStream> map = Maps.newHashMap();
+    Map<String, ByteBuffer> map = Maps.newHashMap();
     byte[] buffer = new byte[2048];
 
     ZipEntry e;
@@ -53,7 +51,7 @@ public class ZippedResourcePack extends SerialMappedStreamResourcePack {
           baos.write(buffer, 0, len);
         }
         
-        map.put(e.getName(), new ByteArrayInputStream(baos.toByteArray()));
+        map.put(e.getName(), BufferUtils.createByteBuffer(baos.toByteArray().length).put(baos.toByteArray()));
       }
     } catch (IOException io) {
       io.printStackTrace();
@@ -62,20 +60,19 @@ public class ZippedResourcePack extends SerialMappedStreamResourcePack {
     return map;
   }
 
-  public static Map<String, InputStream> deriveStreams(ZipFile zip) {
+  public static Map<String, ByteBuffer> deriveBuffers(ZipFile zip) {
 
-    Map<String, InputStream> map = Maps.newHashMap();
+    Map<String, ByteBuffer> map = Maps.newHashMap();
 
     while (zip.entries().hasMoreElements()) {
       try {
         ZipEntry entry = (ZipEntry) zip.entries().nextElement();
-        Scanner scanner = new Scanner(zip.getInputStream(entry));
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        while (scanner.hasNextLine()) {
-          baos.write(scanner.nextLine().getBytes());
-        }
+        
+        InputStream stream = zip.getInputStream(entry);
+        byte[] bytes = stream.readAllBytes();
+        stream.close();
 
-        map.put(entry.getName(), new ByteArrayInputStream(baos.toByteArray()));
+        map.put(entry.getName(), BufferUtils.createByteBuffer(bytes.length).put(bytes));
 
       } catch (IOException io) {
         io.printStackTrace();

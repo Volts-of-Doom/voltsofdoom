@@ -1,7 +1,8 @@
 package vision.voltsofdoom.voltsofdoom.resource;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.nio.ByteBuffer;
+import com.google.gson.Gson;
 
 /**
  * A resource, typically something like an image or sound file in a resource pack.
@@ -12,7 +13,7 @@ import java.io.InputStream;
 public interface IResource {
 
   /**
-   * @return An {@link InputStream} of the relevant contents of this resource - normally a copy to
+   * @return A {@link ByteBuffer} of the relevant contents of this resource - normally a copy to
    *         prevent race conditions and unwanted editing. The stream should comprise all data
    *         required to reproduce this resource. <br>
    *         <br>
@@ -26,5 +27,5 @@ public interface IResource {
    *         {@link ByteArrayInputStream})
    *         </ul>
    */
-  InputStream getInputStream();
+  ByteBuffer getBytes();
 }
