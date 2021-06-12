@@ -4,7 +4,7 @@ import java.util.Objects;
 import com.google.gson.JsonObject;
 import vision.voltsofdoom.zapbyte.resource.ID;
 import vision.voltsofdoom.zapbyte.resource.ResourceLocationInvalidException;
-import vision.voltsofdoom.zapbyte.resource.ResourceLocationValidityState;
+import vision.voltsofdoom.zapbyte.resource.IDValidityState;
 
 public class LevelConfiguration {
   private ID identifier;
@@ -39,7 +39,7 @@ public class LevelConfiguration {
     Objects.requireNonNull(config.identifier,
         () -> "LevelConfiguration#fromJson found identifier to be null.");
 
-    ResourceLocationValidityState state = config.identifier.validate();
+    IDValidityState state = config.identifier.validate();
     if (!state.isValid())
       throw new ResourceLocationInvalidException("ResourceLocation " + config.identifier.stringify()
           + " is invalid. >> " + state.getMessage());

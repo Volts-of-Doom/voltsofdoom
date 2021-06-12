@@ -30,7 +30,7 @@ public class VODZapBits {
     Map<IID, Supplier<? extends IRegistryEntry<?>>> registry = VoltsOfDoom.getInstance().getRegistry().getMapOfType(RegisterableResourceLoader.class);
 
     registry.forEach((iid, sup) -> {      
-      VoltsOfDoom.getInstance().getResourceManager().reload(true);
+      VoltsOfDoom.getInstance().getResourcePackManager().reload(true);
     });
   });
 

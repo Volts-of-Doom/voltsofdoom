@@ -120,7 +120,7 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
     // a) Get priorities
     JsonArray texturePackPriorityJsonArray = VoltsOfDoom.getInstance().getConfigurationHandler().getOption("textures.texture_pack_priority").getAsJsonArray();
     String[] prioritisedRawTexturePackNames = getArrayOfPrioritisedTexturePacks(texturePackPriorityJsonArray);
-    List<IResourcePack> packs = findResourcePacks();
+    List<IResourcePack> packs = VoltsOfDoom.getInstance().getResourcePackManager().getPacks();
     // b) Load <String textureName, String packName> in order of last -> first priority
     // (so that higher priorities overwrite lower ones)
     Map<String, ResourceMapping> textureNameToPackName = new HashMap<String, ResourceMapping>(); // Map the name of the texture to the pack it should be read from
@@ -128,7 +128,6 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
     writePrioritiesBackToConfiguration(prioritisedRawTexturePackNames);
 
     // Read each image. Make a list of nodes with their dimensions.
-    System.out.println("");
 
     // Order nodes by width
 
@@ -149,37 +148,6 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
   private void writePrioritiesBackToConfiguration(String[] prioritisedRawTexturePackNames) {
     LOGGER.error("Not writing the pack names back to configuration. This isn't an issue because this hasn't been implemented yet.");
     return;
-  }
-
-  /**
-   * Lists the resource packs which are available.
-   * 
-   * @return
-   */
-  private List<IResourcePack> findResourcePacks() {
-
-    File rootDirFile = new File(rootDirectory);
-    List<File> zipPacks = Lists.newArrayList(rootDirFile.listFiles((file) -> file.getName().endsWith(".zip")));
-
-    LOGGER.error("TextureResourceLoader will not search for resource packs other than ZIPs!");
-
-    List<IResourcePack> zipRPList = Lists.newArrayList();
-
-    zipPacks.forEach((file) -> {
-      try {
-
-        ZippedResourcePack zipRP = new ZippedResourcePack(new FileInputStream(file));
-        zipRPList.add(zipRP);
-        return;
-
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      }
-
-      LOGGER.error("Unable to load a ZipFileResourcePack for the file: " + file.getAbsolutePath());
-    });
-
-    return zipRPList;
   }
 
   /**

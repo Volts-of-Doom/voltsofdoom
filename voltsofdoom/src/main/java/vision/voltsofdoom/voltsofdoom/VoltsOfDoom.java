@@ -13,7 +13,6 @@ import vision.voltsofdoom.voltsofdoom.resourcepack.loading.ResourcePackManager;
 import vision.voltsofdoom.zapbyte.DefaultZapBits;
 import vision.voltsofdoom.zapbyte.ZapBit;
 import vision.voltsofdoom.zapbyte.ZapByte;
-import vision.voltsofdoom.zapbyte.ZapByteReference;
 
 /**
  * The main class for Volts of Doom's Core System. The game starts running here. In the case that
@@ -147,7 +146,7 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
     return silverspark;
   }
 
-  public ResourcePackManager getResourceManager() {
+  public ResourcePackManager getResourcePackManager() {
     return resourceManager;
   }
 }

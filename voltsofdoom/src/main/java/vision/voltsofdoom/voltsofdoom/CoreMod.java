@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import vision.voltsofdoom.voltsofdoom.resourcepack.loading.AdventureResourceLoader;
 import vision.voltsofdoom.voltsofdoom.resourcepack.loading.RegisterableResourceLoader;
+import vision.voltsofdoom.voltsofdoom.resourcepack.loading.ResourcePackFinder;
+import vision.voltsofdoom.voltsofdoom.resourcepack.loading.RoamingZipFileResourcePackFinder;
 import vision.voltsofdoom.voltsofdoom.resourcepack.loading.TextureResourceLoader;
 import vision.voltsofdoom.zapbyte.ZapByteReference;
 import vision.voltsofdoom.zapbyte.mod.Mod;
@@ -27,8 +29,13 @@ public class CoreMod {
 
   }
 
+  // Resource loaders
   public static final IRegistryMessenger<RegisterableResourceLoader> TEXTURES =
       VoltsOfDoom.getInstance().getRegistry().register(new ID(MODID, "textures"), () -> new TextureResourceLoader(ZapByteReference.getResourcePacks()), RegisterableResourceLoader.class);
   public static final IRegistryMessenger<RegisterableResourceLoader> ADVENTURES =
       VoltsOfDoom.getInstance().getRegistry().register(new ID(MODID, "adventures"), () -> new AdventureResourceLoader(ZapByteReference.getResourcePacks()), RegisterableResourceLoader.class);
+
+  // Resource Pack Finders
+  public static final IRegistryMessenger<ResourcePackFinder> ROAMING_ZIP_FILE_RESOURCE_PACK_FINDER =
+      VoltsOfDoom.getInstance().getRegistry().register(new ID(MODID, "roaming_zip_pack_finder"), () -> new RoamingZipFileResourcePackFinder(), ResourcePackFinder.class);
 }

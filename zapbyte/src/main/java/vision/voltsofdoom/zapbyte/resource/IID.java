@@ -15,7 +15,7 @@ public interface IID {
    * 
    * @return Whether this {@link ID} is valid.
    */
-  ResourceLocationValidityState validate();
+  IDValidityState validate();
 
   String getEntry();
 

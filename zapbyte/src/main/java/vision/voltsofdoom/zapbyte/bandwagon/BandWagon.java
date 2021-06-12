@@ -76,7 +76,7 @@ public class BandWagon {
    */
   public static void playEvent(IEvent event) {
 
-    LOGGER.debug("Playing Event: " + event);
+    LOGGER.debug("Playing Event: " + event.getClass().getSimpleName());
 
     List<Method> methodsToRun = stowawayMethods.get(event.getClass());
     methodsToRun.forEach((method) -> invokeMethod(event, method));

@@ -51,7 +51,9 @@ public class ZippedResourcePack extends DeserialByteBufferResourcePack {
           baos.write(buffer, 0, len);
         }
         
-        map.put(e.getName(), BufferUtils.createByteBuffer(baos.toByteArray().length).put(baos.toByteArray()));
+        byte[] bytes = baos.toByteArray();
+        ByteBuffer bb = ByteBuffer.wrap(bytes);
+        map.put(e.getName(), bb);
       }
     } catch (IOException io) {
       io.printStackTrace();
@@ -72,7 +74,7 @@ public class ZippedResourcePack extends DeserialByteBufferResourcePack {
         byte[] bytes = stream.readAllBytes();
         stream.close();
 
-        map.put(entry.getName(), BufferUtils.createByteBuffer(bytes.length).put(bytes));
+        map.put(entry.getName(), ByteBuffer.wrap(bytes));
 
       } catch (IOException io) {
         io.printStackTrace();

@@ -3,10 +3,14 @@ package vision.voltsofdoom.voltsofdoom.resourcepack.structure;
 import java.nio.ByteBuffer;
 import java.util.Map;
 import org.lwjgl.BufferUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 
 /**
- * Implementation of {@link IResourcePack} which uses
+ * Implementation of {@link IResourcePack} which uses a {@link Map} of {@link ByteBuffer}s to store
+ * {@link IResource}s.
  * 
  * @author GenElectrovise
  *
@@ -14,9 +18,10 @@ import com.google.gson.Gson;
 public class DeserialByteBufferResourcePack implements IResourcePack {
 
   protected Map<String, ByteBuffer> map;
+  private static final Logger LOGGER = LoggerFactory.getLogger(DeserialByteBufferResourcePack.class);
 
   public DeserialByteBufferResourcePack(Map<String, ByteBuffer> map) {
-    map = Map.copyOf(map);
+    this.map = (map == null ? Maps.newHashMap() : Map.copyOf(map));
   }
 
   @Override
@@ -29,13 +34,22 @@ public class DeserialByteBufferResourcePack implements IResourcePack {
   @Override
   public ResourcePackInfoFileResource getPackInfo() {
     ByteBuffer buf = getResource(ResourcePackInfoFileResource.PACK_INFO_JSON).getBytes();
-    return new Gson().fromJson(new String(buf.array()), ResourcePackInfoFileResource.class);
+    byte[] bytes = buf.array();
+    return new Gson().fromJson(new String(bytes), ResourcePackInfoFileResource.class);
   }
 
   @Override
   public IResource getResource(String path) {
 
+    if (map == null) {
+      LOGGER.error(DeserialByteBufferResourcePack.class.getSimpleName() + "#map is null (de-nulling)");
+      map = Maps.newHashMap();
+    }
+
     ByteBuffer buf = map.get(path);
+
+    if (buf == null)
+      throw new NullPointerException("No such resource as " + path + " could be found (null)");
 
     return new IResource() {
 
