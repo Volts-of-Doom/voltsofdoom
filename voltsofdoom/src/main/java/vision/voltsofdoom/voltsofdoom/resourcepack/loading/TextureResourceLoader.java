@@ -31,8 +31,8 @@ import vision.voltsofdoom.zapbyte.resource.ID;
 public class TextureResourceLoader extends RegisterableResourceLoader {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TextureResourceLoader.class);
-  private static final String TEXTURE_MANIFEST_LOCATION = "textures/textures.json";
-  private static final String TEXTURE_INTERNAL_PATH_PREFIX = "textures/";
+  public static final String TEXTURE_MANIFEST_LOCATION = "textures/textures.json";
+  public static final String TEXTURE_INTERNAL_PATH_PREFIX = "textures/";
 
   private final Gson GSON = new GsonBuilder().registerTypeAdapter(ResourcePackManifestFileResource.class, new ResourcePackManifestFileResource.Serializer()).setPrettyPrinting().create();
 
@@ -109,24 +109,6 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
     if (!rootDirectoryFile.isDirectory())
       throw new IllegalStateException("The TextureResourceLoader root file " + rootDirectory + " is not a directory.");
 
-    // Get a list of files in the directory
-    // File[] children = findAndMapTexturePackZipFileObjectsToFileNames();
-
-    // Make a list of the manifests
-    // List<TexturePackManifest> manifests = new ArrayList<>();
-    // getListOfJavaObjectTexturePackManifests(children, manifests);
-
-    // Combine and override textures
-    // a) Get priorities
-    JsonArray texturePackPriorityJsonArray = VoltsOfDoom.getInstance().getConfigurationHandler().getOption("textures.texture_pack_priority").getAsJsonArray();
-    String[] prioritisedRawTexturePackNames = getArrayOfPrioritisedTexturePacks(texturePackPriorityJsonArray);
-    List<IResourcePack> packs = VoltsOfDoom.getInstance().getResourcePackManager().getPacks();
-    // b) Load <String textureName, String packName> in order of last -> first priority
-    // (so that higher priorities overwrite lower ones)
-    Map<String, ResourceMapping> textureNameToPackName = new HashMap<String, ResourceMapping>(); // Map the name of the texture to the pack it should be read from
-    load_textureNameToPackNameMap_inLastToFirstPriority(packs, textureNameToPackName);
-    writePrioritiesBackToConfiguration(prioritisedRawTexturePackNames);
-
     // Read each image. Make a list of nodes with their dimensions.
 
     // Order nodes by width
@@ -138,97 +120,6 @@ public class TextureResourceLoader extends RegisterableResourceLoader {
     // Write atlas image to system
 
     return;
-  }
-
-  /**
-   * Writes an array of texture pack names back onto the file system.
-   * 
-   * @param prioritisedRawTexturePackNames
-   */
-  private void writePrioritiesBackToConfiguration(String[] prioritisedRawTexturePackNames) {
-    LOGGER.error("Not writing the pack names back to configuration. This isn't an issue because this hasn't been implemented yet.");
-    return;
-  }
-
-  /**
-   * Loads each texture from every manifest, starting with the lowest priority so that higher priority
-   * instances will override them.
-   * 
-   * @param packs
-   * @param textureNameToPackName
-   */
-  private void load_textureNameToPackNameMap_inLastToFirstPriority(List<IResourcePack> packs, Map<String, ResourceMapping> textureNameToPackName) {
-
-    // Start at last index, iterate through 0
-    for (IResourcePack pack : packs) {
-
-      // Get the manifest
-      IResource resource = pack.getResource(TEXTURE_MANIFEST_LOCATION);
-      ByteBuffer bytes = resource.getBytes();
-      ResourcePackManifestFileResource manifest = GSON.fromJson(new String(bytes.array()), ResourcePackManifestFileResource.class);
-
-      // For each mapping in the manifest
-      for (String texturePath : manifest.getMappings().values()) {
-
-        String workingWith = texturePath;
-
-        if (texturePath.startsWith("textures/")) {
-          workingWith = workingWith.replaceFirst("textures/", "");
-        }
-
-        // Does the specified texture exist?
-        if (pack.getResource(TEXTURE_INTERNAL_PATH_PREFIX + workingWith) != null) {
-
-          // Create an inverted view of the mappings
-          BiMap<String, String> invertedManifestMappings = HashBiMap.create(manifest.getMappings()).inverse();
-
-          // Put the newly generated mapping into the map
-          String mappedName = invertedManifestMappings.get(texturePath);
-          String internalGameMapping = invertedManifestMappings.get(texturePath);
-          ResourceMapping mappedResource = new ResourceMapping(texturePath, new ID(pack.getPackInfo().getModid(), pack.getPackInfo().getPackInternalName()).stringify(), internalGameMapping);
-          textureNameToPackName.put(mappedName, mappedResource);
-        }
-      }
-
-      LOGGER.debug("Done creating texture mappings for " + pack.getPackInfo().getPackDisplayName());
-
-    }
-
-    LOGGER.debug("Done creating all texture mappings.");
-
-  }
-
-  /**
-   * Given a {@link JsonArray}, gets a list of all strings in the {@link JsonArray} and converts them
-   * into a String[].
-   * 
-   * @param texturePackPriorityJsonArray
-   */
-  private String[] getArrayOfPrioritisedTexturePacks(JsonArray texturePackPriorityJsonArray) {
-    String[] texturePackPriorityStrings = new String[texturePackPriorityJsonArray.size()];
-    int i = 0;
-
-    for (JsonElement element : texturePackPriorityJsonArray) {
-
-      // Ensure is primitive
-      if (!element.isJsonPrimitive()) {
-        LOGGER.warn("JsonElement is not a primitive: " + element);
-        continue;
-      }
-      JsonPrimitive primitive = (JsonPrimitive) element;
-
-      // Ensure is string
-      if (!primitive.isString()) {
-        LOGGER.warn("JsonPrimitive is not a string: " + primitive);
-        continue;
-      }
-      String content = primitive.getAsString();
-
-      texturePackPriorityStrings[i] = content;
-      i++;
-    }
-
-    return texturePackPriorityStrings;
   }
 
   public boolean isBuilt() {

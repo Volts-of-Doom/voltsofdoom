@@ -2,6 +2,7 @@ package vision.voltsofdoom.voltsofdoom.resourcepack.structure;
 
 import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
+import java.util.List;
 import com.google.gson.Gson;
 
 /**
@@ -28,4 +29,23 @@ public interface IResource {
    *         </ul>
    */
   ByteBuffer getBytes();
+
+
+  public static IResource generateResourceFromBytes(byte[] bytes) {
+    return generateResourceFromByteBuffer(ByteBuffer.wrap(bytes));
+  }
+  
+  public static IResource generateResourceFromByteBuffer(ByteBuffer buffer) {
+    
+    return new IResource() {      
+      @Override
+      public ByteBuffer getBytes() {
+        return buffer;
+      }
+    };
+  }
+  
+  public static void generateResourceAndAddToList(ByteBuffer buffer, List<IResource> list) {
+    list.add(generateResourceFromByteBuffer(buffer));
+  }
 }

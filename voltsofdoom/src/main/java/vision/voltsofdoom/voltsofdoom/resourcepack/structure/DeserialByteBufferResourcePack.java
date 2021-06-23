@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
+import vision.voltsofdoom.zapbyte.resource.ID;
+import vision.voltsofdoom.zapbyte.resource.IID;
 
 /**
  * Implementation of {@link IResourcePack} which uses a {@link Map} of {@link ByteBuffer}s to store
@@ -16,9 +18,12 @@ import com.google.gson.Gson;
  *
  */
 public class DeserialByteBufferResourcePack implements IResourcePack {
+  
+  private static final Logger LOGGER = LoggerFactory.getLogger(DeserialByteBufferResourcePack.class);
 
   protected Map<String, ByteBuffer> map;
-  private static final Logger LOGGER = LoggerFactory.getLogger(DeserialByteBufferResourcePack.class);
+  protected Map<IID, IResource> resources;
+  protected int rHash = 0;
 
   public DeserialByteBufferResourcePack(Map<String, ByteBuffer> map) {
     this.map = (map == null ? Maps.newHashMap() : Map.copyOf(map));
@@ -51,14 +56,19 @@ public class DeserialByteBufferResourcePack implements IResourcePack {
     if (buf == null)
       throw new NullPointerException("No such resource as " + path + " could be found (null)");
 
-    return new IResource() {
+    return IResource.generateResourceFromByteBuffer(buf);
+  }
 
-      @Override
-      public ByteBuffer getBytes() {
-        return buf;
-      }
+  @Override
+  public Map<IID ,IResource> getResources() {
+    Map<IID, IResource> resources = Maps.newHashMap();
+    map.forEach((str, buffer) -> {
+      resources.put(ID.fromString(str), IResource.generateResourceFromByteBuffer(buffer));
+    });
+    
+    this.resources = resources;
 
-    };
+    return this.resources;
   }
 
 }
