@@ -1,4 +1,3 @@
-<?xml version="1.0"?>
 <project
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0"
@@ -14,12 +13,9 @@
 	<artifactId>zapbyte</artifactId>
 	<packaging>jar</packaging>
 
-	<name>zapbyte</name>
-	<url>http://maven.apache.org</url>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	<name>Zapbyte</name>
+	<description>Volts of Doom's application loader.</description>
+	<url>https://github.com/Volts-of-Doom/voltsofdoom</url>
 
 	<dependencies>
 
@@ -30,13 +26,12 @@
 			<artifactId>api</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-
-		<!-- JUnit -->
+		
+		<!-- Logback -->
 
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
 		</dependency>
 
 		<!-- GSON -->
@@ -52,7 +47,7 @@
 			<groupId>org.reflections</groupId>
 			<artifactId>reflections</artifactId>
 		</dependency>
-		
+
 	</dependencies>
 
 </project>

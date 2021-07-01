@@ -1,21 +1,12 @@
 package vision.voltsofdoom.silverspark.api;
 
 
-import vision.voltsofdoom.silverspark.graphic.SparkTexture;
-
 public interface IRenderable {
+  String getKeyName();
   float getX();
-
   float getY();
-
-  float getWidth();
-
-  float getHeight();
-
-  SparkTexture getTexture();
-
-  int getTextureX();
-
-  int getTextureY();
+  void setKeyName(String keyName);
+  void setX(float x);
+  void setY(float y);
 
 }

@@ -1,5 +1,6 @@
+### Notes on running this version:
 
-Notes on running this version:
+#### Resources
 
 Resources are expected in <user.home>/AppData/Roaming/voltsofdoom, as follows:
 
@@ -8,9 +9,11 @@ Resources are expected in <user.home>/AppData/Roaming/voltsofdoom, as follows:
 
 IntelliJ config currently does not allow code to run without re-running from the command line.
 
+#### Building
+
 
 To build on Linux, I needed to install the LWJGL native libraries: 
 
-<code>sudo apt-get install -y liblwjgl-java-doc</code>
+`sudo apt-get install -y liblwjgl-java-doc`
 
-To do: Confirm whether LWJGL files need to be in resources/lib. Is ther a better location?
+To do: Confirm whether LWJGL files need to be in resources/lib. Is there a better location?

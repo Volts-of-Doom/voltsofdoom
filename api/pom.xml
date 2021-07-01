@@ -1,8 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>vision.voltsofdoom</groupId>
 		<artifactId>voltsofdoomparent</artifactId>
@@ -10,6 +11,11 @@
 	</parent>
 
 	<artifactId>api</artifactId>
+	<packaging>jar</packaging>
+	
+	<name>VOD API</name>
+	<description>The core API for Volts of Doom.</description>
+	<url>https://github.com/Volts-of-Doom/voltsofdoom</url>
 
 	<dependencies>
 
@@ -23,6 +29,13 @@
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-multibindings</artifactId>
+		</dependency>
+
+		<!-- GSON -->
+
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
 		</dependency>
 
 	</dependencies>

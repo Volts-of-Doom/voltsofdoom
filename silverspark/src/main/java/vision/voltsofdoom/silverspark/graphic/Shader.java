@@ -20,14 +20,13 @@
  */
 package vision.voltsofdoom.silverspark.graphic;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import static org.lwjgl.opengl.GL11.GL_TRUE;
-import static org.lwjgl.opengl.GL20.GL_COMPILE_STATUS;
-import static org.lwjgl.opengl.GL20.glCompileShader;
-import static org.lwjgl.opengl.GL20.glCreateShader;
-import static org.lwjgl.opengl.GL20.glDeleteShader;
-import static org.lwjgl.opengl.GL20.glGetShaderInfoLog;
-import static org.lwjgl.opengl.GL20.glGetShaderi;
-import static org.lwjgl.opengl.GL20.glShaderSource;
+import static org.lwjgl.opengl.GL20.*;
 
 /**
  * This class represents a shader.
@@ -93,5 +92,45 @@ public class Shader {
     return id;
   }
 
+  /**
+   * Creates a shader with specified type and source and compiles it. The type in the tutorial should
+   * be either <code>GL_VERTEX_SHADER</code> or <code>GL_FRAGMENT_SHADER</code>.
+   *
+   * @param type Type of the shader
+   * @param source Source of the shader
+   *
+   * @return Compiled Shader from the specified source
+   */
+  public static Shader createShader(int type, CharSequence source) {
+    Shader shader = new Shader(type);
+    shader.source(source);
+    shader.compile();
+
+    return shader;
+  }
+
+  /**
+   * Loads a shader from a file.
+   *
+   * @param type Type of the shader
+   * @param path File path of the shader
+   *
+   * @return Compiled Shader from specified file
+   */
+  public static Shader loadShader(int type, String path) {
+    StringBuilder builder = new StringBuilder();
+
+    try (InputStream in = new FileInputStream(path); BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+      String line;
+      while ((line = reader.readLine()) != null) {
+        builder.append(line).append("\n");
+      }
+    } catch (IOException ex) {
+      throw new RuntimeException("Failed to load a shader file!" + System.lineSeparator() + ex.getMessage());
+    }
+    CharSequence source = builder.toString();
+
+    return createShader(type, source);
+  }
 
 }

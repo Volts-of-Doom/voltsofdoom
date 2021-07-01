@@ -22,7 +22,7 @@ import com.google.inject.name.Named;
  */
 @Singleton
 public class Guicer {
-
+  
   private static final Guicer GUICER = new Guicer();
   private List<AbstractModule> modules;
   private Injector injector;
@@ -76,7 +76,7 @@ public class Guicer {
     String str;
 
     public static void main(String[] args) {
-      Guicer guicer = new Guicer(new ZapByteGuiceBindingModule());
+      Guicer guicer = new Guicer(new VODApiGuiceBindingModule());
       GuiceTest test = guicer.injector.getInstance(GuiceTest.class);
       test.test();
     }
