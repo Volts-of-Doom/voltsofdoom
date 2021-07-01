@@ -3,9 +3,9 @@ package vision.voltsofdoom.voltsofdoom.display;
 import java.util.List;
 import vision.voltsofdoom.silverspark.api.IRenderable;
 import vision.voltsofdoom.silverspark.api.IRenderableText;
-import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.graphic.VODColor;
 import vision.voltsofdoom.silverspark.math.Vector2f;
+import vision.voltsofdoom.silverspark.xnotsilverspark.core.Game;
 import vision.voltsofdoom.voltsofdoom.controls.MenuButton;
 
 public class MenuTemplate {

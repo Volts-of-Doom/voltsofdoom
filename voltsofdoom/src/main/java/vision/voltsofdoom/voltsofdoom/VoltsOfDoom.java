@@ -7,7 +7,7 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import vision.voltsofdoom.silverspark.Silverspark;
-import vision.voltsofdoom.silverspark.core.Game;
+//import vision.voltsofdoom.silverspark.core.Game;
 import vision.voltsofdoom.silverspark.guice.GuiceModule;
 import vision.voltsofdoom.voltsofdoom.resourcepack.loading.ResourcePackManager;
 import vision.voltsofdoom.zapbyte.DefaultZapBits;
@@ -31,7 +31,7 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
   private ResourcePackManager resourceManager = new ResourcePackManager();
 
   @Nullable
-  private Game game;
+  // private Game game;
   
   @Inject
   private Silverspark silverspark;
@@ -125,13 +125,11 @@ public class VoltsOfDoom extends ZapByte<VoltsOfDoom> {
     return ID;
   }
 
-  public Game getGame() {
-    return game;
-  }
-
-  public void setGame(Game game) {
-    this.game = game;
-  }
+  /*
+   * public Game getGame() { return game; }
+   * 
+   * public void setGame(Game game) { this.game = game; }
+   */
 
   @Override
   public Logger getApplicationLogger() {
