@@ -1,180 +1,27 @@
-<project
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>vision.voltsofdoom</groupId>
-	<artifactId>voltsofdoomparent</artifactId>
+	<artifactId>voltsofdoom</artifactId>
 	<version>0.0.1</version>
 	<packaging>pom</packaging>
 
-	<name>Volts of Doom Parent</name>
-	<description>Volts of Doom's Parent Maven project of which all other POMs are modules.</description>
-	<url>https://github.com/Volts-of-Doom/voltsofdoom</url>
-
 	<modules>
-		<module>zapbyte</module>
-		<module>voltsofdoom</module>
-		<module>silverspark</module>
+		<module>client</module>
 		<module>api</module>
-		<module>alkali</module>
-		<module>astar</module>
+		<module>zapbyte</module>
+		<module>server</module>
 	</modules>
+
+	<name>voltsofdoom</name>
+	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<voltsofdoomparent.version>0.0.1</voltsofdoomparent.version>
-		<lwjgl.version>3.2.3</lwjgl.version>
-		<lwjgl.natives>natives-windows</lwjgl.natives>
-		<joml.version>1.9.23</joml.version>
 	</properties>
-
-	<!-- All dependencies should be defined and managed in this tag -->
-
-	<dependencyManagement>
-		<dependencies>
-
-			<!-- JUnit -->
-
-			<dependency>
-				<groupId>org.junit.jupiter</groupId>
-				<artifactId>junit-jupiter</artifactId>
-				<version>5.7.1</version>
-				<scope>test</scope>
-			</dependency>
-
-			<!-- Mockito -->
-
-			<dependency>
-				<groupId>org.mockito</groupId>
-				<artifactId>mockito-core</artifactId>
-				<version>3.8.0</version>
-				<scope>test</scope>
-			</dependency>
-
-			<!-- Logback -->
-
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>1.2.3</version>
-			</dependency>
-
-			<!-- Google -->
-			<!-- https://code.google.com/ -->
-
-			<!-- GSON -->
-
-			<dependency>
-				<groupId>com.google.code.gson</groupId>
-				<artifactId>gson</artifactId>
-				<version>2.8.6</version>
-			</dependency>
-
-			<!-- Reflections -->
-
-			<dependency>
-				<groupId>org.reflections</groupId>
-				<artifactId>reflections</artifactId>
-				<version>0.9.10</version>
-			</dependency>
-
-			<!-- Guice -->
-
-			<dependency>
-				<groupId>com.google.inject</groupId>
-				<artifactId>guice</artifactId>
-				<version>5.0.1</version>
-			</dependency>
-
-			<dependency>
-				<groupId>com.google.inject.extensions</groupId>
-				<artifactId>guice-multibindings</artifactId>
-				<version>4.2.3</version>
-			</dependency>
-
-			<!-- Guava -->
-
-			<dependency>
-				<groupId>com.google.guava</groupId>
-				<artifactId>guava</artifactId>
-				<version>29.0-jre</version>
-			</dependency>
-
-			<!-- Lightweight Java Game Library -->
-			<!-- https://lwjgl.com -->
-
-			<!-- LWJGL -->
-
-			<dependency>
-				<groupId>org.lwjgl</groupId>
-				<artifactId>lwjgl-bom</artifactId>
-				<version>${lwjgl.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-
-			<dependency>
-				<groupId>org.lwjgl</groupId>
-				<artifactId>lwjgl</artifactId>
-				<version>${lwjgl.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.lwjgl</groupId>
-				<artifactId>lwjgl</artifactId>
-				<classifier>${lwjgl.natives}</classifier>
-				<version>${lwjgl.version}</version>
-			</dependency>
-
-			<!-- OpenGL -->
-
-			<dependency>
-				<groupId>org.lwjgl</groupId>
-				<artifactId>lwjgl-opengl</artifactId>
-				<version>${lwjgl.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.lwjgl</groupId>
-				<artifactId>lwjgl-opengl</artifactId>
-				<classifier>${lwjgl.natives}</classifier>
-				<version>${lwjgl.version}</version>
-			</dependency>
-
-			<!-- GLFW -->
-
-			<dependency>
-				<groupId>org.lwjgl</groupId>
-				<artifactId>lwjgl-glfw</artifactId>
-				<version>${lwjgl.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.lwjgl</groupId>
-				<artifactId>lwjgl-glfw</artifactId>
-				<classifier>${lwjgl.natives}</classifier>
-				<version>${lwjgl.version}</version>
-			</dependency>
-
-			<!-- STB -->
-
-			<dependency>
-				<groupId>org.lwjgl</groupId>
-				<artifactId>lwjgl-stb</artifactId>
-				<version>${lwjgl.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>org.lwjgl</groupId>
-				<artifactId>lwjgl-stb</artifactId>
-				<classifier>${lwjgl.natives}</classifier>
-				<version>${lwjgl.version}</version>
-			</dependency>
-
-		</dependencies>
-	</dependencyManagement>
 
 	<build>
 		<plugins>
@@ -184,8 +31,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
 				<configuration>
-					<source>1.16</source>
-					<target>1.16</target>
+					<source>16</source>
+					<target>16</target>
 				</configuration>
 			</plugin>
 

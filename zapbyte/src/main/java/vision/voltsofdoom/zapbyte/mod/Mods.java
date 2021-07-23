@@ -64,6 +64,7 @@ public class Mods {
 
           LOGGER.info("Constructing Mod class: " + clazz.getSimpleName());
 
+          @SuppressWarnings("deprecation")
           Object modInstance = clazz.newInstance();
           instances.put(clazz, modInstance);
 
